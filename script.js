@@ -53,8 +53,7 @@ const playerCountInput = document.getElementById('player-count');
 const decreasePlayersBtn = document.getElementById('decrease-players');
 const increasePlayersBtn = document.getElementById('increase-players');
 const startGameBtn = document.getElementById('start-game');
-const nextRoundBtn = document.getElementById('next-round');
-const endGameBtn = document.getElementById('end-game');
+const nextPlayerButton = document.getElementById('next-player-button');
 const newGameBtn = document.getElementById('new-game');
 const currentPlayerDisplay = document.getElementById('current-player');
 const timerDisplay = document.getElementById('timer');
@@ -62,7 +61,7 @@ const imagesContainer = document.getElementById('images-container');
 const resultsList = document.getElementById('results-list');
 
 // Променям текста на бутона
-nextRoundBtn.textContent = 'Следващо ниво';
+nextPlayerButton.textContent = 'Следващ играч';
 
 // Генериране на нивата при зареждане на страницата
 function generateGameLevels() {
@@ -208,17 +207,51 @@ function showPlayerScreen() {
 // Показване на екрана за край на нивото
 function showLevelEnd() {
     const currentLevelData = gameLevels[currentLevel - 1];
+    // Скриваме бутоните най-отдолу
+    document.querySelector('.game-controls').style.display = 'none';
+    // Създаваме бутона за нов рунд
+    let newRoundBtn = document.getElementById('start-new-round');
+    if (!newRoundBtn) {
+        newRoundBtn = document.createElement('button');
+        newRoundBtn.id = 'start-new-round';
+        newRoundBtn.className = 'btn';
+        newRoundBtn.textContent = 'Започни нов рунд';
+        newRoundBtn.style.marginTop = '20px';
+        newRoundBtn.style.display = 'block';
+        newRoundBtn.style.width = '100%';
+    }
     imagesContainer.innerHTML = `
-        <div class="level-end">
-            <h2>Край на ниво ${currentLevel}</h2>
-            <div class="impostor-reveal">
-                <i class="fas fa-user-secret impostor-icon"></i>
-                <p>Импостърът беше:</p>
-                <div class="impostor-name">Играч ${currentLevelData.impostor}</div>
+        <div class="level-end animate__animated animate__fadeIn">
+            <h2 class="animate__animated animate__bounceIn">Край на ниво ${currentLevel}</h2>
+            <div class="impostor-reveal animate__animated animate__fadeInUp">
+                <div class="trophy-container animate__animated animate__tada animate__infinite">
+                    <i class="fas fa-trophy trophy-icon"></i>
+                </div>
+                <i class="fas fa-user-secret impostor-icon animate__animated animate__pulse animate__infinite"></i>
+                <p class="animate__animated animate__fadeIn">Импостърът беше:</p>
+                <div class="impostor-name animate__animated animate__heartBeat">Играч ${currentLevelData.impostor}</div>
+                <div class="confetti-container">
+                    <i class="fas fa-star confetti"></i>
+                    <i class="fas fa-star confetti"></i>
+                    <i class="fas fa-star confetti"></i>
+                </div>
             </div>
-            <p class="next-level-hint">Натиснете SPACE за следващото ниво</p>
         </div>
     `;
+    // Добавяме бутона след .game-controls
+    const gameControls = document.querySelector('.game-controls');
+    if (gameControls.nextSibling) {
+        gameControls.parentNode.insertBefore(newRoundBtn, gameControls.nextSibling);
+    } else {
+        gameControls.parentNode.appendChild(newRoundBtn);
+    }
+    // Слушател за бутона
+    newRoundBtn.onclick = () => {
+        currentPlayer = 1;
+        document.querySelector('.game-controls').style.display = '';
+        newRoundBtn.remove();
+        showCountdown();
+    };
 }
 
 // Следващ играч
@@ -282,6 +315,22 @@ function nextLevel() {
 }
 
 // Актуализирам логиката за натискане на бутона
-nextRoundBtn.addEventListener('click', () => {
-    nextLevel();
+nextPlayerButton.addEventListener('click', () => {
+    console.log('Level end element:', imagesContainer.querySelector('.level-end'));
+    if (imagesContainer.querySelector('.level-end')) {
+        nextLevel();
+    } else {
+        nextPlayer();
+    }
+});
+
+// Добавяме функционалност за бутона "Смени рунда"
+document.getElementById('end-game').addEventListener('click', () => {
+    currentLevel++;
+    if (currentLevel >= totalLevels) {
+        showResults();
+    } else {
+        currentPlayer = 1;
+        showCountdown();
+    }
 }); 
