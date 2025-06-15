@@ -60,6 +60,11 @@ const timerDisplay = document.getElementById('timer');
 const imagesContainer = document.getElementById('images-container');
 const resultsList = document.getElementById('results-list');
 
+// Модален прозорец за правилата
+const rulesModal = document.getElementById('rules-modal');
+const showRulesBtn = document.getElementById('show-rules');
+const closeModalBtn = document.querySelector('.close-modal');
+
 // Променям текста на бутона
 nextPlayerButton.textContent = 'Следващ играч';
 
@@ -332,5 +337,33 @@ document.getElementById('end-game').addEventListener('click', () => {
     } else {
         currentPlayer = 1;
         showCountdown();
+    }
+});
+
+// Показване на модалния прозорец
+showRulesBtn.addEventListener('click', () => {
+    rulesModal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Предотвратява скролване на фона
+});
+
+// Затваряне на модалния прозорец
+closeModalBtn.addEventListener('click', () => {
+    rulesModal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Възстановява скролването
+});
+
+// Затваряне на модалния прозорец при клик извън него
+window.addEventListener('click', (e) => {
+    if (e.target === rulesModal) {
+        rulesModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Затваряне на модалния прозорец при натискане на Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && rulesModal.style.display === 'block') {
+        rulesModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
 }); 
