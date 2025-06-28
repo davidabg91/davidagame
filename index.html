@@ -29,11 +29,15 @@
         </div>
         
         <div id="setup-screen">
-            <h2>Брой играчи</h2>
-            <div class="player-count-container">
-                <button id="decrease-players" class="count-btn"><i class="fas fa-minus"></i></button>
-                <input type="number" id="player-count" value="3" min="2" max="8" readonly>
-                <button id="increase-players" class="count-btn"><i class="fas fa-plus"></i></button>
+            <div class="player-selection-container">
+                <div class="border-line-left"></div>
+                <div class="border-line-right"></div>
+                <h2>Брой играчи</h2>
+                <div class="player-count-container">
+                    <button id="decrease-players" class="count-btn"><i class="fas fa-minus"></i></button>
+                    <input type="number" id="player-count" value="3" min="2" max="8" readonly>
+                    <button id="increase-players" class="count-btn"><i class="fas fa-plus"></i></button>
+                </div>
             </div>
             <button id="start-game" class="btn">Започни играта</button>
             <button id="show-rules" class="btn rules-btn"><i class="fas fa-book"></i> Правила на играта</button>
