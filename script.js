@@ -17,23 +17,20 @@ const images = [
     'images/chris-barbalis-Lqe8gq2jbhA-unsplash.jpg', // зарядно (charger)
     'images/maria-lupan-jGTIP-92Tmc-unsplash.jpg', // часовник
     'images/hari-krishnan-f1BMuugVyyM-unsplash.jpg', // чадър
-    
-    // Изображения от сайта
-    'https://images.pexels.com/photos/1866149/pexels-photo-1866149.jpeg?w=400&h=300&fit=crop', // маса (table)
-    'https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?w=400&h=300&fit=crop', // легло (bed)
-    'https://images.pexels.com/photos/276528/pexels-photo-276528.jpeg?w=400&h=300&fit=crop', // диван (sofa)
-    'https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?w=400&h=300&fit=crop', // книга (book)
-    'https://images.pexels.com/photos/1187766/pexels-photo-1187766.jpeg?w=400&h=300&fit=crop', // чаша (cup)
-    'https://images.pexels.com/photos/461382/pexels-photo-461382.jpeg?w=400&h=300&fit=crop', // чиния (plate)
-    'https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?w=400&h=300&fit=crop', // телефон (phone)
-    'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?w=400&h=300&fit=crop', // компютър (computer)
-    'https://images.pexels.com/photos/267389/pexels-photo-267389.jpeg?w=400&h=300&fit=crop', // клавиатура (keyboard)
-    'https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?w=400&h=300&fit=crop', // мишка (mouse)
-    'https://images.pexels.com/photos/18105/pexels-photo.jpg?w=400&h=300&fit=crop', // монитор (monitor)
-    'https://images.pexels.com/photos/3394666/pexels-photo-3394666.jpeg?w=400&h=300&fit=crop', // слушалки (headphones)
-    'https://images.pexels.com/photos/3651371/pexels-photo-3651371.jpeg?w=400&h=300&fit=crop', // зарядно (charger)
-    'https://cdn.pixabay.com/photo/2015/11/19/21/10/glasses-1052010_640.jpg', // часовник
-    'https://cdn.pixabay.com/photo/2016/11/19/15/32/laptop-1839876_640.jpg'  // чадър
+    'images/kukla-radostina-xodeshta-govoreshta-muzikalna-kukla-01-2508x2676.jpg', // кукла
+    'images/N13_medium13.avif', // нож
+    'images/gotvarska-pecka-tok-crown-54am-a-class-multifunctional--4-tok--bal-image_60868467dab13_800x800.jpeg', // печка
+    'images/18686404_605.jpg', // стол
+    'images/0345705001580038918_2077471_920x708.webp', // лампа
+    'images/thumb6_2.png', // стол
+    'images/heart-157895_640.webp', // сърце
+    'images/MV5BMTkwOTY0MTc1NV5BMl5BanBnXkFtZTcwMDQwNjA2NQ@@._V1_.jpg', // филм
+    'images/240326-pirates-ch-1328-2b4d4f.jpg', // пирати
+    'images/jess-bailey-nOeVi8DsN8U-unsplash.jpg', // чаша
+    'images/designecologist-hvgd0ygXuQQ-unsplash.jpg', // дизайн
+    'images/photo-1554591203-3c8b71297add.avif', // фото
+    'images/photo-1536816579748-4ecb3f03d72a.avif', // фото
+    'images/Carrot-PNG-Free-Download.png' // морков
 ];
 
 let currentPlayer = 1;
