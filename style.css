@@ -898,3 +898,82 @@ h2 {
     from { opacity: 1; }
     to { opacity: 0; }
 }
+
+.setup-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.detective-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 25px;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    min-width: 150px;
+    min-height: 150px;
+    opacity: 0.6;
+}
+
+.detective-logo:hover {
+    transform: scale(1.05);
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    opacity: 0.8;
+}
+
+.detective-logo.left {
+    transform: scale(0.9);
+}
+
+.detective-logo .logo-icon {
+    font-size: 4rem;
+    color: #000;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.4));
+}
+
+.impostor-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 25px;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    min-width: 150px;
+    min-height: 150px;
+    opacity: 0.6;
+}
+
+.impostor-logo:hover {
+    transform: scale(1.05);
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    opacity: 0.8;
+}
+
+.impostor-logo.right {
+    transform: scale(1.1);
+}
+
+.impostor-logo .logo-icon {
+    font-size: 4rem;
+    color: #000;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.4));
+}
