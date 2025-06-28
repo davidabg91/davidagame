@@ -1,3 +1,197 @@
+// Система за превод
+const translations = {
+    bg: {
+        player_count: "Брой играчи",
+        start_game: "Започни играта",
+        game_rules: "Правила на играта",
+        game_starting: "ИГРАТА ЗАПОЧВА!",
+        next_round: "СЛЕДВАЩ РУНД",
+        next_player: "Следващ играч",
+        change_round: "Смени рунда",
+        results: "Резултати",
+        new_game: "Нова игра",
+        game_objective: "ЦЕЛ НА ИГРАТА",
+        game_objective_text: "Играта е забавна социална игра, в която един от играчите е \"импостор\", а останалите виждат една и съща картинка. Импосторът трябва да се опитва да се вписва сред останалите, без да разкрие, че не вижда картинката.",
+        how_to_play: "КАК СЕ ИГРАЕ",
+        rule_1: "В началото на играта всеки играч получава тайна роля - детектив или импостор",
+        rule_2: "Детективите виждат една и съща картинка, а импосторът получава карта \"Импостор\"",
+        rule_3: "Играчите се редуват да казват дума, свързана с картинката",
+        rule_4: "Импосторът трябва да слуша думите на другите и да дава общи думи, които да не го разкрият",
+        rule_5: "Импосторът трябва да се опитва да разбере картинката от думите на другите играчи",
+        impostor_rules: "ПРАВИЛА ЗА ИМПОСТОРА",
+        impostor_rule_1: "Не вижда картинката, която другите играчи виждат",
+        impostor_rule_2: "Трябва да внимателно слуша думите, които другите играчи казват",
+        impostor_rule_3: "Трябва да се опитва да каже дума, която би била логична за картинката",
+        impostor_rule_4: "Трябва да внимава да не разкрие, че не вижда картинката",
+        impostor_rule_5: "Може да използва хитрости, за да изглежда по-достоверен",
+        normal_player_rules: "ПРАВИЛА ЗА НОРМАЛНИТЕ ИГРАЧИ",
+        normal_rule_1: "Виждат една и съща картинка",
+        normal_rule_2: "Трябва да казват думи, свързани с картинката",
+        normal_rule_3: "Могат да задават въпроси, за да разкрият импостора",
+        normal_rule_4: "Трябва да внимават да не разкрият твърде много за картинката",
+        normal_rule_5: "Могат да работят заедно, за да разкрият импостора",
+        game_end: "КРАЙ НА ИГРАТА",
+        game_end_text: "Играта приключва, когато:",
+        end_condition_1: "Детективите се съгласят да посочат импостъра и печелят, ако повечето го разкрият",
+        end_condition_2: "Или когато импосторът успее да остане неразкрит и печели",
+        tips: "СЪВЕТИ",
+        tip_1: "Внимавайте на детайлите в отговорите на другите играчи",
+        tip_2: "Следете за несъответствия в думите, които се казват",
+        tip_3: "Използвайте логика и интуиция",
+        tip_4: "Наслаждавайте се на играта и бъдете креативни!",
+        created_by: "Създадено от",
+        player: "Играч",
+        you_are_impostor: "Вие сте импостър!",
+        min_players: "Моля, въведете поне 2 играча!",
+        level_end: "Край на ниво",
+        impostor_was: "Импостърът беше:",
+        start_new_round: "Започни нов рунд",
+        dont_tell_others: "Не казвайте нищо на другите играчи!",
+        click_for_detective_rules: "Покажи правилата за детективите",
+        click_for_impostor_rules: "Покажи правилата за импостърите",
+        detective_rules_title: "Правила за детективите",
+        detective_objective: "ЦЕЛ",
+        detective_objective_text: "Целта на детективите е да разкрият импостъра сред играчите, като внимателно слушат думите, които се казват.",
+        detective_how_to_play: "КАК СЕ ИГРАЕ",
+        detective_rule_1: "Виждате една и съща картинка с другите детективи",
+        detective_rule_2: "Казвайте думи, свързани с картинката, която виждате",
+        detective_rule_3: "Внимавайте на думите, които другите играчи казват",
+        detective_rule_4: "Анализирайте дали някой дава неясни или общи отговори",
+        detective_rule_5: "Работете заедно с другите детективи за разкриване на импостъра",
+        detective_tips: "СЪВЕТИ",
+        detective_tip_1: "Внимавайте на фините следи в разговорите",
+        detective_tip_2: "Наблюдавайте реакциите и езика на тялото на играчите",
+        detective_tip_3: "Използвайте дедуктивно мислене за разкриване на импостъра",
+        detective_tip_4: "Доверявайте се на инстинктите си и бъдете наблюдателни",
+        impostor_rules_title: "Правила за импостърите",
+        impostor_objective: "ЦЕЛ",
+        impostor_objective_text: "Целта на импостъра е да остане неразкрит сред играчите, като внимателно слуша думите на другите и дава общи отговори.",
+        impostor_how_to_play: "КАК СЕ ИГРАЕ",
+        impostor_rule_1: "Не виждате картинката, която другите играчи виждат",
+        impostor_rule_2: "Внимателно слушайте думите, които другите играчи казват",
+        impostor_rule_3: "Опитвайте се да разберете каква е картинката от думите им",
+        impostor_rule_4: "Казвайте общи думи, които да не ви разкрият",
+        impostor_rule_5: "Избягвайте да казвате твърде специфични думи",
+        impostor_tips: "СЪВЕТИ",
+        impostor_tip_1: "Бъдете внимателни с отговорите си",
+        impostor_tip_2: "Използвайте двусмислен език, за да скриете истинската си самоличност",
+        impostor_tip_3: "Създайте правдоподобна прикриваща история",
+        impostor_tip_4: "Доверявайте се на инстинктите си и бъдете предпазливи"
+    },
+    en: {
+        player_count: "Number of Players",
+        start_game: "Start Game",
+        game_rules: "Game Rules",
+        game_starting: "GAME STARTING!",
+        next_round: "NEXT ROUND",
+        next_player: "Next Player",
+        change_round: "Change Round",
+        results: "Results",
+        new_game: "New Game",
+        game_objective: "GAME OBJECTIVE",
+        game_objective_text: "The game is a fun social game where one of the players is an \"impostor\" and the others see the same picture. The impostor must try to blend in with the others without revealing that they don't see the picture.",
+        how_to_play: "HOW TO PLAY",
+        rule_1: "At the beginning of the game, each player receives a secret role - detective or impostor",
+        rule_2: "Detectives see the same picture, and the impostor receives a card \"Impostor\"",
+        rule_3: "Players take turns saying a word related to the picture",
+        rule_4: "The impostor must listen to the words of others and give general words that they don't reveal",
+        rule_5: "The impostor must try to understand the picture from the words of other players",
+        impostor_rules: "IMPOSTOR RULES",
+        impostor_rule_1: "Does not see the picture that other players see",
+        impostor_rule_2: "Must carefully listen to the words that other players say",
+        impostor_rule_3: "Must try to say a word that would be logical for the picture",
+        impostor_rule_4: "Must be careful not to reveal that they don't see the picture",
+        impostor_rule_5: "Can use tricks to appear more credible",
+        normal_player_rules: "NORMAL PLAYER RULES",
+        normal_rule_1: "See the same picture",
+        normal_rule_2: "Must say words related to the picture",
+        normal_rule_3: "Can ask questions to reveal the impostor",
+        normal_rule_4: "Must be careful not to reveal too much about the picture",
+        normal_rule_5: "Can work together to reveal the impostor",
+        game_end: "GAME END",
+        game_end_text: "The game ends when:",
+        end_condition_1: "Detectives agree to point out the impostor and win if most of them reveal him",
+        end_condition_2: "Or when the impostor manages to remain unrevealed and wins",
+        tips: "TIPS",
+        tip_1: "Pay attention to details in other players' responses",
+        tip_2: "Watch for inconsistencies in the words being said",
+        tip_3: "Use logic and intuition",
+        tip_4: "Enjoy the game and be creative!",
+        created_by: "Created by",
+        player: "Player",
+        you_are_impostor: "You are the impostor!",
+        min_players: "Please enter at least 2 players!",
+        level_end: "Level End",
+        impostor_was: "The impostor was:",
+        start_new_round: "Start New Round",
+        dont_tell_others: "Don't tell anything to other players!",
+        detective_rules_title: "Detective Rules",
+        detective_objective: "Objective",
+        detective_objective_text: "The objective of the detectives is to reveal the impostor among the players by carefully listening to the words being said.",
+        detective_how_to_play: "How to Play",
+        detective_rule_1: "You see the same picture as other detectives",
+        detective_rule_2: "Say words related to the picture you see",
+        detective_rule_3: "Pay attention to the words that other players say",
+        detective_rule_4: "Analyze whether someone gives unclear or general answers",
+        detective_rule_5: "Work together with other detectives to reveal the impostor",
+        detective_tips: "Tips",
+        detective_tip_1: "Pay attention to subtle clues in the conversations",
+        detective_tip_2: "Observe the players' reactions and body language",
+        detective_tip_3: "Use deductive reasoning to identify the impostor",
+        detective_tip_4: "Trust your instincts and be observant",
+        detective_rules_content: "Detective rules content will be displayed here",
+        impostor_rules_title: "Impostor Rules",
+        impostor_objective: "Objective",
+        impostor_objective_text: "The objective of the impostor is to remain undetected among the players by carefully listening to the words of others and giving general answers.",
+        impostor_how_to_play: "How to Play",
+        impostor_rule_1: "You don't see the picture that other players see",
+        impostor_rule_2: "Carefully listen to the words that other players say",
+        impostor_rule_3: "Try to understand what the picture is from their words",
+        impostor_rule_4: "Say general words that don't reveal you",
+        impostor_rule_5: "Avoid saying too specific words",
+        impostor_tips: "Tips",
+        impostor_tip_1: "Be careful with your responses",
+        impostor_tip_2: "Use ambiguous language to hide your true identity",
+        impostor_tip_3: "Create a plausible cover story",
+        impostor_tip_4: "Trust your instincts and be cautious",
+        impostor_rules_content: "Impostor rules content will be displayed here"
+    }
+};
+
+let currentLanguage = 'bg';
+
+// Функция за превод на текст
+function translateText(key) {
+    return translations[currentLanguage][key] || translations['bg'][key] || key;
+}
+
+// Функция за прилагане на превода
+function applyTranslation() {
+    const elements = document.querySelectorAll('[data-translate]');
+    elements.forEach(element => {
+        const key = element.getAttribute('data-translate');
+        const translation = translateText(key);
+        if (element.tagName === 'INPUT' && element.type === 'placeholder') {
+            element.placeholder = translation;
+        } else {
+            element.textContent = translation;
+        }
+    });
+    
+    // Обновяваме динамични текстове
+    updateDynamicTexts();
+    
+    // Обновяваме tooltip текстове
+    updateTooltips();
+}
+
+// Функция за обновяване на динамични текстове
+function updateDynamicTexts() {
+    if (currentPlayerDisplay) {
+        currentPlayerDisplay.textContent = `${translateText('player')} ${currentPlayer}`;
+    }
+}
+
 // Масив с изображения на различни обекти
 const images = [
     // Локални изображения - само тези, които съществуват в папката images
@@ -173,7 +367,7 @@ startGameBtn.addEventListener('click', () => {
     localStorage.setItem('lastPlayerCount', totalPlayers);
     
     if (totalPlayers < 2) {
-        alert('Моля, въведете поне 2 играча!');
+        alert(translateText('min_players'));
         return;
     }
 
@@ -193,7 +387,7 @@ function showCountdown() {
     let count = 3;
     isCountdownActive = true; // Започваме броенето
     imagesContainer.innerHTML = `<div class="countdown">${count}</div>`;
-    currentPlayerDisplay.textContent = `Играч ${currentPlayer}`;
+    currentPlayerDisplay.textContent = `${translateText('player')} ${currentPlayer}`;
     
     clearInterval(countdownInterval);
     countdownInterval = setInterval(() => {
@@ -210,21 +404,27 @@ function showCountdown() {
 
 // Показване на екрана на играча
 function showPlayerScreen() {
-    currentPlayerDisplay.textContent = `Играч ${currentPlayer}`;
+    const level = gameLevels[currentLevel];
+    const isImpostor = currentPlayer === level.impostor;
+    
+    // Обновяваме текста на играча
+    currentPlayerDisplay.textContent = `${translateText('player')} ${currentPlayer}`;
+
+    // Изчистваме контейнера първо
     imagesContainer.innerHTML = '';
 
-    if (currentPlayer === gameLevels[currentLevel].impostor) {
+    if (isImpostor) {
         // Импостърът не вижда изображението
         imagesContainer.innerHTML = `
             <div class="impostor-message">
                 <i class="fas fa-user-secret impostor-icon"></i>
-                <div>Вие сте импостър! Не казвайте нищо на другите играчи!</div>
+                <div>${translateText('you_are_impostor')} ${translateText('dont_tell_others')}</div>
             </div>`;
     } else {
         // Останалите играчи виждат изображението
         const imageCard = document.createElement('div');
         imageCard.className = 'image-card';
-        imageCard.innerHTML = `<img src="${gameLevels[currentLevel].image}" alt="Image">`;
+        imageCard.innerHTML = `<img src="${level.image}" alt="Image">`;
         imagesContainer.appendChild(imageCard);
     }
 }
@@ -240,21 +440,21 @@ function showLevelEnd() {
         newRoundBtn = document.createElement('button');
         newRoundBtn.id = 'start-new-round';
         newRoundBtn.className = 'btn';
-        newRoundBtn.textContent = 'Започни нов рунд';
+        newRoundBtn.textContent = translateText('start_new_round');
         newRoundBtn.style.marginTop = '20px';
         newRoundBtn.style.display = 'block';
         newRoundBtn.style.width = '100%';
     }
     imagesContainer.innerHTML = `
         <div class="level-end animate__animated animate__fadeIn">
-            <h2 class="animate__animated animate__bounceIn">Край на ниво ${currentLevel}</h2>
+            <h2 class="animate__animated animate__bounceIn">${translateText('level_end')} ${currentLevel}</h2>
             <div class="impostor-reveal animate__animated animate__fadeInUp">
                 <div class="trophy-container animate__animated animate__tada animate__infinite">
                     <i class="fas fa-trophy trophy-icon"></i>
                 </div>
                 <i class="fas fa-user-secret impostor-icon animate__animated animate__pulse animate__infinite"></i>
-                <p class="animate__animated animate__fadeIn">Импостърът беше:</p>
-                <div class="impostor-name animate__animated animate__heartBeat">Играч ${currentLevelData.impostor}</div>
+                <p class="animate__animated animate__fadeIn">${translateText('impostor_was')}:</p>
+                <div class="impostor-name animate__animated animate__heartBeat">${translateText('player')} ${currentLevelData.impostor}</div>
                 <div class="confetti-container">
                     <i class="fas fa-star confetti"></i>
                     <i class="fas fa-star confetti"></i>
@@ -305,8 +505,8 @@ function showResults() {
     const lastLevelData = gameLevels[currentLevel - 1];
     resultsList.innerHTML = `
         <div class="result-item">
-            <span class="player-name">Играч ${lastLevelData.impostor}</span>
-            <span class="score">Импостър</span>
+            <span class="player-name">${translateText('player')} ${lastLevelData.impostor}</span>
+            <span class="score">${translateText('you_are_impostor')}</span>
         </div>
     `;
 }
@@ -526,3 +726,171 @@ function startGame() {
 document.getElementById('start-game').addEventListener('click', function() {
     showGameStartScreen();
 });
+
+// Функционалност за избор на език
+const languageBtn = document.getElementById('language-btn');
+const languageDropdown = document.getElementById('language-dropdown');
+const currentLangSpan = document.getElementById('current-lang');
+const languageOptions = document.querySelectorAll('.language-option');
+
+// Показване/скриване на dropdown менюто
+languageBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    languageDropdown.classList.toggle('show');
+});
+
+// Скриване на dropdown при клик извън него
+document.addEventListener('click', () => {
+    languageDropdown.classList.remove('show');
+});
+
+// Избор на език
+languageOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        const lang = option.getAttribute('data-lang');
+        changeLanguage(lang);
+        
+        // Обновяване на активния език в dropdown
+        languageOptions.forEach(opt => opt.classList.remove('active'));
+        option.classList.add('active');
+        
+        // Скриване на dropdown
+        languageDropdown.classList.remove('show');
+    });
+});
+
+// Функция за смяна на езика
+function changeLanguage(lang) {
+    currentLanguage = lang;
+    currentLangSpan.textContent = lang.toUpperCase();
+    
+    // Запазване на избрания език в localStorage
+    localStorage.setItem('selectedLanguage', lang);
+    
+    // Прилагане на превода
+    applyTranslation();
+    
+    // Обновяване на динамични текстове
+    updateDynamicTexts();
+}
+
+// Зареждане на запазения език при стартиране
+window.addEventListener('load', () => {
+    const savedLanguage = localStorage.getItem('selectedLanguage');
+    if (savedLanguage && translations[savedLanguage]) {
+        changeLanguage(savedLanguage);
+    } else {
+        // По подразбиране български
+        changeLanguage('bg');
+    }
+    
+    // Прилагане на превода при зареждане
+    applyTranslation();
+    
+    // Добавяне на tooltip текстове
+    updateTooltips();
+    
+    // Добавяне на event listeners за иконите
+    setupRoleIcons();
+});
+
+// Функция за обновяване на tooltip текстове
+function updateTooltips() {
+    const detectiveLogo = document.querySelector('.detective-logo');
+    const impostorLogo = document.querySelector('.impostor-logo');
+    
+    if (detectiveLogo) {
+        detectiveLogo.setAttribute('data-tooltip', translateText('click_for_detective_rules'));
+    }
+    if (impostorLogo) {
+        impostorLogo.setAttribute('data-tooltip', translateText('click_for_impostor_rules'));
+    }
+}
+
+// Функция за настройване на иконите за роли
+function setupRoleIcons() {
+    const detectiveLogo = document.querySelector('.detective-logo');
+    const impostorLogo = document.querySelector('.impostor-logo');
+    
+    if (detectiveLogo) {
+        detectiveLogo.addEventListener('click', () => {
+            showDetectiveRules();
+        });
+    }
+    
+    if (impostorLogo) {
+        impostorLogo.addEventListener('click', () => {
+            showImpostorRules();
+        });
+    }
+}
+
+// Функция за показване на правилата за детективите
+function showDetectiveRules() {
+    const modal = document.getElementById('rules-modal');
+    const modalContent = modal.querySelector('.modal-content');
+    const modalTitle = modal.querySelector('h2');
+    const rulesContent = modal.querySelector('.rules-content');
+    
+    modalTitle.textContent = translateText('detective_rules_title');
+    
+    rulesContent.innerHTML = `
+        <h3>${translateText('detective_objective')}</h3>
+        <p>${translateText('detective_objective_text')}</p>
+        
+        <h3>${translateText('detective_how_to_play')}</h3>
+        <ol>
+            <li>${translateText('detective_rule_1')}</li>
+            <li>${translateText('detective_rule_2')}</li>
+            <li>${translateText('detective_rule_3')}</li>
+            <li>${translateText('detective_rule_4')}</li>
+            <li>${translateText('detective_rule_5')}</li>
+        </ol>
+        
+        <h3>${translateText('detective_tips')}</h3>
+        <ul>
+            <li>${translateText('detective_tip_1')}</li>
+            <li>${translateText('detective_tip_2')}</li>
+            <li>${translateText('detective_tip_3')}</li>
+            <li>${translateText('detective_tip_4')}</li>
+        </ul>
+    `;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+// Функция за показване на правилата за импостърите
+function showImpostorRules() {
+    const modal = document.getElementById('rules-modal');
+    const modalContent = modal.querySelector('.modal-content');
+    const modalTitle = modal.querySelector('h2');
+    const rulesContent = modal.querySelector('.rules-content');
+    
+    modalTitle.textContent = translateText('impostor_rules_title');
+    
+    rulesContent.innerHTML = `
+        <h3>${translateText('impostor_objective')}</h3>
+        <p>${translateText('impostor_objective_text')}</p>
+        
+        <h3>${translateText('impostor_how_to_play')}</h3>
+        <ol>
+            <li>${translateText('impostor_rule_1')}</li>
+            <li>${translateText('impostor_rule_2')}</li>
+            <li>${translateText('impostor_rule_3')}</li>
+            <li>${translateText('impostor_rule_4')}</li>
+            <li>${translateText('impostor_rule_5')}</li>
+        </ol>
+        
+        <h3>${translateText('impostor_tips')}</h3>
+        <ul>
+            <li>${translateText('impostor_tip_1')}</li>
+            <li>${translateText('impostor_tip_2')}</li>
+            <li>${translateText('impostor_tip_3')}</li>
+            <li>${translateText('impostor_tip_4')}</li>
+        </ul>
+    `;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
