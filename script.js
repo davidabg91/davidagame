@@ -1,42 +1,65 @@
 // Масив с изображения на различни обекти
 const images = [
-    // Локални изображения
-    'images/frame-harirak-iPwHUd19R38-unsplash.jpg', // маса (table)
-    'images/blend-archive-HGJMNY7tBDw-unsplash.jpg', // легло (bed)
+    // Локални изображения - само тези, които съществуват в папката images
     'images/engin-akyurt-JBicrgiurjs-unsplash.jpg', // диван (sofa)
     'images/luc-bercoth-zpJH4ogbTOo-unsplash.jpg', // книга (book)
     'images/raymond-burrage-x7kiHTL-HgM-unsplash.jpg', // химикал (pen)
-    'images/tokenstreet-3MqoqyR62bQ-unsplash.jpg', // чаша (cup)
     'images/vinicius-amnx-amano-4iNoeQqrLgM-unsplash.jpg', // чиния (plate)
     'images/william-warby-UWznDqb7S9w-unsplash.jpg', // телефон (phone)
     'images/andy-watkins-ZDRXR3MxyJM-unsplash.jpg', // компютър (computer)
-    'images/milos-lopusina-5R8ybt85yOQ-unsplash.jpg', // клавиатура (keyboard)
     'images/mostafa-amini-nasab-uSvuZ7Ovo5M-unsplash.jpg', // мишка (mouse)
-    'images/nicolas-hippert-J4eTN9GqhzI-unsplash.jpg', // монитор (monitor)
-    'images/meghna-r-RkyUcxT73gs-unsplash.jpg', // слушалки (headphones)
-    'images/chris-barbalis-Lqe8gq2jbhA-unsplash.jpg', // зарядно (charger)
     'images/maria-lupan-jGTIP-92Tmc-unsplash.jpg', // часовник
-    'images/hari-krishnan-f1BMuugVyyM-unsplash.jpg', // чадър
     'images/kukla-radostina-xodeshta-govoreshta-muzikalna-kukla-01-2508x2676.jpg', // кукла
-    'images/N13_medium13.avif', // нож
     'images/gotvarska-pecka-tok-crown-54am-a-class-multifunctional--4-tok--bal-image_60868467dab13_800x800.jpeg', // печка
     'images/18686404_605.jpg', // стол
     'images/0345705001580038918_2077471_920x708.webp', // лампа
-    'images/thumb6_2.png', // стол
     'images/heart-157895_640.webp', // сърце
     'images/MV5BMTkwOTY0MTc1NV5BMl5BanBnXkFtZTcwMDQwNjA2NQ@@._V1_.jpg', // филм
     'images/240326-pirates-ch-1328-2b4d4f.jpg', // пирати
-    'images/jess-bailey-nOeVi8DsN8U-unsplash.jpg', // чаша
-    'images/designecologist-hvgd0ygXuQQ-unsplash.jpg', // дизайн
-    'images/photo-1554591203-3c8b71297add.avif', // фото
-    'images/photo-1536816579748-4ecb3f03d72a.avif', // фото
-    'images/Carrot-PNG-Free-Download.png' // морков
+    'images/Carrot-PNG-Free-Download.png', // морков
+    // Добавяме нови изображения от папката images
+    'images/109880.jpg',
+    'images/1462104889_5_559x345.jpg',
+    'images/1592629345176.jpg',
+    'images/16285000-1200x1200.jpg',
+    'images/1920x1080.jpg',
+    'images/192214242602_1.webp',
+    'images/1f553d40df009d63a7173e1503338586-10621444.jpeg',
+    'images/1O6MddXigTPgeTa4X6ML_22_8fe9cdd68abc282b5281bbf0c117e39a_image.jpg',
+    'images/23.12.patna_.jpg',
+    'images/660_a14dcd47fbf3d95d0fcd47814e2984ef.jpg',
+    'images/69520__820x465__800x0__822ca60cda69b42b4519e3ab8ad3eea16d4ba2e4.webp',
+    'images/768x432.jpg',
+    'images/82719_715_.jpg',
+    'images/cover-1651176103038.jfif',
+    'images/DSC09690.jpg',
+    'images/dyrven-kluch-50-sm (2)-1000x1000.png',
+    'images/dzojstik-playstation-dualsense-wireless-image_5fad0e950bc55_800x800.jpeg',
+    'images/figura-nintendo-amiibo---mario-[super-mario]-31.jpg',
+    'images/images.jfif',
+    'images/insect-6666145_1280.jpg',
+    'images/instantpot-recepta-pukanki.jpg',
+    'images/kakwi dokumenti sa neobhodimi pri vnos na kola ot sasht-800x480-crop.jpg',
+    'images/kino-arena-pleven-1024x768.jpg-696x522.webp',
+    'images/kissclipart-vector-graphics-clipart-clip-art-f0f8396a3753b30d.png',
+    'images/kiulcheta-zlato.jpg',
+    'images/lego_tree_house_large_crop_2-e1675159262131.jpg',
+    'images/moliv-za-staklo-240-mm-image_66a0bf4e25b30_800x800.jpeg',
+    'images/p1150898.jpg',
+    'images/plane_wp-copy.webp',
+    'images/playing-basketball.jpg',
+    'images/pojarna_kola_iveco.jpg',
+    'images/PP-31381-tropical-island-maldives-800x655.jpg',
+    'images/skis.jpg',
+    'images/spondz-bob-kvadratni-gasi-bebe-11sm-image_616ac52401c3c_1920x1920.jpeg',
+    'images/thumb6_aD7tej.jpg',
+    'images/unnamed.jpg',
+    'images/снимки-на-стари-телевизори-10.jpg'
 ];
-
 let currentPlayer = 1;
 let totalPlayers = 0;
 let currentLevel = 0;
-let totalLevels = 31; // Променено от 32 на 31, тъй като премахнахме едно изображение
+let totalLevels = 50; // Актуализирано според новия брой изображения
 let gameLevels = [];
 let impostorIndex = 0;
 let countdownInterval;
@@ -326,15 +349,59 @@ nextPlayerButton.addEventListener('click', () => {
     }
 });
 
+// Функция за показване на надписа "СЛЕДВАЩ РУНД"
+function showNextRoundMessage() {
+    const message = document.getElementById('next-round-message');
+    
+    // Премахваме всички класове
+    message.classList.remove('hidden', 'hide', 'show');
+    
+    // Започваме с малък размер и невидим
+    message.style.transform = 'translate(-50%, -50%) scale(0.5)';
+    message.style.opacity = '0';
+    message.style.filter = 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8))';
+    
+    // Показваме елемента
+    message.classList.remove('hidden');
+    
+    // Анимация за появяване
+    setTimeout(() => {
+        message.style.transition = 'all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        message.style.transform = 'translate(-50%, -50%) scale(1.1)';
+        message.style.opacity = '1';
+        message.style.filter = 'drop-shadow(0 0 30px rgba(255, 255, 255, 1))';
+    }, 10);
+    
+    // Скриваме надписа след 2 секунди
+    setTimeout(() => {
+        // Анимация за изчезване
+        message.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        message.style.opacity = '0';
+        message.style.filter = 'drop-shadow(0 0 40px rgba(255, 255, 255, 0.6)) blur(5px)';
+        
+        // След анимацията за скриване, добавяме hidden класа
+        setTimeout(() => {
+            message.classList.add('hidden');
+            message.style.transition = '';
+        }, 500);
+    }, 2000);
+}
+
 // Добавяме функционалност за бутона "Смени рунда"
 document.getElementById('end-game').addEventListener('click', () => {
-    currentLevel++;
-    if (currentLevel >= totalLevels) {
-        showResults();
-    } else {
-        currentPlayer = 1;
-        showCountdown();
-    }
+    // Показваме надписа "СЛЕДВАЩ РУНД"
+    showNextRoundMessage();
+    
+    // Изчакваме 2 секунди преди да продължим
+    setTimeout(() => {
+        currentLevel++;
+        if (currentLevel >= totalLevels) {
+            showResults();
+        } else {
+            currentPlayer = 1;
+            showCountdown();
+        }
+    }, 2000);
 });
 
 // Показване на модалния прозорец
@@ -363,4 +430,4 @@ document.addEventListener('keydown', (e) => {
         rulesModal.style.display = 'none';
         document.body.style.overflow = 'auto';
     }
-}); 
+});
