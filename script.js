@@ -431,3 +431,98 @@ document.addEventListener('keydown', (e) => {
         document.body.style.overflow = 'auto';
     }
 });
+
+// Функция за създаване на падащи емотикони
+function createFallingEmoji() {
+    const emojis = ['🎮', '🎯', '🎲', '🎪', '🎨', '🎭', '🎪', '🎯', '🎲', '🎮', '😄', '🎉', '✨', '🌟', '💫', '🎊'];
+    const container = document.getElementById('emoji-container');
+    
+    const emoji = document.createElement('div');
+    emoji.className = 'falling-emoji';
+    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    emoji.style.left = Math.random() * 100 + '%';
+    emoji.style.animationDuration = (Math.random() * 2 + 2) + 's'; // 2-4 секунди
+    
+    container.appendChild(emoji);
+    
+    // Премахване на емотикона след анимацията
+    setTimeout(() => {
+        if (emoji.parentNode) {
+            emoji.parentNode.removeChild(emoji);
+        }
+    }, 5000);
+}
+
+// Стартиране на падащите емотикони
+function startFallingEmojis() {
+    // Създаване на емотикон на всеки 1-2 секунди
+    setInterval(() => {
+        if (Math.random() < 0.7) { // 70% шанс за създаване
+            createFallingEmoji();
+        }
+    }, 1000);
+}
+
+// Стартиране на ефекта когато страницата се зареди
+document.addEventListener('DOMContentLoaded', function() {
+    startFallingEmojis();
+});
+
+// Функция за показване на екрана "ИГРАТА ЗАПОЧВА!"
+function showGameStartScreen() {
+    const gameStartScreen = document.getElementById('game-start-screen');
+    gameStartScreen.classList.remove('hidden');
+    gameStartScreen.classList.add('show');
+    
+    // Спиране на падащите емотикони временно
+    const emojiContainer = document.getElementById('emoji-container');
+    emojiContainer.style.display = 'none';
+    
+    // След 3 секунди скриване на екрана и стартиране на играта
+    setTimeout(() => {
+        gameStartScreen.classList.add('hide');
+        setTimeout(() => {
+            gameStartScreen.classList.add('hidden');
+            gameStartScreen.classList.remove('show', 'hide');
+            
+            // Възстановяване на падащите емотикони
+            emojiContainer.style.display = 'block';
+            
+            // Стартиране на играта
+            startGame();
+        }, 500);
+    }, 3000);
+}
+
+// Модифициране на функцията за стартиране на играта
+function startGame() {
+    // Оригиналната логика за стартиране на играта
+    document.getElementById('setup-screen').classList.add('hidden');
+    document.getElementById('game-screen').classList.remove('hidden');
+    
+    const playerCount = parseInt(document.getElementById('player-count').value);
+    players = [];
+    currentPlayerIndex = 0;
+    currentRound = 1;
+    
+    for (let i = 1; i <= playerCount; i++) {
+        players.push({
+            name: `Играч ${i}`,
+            score: 0,
+            isImpostor: false
+        });
+    }
+    
+    // Избиране на импостор
+    const impostorIndex = Math.floor(Math.random() * players.length);
+    players[impostorIndex].isImpostor = true;
+    
+    updateCurrentPlayer();
+    loadRandomImage();
+    startTimer();
+}
+
+// Модифициране на event listener за бутона "Започни играта"
+document.getElementById('start-game').addEventListener('click', function() {
+    showGameStartScreen();
+});
