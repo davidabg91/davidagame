@@ -76,7 +76,36 @@ const translations = {
         impostor_tip_1: "Бъдете внимателни с отговорите си",
         impostor_tip_2: "Използвайте двусмислен език, за да скриете истинската си самоличност",
         impostor_tip_3: "Създайте правдоподобна прикриваща история",
-        impostor_tip_4: "Доверявайте се на инстинктите си и бъдете предпазливи"
+        impostor_tip_4: "Доверявайте се на инстинктите си и бъдете предпазливи",
+        registration_title: "Регистрация",
+        registration_subtitle: "Създайте профил, за да продължите да играете",
+        username: "Потребителско име",
+        email: "Имейл адрес",
+        password: "Парола",
+        confirm_password: "Потвърди парола",
+        age: "Възраст",
+        favorite_game: "Любима игра",
+        select_option: "Изберете опция",
+        board_games: "Настолни игри",
+        video_games: "Видео игри",
+        card_games: "Карти",
+        puzzle_games: "Пъзели",
+        other: "Друго",
+        accept_terms: "Приемам условията за ползване",
+        newsletter: "Искам да получавам новини за нови игри",
+        create_account: "Създай акаунт",
+        already_have_account: "Вече имате акаунт?",
+        login: "Вход",
+        registration_required: "Регистрацията е задължителна за продължаване. Можете да се регистрирате или да натиснете 'Влезте' за да влезете с вече съществуващ профил.",
+        registration_success: "Регистрацията е успешна! Можете да продължите да играете.",
+        registration_error: "Грешка при регистрация. Моля, опитайте отново.",
+        login_title: "Вход",
+        login_subtitle: "Влезте в профила си",
+        dont_have_account: "Нямате акаунт?",
+        register: "Регистриране",
+        login_success: "Влязохте успешно!",
+        login_error: "Грешка при вход. Проверете потребителското име и паролата.",
+        logout_success: "Излязохте от профила си!"
     },
     en: {
         player_count: "Number of Players",
@@ -154,7 +183,36 @@ const translations = {
         impostor_tip_2: "Use ambiguous language to hide your true identity",
         impostor_tip_3: "Create a plausible cover story",
         impostor_tip_4: "Trust your instincts and be cautious",
-        impostor_rules_content: "Impostor rules content will be displayed here"
+        impostor_rules_content: "Impostor rules content will be displayed here",
+        registration_title: "Registration",
+        registration_subtitle: "Create an account to continue playing",
+        username: "Username",
+        email: "Email",
+        password: "Password",
+        confirm_password: "Confirm Password",
+        age: "Age",
+        favorite_game: "Favorite Game",
+        select_option: "Select Option",
+        board_games: "Board Games",
+        video_games: "Video Games",
+        card_games: "Cards",
+        puzzle_games: "Puzzles",
+        other: "Other",
+        accept_terms: "I accept the terms of use",
+        newsletter: "I want to receive news about new games",
+        create_account: "Create Account",
+        already_have_account: "Already have an account?",
+        login: "Login",
+        registration_required: "Registration is required to continue. You can register or click 'Login' to sign in with an existing account.",
+        registration_success: "Registration successful! You can continue playing.",
+        registration_error: "Registration error. Please try again.",
+        login_title: "Login",
+        login_subtitle: "Login to your account",
+        dont_have_account: "Don't have an account?",
+        register: "Register",
+        login_success: "You logged in successfully!",
+        login_error: "Login error. Please check your username and password.",
+        logout_success: "You logged out successfully!"
     }
 };
 
@@ -259,6 +317,10 @@ let impostorIndex = 0;
 let countdownInterval;
 let isCountdownActive = false;
 
+// Променливи за регистрация
+let isRegistrationShown = false;
+let isUserRegistered = false;
+
 // DOM елементи
 const setupScreen = document.getElementById('setup-screen');
 const gameScreen = document.getElementById('game-screen');
@@ -278,6 +340,22 @@ const resultsList = document.getElementById('results-list');
 const rulesModal = document.getElementById('rules-modal');
 const showRulesBtn = document.getElementById('show-rules');
 const closeModalBtn = document.querySelector('.close-modal');
+
+// DOM елементи за регистрация
+const registrationModal = document.getElementById('registration-modal');
+const registrationForm = document.getElementById('registration-form');
+const loginModal = document.getElementById('login-modal');
+const loginForm = document.getElementById('login-form');
+const loginLink = document.getElementById('login-link');
+const registerLink = document.getElementById('register-link');
+const closeRegistration = document.getElementById('close-registration');
+const closeLogin = document.getElementById('close-login');
+const profileInfo = document.getElementById('profile-info');
+const profileActions = document.getElementById('profile-actions');
+const profileUsername = document.getElementById('profile-username');
+const loginBtn = document.getElementById('login-btn');
+const registerBtn = document.getElementById('register-btn');
+const logoutBtn = document.getElementById('logout-btn');
 
 // Променям текста на бутона
 nextPlayerButton.textContent = 'Следващ играч';
@@ -322,6 +400,7 @@ window.addEventListener('load', () => {
         playerCountInput.value = savedPlayerCount;
     }
     generateGameLevels();
+    updateProfilePanel();
 });
 
 // Увеличаване на броя играчи
@@ -361,18 +440,26 @@ document.addEventListener('keydown', (e) => {
 
 // Започване на играта
 startGameBtn.addEventListener('click', () => {
+    console.log('=== Играта започва ===');
+    console.log('isUserRegistered преди старт:', isUserRegistered);
+    
     totalPlayers = parseInt(playerCountInput.value);
     
     // Запазване на броя играчи
     localStorage.setItem('lastPlayerCount', totalPlayers);
     
     if (totalPlayers < 2) {
-        alert(translateText('min_players'));
+        showModalMessage(translateText('min_players'));
         return;
     }
 
     currentPlayer = 1;
     currentLevel = 0;
+    
+    console.log('Инициализация:');
+    console.log('- currentPlayer:', currentPlayer);
+    console.log('- currentLevel:', currentLevel);
+    console.log('- totalPlayers:', totalPlayers);
     
     // Генерираме нови нива
     generateGameLevels();
@@ -431,6 +518,9 @@ function showPlayerScreen() {
 
 // Показване на екрана за край на нивото
 function showLevelEnd() {
+    console.log('=== showLevelEnd извикана ===');
+    console.log('currentLevel преди:', currentLevel);
+    
     const currentLevelData = gameLevels[currentLevel - 1];
     // Скриваме бутоните най-отдолу
     document.querySelector('.game-controls').style.display = 'none';
@@ -477,28 +567,59 @@ function showLevelEnd() {
         newRoundBtn.remove();
         showCountdown();
     };
+
+    // Показваме регистрацията веднага след първия рунд
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    console.log('Проверка за регистрация след първи рунд:');
+    console.log('- currentLevel:', currentLevel, '| Number(currentLevel) === 1:', Number(currentLevel) === 1);
+    console.log('- isLoggedIn:', isLoggedIn);
+    console.log('- registrationModal.style.display:', registrationModal.style.display);
+    if (Number(currentLevel) === 1 && isLoggedIn !== 'true' && registrationModal.style.display !== 'block') {
+        console.log('Показваме формата за регистрация, защото не си влязъл!');
+        setTimeout(() => {
+            showRegistration();
+        }, 1000);
+    } else {
+        console.log('НЕ показваме формата за регистрация. Условията не са изпълнени.');
+    }
+    
+    console.log('=== showLevelEnd завършена ===');
 }
 
 // Следващ играч
 function nextPlayer() {
     currentPlayer++;
+    console.log('=== nextPlayer извикана ===');
+    console.log('currentPlayer:', currentPlayer, 'totalPlayers:', totalPlayers, 'currentLevel преди:', currentLevel);
+    
     if (currentPlayer > totalPlayers) {
         // Край на нивото
         currentLevel++;
+        console.log('Край на нивото - нов currentLevel:', currentLevel, 'totalLevels:', totalLevels);
+        
         if (currentLevel >= totalLevels) {
             // Играта приключи
+            console.log('Играта приключи, показваме резултати...');
             showResults();
         } else {
             // Показваме екрана за край на нивото
+            console.log('Показваме край на нивото...');
             showLevelEnd();
         }
     } else {
+        console.log('Продължаваме със следващия играч');
         showCountdown();
     }
+    
+    console.log('=== nextPlayer завършена ===');
 }
 
 // Показване на резултати
 function showResults() {
+    console.log('showResults извикана');
+    console.log('currentLevel:', currentLevel);
+    console.log('isUserRegistered:', isUserRegistered);
+    
     gameScreen.classList.add('hidden');
     resultsScreen.classList.remove('hidden');
     
@@ -589,6 +710,14 @@ function showNextRoundMessage() {
 
 // Добавяме функционалност за бутона "Смени рунда"
 document.getElementById('end-game').addEventListener('click', () => {
+    // Проверка дали потребителят е регистриран и влязъл
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (!isUserRegistered || !isLoggedIn) {
+        console.log('Потребителят не е регистриран/влязъл, показваме регистрацията');
+        showRegistration();
+        return;
+    }
+    
     // Показваме надписа "СЛЕДВАЩ РУНД"
     showNextRoundMessage();
     
@@ -616,25 +745,31 @@ closeModalBtn.addEventListener('click', () => {
     document.body.style.overflow = 'auto'; // Възстановява скролването
 });
 
-// Затваряне на модалния прозорец при клик извън него
+// Затваряне на модалните прозорци при клик извън тях
 window.addEventListener('click', (e) => {
+    // Затваряне на модала за правилата
     if (e.target === rulesModal) {
         rulesModal.style.display = 'none';
         document.body.style.overflow = 'auto';
     }
-});
-
-// Затваряне на модалния прозорец при натискане на Escape
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && rulesModal.style.display === 'block') {
-        rulesModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
+    // Затваряне на регистрационния модал при клик извън него
+    if (e.target === registrationModal) {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (!isUserRegistered || !isLoggedIn) {
+            showModalMessage(translateText('registration_required'));
+            return;
+        }
+        hideRegistration();
+    }
+    // Затваряне на login модала при клик извън него
+    if (e.target === loginModal) {
+        hideLogin();
     }
 });
 
 // Функция за създаване на падащи емотикони
 function createFallingEmoji() {
-    const emojis = ['🎮', '🎯', '🎲', '🎪', '🎨', '🎭', '🎪', '🎯', '🎲', '🎮', '😄', '🎉', '✨', '🌟', '💫', '🎊'];
+    const emojis = ['🎮', '🎯', '🎲', '🎪', '🎨', '🎭', '🎪', '🎯', '🎲', '🎮', '😄', '🎉', '✨', '💫', '🎊'];
     const container = document.getElementById('emoji-container');
     
     const emoji = document.createElement('div');
@@ -792,6 +927,21 @@ window.addEventListener('load', () => {
     
     // Добавяне на event listeners за иконите
     setupRoleIcons();
+    
+    // Проверка за регистрация
+    const isRegistered = localStorage.getItem('isRegistered');
+    console.log('localStorage isRegistered:', isRegistered);
+    
+    if (isRegistered === 'true') {
+        isUserRegistered = true;
+        isRegistrationShown = true;
+        console.log('Потребителят е регистриран от localStorage');
+    } else {
+        console.log('Потребителят не е регистриран');
+    }
+    
+    console.log('Инициализация завършена - isUserRegistered:', isUserRegistered, 'isRegistrationShown:', isRegistrationShown);
+    updateProfilePanel();
 });
 
 // Функция за обновяване на tooltip текстове
@@ -893,4 +1043,279 @@ function showImpostorRules() {
     
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
+}
+
+// Функция за показване на регистрацията
+function showRegistration() {
+    console.log('=== showRegistration извикана ===');
+    console.log('isRegistrationShown:', isRegistrationShown);
+    console.log('isUserRegistered:', isUserRegistered);
+    
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    console.log('isLoggedIn от localStorage:', isLoggedIn);
+    
+    console.log('Показваме регистрационния модал...');
+    registrationModal.style.display = 'block';
+    registrationModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    
+    // Свързване на бутона "Вече имате акаунт?" след показване на модала
+    setTimeout(() => {
+        const loginLinkBtn = document.getElementById('login-link');
+        if (loginLinkBtn) {
+            console.log('Бутонът login-link е намерен след показване на модала!');
+            // Премахваме стария слушател, ако има такъв
+            loginLinkBtn.removeEventListener('click', handleLoginClick);
+            // Добавяме нов слушател
+            loginLinkBtn.addEventListener('click', handleLoginClick);
+        } else {
+            console.warn('Бутонът login-link не е намерен след показване на модала!');
+        }
+    }, 100);
+    
+    console.log('=== showRegistration завършена ===');
+}
+
+// Функция за обработка на клика върху бутона "Вече имате акаунт?"
+function handleLoginClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    alert('Бутонът "Вече имате акаунт?" беше натиснат!');
+    console.log('Бутонът "Вече имате акаунт?" беше натиснат!');
+    hideRegistration();
+    showLogin();
+}
+
+// Функция за скриване на регистрацията
+function hideRegistration() {
+    registrationModal.style.display = 'none';
+    registrationModal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+}
+
+// Функция за показване на вход
+function showLogin() {
+    console.log('showLogin извикана');
+    loginModal.style.display = 'block';
+    loginModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+// Функция за скриване на вход
+function hideLogin() {
+    loginModal.style.display = 'none';
+    loginModal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+}
+
+// Помощни функции за работа с localStorage база
+function getUsersDB() {
+    return JSON.parse(localStorage.getItem('usersDB') || '[]');
+}
+function saveUsersDB(users) {
+    localStorage.setItem('usersDB', JSON.stringify(users));
+}
+function setCurrentUser(username) {
+    localStorage.setItem('currentUser', username);
+}
+function getCurrentUser() {
+    return localStorage.getItem('currentUser');
+}
+function clearCurrentUser() {
+    localStorage.removeItem('currentUser');
+}
+
+// Обработка на регистрационната форма
+registrationForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(registrationForm);
+    const username = formData.get('username');
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const confirmPassword = formData.get('confirm-password');
+    const age = formData.get('age');
+    const favoriteGame = formData.get('favorite-game');
+    const terms = formData.get('terms');
+    const newsletter = formData.get('newsletter');
+    
+    // Валидация
+    if (password !== confirmPassword) {
+        showModalMessage('Паролите не съвпадат!');
+        return;
+    }
+    if (parseInt(age) < 13) {
+        showModalMessage('Трябва да сте на 13 години или повече!');
+        return;
+    }
+    if (!terms) {
+        showModalMessage('Трябва да приемете условията за ползване!');
+        return;
+    }
+    // Проверка за уникалност на username и email
+    const users = getUsersDB();
+    if (users.find(u => u.username === username)) {
+        showModalMessage('Потребителското име вече съществува!');
+        return;
+    }
+    if (users.find(u => u.email === email)) {
+        showModalMessage('Имейлът вече е използван!');
+        return;
+    }
+    // Симулиране на "хеширане" на паролата (само за демо)
+    const passwordHash = btoa(password);
+    // Създаване на нов потребител
+    const userData = {
+        username,
+        email,
+        passwordHash,
+        age,
+        favoriteGame,
+        newsletter: newsletter === 'on',
+        registrationDate: new Date().toISOString()
+    };
+    users.push(userData);
+    saveUsersDB(users);
+    setCurrentUser(username);
+    localStorage.setItem('isRegistered', 'true');
+    localStorage.setItem('isLoggedIn', 'true');
+    // Показване на съобщение за успех
+    showModalMessage(translateText('registration_success'));
+    // Скриване на регистрацията
+    hideRegistration();
+    // Маркиране като регистриран
+    isUserRegistered = true;
+    isRegistrationShown = true;
+    // Продължаване на играта
+    continueGameAfterRegistration();
+});
+
+// Функция за обновяване на панела за профил
+function updateProfilePanel() {
+    const username = getCurrentUser();
+    const users = getUsersDB();
+    const userData = users.find(u => u.username === username) || {};
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (isUserRegistered && userData.username && isLoggedIn) {
+        profileInfo.classList.remove('hidden');
+        profileActions.classList.add('hidden');
+        profileUsername.textContent = userData.username;
+    } else {
+        profileInfo.classList.add('hidden');
+        profileActions.classList.remove('hidden');
+        profileUsername.textContent = '';
+    }
+}
+
+// Бутон за изход
+logoutBtn.addEventListener('click', () => {
+    clearCurrentUser();
+    localStorage.removeItem('isRegistered');
+    localStorage.removeItem('isLoggedIn');
+    isUserRegistered = false;
+    isRegistrationShown = false;
+    updateProfilePanel();
+    showModalMessage(translateText('logout_success'));
+});
+
+// Линк за преминаване от регистрация към вход
+// (вече не е нужен, използваме директна функция switchToLogin)
+
+// Линк за преминаване от вход към регистрация
+registerLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    hideLogin();
+    showRegistration();
+});
+
+// Бутон за затваряне на регистрационния модал
+closeRegistration.addEventListener('click', () => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (!isUserRegistered || !isLoggedIn) {
+        showModalMessage(translateText('registration_required'));
+        return;
+    }
+    hideRegistration();
+});
+
+// Бутон за затваряне на login модала
+closeLogin.addEventListener('click', () => {
+    hideLogin();
+});
+
+// Обработка на login формата
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(loginForm);
+    const username = formData.get('username');
+    const password = formData.get('password');
+    const users = getUsersDB();
+    const user = users.find(u => u.username === username);
+    if (user && user.passwordHash === btoa(password)) {
+        setCurrentUser(username);
+        localStorage.setItem('isLoggedIn', 'true');
+        showModalMessage(translateText('login_success'));
+        hideLogin();
+        isUserRegistered = true;
+        updateProfilePanel();
+    } else {
+        showModalMessage(translateText('login_error'));
+    }
+});
+
+// Функция за продължаване на играта след регистрация
+function continueGameAfterRegistration() {
+    updateProfilePanel();
+    console.log('Потребителят е регистриран, продължаваме играта...');
+}
+
+// Бутон за регистрация от панела
+registerBtn.addEventListener('click', () => {
+    showRegistration();
+});
+
+// Бутон за вход от панела
+loginBtn.addEventListener('click', () => {
+    showLogin();
+});
+
+// Функция за показване на модално съобщение
+function showModalMessage(message, type = 'info') {
+    // Създаваме модален елемент
+    const modal = document.createElement('div');
+    modal.className = 'message-modal';
+    modal.innerHTML = `
+        <div class="message-content">
+            <div class="message-text">${message}</div>
+            <button class="message-close-btn">OK</button>
+        </div>
+    `;
+    
+    // Добавяме в body
+    document.body.appendChild(modal);
+    
+    // Показваме с анимация
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+    
+    // Затваряне при клик на бутона
+    const closeBtn = modal.querySelector('.message-close-btn');
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            document.body.removeChild(modal);
+        }, 300);
+    });
+    
+    // Затваряне при клик извън съобщението
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(modal);
+            }, 300);
+        }
+    });
 }

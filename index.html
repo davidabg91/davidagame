@@ -15,6 +15,19 @@
 <body>
     <div class="emoji-container" id="emoji-container"></div>
     
+    <!-- Панел за профил горе в ляво -->
+    <div class="profile-panel" id="profile-panel">
+        <div id="profile-info" class="profile-info hidden">
+            <i class="fas fa-user-circle"></i>
+            <span id="profile-username"></span>
+            <button id="logout-btn" class="btn profile-btn" data-translate="logout">Изход</button>
+        </div>
+        <div id="profile-actions" class="profile-actions">
+            <button id="login-btn" class="btn profile-btn" data-translate="login">Вход</button>
+            <button id="register-btn" class="btn profile-btn" data-translate="register">Регистриране</button>
+        </div>
+    </div>
+    
     <!-- Бутон за избор на език -->
     <div class="language-selector">
         <button id="language-btn" class="language-btn">
@@ -140,6 +153,105 @@
                     <li data-translate="tip_3">Използвайте логика и интуиция</li>
                     <li data-translate="tip_4">Наслаждавайте се на играта и бъдете креативни!</li>
                 </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модален прозорец за регистрация -->
+    <div id="registration-modal" class="modal">
+        <div class="modal-content registration-content">
+            <span class="close-modal" id="close-registration">&times;</span>
+            <div class="registration-header">
+                <h2 data-translate="registration_title">Регистрация</h2>
+                <p data-translate="registration_subtitle">Създайте профил, за да продължите да играете</p>
+            </div>
+            
+            <form id="registration-form" class="registration-form">
+                <div class="form-group">
+                    <label for="username" data-translate="username">Потребителско име</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" data-translate="email">Имейл адрес</label>
+                    <input type="email" id="email" name="email" required autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" data-translate="password">Парола</label>
+                    <input type="password" id="password" name="password" required autocomplete="new-password">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password" data-translate="confirm_password">Потвърди парола</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required autocomplete="new-password">
+                </div>
+                
+                <div class="form-group">
+                    <label for="age" data-translate="age">Възраст</label>
+                    <input type="number" id="age" name="age" min="13" max="100" required autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <label for="favorite-game" data-translate="favorite_game">Любима игра</label>
+                    <select id="favorite-game" name="favorite-game" required autocomplete="off">
+                        <option value="" data-translate="select_option">Изберете опция</option>
+                        <option value="board-games" data-translate="board_games">Настолни игри</option>
+                        <option value="video-games" data-translate="video_games">Видео игри</option>
+                        <option value="card-games" data-translate="card_games">Карти</option>
+                        <option value="puzzle-games" data-translate="puzzle_games">Пъзели</option>
+                        <option value="other" data-translate="other">Друго</option>
+                    </select>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms" data-translate="accept_terms">Приемам условията за ползване</label>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    <label for="newsletter" data-translate="newsletter">Искам да получавам новини за нови игри</label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn register-btn" data-translate="create_account">Създай акаунт</button>
+                </div>
+            </form>
+            
+            <div class="registration-footer">
+                <p data-translate="already_have_account">Вече имате акаунт? <button type="button" id="login-link" class="login-link-btn" data-translate="login">Влезте</button></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модален прозорец за вход -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content login-content">
+            <span class="close-modal" id="close-login">&times;</span>
+            <div class="login-header">
+                <h2 data-translate="login_title">Вход</h2>
+                <p data-translate="login_subtitle">Влезте в профила си</p>
+            </div>
+            
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="login-username" data-translate="username">Потребителско име</label>
+                    <input type="text" id="login-username" name="username" required autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password" data-translate="password">Парола</label>
+                    <input type="password" id="login-password" name="password" required autocomplete="current-password">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn login-submit-btn" data-translate="login">Влез</button>
+                </div>
+            </form>
+            
+            <div class="login-footer">
+                <p data-translate="dont_have_account">Нямате акаунт? <a href="#" id="register-link" data-translate="register">Регистрирайте се</a></p>
             </div>
         </div>
     </div>
