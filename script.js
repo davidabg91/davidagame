@@ -449,7 +449,7 @@ startGameBtn.addEventListener('click', () => {
     localStorage.setItem('lastPlayerCount', totalPlayers);
     
     if (totalPlayers < 2) {
-        showModalMessage(translateText('min_players'));
+        showMessage(translateText('min_players'));
         return;
     }
 
@@ -756,7 +756,7 @@ window.addEventListener('click', (e) => {
     if (e.target === registrationModal) {
         const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
         if (!isUserRegistered || !isLoggedIn) {
-            showModalMessage(translateText('registration_required'));
+            showMessage(translateText('registration_required'));
             return;
         }
         hideRegistration();
@@ -1116,10 +1116,15 @@ function saveUsersDB(users) {
     localStorage.setItem('usersDB', JSON.stringify(users));
 }
 function setCurrentUser(username) {
-    localStorage.setItem('currentUser', username);
+    const users = getUsersDB();
+    const user = users.find(u => u.username === username);
+    if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+    }
 }
 function getCurrentUser() {
-    return localStorage.getItem('currentUser');
+    const userString = localStorage.getItem('currentUser');
+    return userString ? JSON.parse(userString) : null;
 }
 function clearCurrentUser() {
     localStorage.removeItem('currentUser');
@@ -1141,81 +1146,60 @@ registrationForm.addEventListener('submit', (e) => {
     
     // Валидация
     if (password !== confirmPassword) {
-        showModalMessage('Паролите не съвпадат!');
+        showMessage('Паролите не съвпадат!', 'error');
         return;
     }
     if (parseInt(age) < 13) {
-        showModalMessage('Трябва да сте на 13 години или повече!');
+        showMessage('Трябва да сте на 13 години или повече!', 'error');
         return;
     }
     if (!terms) {
-        showModalMessage('Трябва да приемете условията за ползване!');
+        showMessage('Трябва да приемете условията за ползване!', 'error');
         return;
     }
-    // Проверка за уникалност на username и email
-    const users = getUsersDB();
-    if (users.find(u => u.username === username)) {
-        showModalMessage('Потребителското име вече съществува!');
-        return;
+    
+    // Използваме новата функция за регистрация
+    const success = registerUser(username, email, password);
+    
+    if (success) {
+        // Скриване на регистрацията
+        hideRegistration();
+        // Маркиране като регистриран
+        isUserRegistered = true;
+        isRegistrationShown = true;
+        // Продължаване на играта
+        continueGameAfterRegistration();
     }
-    if (users.find(u => u.email === email)) {
-        showModalMessage('Имейлът вече е използван!');
-        return;
-    }
-    // Симулиране на "хеширане" на паролата (само за демо)
-    const passwordHash = btoa(password);
-    // Създаване на нов потребител
-    const userData = {
-        username,
-        email,
-        passwordHash,
-        age,
-        favoriteGame,
-        newsletter: newsletter === 'on',
-        registrationDate: new Date().toISOString()
-    };
-    users.push(userData);
-    saveUsersDB(users);
-    setCurrentUser(username);
-    localStorage.setItem('isRegistered', 'true');
-    localStorage.setItem('isLoggedIn', 'true');
-    // Показване на съобщение за успех
-    showModalMessage(translateText('registration_success'));
-    // Скриване на регистрацията
-    hideRegistration();
-    // Маркиране като регистриран
-    isUserRegistered = true;
-    isRegistrationShown = true;
-    // Продължаване на играта
-    continueGameAfterRegistration();
 });
 
 // Функция за обновяване на панела за профил
 function updateProfilePanel() {
-    const username = getCurrentUser();
-    const users = getUsersDB();
-    const userData = users.find(u => u.username === username) || {};
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    if (isUserRegistered && userData.username && isLoggedIn) {
+    const currentUser = getCurrentUser();
+    const profileInfo = document.querySelector('.profile-info');
+    const profileActions = document.querySelector('.profile-actions');
+    
+    if (currentUser) {
         profileInfo.classList.remove('hidden');
         profileActions.classList.add('hidden');
-        profileUsername.textContent = userData.username;
+        
+        const usernameElement = document.getElementById('profile-username');
+        if (usernameElement) {
+            usernameElement.textContent = currentUser.username;
+        }
+        
+        // Добавяме админ бутон в profile-info секцията
+        addAdminButton();
     } else {
         profileInfo.classList.add('hidden');
         profileActions.classList.remove('hidden');
-        profileUsername.textContent = '';
     }
 }
 
 // Бутон за изход
 logoutBtn.addEventListener('click', () => {
-    clearCurrentUser();
-    localStorage.removeItem('isRegistered');
-    localStorage.removeItem('isLoggedIn');
+    logoutUser();
     isUserRegistered = false;
     isRegistrationShown = false;
-    updateProfilePanel();
-    showModalMessage(translateText('logout_success'));
 });
 
 // Линк за преминаване от регистрация към вход
@@ -1232,7 +1216,7 @@ registerLink.addEventListener('click', (e) => {
 closeRegistration.addEventListener('click', () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (!isUserRegistered || !isLoggedIn) {
-        showModalMessage(translateText('registration_required'));
+        showMessage('Трябва да се регистрирате, за да продължите!', 'error');
         return;
     }
     hideRegistration();
@@ -1241,27 +1225,6 @@ closeRegistration.addEventListener('click', () => {
 // Бутон за затваряне на login модала
 closeLogin.addEventListener('click', () => {
     hideLogin();
-});
-
-// Обработка на login формата
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData(loginForm);
-    const username = formData.get('username');
-    const password = formData.get('password');
-    const users = getUsersDB();
-    const user = users.find(u => u.username === username);
-    if (user && user.passwordHash === btoa(password)) {
-        setCurrentUser(username);
-        localStorage.setItem('isLoggedIn', 'true');
-        showModalMessage(translateText('login_success'));
-        hideLogin();
-        isUserRegistered = true;
-        updateProfilePanel();
-    } else {
-        showModalMessage(translateText('login_error'));
-    }
 });
 
 // Функция за продължаване на играта след регистрация
@@ -1281,12 +1244,12 @@ loginBtn.addEventListener('click', () => {
 });
 
 // Функция за показване на модално съобщение
-function showModalMessage(message, type = 'info') {
+function showMessage(message, type = 'info') {
     // Създаваме модален елемент
     const modal = document.createElement('div');
     modal.className = 'message-modal';
     modal.innerHTML = `
-        <div class="message-content">
+        <div class="message-content ${type}">
             <div class="message-text">${message}</div>
             <button class="message-close-btn">OK</button>
         </div>
@@ -1309,13 +1272,804 @@ function showModalMessage(message, type = 'info') {
         }, 300);
     });
     
-    // Затваряне при клик извън съобщението
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
+    // Автоматично затваряне след 5 секунди
+    setTimeout(() => {
+        if (document.body.contains(modal)) {
             modal.classList.remove('show');
             setTimeout(() => {
-                document.body.removeChild(modal);
+                if (document.body.contains(modal)) {
+                    document.body.removeChild(modal);
+                }
             }, 300);
         }
-    });
+    }, 5000);
 }
+
+// Административен панел
+let adminMode = false;
+let adminPassword = "admin123"; // В реална ситуация това трябва да е в сървъра
+
+// Функция за проверка дали потребителят е админ
+function checkIfAdmin() {
+    const currentUser = getCurrentUser();
+    return currentUser && currentUser.isAdmin === true;
+}
+
+// Функция за показване на административния панел
+function showAdminPanel() {
+    if (!checkIfAdmin()) {
+        showMessage("Нямате права за достъп до административния панел!", "error");
+        return;
+    }
+    
+    const adminHTML = `
+        <div class="admin-panel">
+            <div class="admin-header">
+                <h2>🔧 Административен панел</h2>
+                <button class="close-admin-btn" onclick="hideAdminPanel()">✕</button>
+            </div>
+            
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <h3>👥 Общо потребители</h3>
+                    <p class="stat-number">${getAllUsers().length}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>🎮 Общо игри</h3>
+                    <p class="stat-number">${getTotalGames()}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>📊 Активни сесии</h3>
+                    <p class="stat-number">${getActiveSessions()}</p>
+                </div>
+            </div>
+            
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="showTab('users')">Потребители</button>
+                <button class="tab-btn" onclick="showTab('logs')">Логове</button>
+                <button class="tab-btn" onclick="showTab('stats')">Статистика</button>
+            </div>
+            
+            <div id="users-tab" class="tab-content active">
+                <div class="users-list">
+                    <h3>Списък на всички потребители</h3>
+                    <div class="users-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Потребител</th>
+                                    <th>Имейл</th>
+                                    <th>Дата на регистрация</th>
+                                    <th>Последна активност</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table-body">
+                                ${generateUsersTable()}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="logs-tab" class="tab-content">
+                <div class="activity-logs">
+                    <h3>Лог на активностите</h3>
+                    <div class="logs-container">
+                        ${generateActivityLogs()}
+                    </div>
+                </div>
+            </div>
+            
+            <div id="stats-tab" class="tab-content">
+                <div class="detailed-stats">
+                    <h3>Детайлна статистика</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h4>Регистрации днес</h4>
+                            <p>${getRegistrationsToday()}</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Регистрации тази седмица</h4>
+                            <p>${getRegistrationsThisWeek()}</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Най-активен потребител</h4>
+                            <p>${getMostActiveUser()}</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Средно игри на потребител</h4>
+                            <p>${getAverageGamesPerUser()}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Създаваме модален прозорец за админ панела
+    const adminModal = document.createElement('div');
+    adminModal.className = 'admin-modal';
+    adminModal.innerHTML = adminHTML;
+    document.body.appendChild(adminModal);
+    
+    // Анимация за показване
+    setTimeout(() => {
+        adminModal.classList.add('show');
+    }, 10);
+}
+
+// Функция за скриване на административния панел
+function hideAdminPanel() {
+    const adminModal = document.querySelector('.admin-modal');
+    if (adminModal) {
+        adminModal.classList.remove('show');
+        setTimeout(() => {
+            adminModal.remove();
+        }, 300);
+    }
+}
+
+// Функция за показване на различни табове
+function showTab(tabName) {
+    // Скриваме всички табове
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Премахваме активния клас от всички бутони
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Показваме избрания таб
+    document.getElementById(tabName + '-tab').classList.add('active');
+    
+    // Добавяме активен клас на бутона
+    event.target.classList.add('active');
+}
+
+// Функция за генериране на таблица с потребители
+function generateUsersTable() {
+    const users = getAllUsers();
+    return users.map(user => `
+        <tr>
+            <td>${user.username}</td>
+            <td>${user.email}</td>
+            <td>${formatDate(user.registrationDate)}</td>
+            <td>${formatDate(user.lastActivity)}</td>
+            <td>
+                <button class="admin-btn small" onclick="editUser('${user.username}')">✏️</button>
+                <button class="admin-btn small" onclick="toggleUserStatus('${user.username}')">
+                    ${user.isBlocked ? '🔓' : '🔒'}
+                </button>
+                <button class="admin-btn small danger" onclick="deleteUser('${user.username}')">🗑️</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Функция за генериране на логове на активностите
+function generateActivityLogs() {
+    const logs = getActivityLogs();
+    return logs.map(log => `
+        <div class="log-entry">
+            <span class="log-time">${formatDateTime(log.timestamp)}</span>
+            <span class="log-user">${log.username}</span>
+            <span class="log-action">${log.action}</span>
+        </div>
+    `).join('');
+}
+
+// Помощни функции за статистика
+function getAllUsers() {
+    const users = JSON.parse(localStorage.getItem('usersDB') || '[]');
+    return users;
+}
+
+function getTotalGames() {
+    const games = JSON.parse(localStorage.getItem('totalGames') || '0');
+    return games;
+}
+
+function getActiveSessions() {
+    const sessions = JSON.parse(localStorage.getItem('activeSessions') || '0');
+    return sessions;
+}
+
+function getRegistrationsToday() {
+    const users = getAllUsers();
+    const today = new Date().toDateString();
+    return users.filter(user => 
+        new Date(user.registrationDate).toDateString() === today
+    ).length;
+}
+
+function getRegistrationsThisWeek() {
+    const users = getAllUsers();
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    
+    return users.filter(user => 
+        new Date(user.registrationDate) >= weekAgo
+    ).length;
+}
+
+function getMostActiveUser() {
+    const users = getAllUsers();
+    if (users.length === 0) return 'Няма данни';
+    
+    const mostActive = users.reduce((prev, current) => 
+        (current.gamesPlayed || 0) > (prev.gamesPlayed || 0) ? current : prev
+    );
+    
+    return mostActive.username;
+}
+
+function getAverageGamesPerUser() {
+    const users = getAllUsers();
+    if (users.length === 0) return 0;
+    
+    const totalGames = users.reduce((sum, user) => sum + (user.gamesPlayed || 0), 0);
+    return Math.round(totalGames / users.length);
+}
+
+function getActivityLogs() {
+    const logs = JSON.parse(localStorage.getItem('activityLogs') || '[]');
+    return logs.slice(-50); // Последните 50 лога
+}
+
+// Функция за добавяне на лог
+function addActivityLog(username, action) {
+    const logs = JSON.parse(localStorage.getItem('activityLogs') || '[]');
+    logs.push({
+        timestamp: new Date().toISOString(),
+        username: username,
+        action: action
+    });
+    
+    // Запазваме само последните 1000 лога
+    if (logs.length > 1000) {
+        logs.splice(0, logs.length - 1000);
+    }
+    
+    localStorage.setItem('activityLogs', JSON.stringify(logs));
+}
+
+// Функции за управление на потребители
+function editUser(username) {
+    const users = getAllUsers();
+    const user = users.find(u => u.username === username);
+    
+    if (user) {
+        const newEmail = prompt('Нов имейл:', user.email);
+        if (newEmail && newEmail !== user.email) {
+            user.email = newEmail;
+            user.lastModified = new Date().toISOString();
+            localStorage.setItem('usersDB', JSON.stringify(users));
+            addActivityLog('ADMIN', `Редактира потребител: ${username}`);
+            showMessage('Потребителят е редактиран успешно!', 'success');
+            refreshAdminPanel();
+        }
+    }
+}
+
+function toggleUserStatus(username) {
+    const users = getAllUsers();
+    const user = users.find(u => u.username === username);
+    
+    if (user) {
+        user.isBlocked = !user.isBlocked;
+        user.lastModified = new Date().toISOString();
+        localStorage.setItem('usersDB', JSON.stringify(users));
+        
+        const action = user.isBlocked ? 'блокира' : 'отблокира';
+        addActivityLog('ADMIN', `${action} потребител: ${username}`);
+        showMessage(`Потребителят е ${action}н успешно!`, 'success');
+        refreshAdminPanel();
+    }
+}
+
+function deleteUser(username) {
+    if (confirm(`Сигурни ли сте, че искате да изтриете потребителя ${username}?`)) {
+        const users = getAllUsers();
+        const filteredUsers = users.filter(u => u.username !== username);
+        localStorage.setItem('usersDB', JSON.stringify(filteredUsers));
+        
+        addActivityLog('ADMIN', `Изтри потребител: ${username}`);
+        showMessage('Потребителят е изтрит успешно!', 'success');
+        refreshAdminPanel();
+    }
+}
+
+function refreshAdminPanel() {
+    // Обновяваме таблицата с потребители
+    const tableBody = document.getElementById('users-table-body');
+    if (tableBody) {
+        tableBody.innerHTML = generateUsersTable();
+    }
+    
+    // Обновяваме статистиката
+    const statNumbers = document.querySelectorAll('.stat-number');
+    if (statNumbers.length >= 3) {
+        statNumbers[0].textContent = getAllUsers().length;
+        statNumbers[1].textContent = getTotalGames();
+        statNumbers[2].textContent = getActiveSessions();
+    }
+}
+
+// Функция за форматиране на дата
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('bg-BG');
+}
+
+// Функция за форматиране на дата и час
+function formatDateTime(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleString('bg-BG');
+}
+
+// Добавяме бутон за админ панел в профилния панел
+function addAdminButton() {
+    console.log('addAdminButton извикана');
+    const currentUser = getCurrentUser();
+    console.log('Current user:', currentUser);
+    
+    if (currentUser && currentUser.isAdmin === true) {
+        console.log('Потребителят е админ, добавяме бутон');
+        const profileInfo = document.querySelector('.profile-info');
+        console.log('Profile info element:', profileInfo);
+        
+        if (profileInfo && !document.querySelector('.admin-btn')) {
+            const adminBtn = document.createElement('button');
+            adminBtn.className = 'profile-btn admin-btn';
+            adminBtn.innerHTML = '🔧';
+            adminBtn.title = 'Административен панел';
+            adminBtn.onclick = showAdminPanel;
+            profileInfo.appendChild(adminBtn);
+            console.log('Админ бутон добавен успешно');
+        } else {
+            console.log('Profile info не е намерен или админ бутон вече съществува');
+        }
+    } else {
+        console.log('Потребителят не е админ или няма currentUser');
+        if (currentUser) {
+            console.log('Current user details:', currentUser);
+        }
+    }
+}
+
+// Модифицираме функцията за вход, за да добавя админ права
+function loginUser(username, password) {
+    const users = getUsersDB();
+    const user = users.find(u => u.username === username);
+    
+    // Проверяваме и двата варианта на паролата
+    const isValidPassword = user && (
+        user.passwordHash === btoa(password) || 
+        user.password === password
+    );
+    
+    if (isValidPassword) {
+        // Ако няма админ, правим този потребител админ
+        if (!users.some(u => u.isAdmin)) {
+            user.isAdmin = true;
+            saveUsersDB(users);
+        }
+        
+        // Обновяваме последната активност
+        user.lastActivity = new Date().toISOString();
+        saveUsersDB(users);
+        
+        setCurrentUser(username);
+        localStorage.setItem('isLoggedIn', 'true');
+        showMessage('Успешен вход!', 'success');
+        updateProfilePanel();
+        return true;
+    } else {
+        showMessage('Грешно потребителско име или парола!', 'error');
+        return false;
+    }
+}
+
+// Модифицираме функцията за регистрация, за да добавя админ права
+function registerUser(username, email, password) {
+    const users = getUsersDB();
+    // Проверка за уникалност
+    if (users.find(u => u.username === username)) {
+        showMessage('Потребителското име вече съществува!', 'error');
+        return false;
+    }
+    if (users.find(u => u.email === email)) {
+        showMessage('Имейлът вече е използван!', 'error');
+        return false;
+    }
+    // Симулиране на "хеширане" на паролата (само за демо)
+    const passwordHash = btoa(password);
+    // Създаване на нов потребител
+    const userData = {
+        username,
+        email,
+        passwordHash,
+        registrationDate: new Date().toISOString(),
+        isAdmin: false
+    };
+    // Ако това е първият потребител, правим го админ
+    if (users.length === 0) {
+        userData.isAdmin = true;
+    }
+    users.push(userData);
+    saveUsersDB(users);
+    setCurrentUser(username);
+    localStorage.setItem('isRegistered', 'true');
+    localStorage.setItem('isLoggedIn', 'true');
+    showMessage('Регистрацията е успешна!', 'success');
+    return true;
+}
+
+// Функция за записване на игра
+function recordGame() {
+    const currentUser = getCurrentUser();
+    if (currentUser) {
+        // Увеличаваме броя игри на потребителя
+        const users = JSON.parse(localStorage.getItem('usersDB') || '[]');
+        const userIndex = users.findIndex(u => u.username === currentUser.username);
+        
+        if (userIndex !== -1) {
+            users[userIndex].gamesPlayed = (users[userIndex].gamesPlayed || 0) + 1;
+            users[userIndex].lastActivity = new Date().toISOString();
+            localStorage.setItem('usersDB', JSON.stringify(users));
+            
+            // Обновяваме текущия потребител
+            currentUser.gamesPlayed = users[userIndex].gamesPlayed;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        }
+        
+        // Увеличаваме общия брой игри
+        const totalGames = parseInt(localStorage.getItem('totalGames') || '0') + 1;
+        localStorage.setItem('totalGames', totalGames.toString());
+        
+        // Добавяме лог
+        addActivityLog(currentUser.username, 'Завърши игра');
+    }
+}
+
+// Функция за следене на активни сесии
+function trackActiveSession() {
+    const currentUser = getCurrentUser();
+    if (currentUser) {
+        // Увеличаваме броя активни сесии
+        const activeSessions = parseInt(localStorage.getItem('activeSessions') || '0') + 1;
+        localStorage.setItem('activeSessions', activeSessions.toString());
+        
+        // Добавяме лог
+        addActivityLog(currentUser.username, 'Започна нова сесия');
+    }
+}
+
+// Модифицираме функцията за изход, за да намалим активните сесии
+function logoutUser() {
+    const currentUser = getCurrentUser();
+    if (currentUser) {
+        // Намаляваме броя активни сесии
+        const activeSessions = Math.max(0, parseInt(localStorage.getItem('activeSessions') || '0') - 1);
+        localStorage.setItem('activeSessions', activeSessions.toString());
+        
+        // Добавяме лог
+        addActivityLog(currentUser.username, 'Излязъл от системата');
+    }
+    
+    localStorage.removeItem('currentUser');
+    showMessage('Успешно излязохте от системата!', 'success');
+    updateProfilePanel();
+}
+
+// Модифицираме функцията за край на играта, за да записваме статистиката
+function endGame() {
+    // Записваме играта
+    recordGame();
+    
+    // Показваме екрана за край на играта
+    showGameEndScreen();
+}
+
+// Функция за показване на екрана за край на играта
+function showGameEndScreen() {
+    const gameEndHTML = `
+        <div class="game-end-screen">
+            <div class="game-end-content">
+                <h2>🎉 Играта приключи!</h2>
+                <p>Благодарим за играта!</p>
+                <div class="game-stats">
+                    <div class="stat">
+                        <span class="stat-label">Победител:</span>
+                        <span class="stat-value">${winner}</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Продължителност:</span>
+                        <span class="stat-value">${gameDuration}</span>
+                    </div>
+                </div>
+                <div class="game-end-buttons">
+                    <button class="game-btn primary" onclick="startNewGame()">Нова игра</button>
+                    <button class="game-btn secondary" onclick="showMainMenu()">Главно меню</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Създаваме модален прозорец за края на играта
+    const gameEndModal = document.createElement('div');
+    gameEndModal.className = 'game-end-modal';
+    gameEndModal.innerHTML = gameEndHTML;
+    document.body.appendChild(gameEndModal);
+    
+    // Анимация за показване
+    setTimeout(() => {
+        gameEndModal.classList.add('show');
+    }, 10);
+}
+
+// Функция за скриване на екрана за край на играта
+function hideGameEndScreen() {
+    const gameEndModal = document.querySelector('.game-end-modal');
+    if (gameEndModal) {
+        gameEndModal.classList.remove('show');
+        setTimeout(() => {
+            gameEndModal.remove();
+        }, 300);
+    }
+}
+
+// Функция за показване на главното меню
+function showMainMenu() {
+    hideGameEndScreen();
+    // Тук можеш да добавиш логика за връщане към главното меню
+    location.reload(); // За сега просто презареждаме страницата
+}
+
+// Функция за започване на нова игра
+function startNewGame() {
+    hideGameEndScreen();
+    // Тук можеш да добавиш логика за започване на нова игра
+    location.reload(); // За сега просто презареждаме страницата
+}
+
+// Инициализация при зареждане на страницата
+document.addEventListener('DOMContentLoaded', function() {
+    // Обновяваме профилния панел
+    updateProfilePanel();
+    
+    // Добавяме админ бутон ако е нужно
+    addAdminButton();
+    
+    // Инициализираме статистиката
+    initializeStats();
+    
+    // Проверяваме дали потребителят е влязъл
+    const currentUser = getCurrentUser();
+    if (currentUser) {
+        isUserRegistered = true;
+    }
+    
+    // Добавяме event listeners
+    addEventListeners();
+});
+
+// Функция за инициализиране на статистиката
+function initializeStats() {
+    // Ако няма записани игри, започваме от 0
+    if (!localStorage.getItem('totalGames')) {
+        localStorage.setItem('totalGames', '0');
+    }
+    
+    // Ако няма записани активни сесии, започваме от 0
+    if (!localStorage.getItem('activeSessions')) {
+        localStorage.setItem('activeSessions', '0');
+    }
+    
+    // Ако няма записани логове, създаваме празен масив
+    if (!localStorage.getItem('activityLogs')) {
+        localStorage.setItem('activityLogs', JSON.stringify([]));
+    }
+}
+
+// Функция за добавяне на всички event listeners
+function addEventListeners() {
+    // Бутон за регистрация от панела
+    const registerBtn = document.getElementById('register-btn');
+    if (registerBtn) {
+        console.log('register-btn намерен');
+        registerBtn.addEventListener('click', () => {
+            console.log('Кликнат register-btn');
+            showRegistration();
+        });
+    } else {
+        console.log('register-btn НЕ е намерен');
+    }
+    
+    // Бутон за вход от панела
+    const loginBtn = document.getElementById('login-btn');
+    if (loginBtn) {
+        console.log('login-btn намерен');
+        loginBtn.addEventListener('click', () => {
+            console.log('Кликнат login-btn');
+            showLogin();
+        });
+    } else {
+        console.log('login-btn НЕ е намерен');
+    }
+    
+    // Бутон за изход
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        console.log('logout-btn намерен');
+        logoutBtn.addEventListener('click', () => {
+            console.log('Кликнат logout-btn');
+            logoutUser();
+            isUserRegistered = false;
+            isRegistrationShown = false;
+        });
+    } else {
+        console.log('logout-btn НЕ е намерен');
+    }
+    
+    // Форма за регистрация
+    const registrationForm = document.getElementById('registration-form');
+    if (registrationForm) {
+        console.log('registration-form намерен');
+        registrationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log('Изпратена регистрационна форма');
+            // ... останалия код ...
+            const formData = new FormData(registrationForm);
+            const username = formData.get('username');
+            const email = formData.get('email');
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirm-password');
+            const age = formData.get('age');
+            const favoriteGame = formData.get('favorite-game');
+            const terms = formData.get('terms');
+            const newsletter = formData.get('newsletter');
+            
+            // Валидация
+            if (password !== confirmPassword) {
+                showMessage('Паролите не съвпадат!', 'error');
+                return;
+            }
+            if (parseInt(age) < 13) {
+                showMessage('Трябва да сте на 13 години или повече!', 'error');
+                return;
+            }
+            if (!terms) {
+                showMessage('Трябва да приемете условията за ползване!', 'error');
+                return;
+            }
+            
+            // Използваме новата функция за регистрация
+            const success = registerUser(username, email, password);
+            
+            if (success) {
+                // Скриване на регистрацията
+                hideRegistration();
+                // Маркиране като регистриран
+                isUserRegistered = true;
+                isRegistrationShown = true;
+                // Продължаване на играта
+                continueGameAfterRegistration();
+            }
+        });
+    } else {
+        console.log('registration-form НЕ е намерен');
+    }
+    
+    // Форма за вход
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        console.log('login-form намерен');
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log('Изпратена login форма');
+            // ... останалия код ...
+            const formData = new FormData(loginForm);
+            const username = formData.get('username');
+            const password = formData.get('password');
+            
+            // Използваме новата функция за вход
+            const success = loginUser(username, password);
+            
+            if (success) {
+                hideLogin();
+                isUserRegistered = true;
+                updateProfilePanel();
+            }
+        });
+    } else {
+        console.log('login-form НЕ е намерен');
+    }
+    
+    // Бутон за затваряне на регистрацията
+    const closeRegistration = document.getElementById('close-registration');
+    if (closeRegistration) {
+        console.log('close-registration намерен');
+        closeRegistration.addEventListener('click', () => {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (!isUserRegistered || !isLoggedIn) {
+                showMessage('Трябва да се регистрирате, за да продължите!', 'error');
+                return;
+            }
+            hideRegistration();
+        });
+    } else {
+        console.log('close-registration НЕ е намерен');
+    }
+    
+    // Бутон за затваряне на login
+    const closeLogin = document.getElementById('close-login');
+    if (closeLogin) {
+        console.log('close-login намерен');
+        closeLogin.addEventListener('click', () => {
+            hideLogin();
+        });
+    } else {
+        console.log('close-login НЕ е намерен');
+    }
+    
+    // Линк за преминаване от регистрация към вход
+    const loginLink = document.getElementById('login-link');
+    if (loginLink) {
+        console.log('login-link намерен');
+        loginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            hideRegistration();
+            showLogin();
+        });
+    } else {
+        console.log('login-link НЕ е намерен');
+    }
+    
+    // Линк за преминаване от вход към регистрация
+    const registerLink = document.getElementById('register-link');
+    if (registerLink) {
+        console.log('register-link намерен');
+        registerLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            hideLogin();
+            showRegistration();
+        });
+    } else {
+        console.log('register-link НЕ е намерен');
+    }
+}
+
+// Функция за ръчно задаване на админ права (за тестване)
+function makeCurrentUserAdmin() {
+    const currentUser = getCurrentUser();
+    if (currentUser) {
+        const users = getUsersDB();
+        const userIndex = users.findIndex(u => u.username === currentUser.username);
+        if (userIndex !== -1) {
+            users[userIndex].isAdmin = true;
+            saveUsersDB(users);
+            
+            // Обновяваме текущия потребител
+            currentUser.isAdmin = true;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            showMessage('Потребителят е направен админ!', 'success');
+            updateProfilePanel();
+        }
+    } else {
+        showMessage('Няма влязъл потребител!', 'error');
+    }
+}
+
+// Функция за ръчно отваряне на админ панела (за тестване)
+function openAdminPanel() {
+    showAdminPanel();
+}
+
+// Добавяме функции за тестване в конзолата
+window.makeAdmin = makeCurrentUserAdmin;
+window.openAdmin = openAdminPanel;
