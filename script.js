@@ -478,6 +478,7 @@ function showCountdown() {
                 </div>
             </div>
             <div class="countdown">${count}</div>
+            <div class="countdown-message">ВНИМАНИЕ: ДА ГЛЕДА САМО СЛЕДВАЩИЯ ИГРАЧ</div>
         </div>
     `;
     const buttonText = currentPlayerDisplay.querySelector('.button-text');

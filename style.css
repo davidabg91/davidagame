@@ -1014,6 +1014,23 @@ h2 {
     z-index: 10;
 }
 
+.countdown-message {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 1), 2px 2px 4px rgba(0, 0, 0, 0.8);
+    margin-top: 20px;
+    text-align: center;
+    animation: pulse 1.5s ease-in-out infinite;
+    background: rgba(255, 0, 0, 0.8);
+    padding: 15px 30px;
+    border-radius: 30px;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
 @keyframes scale {
     0% { transform: scale(1);}
     50% { transform: scale(1.2);}
@@ -2428,7 +2445,7 @@ h2 {
     .container {
         max-width: 100%;
         padding: 15px;
-        margin-top: 40px; /* По-малко място за профилния панел */
+        margin-top: 20px; /* По-малко място, тъй като няма профилен панел */
     }
     
     .logo {
@@ -2440,38 +2457,9 @@ h2 {
         font-size: 2.5rem;
     }
     
-    /* Профилен панел - по-малък и по-високо */
+    /* Профилен панел - скрит на мобилни устройства */
     .profile-panel {
-        top: 1px;
-        left: 1px;
-        width: fit-content;
-        min-width: auto;
-        max-width: calc(100% - 100px);
-        padding: 1px 2px;
-    }
-    
-    .profile-info {
-        gap: 1px;
-        flex-wrap: wrap;
-    }
-    
-    .profile-info i {
-        font-size: 0.7rem;
-    }
-    
-    .profile-info #profile-username {
-        font-size: 0.55rem;
-        max-width: 50px;
-    }
-    
-    .profile-btn {
-        padding: 1px 2px;
-        font-size: 0.45rem;
-    }
-    
-    .profile-actions {
-        gap: 3px;
-        flex-wrap: wrap;
+        display: none;
     }
     
     /* Икони за детектив и импостор - по-големи за мобилни */
@@ -2595,6 +2583,15 @@ h2 {
     .countdown {
         font-size: 8rem;
         font-weight: 900;
+    }
+    
+    .countdown-message {
+        font-size: 1.3rem;
+        padding: 12px 25px;
+        margin-top: 15px;
+        background: rgba(255, 0, 0, 0.9);
+        border: 2px solid rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
     }
     
     /* Модали - по-добре позиционирани */
@@ -2743,6 +2740,19 @@ h2 {
         max-width: 100%;
         padding: 0 10px;
     }
+    
+    /* Footer - по-малък за мобилни устройства */
+    .footer {
+        padding: 8px;
+    }
+    
+    .footer p {
+        font-size: 0.7rem;
+    }
+    
+    .footer .brand {
+        font-size: 0.7rem;
+    }
 }
 
 /* Още по-малки екрани */
@@ -2835,6 +2845,15 @@ h2 {
         font-size: 4rem;
     }
     
+    .countdown-message {
+        font-size: 1rem;
+        padding: 10px 20px;
+        margin-top: 10px;
+        background: rgba(255, 0, 0, 0.95);
+        border: 2px solid rgba(255, 255, 255, 1);
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+    }
+    
     /* Responsive стилове за новата login форма на малки екрани */
     .form {
         top: 0.5em;
@@ -2870,22 +2889,7 @@ h2 {
     }
     
     .profile-panel {
-        top: 3px;
-        left: 3px;
-        width: fit-content;
-        min-width: auto;
-        max-width: calc(100% - 100px);
-        padding: 4px 6px;
-    }
-    
-    .profile-btn {
-        padding: 3px 6px;
-        font-size: 0.65rem;
-    }
-    
-    .profile-info #profile-username {
-        font-size: 0.65rem;
-        max-width: 60px;
+        display: none;
     }
     
     .detective-logo,
@@ -3004,6 +3008,19 @@ h2 {
         font-size: 2.5rem;
         letter-spacing: 2px;
         padding: 0 15px;
+    }
+    
+    /* Footer - още по-малък за малки екрани */
+    .footer {
+        padding: 5px;
+    }
+    
+    .footer p {
+        font-size: 0.6rem;
+    }
+    
+    .footer .brand {
+        font-size: 0.6rem;
     }
 }
 
