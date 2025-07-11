@@ -2043,18 +2043,71 @@ document.addEventListener('DOMContentLoaded', function() {
     const unlockProBtn = document.querySelector('.unlock-pro-btn');
     const unlockProModal = document.getElementById('unlock-pro-modal');
     const closeUnlockProModal = document.querySelector('.close-unlock-pro-modal');
+    
+    console.log('Unlock Pro elements:', {
+        unlockProBtn: unlockProBtn,
+        unlockProModal: unlockProModal,
+        closeUnlockProModal: closeUnlockProModal
+    });
+    
     if (unlockProBtn && unlockProModal && closeUnlockProModal) {
+        console.log('All Unlock Pro elements found, adding event listeners...');
         unlockProBtn.addEventListener('click', function() {
-            unlockProModal.style.display = 'flex';
+            console.log('Unlock Pro button clicked!');
+            unlockProModal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Предотвратява скролване
+            console.log('Modal should be visible now');
         });
         closeUnlockProModal.addEventListener('click', function() {
-            unlockProModal.style.display = 'none';
+            unlockProModal.classList.remove('show');
+            document.body.style.overflow = ''; // Възстановява скролването
         });
         unlockProModal.addEventListener('click', function(e) {
             if (e.target === unlockProModal) {
-                unlockProModal.style.display = 'none';
+                unlockProModal.classList.remove('show');
+                document.body.style.overflow = '';
             }
         });
+        
+        // Затваряне с Escape клавиш
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && unlockProModal.classList.contains('show')) {
+                unlockProModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+    } else {
+        console.log('Some Unlock Pro elements not found:', {
+            unlockProBtn: !!unlockProBtn,
+            unlockProModal: !!unlockProModal,
+            closeUnlockProModal: !!closeUnlockProModal
+        });
+        
+        // Опитай отново след малко закъснение
+        setTimeout(() => {
+            const retryUnlockProBtn = document.querySelector('.unlock-pro-btn');
+            const retryUnlockProModal = document.getElementById('unlock-pro-modal');
+            const retryCloseUnlockProModal = document.querySelector('.close-unlock-pro-modal');
+            
+            if (retryUnlockProBtn && retryUnlockProModal && retryCloseUnlockProModal) {
+                console.log('Retry successful, adding event listeners...');
+                retryUnlockProBtn.addEventListener('click', function() {
+                    console.log('Unlock Pro button clicked (retry)!');
+                    retryUnlockProModal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                });
+                retryCloseUnlockProModal.addEventListener('click', function() {
+                    retryUnlockProModal.classList.remove('show');
+                    document.body.style.overflow = '';
+                });
+                retryUnlockProModal.addEventListener('click', function(e) {
+                    if (e.target === retryUnlockProModal) {
+                        retryUnlockProModal.classList.remove('show');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+        }, 1000);
     }
 });
 

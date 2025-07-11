@@ -333,77 +333,94 @@ h2 {
     bottom: 60px;
     right: 20px;
     z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.facebook-button {
+.modern-facebook-button {
     position: relative;
-    width: 130px;
-    height: 35px;
-    border-radius: 30px;
-    background-color: white;
-    border: 1px #3a5ba2 solid;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: block;
-}
-
-.facebook-text1 {
-    font-size: 15px;
-    font-weight: 600;
-    margin-left: 28%;
-    color: #3a5ba2;
-    transition: all 0.5s ease;
-}
-
-.facebook-text2 {
-    position: absolute;
-    top: 25%;
-    left: -50px;
-    font-weight: 700;
-    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 25px;
+    background: #316FF6;
     color: white;
-    transition: transform 0.6s ease;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(49, 111, 246, 0.3);
+    transition: all 0.5s ease;
+    border: none;
+    cursor: pointer;
+    gap: 8px;
+}
+
+.modern-facebook-button:hover {
+    transform: translateY(-3px);
+    border-radius: 25px;
+    background: linear-gradient(135deg, #331029, #310413);
+    box-shadow: 0 8px 25px rgba(49, 111, 246, 0.4);
 }
 
 .facebook-icon {
+    width: 20px;
+    height: 22px;
+    transition: all 0.3s ease;
+}
+
+.facebook-tooltip {
     position: absolute;
-    top: 0;
-    left: 0;
-    transition: transform 0.5s ease;
+    opacity: 0;
+    color: #374151;
+    font-size: 14px;
+    transform: translateY(0);
+    transition: all 0.7s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.facebook-icon::before {
-    position: absolute;
-    left: -100px;
-    top: 0;
-    z-index: -1;
-    content: '';
-    width: 130px;
-    height: 33px;
-    border-radius: 30px;
-    background-color: #3a5ba2;
+.modern-facebook-button:hover .facebook-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
 }
 
-.facebook-button:hover .facebook-icon {
-    transform: translateX(96px);
-    transition: transform 0.5s ease;
+/* Desktop версия - показваме оригиналния дизайн */
+@media (min-width: 769px) {
+    .modern-facebook-button {
+        padding: 12px 16px;
+        border-radius: 25px;
+        gap: 8px;
+    }
+    
+    .modern-facebook-button:hover {
+        border-radius: 25px;
+    }
+    
+    .facebook-tooltip {
+        display: none;
+    }
 }
 
-.facebook-button:hover .facebook-text2 {
-    transform: translateX(100px);
-    transition: transform 0.6s ease;
-}
-
-.facebook-button:active {
-    transform: scale(1.03);
-}
-
-.facebook-button:hover {
-    box-shadow: 0 5px 15px rgba(58, 91, 162, 0.3);
-    text-decoration: none;
-    color: inherit;
+/* Мобилна версия - показваме новия компактен дизайн */
+@media (max-width: 768px) {
+    .modern-facebook-button {
+        padding: 8px;
+        border-radius: 8px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    .modern-facebook-button:hover {
+        border-radius: 50%;
+    }
+    
+    .facebook-tooltip {
+        display: block;
+    }
 }
 
 .player-count-container {
@@ -2523,19 +2540,19 @@ h2 {
     
     /* Responsive стилове за бутона за правилата */
     .btn-rules {
-        width: 14rem;
-        height: 3.5rem;
-        border-radius: 20px;
+        width: 16rem;
+        height: 4rem;
+        border-radius: 25px;
     }
     
     .btn-rules strong {
-        font-size: 14px;
-        letter-spacing: 1px;
+        font-size: 16px;
+        letter-spacing: 1.5px;
     }
     
     #glow-rules {
-        width: 14rem;
-        border-radius: 20px;
+        width: 16rem;
+        border-radius: 25px;
     }
     
     /* Facebook бутон - responsive */
@@ -2544,17 +2561,19 @@ h2 {
         right: 15px;
     }
     
-    .facebook-button {
-        width: 110px;
-        height: 30px;
+    .modern-facebook-button {
+        padding: 8px;
+        border-radius: 8px;
+        min-width: 40px;
+        min-height: 40px;
     }
     
-    .facebook-text1 {
-        font-size: 13px;
+    .modern-facebook-button:hover {
+        border-radius: 50%;
     }
     
-    .facebook-text2 {
-        font-size: 12px;
+    .facebook-tooltip {
+        display: block;
     }
     
     /* Responsive стилове за Pac-Man loader */
@@ -2786,17 +2805,19 @@ h2 {
     
     /* Responsive стилове за бутона за правилата на малки екрани */
     .btn-rules {
-        width: 8rem;
-        height: 2rem;
+        width: 12rem;
+        height: 3rem;
+        border-radius: 15px;
     }
     
     .btn-rules strong {
-        font-size: 8px;
-        letter-spacing: 0.5px;
+        font-size: 12px;
+        letter-spacing: 1px;
     }
     
     #glow-rules {
-        width: 7rem;
+        width: 12rem;
+        border-radius: 15px;
     }
     
     /* Facebook бутон - responsive за малки екрани */
@@ -2805,17 +2826,19 @@ h2 {
         right: 10px;
     }
     
-    .facebook-button {
-        width: 100px;
-        height: 28px;
+    .modern-facebook-button {
+        padding: 8px;
+        border-radius: 8px;
+        min-width: 40px;
+        min-height: 40px;
     }
     
-    .facebook-text1 {
-        font-size: 11px;
+    .modern-facebook-button:hover {
+        border-radius: 50%;
     }
     
-    .facebook-text2 {
-        font-size: 10px;
+    .facebook-tooltip {
+        display: block;
     }
     
     /* Responsive стилове за Pac-Man loader на малки екрани */
@@ -3863,6 +3886,7 @@ h2 {
   transition: background .3s ease;
   font-size: 0.98rem;
   min-height: 36px;
+
 }
 .unlock-pro-btn:hover {
   background-size: 320%;
@@ -3898,47 +3922,330 @@ h2 {
   top: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.7);
   z-index: 20000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.unlock-pro-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.unlock-pro-modal.show .unlock-pro-modal-content {
+  animation: modalSlideIn 0.4s ease-out;
+}
+
+@keyframes modalSlideIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 .unlock-pro-modal-content {
-  background: #fff;
-  padding: 32px 28px 24px 28px;
-  border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-  min-width: 320px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 0;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1);
+  min-width: 380px;
   max-width: 90vw;
   text-align: center;
   position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
 }
-.close-unlock-pro-modal {
+
+.unlock-pro-modal-content::before {
+  content: '';
   position: absolute;
-  top: 12px;
-  right: 18px;
-  font-size: 2rem;
-  color: #880088;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  pointer-events: none;
+}
+
+.unlock-pro-modal-content::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.unlock-pro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.unlock-pro-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+  animation: crownGlow 2s ease-in-out infinite alternate;
+}
+
+.unlock-pro-icon i {
+  font-size: 28px;
+  color: #8b4513;
+}
+
+@keyframes crownGlow {
+  0% { box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4); }
+  100% { box-shadow: 0 8px 32px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.3); }
+}
+
+.close-unlock-pro-modal {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  color: white;
   cursor: pointer;
   font-weight: bold;
-  transition: color 0.2s;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
 }
+
 .close-unlock-pro-modal:hover {
-  color: #cc3f47;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }
-.revolut-link {
+.unlock-pro-title {
+  padding: 20px 24px 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.unlock-pro-title h2 {
+  color: white;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 12px 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.unlock-pro-badge {
   display: inline-block;
-  margin-top: 18px;
-  padding: 12px 28px;
-  background: linear-gradient(90deg, #0055ff, #00c3ff);
-  color: #fff;
-  border-radius: 30px;
-  font-weight: bold;
-  font-size: 1.1em;
-  text-decoration: none;
-  box-shadow: 0 4px 16px rgba(0,85,255,0.15);
-  transition: background 0.2s;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  padding: 6px 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
+
+.badge-text {
+  color: #8b4513;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.unlock-pro-price {
+  padding: 24px 24px 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.price-container {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.price-currency {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  vertical-align: top;
+}
+
+.price-amount {
+  color: white;
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0 8px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  animation: priceGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes priceGlow {
+  0% { text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+  100% { text-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.3); }
+}
+
+.price-period {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.unlock-pro-benefits {
+  padding: 24px 24px 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.unlock-pro-benefits h3 {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.benefits-list li {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  margin-bottom: 12px;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.benefits-list li:nth-child(1) { animation-delay: 0.1s; }
+.benefits-list li:nth-child(2) { animation-delay: 0.2s; }
+.benefits-list li:nth-child(3) { animation-delay: 0.3s; }
+.benefits-list li:nth-child(4) { animation-delay: 0.4s; }
+.benefits-list li:nth-child(5) { animation-delay: 0.5s; }
+.benefits-list li:nth-child(6) { animation-delay: 0.6s; }
+
+.benefits-list li:hover {
+  color: white;
+  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 0 -12px 12px -12px;
+}
+
+.benefits-list li i {
+  color: #4ade80;
+  font-size: 1.1rem;
+  min-width: 20px;
+  animation: checkPulse 2s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes checkPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.unlock-pro-payment {
+  padding: 24px 24px 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.payment-info {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.payment-info strong {
+  color: white;
+}
+
+.revolut-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #0055ff, #00c3ff);
+  color: white;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0,85,255,0.3);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
 .revolut-link:hover {
-  background: linear-gradient(90deg, #00c3ff, #0055ff);
+  background: linear-gradient(135deg, #00c3ff, #0055ff);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0,85,255,0.4);
+}
+
+.revolut-link i {
+  font-size: 1.2rem;
+}
+
+.unlock-pro-footer {
+  padding: 20px 24px 24px 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.guarantee {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.guarantee i {
+  color: #4ade80;
+  font-size: 1rem;
 }
 
 .hacker-loader {
@@ -4091,8 +4398,148 @@ h2 {
   100% { opacity: 0; transform: translate(2em, 2em); }
 }
 
+/* Responsive стилове за Unlock Pro модала */
+@media (max-width: 768px) {
+  .unlock-pro-modal-content {
+    min-width: 320px;
+    margin: 20px;
+  }
+  
+  .unlock-pro-title h2 {
+    font-size: 1.8rem;
+  }
+  
+  .price-amount {
+    font-size: 2.8rem;
+  }
+  
+  .benefits-list li {
+    font-size: 0.9rem;
+  }
+  
+  .revolut-link {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #unlock-pro-wrapper {
+    bottom: 50px;
+    left: 8px;
+  }
+  
+  .unlock-pro-btn {
+    width: 28px;
+    height: 28px;
+    padding: 3px;
+    font-size: 0.5rem;
+    min-height: 28px;
+  }
+  
+  .unlock-pro-btn svg {
+    width: 14px;
+    height: 10px;
+  }
+  
+  .unlock-pro-modal-content {
+    min-width: 280px;
+    margin: 10px;
+  }
+  
+  .unlock-pro-header {
+    padding: 20px 20px 0 20px;
+  }
+  
+  .unlock-pro-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .unlock-pro-icon i {
+    font-size: 24px;
+  }
+  
+  .unlock-pro-title {
+    padding: 16px 20px 0 20px;
+  }
+  
+  .unlock-pro-title h2 {
+    font-size: 1.6rem;
+  }
+  
+  .unlock-pro-price {
+    padding: 20px 20px 0 20px;
+  }
+  
+  .price-amount {
+    font-size: 2.4rem;
+  }
+  
+  .unlock-pro-benefits {
+    padding: 20px 20px 0 20px;
+  }
+  
+  .unlock-pro-benefits h3 {
+    font-size: 1.1rem;
+  }
+  
+  .benefits-list li {
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+  }
+  
+  .unlock-pro-payment {
+    padding: 20px 20px 0 20px;
+  }
+  
+  .payment-info {
+    font-size: 0.9rem;
+  }
+  
+  .revolut-link {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+  
+  .unlock-pro-footer {
+    padding: 16px 20px 20px 20px;
+  }
+  
+  .guarantee {
+    font-size: 0.8rem;
+  }
+}
+
 @media (max-width: 600px) {
   #unlock-pro-wrapper {
-    display: none !important;
+    position: fixed;
+    bottom: 50px;
+    left: 10px;
+    z-index: 1001;
+  }
+  
+  .unlock-pro-btn {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    border-radius: 50%;
+    font-size: 0.6rem;
+    min-height: 32px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  
+  .unlock-pro-btn svg {
+    width: 16px;
+    height: 12px;
+  }
+  
+  .unlock-pro-btn span {
+    display: none;
+  }
+  
+  .unlock-pro-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   }
 }

@@ -147,17 +147,11 @@
 
     <!-- Facebook бутон -->
     <div class="facebook-button-wrapper">
-        <a href="https://www.facebook.com/profile.php?id=61578418701694" target="_blank" rel="noopener noreferrer" class="facebook-button"> 
-            <span class="facebook-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="33" viewBox="0 0 512 512" height="33">
-                    <g fillRule="evenodd" clipRule="evenodd">
-                        <path fill="#3a5ba2" d="m256.23 512c140.58 0 255.77-115.19 255.77-255.77 0-141.046-115.19-256.23-255.77-256.23-141.046 0-256.23 115.184-256.23 256.23 0 140.58 115.184 255.77 256.23 255.77z" />
-                        <path fill="#fff" d="m224.023 160.085c0-35.372 28.575-63.946 63.938-63.946h48.072v63.946h-32.199c-8.608 0-15.873 7.257-15.873 15.873v32.192h48.072v63.938h-48.072v144.22h-63.938v-144.22h-48.065v-63.938h48.065z" />
-                    </g>
-                </svg>
-            </span>
-            <span class="facebook-text1">Follow me</span>
-            <span class="facebook-text2">1,2k</span> 
+        <a href="https://www.facebook.com/profile.php?id=61578418701694" target="_blank" rel="noopener noreferrer" class="modern-facebook-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 448 512" strokeWidth="0" fill="currentColor" stroke="currentColor" class="facebook-icon">
+                <path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z" />
+            </svg>
+            <span class="facebook-tooltip">Facebook</span>
         </a>
     </div>
 
@@ -348,7 +342,6 @@
       const auth = firebase.auth();
       const db = firebase.firestore();
     </script>
-    <script src="script.js"></script>
     <div id="unlock-pro-wrapper">
       <button class="unlock-pro-btn">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24">
@@ -357,14 +350,61 @@
         <span data-translate="unlock_pro">Unlock Pro</span>
       </button>
     </div>
+    <script src="script.js"></script>
     <!-- Popup за Unlock Pro -->
-    <div id="unlock-pro-modal" class="unlock-pro-modal" style="display:none;">
+    <div id="unlock-pro-modal" class="unlock-pro-modal">
       <div class="unlock-pro-modal-content">
-        <span class="close-unlock-pro-modal">&times;</span>
-        <h2 data-translate="unlock_pro_title">Отключи пълната версия</h2>
-        <p style="font-size:1.2em; margin-bottom: 10px;"><span data-translate="unlock_pro_price">Цена:</span> <b>3.99€</b></p>
-        <p data-translate="unlock_pro_payment_info">Плащането става чрез <b>Revolut</b> на линка долу.<br> <b>В бележка към плащането задължително напишете имейл адреса си!</b></p>
-        <a href="https://revolut.me/deyvidp7g" target="_blank" class="revolut-link" data-translate="pay_with_revolut">Плати с Revolut</a>
+        <div class="unlock-pro-header">
+          <div class="unlock-pro-icon">
+            <i class="fas fa-crown"></i>
+          </div>
+          <span class="close-unlock-pro-modal">&times;</span>
+        </div>
+        
+        <div class="unlock-pro-title">
+          <h2 data-translate="unlock_pro_title">Отключи пълната версия</h2>
+          <div class="unlock-pro-badge">
+            <span class="badge-text">PREMIUM</span>
+          </div>
+        </div>
+        
+        <div class="unlock-pro-price">
+          <div class="price-container">
+            <span class="price-currency">€</span>
+            <span class="price-amount">3.99</span>
+            <span class="price-period">еднократно</span>
+          </div>
+        </div>
+        
+        <div class="unlock-pro-benefits">
+          <h3>Предимства на пълната версия:</h3>
+          <ul class="benefits-list">
+            <li><i class="fas fa-check-circle"></i> няма чакане на всеки 3 рунда по 30 сек.</li>
+            <li><i class="fas fa-check-circle"></i> няма реклами и дразнещи съобщения</li>
+            <li><i class="fas fa-check-circle"></i> неограничен брой игри</li>
+            <li><i class="fas fa-check-circle"></i> ексклузивни карти и теми</li>
+            <li><i class="fas fa-check-circle"></i> приоритетна поддръжка</li>
+            <li><i class="fas fa-check-circle"></i> бъдещи обновления включени</li>
+          </ul>
+        </div>
+        
+        <div class="unlock-pro-payment">
+          <p class="payment-info" data-translate="unlock_pro_payment_info">
+            Плащането става чрез <strong>Revolut</strong> на линка долу.<br>
+            <strong>В бележка към плащането задължително напишете имейл адреса си!</strong>
+          </p>
+          <a href="https://revolut.me/deyvidp7g" target="_blank" class="revolut-link" data-translate="pay_with_revolut">
+            <i class="fas fa-credit-card"></i>
+            Плати с Revolut
+          </a>
+        </div>
+        
+        <div class="unlock-pro-footer">
+          <p class="guarantee">
+            <i class="fas fa-shield-alt"></i>
+            100% сигурно плащане • 30-дневна гаранция
+          </p>
+        </div>
       </div>
     </div>
 </body>
