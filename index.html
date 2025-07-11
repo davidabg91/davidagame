@@ -270,7 +270,7 @@
             <div class="registration-footer">
                 <!-- Премахвам стария линк -->
                 <!-- <p data-translate="already_have_account">Вече имате акаунт? <a href="#" id="login-link" class="login-link-btn" data-translate="login">Влезте</a></p> -->
-                <button type="button" id="open-login-btn" class="btn login-btn" style="margin-top: 10px; width: 100%; background: linear-gradient(45deg, #00bcd4, #4ECDC4); color: white; font-weight: 600; font-size: 1.1rem; border-radius: 25px;">ВХОД</button>
+                <button type="button" id="open-login-btn" class="btn login-btn" style="margin-top: 10px; width: 100%; background: linear-gradient(45deg, #00bcd4, #4ECDC4); color: white; font-weight: 600; font-size: 1.1rem; border-radius: 25px;" data-translate="login">ВХОД</button>
             </div>
         </div>
     </div>
@@ -287,7 +287,7 @@
                     <button type="submit" data-translate="login">Влез</button>
                 </form>
                 <div style="text-align:center; margin-top:10px;">
-                    <a href="#" id="forgot-password-link" style="color:#00bcd4; text-decoration:underline; cursor:pointer;">Забравена парола?</a>
+                    <a href="#" id="forgot-password-link" style="color:#00bcd4; text-decoration:underline; cursor:pointer;" data-translate="forgot_password">Забравена парола?</a>
                 </div>
                 <div id="rays">
                     <svg fill="none" viewBox="0 0 299 152" height="9em" width="18em" xmlns="http://www.w3.org/2000/svg">
@@ -314,9 +314,9 @@
         <div class="modal-content login-content">
             <span class="close-modal" id="close-reset-password">&times;</span>
             <form id="reset-password-form" class="form">
-                <div id="reset-label">Възстановяване на парола</div>
+                <div id="reset-label" data-translate="reset_password_title">Възстановяване на парола</div>
                 <input class="form-content" type="email" id="reset-email" name="reset-email" placeholder="Имейл адрес" required autocomplete="email" />
-                <button type="submit">Изпрати линк за възстановяване</button>
+                <button type="submit" data-translate="send_reset_link">Изпрати линк за възстановяване</button>
             </form>
         </div>
     </div>
@@ -354,17 +354,17 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24">
           <path d="m18 0 8 12 10-8-4 20H4L0 4l10 8 8-12z" />
         </svg>
-        Unlock Pro
+        <span data-translate="unlock_pro">Unlock Pro</span>
       </button>
     </div>
     <!-- Popup за Unlock Pro -->
     <div id="unlock-pro-modal" class="unlock-pro-modal" style="display:none;">
       <div class="unlock-pro-modal-content">
         <span class="close-unlock-pro-modal">&times;</span>
-        <h2>Отключи пълната версия</h2>
-        <p style="font-size:1.2em; margin-bottom: 10px;">Цена: <b>3.99€</b></p>
-        <p>Плащането става чрез <b>Revolut</b> на линка долу.<br> <b>В бележка към плащането задължително напишете имейл адреса си!</b></p>
-        <a href="https://revolut.me/deyvidp7g" target="_blank" class="revolut-link">Плати с Revolut</a>
+        <h2 data-translate="unlock_pro_title">Отключи пълната версия</h2>
+        <p style="font-size:1.2em; margin-bottom: 10px;"><span data-translate="unlock_pro_price">Цена:</span> <b>3.99€</b></p>
+        <p data-translate="unlock_pro_payment_info">Плащането става чрез <b>Revolut</b> на линка долу.<br> <b>В бележка към плащането задължително напишете имейл адреса си!</b></p>
+        <a href="https://revolut.me/deyvidp7g" target="_blank" class="revolut-link" data-translate="pay_with_revolut">Плати с Revolut</a>
       </div>
     </div>
 </body>

@@ -109,9 +109,37 @@ const translations = {
         login_success: "Влязохте успешно!",
         login_error: "Грешка при вход. Проверете потребителското име и паролата.",
         logout_success: "Излязохте от профила си!",
+        logout_error: "Грешка при изход",
+        send_error: "Грешка при изпращане",
+        wrong_email_password: "Грешен имейл или парола!",
+        wrong_username_password: "Грешно потребителско име или парола!",
+        username_exists: "Потребителското име вече съществува!",
+        email_exists: "Имейлът вече е използван!",
+        weak_password: "Паролата трябва да е поне 6 символа!",
         attention_title: "ВНИМАНИЕ!",
         attention_message: "Всички играчи да се одръпнат!",
-        attention_submessage: "Да остане само първият играч!"
+        attention_submessage: "Да остане само първият играч!",
+        unlock_pro: "Unlock Pro",
+        unlock_pro_title: "Отключи пълната версия",
+        unlock_pro_price: "Цена:",
+        unlock_pro_payment_info: "Плащането става чрез Revolut на линка долу. В бележка към плащането задължително напишете имейл адреса си!",
+        pay_with_revolut: "Плати с Revolut",
+        forgot_password: "Забравена парола?",
+        reset_password_title: "Възстановяване на парола",
+        send_reset_link: "Изпрати линк за възстановяване",
+        reset_email_sent: "Изпратен е имейл за възстановяване на паролата!",
+        free_version: "Безплатна версия",
+        free_limit_message: "Изиграхте 3 поредни рунда. Това е лимитът за безплатната версия. Изчакайте",
+        free_limit_seconds: "секунди преди да продължите.",
+        free_limit_payment_info: "Ако желаете да отключите пълната версия, направете плащане през Revolut. В бележката към превода задължително въведете имейл адреса си!",
+        remove_limit: "Премахни лимита (3.99€)",
+        game_ended: "🎉 Играта приключи!",
+        thanks_for_playing: "Благодарим за играта!",
+        winner: "Победител:",
+        duration: "Продължителност:",
+        new_game: "Нова игра",
+        main_menu: "Главно меню",
+        attention_next_player: "ВНИМАНИЕ: ДА ГЛЕДА САМО СЛЕДВАЩИЯ ИГРАЧ"
     },
     en: {
         player_count: "Number of Players",
@@ -222,9 +250,37 @@ const translations = {
         login_success: "You logged in successfully!",
         login_error: "Login error. Please check your username and password.",
         logout_success: "You logged out successfully!",
+        logout_error: "Logout error",
+        send_error: "Send error",
+        wrong_email_password: "Wrong email or password!",
+        wrong_username_password: "Wrong username or password!",
+        username_exists: "Username already exists!",
+        email_exists: "Email already in use!",
+        weak_password: "Password must be at least 6 characters!",
         attention_title: "ATTENTION!",
         attention_message: "All players must step back!",
-        attention_submessage: "Only the first player should remain!"
+        attention_submessage: "Only the first player should remain!",
+        unlock_pro: "Unlock Pro",
+        unlock_pro_title: "Unlock Full Version",
+        unlock_pro_price: "Price:",
+        unlock_pro_payment_info: "Payment is made through Revolut using the link below. In the payment note, please write your email address!",
+        pay_with_revolut: "Pay with Revolut",
+        forgot_password: "Forgot Password?",
+        reset_password_title: "Reset Password",
+        send_reset_link: "Send Reset Link",
+        reset_email_sent: "Password reset email sent!",
+        free_version: "Free Version",
+        free_limit_message: "You played 3 consecutive rounds. This is the limit for the free version. Wait",
+        free_limit_seconds: "seconds before continuing.",
+        free_limit_payment_info: "If you want to unlock the full version, make a payment through Revolut. In the payment note, please enter your email address!",
+        remove_limit: "Remove Limit (3.99€)",
+        game_ended: "🎉 Game Ended!",
+        thanks_for_playing: "Thanks for playing!",
+        winner: "Winner:",
+        duration: "Duration:",
+        new_game: "New Game",
+        main_menu: "Main Menu",
+        attention_next_player: "ATTENTION: ONLY THE NEXT PLAYER SHOULD LOOK"
     }
 };
 
@@ -376,7 +432,7 @@ const registerBtn = document.getElementById('register-btn');
 const logoutBtn = document.getElementById('logout-btn');
 
 // Променям текста на бутона
-nextPlayerButton.textContent = 'Следващ играч';
+nextPlayerButton.textContent = translateText('next_player');
 
 // Генериране на нивата при зареждане на страницата
 function generateGameLevels() {
@@ -482,7 +538,7 @@ function showCountdown() {
                 </div>
             </div>
             <div class="countdown">${count}</div>
-            <div class="countdown-message">ВНИМАНИЕ: ДА ГЛЕДА САМО СЛЕДВАЩИЯ ИГРАЧ</div>
+            <div class="countdown-message">${translateText('attention_next_player')}</div>
         </div>
     `;
     const buttonText = currentPlayerDisplay.querySelector('.button-text');
@@ -1778,11 +1834,11 @@ function loginUser(username, password) {
         
         setCurrentUser(username);
         localStorage.setItem('isLoggedIn', 'true');
-        showMessage('Успешен вход!', 'success');
+        showMessage(translateText('login_success'), 'success');
         updateProfilePanel();
         return true;
     } else {
-        showMessage('Грешно потребителско име или парола!', 'error');
+        showMessage(translateText('wrong_username_password'), 'error');
         return false;
     }
 }
@@ -1792,11 +1848,11 @@ function registerUser(username, email, password) {
     const users = getUsersDB();
     // Проверка за уникалност
     if (users.find(u => u.username === username)) {
-        showMessage('Потребителското име вече съществува!', 'error');
+        showMessage(translateText('username_exists'), 'error');
         return false;
     }
     if (users.find(u => u.email === email)) {
-        showMessage('Имейлът вече е използван!', 'error');
+        showMessage(translateText('email_exists'), 'error');
         return false;
     }
     // Симулиране на "хеширане" на паролата (само за демо)
@@ -1818,7 +1874,7 @@ function registerUser(username, email, password) {
     setCurrentUser(username);
     localStorage.setItem('isRegistered', 'true');
     localStorage.setItem('isLoggedIn', 'true');
-    showMessage('Регистрацията е успешна!', 'success');
+    showMessage(translateText('registration_success'), 'success');
     return true;
 }
 
@@ -1875,7 +1931,7 @@ function logoutUser() {
     }
     
     localStorage.removeItem('currentUser');
-    showMessage('Успешно излязохте от системата!', 'success');
+    showMessage(translateText('logout_success'), 'success');
     updateProfilePanel();
 }
 
@@ -1893,21 +1949,21 @@ function showGameEndScreen() {
     const gameEndHTML = `
         <div class="game-end-screen">
             <div class="game-end-content">
-                <h2>🎉 Играта приключи!</h2>
-                <p>Благодарим за играта!</p>
+                <h2>${translateText('game_ended')}</h2>
+                <p>${translateText('thanks_for_playing')}</p>
                 <div class="game-stats">
                     <div class="stat">
-                        <span class="stat-label">Победител:</span>
+                        <span class="stat-label">${translateText('winner')}</span>
                         <span class="stat-value">${winner}</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-label">Продължителност:</span>
+                        <span class="stat-label">${translateText('duration')}</span>
                         <span class="stat-value">${gameDuration}</span>
                     </div>
                 </div>
                 <div class="game-end-buttons">
-                    <button class="game-btn primary" onclick="startNewGame()">Нова игра</button>
-                    <button class="game-btn secondary" onclick="showMainMenu()">Главно меню</button>
+                    <button class="game-btn primary" onclick="startNewGame()">${translateText('new_game')}</button>
+                    <button class="game-btn secondary" onclick="showMainMenu()">${translateText('main_menu')}</button>
                 </div>
             </div>
         </div>
@@ -2243,15 +2299,15 @@ async function registerUserFirebase(username, email, password, age, favoriteGame
         localStorage.setItem('currentUser', JSON.stringify({ username, uid: user.uid }));
         localStorage.setItem('isRegistered', 'true');
         localStorage.setItem('isLoggedIn', 'true');
-        showMessage('Регистрацията е успешна!', 'success');
+        showMessage(translateText('registration_success'), 'success');
         return true;
     } catch (error) {
         if (error.code === 'auth/email-already-in-use') {
-            showMessage('Имейлът вече е използван!', 'error');
+            showMessage(translateText('email_exists'), 'error');
         } else if (error.code === 'auth/weak-password') {
-            showMessage('Паролата трябва да е поне 6 символа!', 'error');
+            showMessage(translateText('weak_password'), 'error');
         } else {
-            showMessage('Грешка при регистрация: ' + error.message, 'error');
+            showMessage(translateText('registration_error') + ': ' + error.message, 'error');
         }
         return false;
     }
@@ -2280,13 +2336,13 @@ async function loginUserFirebase(email, password) {
         localStorage.setItem('currentUser', JSON.stringify({ ...profile, uid: user.uid }));
         localStorage.setItem('isLoggedIn', 'true');
         updateProfilePanel();
-        showMessage('Успешен вход!', 'success');
+        showMessage(translateText('login_success'), 'success');
         return true;
     } catch (error) {
         if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-            showMessage('Грешен имейл или парола!', 'error');
+            showMessage(translateText('wrong_email_password'), 'error');
         } else {
-            showMessage('Грешка при вход: ' + error.message, 'error');
+            showMessage(translateText('login_error') + ': ' + error.message, 'error');
         }
         return false;
     }
@@ -2313,9 +2369,9 @@ async function logoutUserFirebase() {
         localStorage.removeItem('currentUser');
         localStorage.setItem('isLoggedIn', 'false');
         updateProfilePanel();
-        showMessage('Успешно излязохте от профила!', 'success');
+        showMessage(translateText('logout_success'), 'success');
     } catch (error) {
-        showMessage('Грешка при изход: ' + error.message, 'error');
+        showMessage(translateText('logout_error') + ': ' + error.message, 'error');
     }
 }
 
@@ -2349,12 +2405,12 @@ if (resetPasswordForm) {
         const email = document.getElementById('reset-email').value;
         try {
             await auth.sendPasswordResetEmail(email);
-            showMessage('Изпратен е имейл за възстановяване на паролата!', 'success');
+            showMessage(translateText('reset_email_sent'), 'success');
             resetPasswordModal.style.display = 'none';
             resetPasswordModal.classList.remove('show');
             document.body.style.overflow = 'auto';
         } catch (error) {
-            showMessage('Грешка при изпращане: ' + error.message, 'error');
+            showMessage(translateText('send_error') + ': ' + error.message, 'error');
         }
     });
 }
@@ -2379,9 +2435,14 @@ function checkFreeGameLimitAndMaybeBlock(startGameCallback) {
     startGameCallback();
 }
 
-function showFreeGameBlockModal(startGameCallback) {
-    // Ако вече има модал, не създаваме нов
-    if (document.getElementById('free-game-block-modal')) return;
+// Модифицирам showFreeGameBlockModal да проверява за nolimit
+async function showFreeGameBlockModal(startGameCallback) {
+    // FIREBASE: ако потребителят има nolimit, не показваме модала
+    if (await checkUserNoLimit()) {
+        if (typeof startGameCallback === 'function') startGameCallback();
+        return;
+    }
+    // ... останалия код на showFreeGameBlockModal ...
     let seconds = 30;
     const modal = document.createElement('div');
     modal.id = 'free-game-block-modal';
@@ -2398,10 +2459,10 @@ function showFreeGameBlockModal(startGameCallback) {
     modal.style.zIndex = '9999';
     modal.innerHTML = `
         <div style="background: #fff; border-radius: 18px; padding: 32px 24px; max-width: 350px; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.25);">
-            <h2 style="color: #FF6B6B; margin-bottom: 12px;">Безплатна версия</h2>
-            <p style="font-size: 1.1rem; color: #222; margin-bottom: 10px;">Изиграхте 3 поредни рунда.<br>Това е лимитът за безплатната версия.<br><b>Изчакайте <span id='free-block-timer'>30</span> секунди</b> преди да продължите.</p>
-            <p style="color: #aa2068; font-size: 1em; margin-bottom: 10px;">Ако желаете да отключите пълната версия, направете плащане през Revolut.<br><b>В бележката към превода задължително въведете имейл адреса си!</b></p>
-            <button id="buy-premium-btn" style="margin: 10px 0 0 0; padding: 10px 18px; background: #FFD93D; color: #222; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Премахни лимита (3.99€)</button>
+            <h2 style="color: #FF6B6B; margin-bottom: 12px;">${translateText('free_version')}</h2>
+            <p style="font-size: 1.1rem; color: #222; margin-bottom: 10px;">${translateText('free_limit_message')}<br><b>${translateText('free_limit_seconds')}</b></p>
+            <p style="color: #aa2068; font-size: 1em; margin-bottom: 10px;">${translateText('free_limit_payment_info')}</p>
+            <button id="buy-premium-btn" style="margin: 10px 0 0 0; padding: 10px 18px; background: #FFD93D; color: #222; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">${translateText('remove_limit')}</button>
         </div>
     `;
     document.body.appendChild(modal);
@@ -2699,3 +2760,32 @@ setInterval(() => {
 // ... existing code ...
 
 let roundsPlayed = 0; // Нов брояч за рундове
+
+// ... existing code ...
+// === FIREBASE: Проверка за nolimit ===
+async function checkUserNoLimit() {
+    const currentUser = getCurrentUser();
+    if (currentUser && currentUser.uid) {
+        const doc = await db.collection('users').doc(currentUser.uid).get();
+        if (doc.exists && doc.data().nolimit === true) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Примерна функция за админите: задаване на nolimit на потребител по имейл
+async function setUserNoLimitByEmail(email) {
+    const usersRef = db.collection('users');
+    const query = await usersRef.where('email', '==', email).get();
+    if (!query.empty) {
+        const userDoc = query.docs[0];
+        await userDoc.ref.update({ nolimit: true });
+        console.log('Потребителят е с nolimit:', email);
+    } else {
+        console.log('Не е намерен потребител с този имейл:', email);
+    }
+}
+window.setUserNoLimitByEmail = setUserNoLimitByEmail;
+
+// ... existing code ...
