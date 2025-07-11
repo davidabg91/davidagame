@@ -610,6 +610,15 @@ function showLevelEnd() {
     console.log('=== showLevelEnd завършена ===');
     // Записваме изиграна игра и проверяваме лимита при всеки рунд
     recordGame();
+    roundsPlayed++;
+    // Проверка за лимит на всеки 3 рунда
+    if (roundsPlayed > 0 && roundsPlayed % 3 === 0) {
+        showFreeGameBlockModal(() => {
+            // Продължаваме към следващия рунд след изчакване
+            checkFreeGameLimitAndMaybeBlock(() => {});
+        });
+        return;
+    }
     checkFreeGameLimitAndMaybeBlock(() => {
         // нищо, просто позволяваме да продължи рунда
     });
@@ -679,6 +688,7 @@ function resetGame() {
     currentPlayer = 1;
     totalPlayers = 0;
     currentLevel = 0;
+    roundsPlayed = 0; // Нулираме брояча при нова игра
     clearInterval(countdownInterval);
     generateGameLevels();
 }
@@ -816,6 +826,11 @@ window.addEventListener('click', (e) => {
     }
     // Затваряне на login модала при клик извън него
     if (e.target === loginModal) {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (!isLoggedIn) {
+            showMessage('Трябва да влезете в профила си, за да продължите!', 'error');
+            return;
+        }
         hideLogin();
     }
 });
@@ -1152,23 +1167,32 @@ function showRegistration() {
     registrationModal.style.display = 'block';
     registrationModal.classList.add('show');
     document.body.style.overflow = 'hidden';
-    // Свързване на бутона "Вече имате акаунт?" след показване на модала
-    setTimeout(() => {
-        const loginLinkBtn = document.getElementById('login-link');
-        if (loginLinkBtn) {
-            // Премахваме всички стари слушатели чрез клониране
-            const newBtn = loginLinkBtn.cloneNode(true);
-            loginLinkBtn.parentNode.replaceChild(newBtn, loginLinkBtn);
-            newBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                hideRegistration();
-                showLogin();
-            });
-        } else {
-            console.warn('Бутонът login-link не е намерен след показване на модала!');
-        }
-    }, 100);
+    // Винаги закачаме слушател веднага
+    attachLoginLinkListener();
+    // Закачаме и при всяка промяна на DOM (например превод)
+    const observer = new MutationObserver(() => {
+        attachLoginLinkListener();
+    });
+    observer.observe(registrationModal, { childList: true, subtree: true });
+    registrationModal._loginLinkObserver = observer;
     console.log('=== showRegistration завършена ===');
+}
+
+function attachLoginLinkListener() {
+    const loginLinkBtn = document.getElementById('login-link');
+    if (loginLinkBtn) {
+        loginLinkBtn.tabIndex = 0;
+        loginLinkBtn.style.outline = '2px solid #00fff7';
+        loginLinkBtn.style.outlineOffset = '2px';
+        loginLinkBtn.onclick = function(e) {
+            console.log('Кликнат е login-link!');
+            e.preventDefault();
+            hideRegistration();
+            showLogin();
+        };
+    } else {
+        console.warn('Бутонът login-link не е намерен!');
+    }
 }
 
 // Функция за обработка на клика върху бутона "Вече имате акаунт?"
@@ -1309,6 +1333,11 @@ closeRegistration.addEventListener('click', () => {
 
 // Бутон за затваряне на login модала
 closeLogin.addEventListener('click', () => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (!isLoggedIn) {
+        showMessage('Трябва да влезете в профила си, за да продължите!', 'error');
+        return;
+    }
     hideLogin();
 });
 
@@ -1945,6 +1974,32 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Добавяме event listeners
     addEventListeners();
+    
+    const openLoginBtn = document.getElementById('open-login-btn');
+    if (openLoginBtn) {
+        openLoginBtn.addEventListener('click', function() {
+            hideRegistration();
+            showLogin();
+        });
+    }
+
+    // Unlock Pro popup logic
+    const unlockProBtn = document.querySelector('.unlock-pro-btn');
+    const unlockProModal = document.getElementById('unlock-pro-modal');
+    const closeUnlockProModal = document.querySelector('.close-unlock-pro-modal');
+    if (unlockProBtn && unlockProModal && closeUnlockProModal) {
+        unlockProBtn.addEventListener('click', function() {
+            unlockProModal.style.display = 'flex';
+        });
+        closeUnlockProModal.addEventListener('click', function() {
+            unlockProModal.style.display = 'none';
+        });
+        unlockProModal.addEventListener('click', function(e) {
+            if (e.target === unlockProModal) {
+                unlockProModal.style.display = 'none';
+            }
+        });
+    }
 });
 
 // Функция за инициализиране на статистиката
@@ -2100,6 +2155,11 @@ function addEventListeners() {
     if (closeLogin) {
         console.log('close-login намерен');
         closeLogin.addEventListener('click', () => {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (!isLoggedIn) {
+                showMessage('Трябва да влезете в профила си, за да продължите!', 'error');
+                return;
+            }
             hideLogin();
         });
     } else {
@@ -2339,8 +2399,9 @@ function showFreeGameBlockModal(startGameCallback) {
     modal.innerHTML = `
         <div style="background: #fff; border-radius: 18px; padding: 32px 24px; max-width: 350px; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.25);">
             <h2 style="color: #FF6B6B; margin-bottom: 12px;">Безплатна версия</h2>
-            <p style="font-size: 1.1rem; color: #222; margin-bottom: 10px;">Изиграхте 3 поредни игри.<br>Това е лимитът за безплатната версия.<br><b>Изчакайте <span id='free-block-timer'>30</span> секунди</b> преди да започнете нова игра.</p>
-            <button id="buy-premium-btn" style="margin: 10px 0 0 0; padding: 10px 18px; background: #FFD93D; color: #222; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Премахни лимита (2,99€)</button>
+            <p style="font-size: 1.1rem; color: #222; margin-bottom: 10px;">Изиграхте 3 поредни рунда.<br>Това е лимитът за безплатната версия.<br><b>Изчакайте <span id='free-block-timer'>30</span> секунди</b> преди да продължите.</p>
+            <p style="color: #aa2068; font-size: 1em; margin-bottom: 10px;">Ако желаете да отключите пълната версия, направете плащане през Revolut.<br><b>В бележката към превода задължително въведете имейл адреса си!</b></p>
+            <button id="buy-premium-btn" style="margin: 10px 0 0 0; padding: 10px 18px; background: #FFD93D; color: #222; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Премахни лимита (3.99€)</button>
         </div>
     `;
     document.body.appendChild(modal);
@@ -2356,12 +2417,8 @@ function showFreeGameBlockModal(startGameCallback) {
     }, 1000);
     // Бутон за покупка
     document.getElementById('buy-premium-btn').onclick = function() {
-        clearInterval(timer);
-        document.body.removeChild(modal);
-        isPremium = true;
-        localStorage.setItem('isPremium', 'true');
-        showMessage('Благодарим за покупката! Лимитът е премахнат.', 'success');
-        if (typeof startGameCallback === 'function') startGameCallback();
+        window.open('https://revolut.me/deyvidp7g', '_blank');
+        // НЕ затваряме модала, не спираме таймера
     };
 }
 
@@ -2519,12 +2576,29 @@ function showLoader() {
         loader.style.left = '0';
         loader.style.width = '100vw';
         loader.style.height = '100vh';
-        loader.style.background = 'rgba(0,0,0,0.5)';
+        loader.style.background = 'rgba(0,0,0,0.7)';
         loader.style.display = 'flex';
-        loader.style.justifyContent = 'center';
         loader.style.alignItems = 'center';
-        loader.style.zIndex = '9999';
-        loader.innerHTML = '<div style="background:#fff;padding:30px 40px;border-radius:20px;font-size:1.5rem;">Зареждане...</div>';
+        loader.style.justifyContent = 'center';
+        loader.style.zIndex = '99999';
+        loader.innerHTML = `
+            <div class="hacker-loader">
+                <div class="loader-text">
+                    <span data-text="Initializing..." class="text-glitch">Initializing...</span>
+                </div>
+                <div class="loader-bar">
+                    <div class="bar-fill"></div>
+                    <div class="bar-glitch"></div>
+                </div>
+                <div class="particles">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+            </div>
+        `;
         document.body.appendChild(loader);
     }
 }
@@ -2564,3 +2638,64 @@ async function startGame() {
     isFirstPlayerScreen = true;
 }
 // ... existing code ...
+
+// ... existing code ...
+function attachLoginLinkListener() {
+    // Ако вече има listener, не правим нищо
+    const loginLink = document.getElementById('login-link');
+    if (loginLink) {
+        loginLink.onclick = function(e) {
+            e.preventDefault();
+            console.log('Кликнат е login-link!');
+            showLogin();
+        };
+        loginLink.tabIndex = 0;
+        loginLink.style.outline = '2px solid #00fff7';
+        console.log('attachLoginLinkListener: Закачен успешно!');
+    } else {
+        console.warn('attachLoginLinkListener: login-link не е намерен! Ще следим с MutationObserver.');
+        // Създаваме observer, който следи за появата на login-link
+        const observer = new MutationObserver(() => {
+            const link = document.getElementById('login-link');
+            if (link) {
+                link.onclick = function(e) {
+                    e.preventDefault();
+                    console.log('Кликнат е login-link! (observer)');
+                    showLogin();
+                };
+                link.tabIndex = 0;
+                link.style.outline = '2px solid #00fff7';
+                console.log('attachLoginLinkListener: Закачен успешно чрез observer!');
+                observer.disconnect();
+            }
+        });
+        observer.observe(registrationModal, { childList: true, subtree: true });
+    }
+}
+// ... existing code ...
+
+// ... existing code ...
+// === ГЛОБАЛЕН OBSERVER ЗА login-link ===
+// (observer премахнат, защото вече не се използва login-link)
+// ... existing code ...
+
+// ... existing code ...
+// === АГРЕСИВЕН INTERVAL ЗА login-link ===
+setInterval(() => {
+    const loginLink = document.getElementById('login-link');
+    if (loginLink && !loginLink._loginListenerAttached) {
+        loginLink.onclick = function(e) {
+            e.preventDefault();
+            console.log('Кликнат е login-link! (interval)');
+            hideRegistration();
+            showLogin();
+        };
+        loginLink.tabIndex = 0;
+        loginLink.style.outline = '2px solid #00fff7';
+        loginLink._loginListenerAttached = true;
+        console.log('[INTERVAL] Закачен listener на login-link!', loginLink);
+    }
+}, 500);
+// ... existing code ...
+
+let roundsPlayed = 0; // Нов брояч за рундове

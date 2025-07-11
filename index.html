@@ -268,7 +268,9 @@
             </form>
             
             <div class="registration-footer">
-                <p data-translate="already_have_account">Вече имате акаунт? <button type="button" id="login-link" class="login-link-btn" data-translate="login">Влезте</button></p>
+                <!-- Премахвам стария линк -->
+                <!-- <p data-translate="already_have_account">Вече имате акаунт? <a href="#" id="login-link" class="login-link-btn" data-translate="login">Влезте</a></p> -->
+                <button type="button" id="open-login-btn" class="btn login-btn" style="margin-top: 10px; width: 100%; background: linear-gradient(45deg, #00bcd4, #4ECDC4); color: white; font-weight: 600; font-size: 1.1rem; border-radius: 25px;">ВХОД</button>
             </div>
         </div>
     </div>
@@ -347,5 +349,23 @@
       const db = firebase.firestore();
     </script>
     <script src="script.js"></script>
+    <div id="unlock-pro-wrapper">
+      <button class="unlock-pro-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24">
+          <path d="m18 0 8 12 10-8-4 20H4L0 4l10 8 8-12z" />
+        </svg>
+        Unlock Pro
+      </button>
+    </div>
+    <!-- Popup за Unlock Pro -->
+    <div id="unlock-pro-modal" class="unlock-pro-modal" style="display:none;">
+      <div class="unlock-pro-modal-content">
+        <span class="close-unlock-pro-modal">&times;</span>
+        <h2>Отключи пълната версия</h2>
+        <p style="font-size:1.2em; margin-bottom: 10px;">Цена: <b>3.99€</b></p>
+        <p>Плащането става чрез <b>Revolut</b> на линка долу.<br> <b>В бележка към плащането задължително напишете имейл адреса си!</b></p>
+        <a href="https://revolut.me/deyvidp7g" target="_blank" class="revolut-link">Плати с Revolut</a>
+      </div>
+    </div>
 </body>
 </html>
