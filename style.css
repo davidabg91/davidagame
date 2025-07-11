@@ -151,23 +151,259 @@ h2 {
     box-shadow: 0 5px 15px rgba(44, 62, 80, 0.15);
 }
 
-.rules-btn {
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 3px solid rgba(255, 107, 107, 0.6);
-    color: #2c3e50;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 2px 10px rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
-    font-weight: 600;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+/* Нови стилове за бутона за правилата */
+.styled-wrapper-rules {
+    margin-top: 1.5rem;
 }
 
-.rules-btn:hover {
-    background: rgba(255, 255, 255, 0.5);
-    border-color: rgba(255, 107, 107, 0.8);
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), inset 0 2px 10px rgba(255, 255, 255, 0.4);
+.btn-rules {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 13rem;
+    overflow: hidden;
+    height: 3rem;
+    background-size: 300% 300%;
+    cursor: pointer;
+    backdrop-filter: blur(1rem);
+    border-radius: 5rem;
+    transition: 0.5s;
+    animation: gradient_301 5s ease infinite;
+    border: double 4px transparent;
+    background-image: linear-gradient(#212121, #212121),
+      linear-gradient(
+        137.48deg,
+        #ffdb3b 10%,
+        #fe53bb 45%,
+        #8f51ea 67%,
+        #0044ff 87%
+      );
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+#container-stars-rules {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: 0.5s;
+    backdrop-filter: blur(1rem);
+    border-radius: 5rem;
+}
+
+.btn-rules strong {
+    z-index: 2;
+    font-family: "Avalors Personal Use", "Arial", sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-shadow: 0 0 4px white;
+}
+
+#glow-rules {
+    position: absolute;
+    display: flex;
+    width: 12rem;
+}
+
+.circle-rules {
+    width: 100%;
+    height: 30px;
+    filter: blur(2rem);
+    animation: pulse_3011 4s infinite;
+    z-index: -1;
+}
+
+.circle-rules:nth-of-type(1) {
+    background: rgba(254, 83, 186, 0.636);
+}
+
+.circle-rules:nth-of-type(2) {
+    background: rgba(142, 81, 234, 0.704);
+}
+
+.btn-rules:hover #container-stars-rules {
+    z-index: 1;
+    background-color: #212121;
+}
+
+.btn-rules:hover {
+    transform: scale(1.1);
+}
+
+.btn-rules:active {
+    border: double 4px #fe53bb;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    animation: none;
+}
+
+.btn-rules:active .circle-rules {
+    background: #fe53bb;
+}
+
+#stars-rules {
+    position: relative;
+    background: transparent;
+    width: 200rem;
+    height: 200rem;
+}
+
+#stars-rules::after {
+    content: "";
+    position: absolute;
+    top: -10rem;
+    left: -100rem;
+    width: 100%;
+    height: 100%;
+    animation: animStarRotate 90s linear infinite;
+}
+
+#stars-rules::after {
+    background-image: radial-gradient(#ffffff 1px, transparent 1%);
+    background-size: 50px 50px;
+}
+
+#stars-rules::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 170%;
+    height: 500%;
+    animation: animStar 60s linear infinite;
+}
+
+#stars-rules::before {
+    background-image: radial-gradient(#ffffff 1px, transparent 1%);
+    background-size: 50px 50px;
+    opacity: 0.5;
+}
+
+@keyframes animStar {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-135rem);
+    }
+}
+
+@keyframes animStarRotate {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0);
+    }
+}
+
+@keyframes gradient_301 {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes pulse_3011 {
+    0% {
+        transform: scale(0.75);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+    100% {
+        transform: scale(0.75);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
+/* Facebook бутон */
+.facebook-button-wrapper {
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.facebook-button {
+    position: relative;
+    width: 130px;
+    height: 35px;
+    border-radius: 30px;
+    background-color: white;
+    border: 1px #3a5ba2 solid;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+}
+
+.facebook-text1 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-left: 28%;
+    color: #3a5ba2;
+    transition: all 0.5s ease;
+}
+
+.facebook-text2 {
+    position: absolute;
+    top: 25%;
+    left: -50px;
+    font-weight: 700;
+    font-size: 14px;
+    color: white;
+    transition: transform 0.6s ease;
+}
+
+.facebook-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.5s ease;
+}
+
+.facebook-icon::before {
+    position: absolute;
+    left: -100px;
+    top: 0;
+    z-index: -1;
+    content: '';
+    width: 130px;
+    height: 33px;
+    border-radius: 30px;
+    background-color: #3a5ba2;
+}
+
+.facebook-button:hover .facebook-icon {
+    transform: translateX(96px);
+    transition: transform 0.5s ease;
+}
+
+.facebook-button:hover .facebook-text2 {
+    transform: translateX(100px);
+    transition: transform 0.6s ease;
+}
+
+.facebook-button:active {
+    transform: scale(1.03);
+}
+
+.facebook-button:hover {
+    box-shadow: 0 5px 15px rgba(58, 91, 162, 0.3);
+    text-decoration: none;
+    color: inherit;
 }
 
 .player-count-container {
@@ -226,28 +462,78 @@ h2 {
     box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
 }
 
-#start-game {
-    background: #FF6B6B;
-    color: white;
-    border: none;
-    padding: 1.2rem 2.5rem;
-    font-size: 1.3rem;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+/* Нови стилове за анимирания бутон */
+.styled-wrapper {
     margin-top: 1.5rem;
-    font-weight: 700;
 }
 
-#start-game:hover {
-    transform: translateY(-2px);
-    background: #ff5252;
-    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+.animated-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 0 25px;
+    color: white;
+    text-shadow: 2px 2px rgb(116, 116, 116);
+    text-transform: uppercase;
+    cursor: pointer;
+    border: solid 3px black;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 24px;
+    background-color: hsl(49deg 98% 60%);
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    min-height: 100px;
+    min-width: 350px;
 }
 
-#start-game:active {
-    transform: translateY(0);
+.animated-button:active {
+    transform: scale(0.9);
+    transition: all 100ms ease;
+}
+
+.animated-button svg {
+    transition: all 0.5s ease;
+    z-index: 2;
+}
+
+.animated-button .play {
+    transition: all 0.5s ease;
+    transition-delay: 300ms;
+}
+
+.animated-button:hover svg {
+    transform: scale(3) translate(50%);
+}
+
+.animated-button .now {
+    position: absolute;
+    left: 0;
+    transform: translateX(-100%);
+    transition: all 0.5s ease;
+    z-index: 2;
+}
+
+.animated-button:hover .now {
+    transform: translateX(10px);
+    transition-delay: 300ms;
+}
+
+.animated-button:hover .play {
+    transform: translateX(200%);
+    transition-delay: 300ms;
+}
+
+/* Запазваме стария ID за съвместимост */
+#start-game {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
 }
 
 #setup-screen {
@@ -291,80 +577,171 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 30px;
 }
 
-.change-round-btn {
-    background: linear-gradient(45deg, #6C5CE7, #A29BFE) !important;
-    font-size: 0.8rem !important;
-    padding: 8px 16px !important;
-    border-radius: 18px !important;
-    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.3) !important;
-    transition: all 0.3s ease !important;
-    min-width: 120px;
-    margin-top: 5px;
-    order: 2;
+/* Нови стилове за бутона "Смени рунда" */
+.change-round-submit {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: transparent;
+    text-transform: uppercase;
+    border: 0.1vw solid rgb(50, 50, 50);
+    box-shadow:
+        0 0 0.5vw black,
+        0 0 0.5vw 0.1vw transparent,
+        0vw 0 2vw -0.5vw black,
+        0vw 0 2vw -0.5vw black,
+        0 -1vw 1vw -1vw transparent inset;
+    padding: 0.4vw 0.55vw;
+    width: 8vw;
+    height: 2vw;
+    border-radius: 0.2vw;
+    cursor: pointer;
+    text-shadow: 0.05vw 0 0 white;
+    font-size: 0.8vw;
+    position: relative;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    font-family: arial;
+    letter-spacing: 0.2vw;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    margin-top: 20px;
 }
 
-.change-round-btn:hover {
-    transform: translateY(-1px) scale(1.02);
-    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.4) !important;
+.change-round-submit:after {
+    content: "СМЕНИ РУНДА";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: transparent;
+    text-shadow: 1.8vw 1.8vw 1.2vw white;
+    text-transform: uppercase;
+    font-size: 0.8vw;
+    letter-spacing: 5.2vw;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
 }
 
-.change-round-btn:active {
-    transform: translateY(0) scale(0.98);
+.change-round-submit:hover:after,
+.change-round-submit:focus:after {
+    letter-spacing: 0.28vw;
+    text-shadow: 0.08vw 0vw 0 white;
 }
 
-.change-round-btn i {
-    margin-right: 5px;
-    font-size: 0.7rem;
+.change-round-submit:before {
+    content: "СМЕНИ РУНДА";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: transparent;
+    text-shadow: 1.8vw -2vw 1.2vw white;
+    text-transform: uppercase;
+    font-size: 0.8vw;
+    letter-spacing: 5.2vw;
+    -webkit-transition: 0.8s;
+    transition: 0.8s;
+}
+
+.change-round-submit:hover:before,
+.change-round-submit:focus:before {
+    letter-spacing: 0.28vw;
+    text-shadow: 0.08vw 0vw 0.08vw white;
+}
+
+.change-round-submit:hover,
+.change-round-submit:focus {
+    box-shadow:
+        0 0 2vw black,
+        0 0 1.2vw 0.1vw black,
+        4vw 0 2vw -0.5vw rgb(255, 0, 105),
+        -4vw 0 2vw -0.5vw rgb(255, 0, 105),
+        0 -1vw 1vw -1vw rgb(255, 0, 105) inset;
+    -webkit-transform: scale(1.15, 1.15);
+    transform: scale(1.15, 1.15);
+    background: rgba(0, 0, 0, 0.2);
+    font-size: 1.25vw;
+    letter-spacing: 1.28vw;
+    padding: 0.4vw 1vw;
+    text-shadow: 0 0 2vw white;
+    border-bottom: 0.1vw solid rgb(255, 0, 105);
 }
 
 #game-screen {
     text-align: center;
 }
 
-#current-player {
-    font-size: 2rem;
-    font-weight: 700;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 15px;
-    padding: 15px 30px;
-    border-radius: 15px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border: 3px solid rgba(255, 255, 255, 0.2);
-    position: relative;
-    display: inline-flex;
-    align-items: center;
+/* Нови стилове за бутона за текущия играч */
+.current-player-container {
+    display: flex;
     justify-content: center;
-    gap: 15px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    letter-spacing: 1px;
-    width: auto;
-    margin: 0 auto 15px auto;
+    margin-bottom: 15px;
 }
 
-#current-player::before {
-    content: '👤';
-    font-size: 2.5rem;
-    animation: playerIcon 2s ease-in-out infinite;
+.current-player-button {
+    background: #fbca1f;
+    font-family: inherit;
+    padding: 0.6em 1.3em;
+    font-weight: 900;
+    font-size: 18px;
+    border: 3px solid black;
+    border-radius: 0.4em;
+    box-shadow: 0.1em 0.1em;
+    cursor: pointer;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    transition: all 0.2s ease;
 }
 
-@keyframes playerIcon {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.1) rotate(5deg); }
+.current-player-button:hover {
+    transform: translate(-0.05em, -0.05em);
+    box-shadow: 0.15em 0.15em;
+}
+
+.current-player-button:active {
+    transform: translate(0.05em, 0.05em);
+    box-shadow: 0.05em 0.05em;
 }
 
 #timer {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 800;
     color: #FF6B6B;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 #images-container {
@@ -442,6 +819,20 @@ h2 {
     text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
     font-weight: 700;
     margin: 0 auto;
+    animation: impostorMessageGlow 2s ease-in-out infinite;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+@keyframes impostorMessageGlow {
+    0%, 100% { 
+        box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3), 0 0 20px rgba(255, 107, 107, 0.2);
+        border-color: rgba(255, 107, 107, 0.5);
+    }
+    50% { 
+        box-shadow: 0 15px 50px rgba(255, 107, 107, 0.6), 0 0 40px rgba(255, 107, 107, 0.4);
+        border-color: rgba(255, 107, 107, 0.8);
+    }
 }
 
 .impostor-message div {
@@ -454,13 +845,162 @@ h2 {
 .impostor-icon {
     font-size: 4rem;
     color: #FF6B6B;
-    animation: float 2s ease-in-out infinite;
+    animation: impostorApproach 3s ease-in-out infinite;
+    text-shadow: 
+        2px 2px 0 #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        0 0 30px rgba(255, 107, 107, 0.8),
+        0 0 60px rgba(255, 107, 107, 0.6);
+    filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.8));
+    -webkit-text-stroke: 1px #000;
 }
+
+@keyframes impostorApproach {
+    0% { 
+        transform: scale(1) translateZ(0px);
+        opacity: 0.8;
+    }
+    50% { 
+        transform: scale(1.2) translateZ(20px);
+        opacity: 1;
+    }
+    100% { 
+        transform: scale(1) translateZ(0px);
+        opacity: 0.8;
+    }
+}
+
+
+
+
 
 @keyframes float {
     0% { transform: translateY(0px);}
     50% { transform: translateY(-20px);}
     100% { transform: translateY(0px);}
+}
+
+/* Pac-Man Loader стилове */
+.countdown-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pacman-loader {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.loader-wrapper {
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.loader-wrapper .packman::before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 25px;
+    background-color: #EFF107;
+    border-radius: 100px 100px 0 0;
+    transform: translate(-50%, -50%);
+    animation: pac-top 0.5s linear infinite;
+    transform-origin: center bottom;
+}
+
+.loader-wrapper .packman::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 25px;
+    background-color: #EFF107;
+    border-radius: 0 0 100px 100px;
+    transform: translate(-50%, 50%);
+    animation: pac-bot 0.5s linear infinite;
+    transform-origin: center top;
+}
+
+@keyframes pac-top {
+    0% {
+        transform: translate(-50%, -50%) rotate(0)
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(-30deg)
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(0)
+    }
+}
+
+@keyframes pac-bot {
+    0% {
+        transform: translate(-50%, 50%) rotate(0)
+    }
+    50% {
+        transform: translate(-50%, 50%) rotate(30deg)
+    }
+    100% {
+        transform: translate(-50%, 50%) rotate(0)
+    }
+}
+
+.dots .dot {
+    position: absolute;
+    z-index: -1;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.dots .dot:nth-child(1) {
+    left: 90px;
+    animation: dot-stage1 0.5s infinite;
+}
+
+.dots .dot:nth-child(2) {
+    left: 60px;
+    animation: dot-stage1 0.5s infinite;
+}
+
+.dots .dot:nth-child(3) {
+    left: 30px;
+    animation: dot-stage1 0.5s infinite;
+}
+
+.dots .dot:nth-child(4) {
+    left: 10px;
+    animation: dot-stage2 0.5s infinite;
+}
+
+@keyframes dot-stage1 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(-24px, 0);
+    }
+}
+
+@keyframes dot-stage2 {
+    0% {
+        transform: scale(1);
+    }
+    5%, 100% {
+        transform: scale(0);
+    }
 }
 
 .countdown {
@@ -470,17 +1010,14 @@ h2 {
     animation: scale 1s infinite;
     text-align: center;
     width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
     z-index: 10;
 }
 
 @keyframes scale {
-    0% { transform: translate(-50%, -50%) scale(1);}
-    50% { transform: translate(-50%, -50%) scale(1.2);}
-    100% { transform: translate(-50%, -50%) scale(1);}
+    0% { transform: scale(1);}
+    50% { transform: scale(1.2);}
+    100% { transform: scale(1);}
 }
 
 #results-screen {
@@ -618,120 +1155,403 @@ h2 {
     position: fixed;
     z-index: 1000;
     left: 0; top: 0; width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 40, 0.95) 50%, rgba(0, 0, 0, 0.9) 100%);
+    backdrop-filter: blur(10px);
     justify-content: center;
     align-items: center;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(10px);
+    }
 }
 
 .modal-content {
-    background: #fff;
-    padding: 30px 20px;
-    border-radius: 20px;
-    max-width: 500px;
+    background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 40px 30px;
+    border-radius: 25px;
+    max-width: 600px;
     width: 90vw;
     margin: auto;
     position: relative;
-    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    animation: modalContentSlideIn 0.4s ease-out;
+    overflow: hidden;
+}
+
+.modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #FF6B6B, #FFD93D, #6C5CE7, #00B894, #FF6B6B);
+    background-size: 200% 100%;
+    animation: gradientMove 3s linear infinite;
+}
+
+@keyframes modalContentSlideIn {
+    from {
+        transform: translateY(-50px) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* Специални стилове за login модала */
+#login-modal .modal-content {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 0;
 }
 
 .close-modal {
     position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 2rem;
+    top: 20px;
+    right: 25px;
+    font-size: 2.5rem;
     color: #FF6B6B;
     cursor: pointer;
     font-weight: bold;
-    transition: color 0.2s;
+    transition: all 0.3s ease;
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 107, 107, 0.1);
+    border: 2px solid rgba(255, 107, 107, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.close-modal:hover {
+    color: #fff;
+    background: rgba(255, 107, 107, 0.3);
+    border-color: rgba(255, 107, 107, 0.6);
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+/* Специални стилове за close бутона в login модала */
+#login-modal .close-modal {
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    top: 10px;
+    right: 15px;
 }
 
 .close-modal:hover {
     color: #d63031;
 }
 
+#login-modal .close-modal:hover {
+    color: #FF6B6B;
+    text-shadow: 0 0 15px rgba(255, 107, 107, 0.9);
+}
+
 .rules-content h3 {
-    margin-top: 1.2em;
-    color: #6C5CE7;
-    font-size: 1.1em;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    color: #FFD93D;
+    font-size: 1.3em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 20px rgba(255, 217, 61, 0.5);
+    position: relative;
+    padding-left: 35px;
+}
+
+.rules-content h3::before {
+    content: '🎮';
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9em;
+    animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.1); }
 }
 
 .rules-content ul, .rules-content ol {
-    margin-left: 1.2em;
-    margin-bottom: 1em;
+    margin-left: 1.5em;
+    margin-bottom: 1.5em;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
 }
 
 .rules-content li {
-    margin-bottom: 0.4em;
+    margin-bottom: 0.8em;
+    padding: 8px 0;
+    color: #e0e0e0;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 25px;
+}
+
+.rules-content li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    color: #FF6B6B;
+    font-size: 0.8em;
+    animation: listItemPulse 2s ease-in-out infinite;
+}
+
+.rules-content p {
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin-bottom: 1em;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    border-left: 3px solid #6C5CE7;
+}
+
+@keyframes listItemPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Стилове за заглавието на модала */
+.modal-content h2 {
+    color: #FFD93D;
+    font-size: 2.2em;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 
+        0 0 30px rgba(255, 217, 61, 0.8),
+        2px 2px 0 rgba(0, 0, 0, 0.8);
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.modal-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #FF6B6B, #FFD93D, #6C5CE7);
+    border-radius: 2px;
+    animation: titleUnderline 3s ease-in-out infinite;
+}
+
+@keyframes titleUnderline {
+    0%, 100% { width: 100px; }
+    50% { width: 150px; }
 }
 
 @media (max-width: 600px) {
     .container {
-        padding: 10px 2vw 20px 2vw;
+        padding: 15px 3vw 25px 3vw;
+        margin-top: 20px;
     }
     .logo {
-        font-size: 1.5rem;
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+    }
+    .logo span {
+        font-size: 2.5rem;
+    }
+    .image-card {
+        max-width: 90vw;
+        width: 90vw;
     }
     .image-card img {
-        height: 180px;
+        height: 250px;
+        width: 100%;
+        object-fit: cover;
     }
     .modal-content {
-        padding: 15px 5px;
+        padding: 25px 15px;
+        margin: 10px;
+        max-width: 95vw;
     }
     .player-selection-container {
-        padding: 10px 5px;
-        border-radius: 12px;
-        max-width: 98vw;
-        width: 98vw;
+        padding: 20px 15px;
+        border-radius: 15px;
+        max-width: 95vw;
+        width: 95vw;
         min-width: 0;
-        margin: 8px auto;
+        margin: 15px auto;
         box-sizing: border-box;
     }
     .player-selection-container h2 {
-        padding: 8px 10px;
-        font-size: 1.1rem;
-        border-radius: 8px;
-        margin-bottom: 10px;
+        padding: 15px 20px;
+        font-size: 1.8rem;
+        border-radius: 12px;
+        margin-bottom: 20px;
     }
     .player-selection-container .player-count-container {
-        padding: 8px 5px;
-        border-radius: 8px;
-        gap: 8px;
+        padding: 15px 10px;
+        border-radius: 12px;
+        gap: 15px;
         min-width: 0;
         width: 100%;
         box-sizing: border-box;
     }
     .count-btn {
-        width: 38px;
-        height: 38px;
-        font-size: 1.1rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        border-radius: 12px;
     }
     #player-count {
-        font-size: 1.1rem;
-        min-width: 28px;
-        padding: 2px 4px;
+        font-size: 1.8rem;
+        min-width: 40px;
+        padding: 8px 12px;
+        border-radius: 8px;
     }
     body {
         overflow-x: hidden;
+        padding-top: 10px;
     }
 }
 
-#next-player-button {
-    order: 1;
-    padding: 1.2rem 2.5rem !important;
-    font-size: 1.3rem !important;
-    border-radius: 30px !important;
-    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4) !important;
-    font-weight: 700 !important;
-    min-width: 180px;
+/* Нови стилове за бутона "Следващ играч" */
+.next-player-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    --color-text: #ffffff;
+    --color-background: #ff135a;
+    --color-outline: #ff145b80;
+    --color-shadow: #00000080;
 }
 
-#next-player-button:hover {
-    transform: translateY(-3px) scale(1.05) !important;
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5) !important;
+.next-player-btn-content {
+    display: flex;
+    align-items: center;
+    padding: 5px 30px;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    color: var(--color-text);
+    background: var(--color-background);
+    transition: 1s;
+    border-radius: 100px;
+    box-shadow: 0 0 0.2em 0 var(--color-background);
+    border: none;
+    cursor: pointer;
 }
 
-#next-player-button:active {
-    transform: translateY(-1px) scale(1.02) !important;
+.next-player-btn-content:hover, .next-player-btn-content:focus {
+    transition: 0.5s;
+    -webkit-animation: next-player-btn-content 1s;
+    animation: next-player-btn-content 1s;
+    outline: 0.1em solid transparent;
+    outline-offset: 0.2em;
+    box-shadow: 0 0 0.4em 0 var(--color-background);
+}
+
+.next-player-btn-content .next-player-icon-arrow {
+    transition: 0.5s;
+    margin-right: 0px;
+    transform: scale(0.6);
+}
+
+.next-player-btn-content:hover .next-player-icon-arrow {
+    transition: 0.5s;
+    margin-right: 25px;
+}
+
+.next-player-icon-arrow {
+    width: 20px;
+    margin-left: 15px;
+    position: relative;
+    top: 6%;
+}
+
+/* SVG анимации */
+#arrow-icon-one {
+    transition: 0.4s;
+    transform: translateX(-60%);
+}
+
+#arrow-icon-two {
+    transition: 0.5s;
+    transform: translateX(-30%);
+}
+
+.next-player-btn-content:hover #arrow-icon-three {
+    animation: color_anim 1s infinite 0.2s;
+}
+
+.next-player-btn-content:hover #arrow-icon-one {
+    transform: translateX(0%);
+    animation: color_anim 1s infinite 0.6s;
+}
+
+.next-player-btn-content:hover #arrow-icon-two {
+    transform: translateX(0%);
+    animation: color_anim 1s infinite 0.4s;
+}
+
+/* SVG анимации */
+@keyframes color_anim {
+    0% {
+        fill: white;
+    }
+    50% {
+        fill: var(--color-background);
+    }
+    100% {
+        fill: white;
+    }
+}
+
+/* Бутон анимации */
+@-webkit-keyframes next-player-btn-content {
+    0% {
+        outline: 0.2em solid var(--color-background);
+        outline-offset: 0;
+    }
+}
+
+@keyframes next-player-btn-content {
+    0% {
+        outline: 0.2em solid var(--color-background);
+        outline-offset: 0;
+    }
 }
 
 .next-round-message {
@@ -893,59 +1713,7 @@ h2 {
     z-index: 1000;
 }
 
-.game-start-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #6C5CE7, #FFD93D);
-    background-size: 400% 400%;
-    animation: backgroundShift 0.5s ease-in-out infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
 
-.game-start-text {
-    font-size: 5rem;
-    font-weight: 900;
-    font-family: 'Arial Black', sans-serif;
-    color: white;
-    text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000;
-    animation: shakeText 0.1s ease-in-out infinite;
-    letter-spacing: 5px;
-}
-
-@keyframes backgroundShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-}
-
-@keyframes shakeText {
-    0%, 100% { transform: translateX(0) scale(1); }
-    25% { transform: translateX(-2px) scale(1.02); }
-    75% { transform: translateX(2px) scale(1.02); }
-}
-
-.game-start-screen.show {
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-.game-start-screen.hide {
-    animation: fadeOut 0.5s ease-in-out forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
 
 .setup-content {
     display: flex;
@@ -1306,68 +2074,156 @@ h2 {
 }
 
 /* Модален прозорец за вход */
+/* Нови стилове за анимираната login форма */
 .login-content {
-    max-width: 400px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
+    background: transparent;
     border-radius: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    margin: 20px auto;
+    box-shadow: none;
+    border: none;
+    backdrop-filter: none;
+    max-height: none;
+    overflow-y: visible;
 }
 
-.login-header {
-    text-align: center;
-    margin-bottom: 30px;
+/* Мобилни стилове за login-content */
+@media (max-width: 768px) {
+    .login-content {
+        padding: 20px;
+        max-width: 95%;
+        width: 95%;
+        margin: 10px auto;
+    }
 }
 
-.login-header h2 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #333;
-    margin-bottom: 10px;
-    background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+@media (max-width: 480px) {
+    .login-content {
+        padding: 15px;
+        max-width: 98%;
+        width: 98%;
+        margin: 5px auto;
+    }
 }
 
-.login-header p {
-    font-size: 1.1rem;
-    color: #666;
-    font-weight: 500;
-}
-
-.login-form {
+#Container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
 }
 
-.login-submit-btn {
-    background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+#rays {
+    z-index: 2;
+    position: relative;
+    bottom: -1.5em;
+    animation: rays 2s ease-in-out infinite;
+}
+
+.form {
+    position: relative;
+    top: 5em;
+    padding: 4%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    border: 4px solid #fff;
+    background: rgba(0, 255, 240, 0.52);
+    box-shadow: 0px 0px 64px 0px #82e1ff inset, 0px 0px 16px #a8fffaa6;
+    backdrop-filter: blur(3.5px);
+    gap: 1em;
+    animation: float 2s ease-in-out infinite;
+}
+
+#login-lable {
+    text-align: center;
     color: white;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 25px;
-    font-size: 1.1rem;
+    font-size: 2rem;
     font-weight: 600;
+    letter-spacing: 8px;
+    text-shadow: 0px 0px 16px rgb(243, 243, 243);
+}
+
+.form-content {
+    height: 3em;
+    padding: 1px 8px;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: 2px solid #fff;
+    background: rgba(139, 255, 247, 0.486);
+    box-shadow: 0px 0px 1px 3px #9ee5e3 inset, 0px 4px 4px 0px #181a6040;
+    text-shadow: 0px 1px 4px rgb(243, 243, 243);
+}
+
+.form-content:focus-visible {
+    outline: none;
+    text-decoration: none;
+    background: rgba(139, 189, 255, 0.59);
+    box-shadow: 0px 0px 1px 4px #9ee5e3;
+}
+
+.form-content:hover {
+    background: rgba(139, 189, 255, 0.59);
+}
+
+.form-content::placeholder {
+    font-weight: 300;
+    color: white;
+    letter-spacing: 0.1rem;
+    text-shadow: 0px 1px 5px rgb(66, 66, 66);
+}
+
+.form button {
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
-    width: 100%;
+    height: 3.5rem;
+    padding: 0%;
+    color: white;
+    font-size: 1.5em;
+    letter-spacing: 0.3rem;
+    border: 2px solid white;
+    background: linear-gradient(144deg, #9c11ffce, #2000eeb6 50%, #15efffbb);
 }
 
-.login-submit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+.form button:hover {
+    position: relative;
+    bottom: 4px;
+    background: linear-gradient(144deg, #9c11ff, #2000ee 50%, #15fff3);
+    box-shadow: 0px 0px 2px 2px #ffffff;
 }
 
-.login-submit-btn:active {
-    transform: translateY(-1px);
+@keyframes float {
+    0% {
+        position: relative;
+    }
+
+    50% {
+        top: 50px;
+    }
+
+    100% {
+        position: relative;
+    }
+}
+
+@keyframes rays {
+    0% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.6;
+    }
 }
 
 .login-footer {
@@ -1495,6 +2351,38 @@ h2 {
         font-size: 2rem;
     }
     
+    /* Responsive стилове за новата login форма */
+    .form {
+        top: 3em;
+        padding: 3%;
+        gap: 0.8em;
+    }
+    
+    #login-lable {
+        font-size: 1.5rem;
+        letter-spacing: 4px;
+    }
+    
+    .form-content {
+        height: 2.5em;
+        font-size: 0.9rem;
+    }
+    
+    .form button {
+        height: 3rem;
+        font-size: 1.2em;
+        letter-spacing: 0.2rem;
+    }
+    
+    #rays {
+        bottom: -1em;
+    }
+    
+    #rays svg {
+        height: 6em;
+        width: 12em;
+    }
+    
     .form-group input,
     .form-group select {
         padding: 10px 14px;
@@ -1586,17 +2474,17 @@ h2 {
         flex-wrap: wrap;
     }
     
-    /* Икони за детектив и импостор - по-малки */
+    /* Икони за детектив и импостор - по-големи за мобилни */
     .detective-logo,
     .impostor-logo {
-        width: 60px;
-        height: 60px;
-        margin: 10px;
+        width: 100px;
+        height: 100px;
+        margin: 15px;
     }
     
     .detective-logo .logo-icon,
     .impostor-logo .logo-icon {
-        font-size: 1.5rem;
+        font-size: 2.5rem;
     }
     
     /* Setup content - по-компактен */
@@ -1623,21 +2511,101 @@ h2 {
         transform: none;
     }
     
-    /* Бутони - по-малки */
+    /* Бутони - по-големи за мобилни */
     .btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-        margin: 5px;
+        padding: 15px 25px;
+        font-size: 1.2rem;
+        margin: 8px;
+        border-radius: 15px;
+    }
+    
+    /* Responsive стилове за анимирания бутон */
+    .animated-button {
+        min-width: 350px;
+        min-height: 120px;
+        font-size: 28px;
+        gap: 20px;
+        border-radius: 25px;
+        padding: 0 35px;
+    }
+    
+    .animated-button svg {
+        width: 40px;
+        height: 40px;
+    }
+    
+    /* Responsive стилове за бутона за правилата */
+    .btn-rules {
+        width: 14rem;
+        height: 3.5rem;
+        border-radius: 20px;
+    }
+    
+    .btn-rules strong {
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+    
+    #glow-rules {
+        width: 14rem;
+        border-radius: 20px;
+    }
+    
+    /* Facebook бутон - responsive */
+    .facebook-button-wrapper {
+        bottom: 50px;
+        right: 15px;
+    }
+    
+    .facebook-button {
+        width: 110px;
+        height: 30px;
+    }
+    
+    .facebook-text1 {
+        font-size: 13px;
+    }
+    
+    .facebook-text2 {
+        font-size: 12px;
+    }
+    
+    /* Responsive стилове за Pac-Man loader */
+    .countdown-container {
+        height: 300px;
+    }
+    
+    .loader-wrapper .packman::before,
+    .loader-wrapper .packman::after {
+        width: 50px;
+        height: 25px;
+    }
+    
+    .dots .dot {
+        width: 12px;
+        height: 12px;
+        top: 8px;
+    }
+    
+    .dots .dot:nth-child(1) { left: 80px; }
+    .dots .dot:nth-child(2) { left: 60px; }
+    .dots .dot:nth-child(3) { left: 35px; }
+    .dots .dot:nth-child(4) { left: 15px; }
+    
+    .countdown {
+        font-size: 8rem;
+        font-weight: 900;
     }
     
     /* Модали - по-добре позиционирани */
     .modal-content {
         width: 95%;
         max-width: 400px;
-        margin: 20px auto;
+        margin: 10px auto;
         padding: 20px;
-        max-height: 90vh;
+        max-height: 85vh;
         overflow-y: auto;
+        border-radius: 15px;
     }
     
     .registration-content,
@@ -1645,17 +2613,19 @@ h2 {
         width: 95%;
         padding: 15px;
         margin: 10px auto;
+        border-radius: 15px;
     }
     
     .registration-header h2,
     .login-header h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
     
     .form-group input,
     .form-group select {
         padding: 12px 15px;
         font-size: 1rem;
+        border-radius: 8px;
     }
     
     /* Language selector - по-малък и по-наляво */
@@ -1677,27 +2647,86 @@ h2 {
         min-width: 80px;
     }
     
-    /* Game controls - по-компактни */
+    /* Game controls - по-големи бутони */
     .game-controls {
         flex-direction: column;
-        gap: 10px;
+        gap: 25px;
+        padding: 20px;
     }
     
     .game-controls .btn {
         width: 100%;
-        margin: 5px 0;
+        margin: 8px 0;
+        padding: 18px 30px;
+        font-size: 1.3rem;
+        border-radius: 15px;
+        min-height: 60px;
     }
     
-    /* Image cards - по-малки */
+    /* Responsive стилове за новия бутон "Следващ играч" */
+    .next-player-btn-content {
+        font-size: 32px;
+        padding: 15px 35px;
+        border-radius: 30px;
+        min-width: 280px;
+        min-height: 70px;
+    }
+    
+    .next-player-icon-arrow {
+        width: 28px;
+        margin-left: 20px;
+    }
+    
+    /* Responsive стилове за новия бутон "Смени рунда" */
+    .change-round-submit {
+        width: 280px;
+        height: 70px;
+        font-size: 20px;
+        border-radius: 20px;
+        min-width: 280px;
+    }
+    
+    .change-round-submit:after,
+    .change-round-submit:before {
+        font-size: 20px;
+    }
+    
+    /* Responsive стилове за новия бутон за текущия играч */
+    .current-player-button {
+        font-size: 18px;
+        padding: 0.8em 1.5em;
+    }
+    
+    /* Image cards - по-големи за мобилни */
     .image-card {
-        max-width: 300px;
-        max-height: 200px;
+        max-width: 90vw;
+        max-height: 300px;
+        border-radius: 15px;
     }
     
     .image-card img {
         max-width: 100%;
         max-height: 100%;
-        object-fit: contain;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+    
+    /* Съобщения за импостъра - по-големи */
+    .impostor-message {
+        font-size: 2.2rem;
+        padding: 3rem;
+        max-width: 90vw;
+        border-radius: 20px;
+    }
+    
+    .impostor-icon {
+        font-size: 5rem;
+    }
+    
+    /* Таймер - по-голям за мобилни */
+    #timer {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
     }
     
     /* Game start screen - по-добре позициониран */
@@ -1729,6 +2758,115 @@ h2 {
     
     .logo span {
         font-size: 2rem;
+    }
+    
+    /* Responsive стилове за анимирания бутон на малки екрани */
+    .animated-button {
+        min-width: 300px;
+        min-height: 90px;
+        font-size: 22px;
+        gap: 15px;
+        padding: 0 25px;
+        border-radius: 20px;
+    }
+    
+    .animated-button svg {
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* Responsive стилове за бутона за правилата на малки екрани */
+    .btn-rules {
+        width: 8rem;
+        height: 2rem;
+    }
+    
+    .btn-rules strong {
+        font-size: 8px;
+        letter-spacing: 0.5px;
+    }
+    
+    #glow-rules {
+        width: 7rem;
+    }
+    
+    /* Facebook бутон - responsive за малки екрани */
+    .facebook-button-wrapper {
+        bottom: 45px;
+        right: 10px;
+    }
+    
+    .facebook-button {
+        width: 100px;
+        height: 28px;
+    }
+    
+    .facebook-text1 {
+        font-size: 11px;
+    }
+    
+    .facebook-text2 {
+        font-size: 10px;
+    }
+    
+    /* Responsive стилове за Pac-Man loader на малки екрани */
+    .countdown-container {
+        height: 200px;
+    }
+    
+    .loader-wrapper .packman::before,
+    .loader-wrapper .packman::after {
+        width: 30px;
+        height: 15px;
+    }
+    
+    .dots .dot {
+        width: 6px;
+        height: 6px;
+        top: 4px;
+    }
+    
+    .dots .dot:nth-child(1) { left: 55px; }
+    .dots .dot:nth-child(2) { left: 40px; }
+    .dots .dot:nth-child(3) { left: 20px; }
+    .dots .dot:nth-child(4) { left: 6px; }
+    
+    .countdown {
+        font-size: 4rem;
+    }
+    
+    /* Responsive стилове за новата login форма на малки екрани */
+    .form {
+        top: 0.5em;
+        padding: 2%;
+        gap: 0.4em;
+        max-width: 95vw;
+        width: 95vw;
+    }
+    
+    #login-lable {
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .form-content {
+        height: 1.8em;
+        font-size: 0.8rem;
+    }
+    
+    .form button {
+        height: 2rem;
+        font-size: 0.8rem;
+        letter-spacing: 0.1rem;
+    }
+    
+    #rays {
+        bottom: -0.2em;
+    }
+    
+    #rays svg {
+        height: 2.5em;
+        width: 5em;
     }
     
     .profile-panel {
@@ -1763,14 +2901,83 @@ h2 {
     }
     
     .btn {
-        padding: 8px 16px;
-        font-size: 0.8rem;
+        padding: 12px 20px;
+        font-size: 1rem;
+        border-radius: 12px;
+        min-height: 50px;
+    }
+    
+    /* Responsive стилове за новия бутон "Следващ играч" на малки екрани */
+    .next-player-btn-content {
+        font-size: 24px;
+        padding: 10px 25px;
+        margin-bottom: 20px;
+        min-width: 250px;
+        min-height: 60px;
+        border-radius: 25px;
+    }
+    
+    .next-player-icon-arrow {
+        width: 20px;
+        margin-left: 15px;
+    }
+    
+    /* Responsive стилове за новия бутон "Смени рунда" на малки екрани */
+    .change-round-submit {
+        width: 250px;
+        height: 60px;
+        font-size: 18px;
+        margin-top: 20px;
+        border-radius: 15px;
+        min-width: 250px;
+    }
+    
+    .change-round-submit:after,
+    .change-round-submit:before {
+        font-size: 18px;
+    }
+    
+    /* Responsive стилове за новия бутон за текущия играч на малки екрани */
+    .current-player-button {
+        font-size: 16px;
+        padding: 0.6em 1.2em;
+    }
+    
+    /* Game controls за малки екрани */
+    .game-controls {
+        gap: 20px;
+        padding: 15px;
+    }
+    
+    .game-controls .btn {
+        padding: 15px 25px;
+        font-size: 1.1rem;
+        min-height: 55px;
     }
     
     .modal-content {
         width: 98%;
-        padding: 15px;
-        margin: 10px auto;
+        padding: 12px;
+        margin: 5px auto;
+        max-height: 80vh;
+    }
+    
+    .registration-content,
+    .login-content {
+        width: 98%;
+        padding: 12px;
+        margin: 5px auto;
+    }
+    
+    .registration-header h2,
+    .login-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 10px 12px;
+        font-size: 0.9rem;
     }
     
     /* Language selector - още по-малък */
@@ -2443,5 +3650,180 @@ h2 {
     
     .stat-value {
         font-size: 1.1rem;
+    }
+}
+
+/* Екран за внимание */
+.attention-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff4757 0%, #ff3838 50%, #ff6b6b 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.attention-screen.show {
+    opacity: 1;
+}
+
+.attention-content {
+    text-align: center;
+    color: white;
+    max-width: 600px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    animation: attentionPulse 2s ease-in-out infinite;
+}
+
+@keyframes attentionPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); }
+    50% { transform: scale(1.05); box-shadow: 0 35px 70px rgba(0, 0, 0, 0.4); }
+}
+
+.attention-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: attentionShake 0.5s ease-in-out infinite;
+    color: #ffd700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+}
+
+@keyframes attentionShake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+.attention-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000;
+    animation: titleGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+    0%, 100% { text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 0 0 20px rgba(255, 255, 255, 0.5); }
+    50% { text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 0 0 40px rgba(255, 255, 255, 0.8); }
+}
+
+.attention-message {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+}
+
+.attention-submessage {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    color: #ffd700;
+}
+
+.attention-timer {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.timer-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+    animation: timerPulse 1s ease-in-out infinite;
+}
+
+@keyframes timerPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+    50% { transform: scale(1.1); box-shadow: 0 0 50px rgba(255, 215, 0, 0.8); }
+}
+
+.timer-number {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #333;
+    text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive дизайн за екрана за внимание */
+@media (max-width: 768px) {
+    .attention-content {
+        max-width: 90%;
+        padding: 30px 20px;
+    }
+    
+    .attention-title {
+        font-size: 2.5rem;
+    }
+    
+    .attention-message {
+        font-size: 1.5rem;
+    }
+    
+    .attention-submessage {
+        font-size: 1.2rem;
+    }
+    
+    .attention-icon {
+        font-size: 3rem;
+    }
+    
+    .timer-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .timer-number {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .attention-content {
+        padding: 20px 15px;
+    }
+    
+    .attention-title {
+        font-size: 2rem;
+    }
+    
+    .attention-message {
+        font-size: 1.2rem;
+    }
+    
+    .attention-submessage {
+        font-size: 1rem;
+    }
+    
+    .attention-icon {
+        font-size: 2.5rem;
+    }
+    
+    .timer-circle {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .timer-number {
+        font-size: 2rem;
     }
 }

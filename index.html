@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odd One Out</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="comic-button.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
@@ -70,7 +71,7 @@
                     <h2 data-translate="player_count">Брой играчи</h2>
                     <div class="player-count-container">
                         <button id="decrease-players" class="count-btn"><i class="fas fa-minus"></i></button>
-                        <input type="number" id="player-count" value="3" min="2" max="8" readonly>
+                        <input type="number" id="player-count" value="3" min="3" max="8" readonly>
                         <button id="increase-players" class="count-btn"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
@@ -78,21 +79,72 @@
                     <div class="logo-icon"><i class="fas fa-user-secret"></i></div>
                 </div>
             </div>
-            <button id="start-game" class="btn" data-translate="start_game">Започни играта</button>
-            <button id="show-rules" class="btn rules-btn"><i class="fas fa-book"></i> <span data-translate="game_rules">Правила на играта</span></button>
+            <div class="styled-wrapper">
+                <button id="start-game" class="animated-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="36px" height="36px">
+                        <rect width="36" height="36" x="0" y="0" fill="#fdd835" />
+                        <path fill="#e53935" d="M38.67,42H11.52C11.27,40.62,11,38.57,11,36c0-5,0-11,0-11s1.44-7.39,3.22-9.59 c1.67-2.06,2.76-3.48,6.78-4.41c3-0.7,7.13-0.23,9,1c2.15,1.42,3.37,6.67,3.81,11.29c1.49-0.3,5.21,0.2,5.5,1.28 C40.89,30.29,39.48,38.31,38.67,42z" />
+                        <path fill="#b71c1c" d="M39.02,42H11.99c-0.22-2.67-0.48-7.05-0.49-12.72c0.83,4.18,1.63,9.59,6.98,9.79 c3.48,0.12,8.27,0.55,9.83-2.45c1.57-3,3.72-8.95,3.51-15.62c-0.19-5.84-1.75-8.2-2.13-8.7c0.59,0.66,3.74,4.49,4.01,11.7 c0.03,0.83,0.06,1.72,0.08,2.66c4.21-0.15,5.93,1.5,6.07,2.35C40.68,33.85,39.8,38.9,39.02,42z" />
+                        <path fill="#212121" d="M35,27.17c0,3.67-0.28,11.2-0.42,14.83h-2C32.72,38.42,33,30.83,33,27.17 c0-5.54-1.46-12.65-3.55-14.02c-1.65-1.08-5.49-1.48-8.23-0.85c-3.62,0.83-4.57,1.99-6.14,3.92L15,16.32 c-1.31,1.6-2.59,6.92-3,8.96v10.8c0,2.58,0.28,4.61,0.54,5.92H10.5c-0.25-1.41-0.5-3.42-0.5-5.92l0.02-11.09 c0.15-0.77,1.55-7.63,3.43-9.94l0.08-0.09c1.65-2.03,2.96-3.63,7.25-4.61c3.28-0.76,7.67-0.25,9.77,1.13 C33.79,13.6,35,22.23,35,27.17z" />
+                        <path fill="#01579b" d="M17.165,17.283c5.217-0.055,9.391,0.283,9,6.011c-0.391,5.728-8.478,5.533-9.391,5.337 c-0.913-0.196-7.826-0.043-7.696-5.337C9.209,18,13.645,17.32,17.165,17.283z" />
+                        <path fill="#212121" d="M40.739,37.38c-0.28,1.99-0.69,3.53-1.22,4.62h-2.43c0.25-0.19,1.13-1.11,1.67-4.9 c0.57-4-0.23-11.79-0.93-12.78c-0.4-0.4-2.63-0.8-4.37-0.89l0.1-1.99c1.04,0.05,4.53,0.31,5.71,1.49 C40.689,24.36,41.289,33.53,40.739,37.38z" />
+                        <path fill="#81d4fa" d="M10.154,20.201c0.261,2.059-0.196,3.351,2.543,3.546s8.076,1.022,9.402-0.554 c1.326-1.576,1.75-4.365-0.891-5.267C19.336,17.287,12.959,16.251,10.154,20.201z" />
+                        <path fill="#212121" d="M17.615,29.677c-0.502,0-0.873-0.03-1.052-0.069c-0.086-0.019-0.236-0.035-0.434-0.06 c-5.344-0.679-8.053-2.784-8.052-6.255c0.001-2.698,1.17-7.238,8.986-7.32l0.181-0.002c3.444-0.038,6.414-0.068,8.272,1.818 c1.173,1.191,1.712,3,1.647,5.53c-0.044,1.688-0.785,3.147-2.144,4.217C22.785,29.296,19.388,29.677,17.615,29.677z M17.086,17.973 c-7.006,0.074-7.008,4.023-7.008,5.321c-0.001,3.109,3.598,3.926,6.305,4.27c0.273,0.035,0.48,0.063,0.601,0.089 c0.563,0.101,4.68,0.035,6.855-1.732c0.865-0.702,1.299-1.57,1.326-2.653c0.051-1.958-0.301-3.291-1.073-4.075 c-1.262-1.281-3.834-1.255-6.825-1.222L17.086,17.973z" />
+                        <path fill="#e1f5fe" d="M15.078,19.043c1.957-0.326,5.122-0.529,4.435,1.304c-0.489,1.304-7.185,2.185-7.185,0.652 C12.328,19.467,15.078,19.043,15.078,19.043z" />
+                    </svg>
+                    <span class="now">сега!</span>
+                    <span class="play" data-translate="start_game">Започни играта</span>
+                </button>
+            </div>
+            <div class="styled-wrapper-rules">
+                <button id="show-rules" type="button" class="btn-rules">
+                    <strong data-translate="game_rules">ПРАВИЛА НА ИГРАТА</strong>
+                    <div id="container-stars-rules">
+                        <div id="stars-rules" />
+                    </div>
+                    <div id="glow-rules">
+                        <div class="circle-rules" />
+                        <div class="circle-rules" />
+                    </div>
+                </button>
+            </div>
         </div>
 
         <div id="game-screen" class="hidden">
-            <div id="game-start-screen" class="game-start-screen hidden">
-                <div class="game-start-text" data-translate="game_starting">ИГРАТА ЗАПОЧВА!</div>
+            <div class="current-player-container">
+                <div class="comic-brutal-button-container">
+                    <button id="current-player" class="comic-brutal-button">
+                        <div class="button-inner">
+                            <span class="button-text">ИГРАЧ 1</span>
+                            <div class="halftone-overlay" />
+                            <div class="ink-splatter" />
+                        </div>
+                        <div class="button-shadow" />
+                        <div class="button-frame" />
+                    </button>
+                </div>
             </div>
-            <div id="current-player"></div>
             <div id="timer"></div>
             <div id="images-container"></div>
             <div id="next-round-message" class="next-round-message hidden" data-translate="next_round">СЛЕДВАЩ РУНД</div>
             <div class="game-controls">
-                <button id="next-player-button" class="btn" data-translate="next_player">Следващ играч</button>
-                <button id="end-game" class="btn change-round-btn"><i class="fas fa-sync-alt"></i> <span data-translate="change_round">Смени рунда</span></button>
+                <div class="next-player-btn-container">
+                    <button id="next-player-button" class="next-player-btn-content">
+                        <span class="next-player-btn-title" data-translate="next_player">СЛЕДВАЩ ИГРАЧ</span>
+                        <span class="next-player-icon-arrow">
+                            <svg width="66px" height="43px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                                <g id="arrow" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                                    <path id="arrow-icon-one" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF" />
+                                    <path id="arrow-icon-two" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF" />
+                                    <path id="arrow-icon-three" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF" />
+                                </g>
+                            </svg>
+                        </span> 
+                    </button>
+                </div>
+                <div class="change-round-btn-container">
+                    <button id="end-game" class="change-round-submit" data-translate="change_round">СМЕНИ РУНДА</button>
+                </div>
             </div>
         </div>
 
@@ -103,6 +155,22 @@
         </div>
     </div>
 
+    <!-- Facebook бутон -->
+    <div class="facebook-button-wrapper">
+        <a href="https://www.facebook.com/profile.php?id=61578418701694" target="_blank" rel="noopener noreferrer" class="facebook-button"> 
+            <span class="facebook-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="33" viewBox="0 0 512 512" height="33">
+                    <g fillRule="evenodd" clipRule="evenodd">
+                        <path fill="#3a5ba2" d="m256.23 512c140.58 0 255.77-115.19 255.77-255.77 0-141.046-115.19-256.23-255.77-256.23-141.046 0-256.23 115.184-256.23 256.23 0 140.58 115.184 255.77 256.23 255.77z" />
+                        <path fill="#fff" d="m224.023 160.085c0-35.372 28.575-63.946 63.938-63.946h48.072v63.946h-32.199c-8.608 0-15.873 7.257-15.873 15.873v32.192h48.072v63.938h-48.072v144.22h-63.938v-144.22h-48.065v-63.938h48.065z" />
+                    </g>
+                </svg>
+            </span>
+            <span class="facebook-text1">Follow me</span>
+            <span class="facebook-text2">1,2k</span> 
+        </a>
+    </div>
+
     <!-- Модален прозорец за правилата -->
     <div id="rules-modal" class="modal">
         <div class="modal-content">
@@ -110,34 +178,20 @@
             <h2 data-translate="game_rules">Правила на играта</h2>
             <div class="rules-content">
                 <h3 data-translate="game_objective">ЦЕЛ НА ИГРАТА</h3>
-                <p data-translate="game_objective_text">Играта е забавна социална игра, в която един от играчите е "импостор", а останалите виждат една и съща картинка. Импосторът трябва да се опитва да се вписва сред останалите, без да разкрие, че не вижда картинката.</p>
+                <p data-translate="game_objective_text">Odd One Out е забавна социална игра за разкриване на импостъра. Един от играчите е тайно избран като "импостор" и не вижда същата картинка като останалите. Целта е да разкриете кой е импосторът или да останете неразкрит, ако сте импосторът.</p>
 
                 <h3 data-translate="how_to_play">КАК СЕ ИГРАЕ</h3>
                 <ol>
-                    <li data-translate="rule_1">В началото на играта всеки играч получава тайна роля</li>
-                    <li data-translate="rule_2">Импосторът получава специална карта, показваща неговата роля</li>
-                    <li data-translate="rule_3">Всички останали играчи виждат една и съща картинка</li>
-                    <li data-translate="rule_4">Играчите се редуват да казват дума, свързана с картинката</li>
-                    <li data-translate="rule_5">Импосторът трябва да внимателно слуша другите играчи и да се опитва да каже дума, която би била логична за картинката</li>
+                    <li data-translate="player_selection_rule">Изберете брой играчи (3-8 души)</li>
+                    <li data-translate="rule_2">Играта автоматично избира кой ще бъде импосторът</li>
+                    <li data-translate="rule_3">Всеки играч вижда своя екран - картинка или съобщение за импостъра</li>
+                    <li data-translate="rule_4">Играчите се редуват да казват дума, свързана с това, което виждат</li>
+                    <li data-translate="rule_5">След всички отговори, обсъдете и се опитайте да разкриете импостъра</li>
                 </ol>
 
-                <h3 data-translate="impostor_rules">ПРАВИЛА ЗА ИМПОСТОРА</h3>
-                <ul>
-                    <li data-translate="impostor_rule_1">Не вижда картинката, която другите играчи виждат</li>
-                    <li data-translate="impostor_rule_2">Трябва да внимателно слуша думите, които другите играчи казват</li>
-                    <li data-translate="impostor_rule_3">Трябва да се опитва да каже дума, която би била логична за картинката</li>
-                    <li data-translate="impostor_rule_4">Трябва да внимава да не разкрие, че не вижда картинката</li>
-                    <li data-translate="impostor_rule_5">Може да използва хитрости, за да изглежда по-достоверен</li>
-                </ul>
 
-                <h3 data-translate="normal_player_rules">ПРАВИЛА ЗА НОРМАЛНИТЕ ИГРАЧИ</h3>
-                <ul>
-                    <li data-translate="normal_rule_1">Виждат една и съща картинка</li>
-                    <li data-translate="normal_rule_2">Трябва да казват думи, свързани с картинката</li>
-                    <li data-translate="normal_rule_3">Могат да задават въпроси, за да разкрият импостора</li>
-                    <li data-translate="normal_rule_4">Трябва да внимават да не разкрият твърде много за картинката</li>
-                    <li data-translate="normal_rule_5">Могат да работят заедно, за да разкрият импостора</li>
-                </ul>
+
+
 
                 <h3 data-translate="game_end">КРАЙ НА ИГРАТА</h3>
                 <p data-translate="game_end_text">Играта приключва, когато:</p>
@@ -153,6 +207,10 @@
                     <li data-translate="tip_3">Използвайте логика и интуиция</li>
                     <li data-translate="tip_4">Наслаждавайте се на играта и бъдете креативни!</li>
                 </ul>
+                
+                <p style="margin-top: 20px; padding: 15px; background: rgba(255, 107, 107, 0.1); border-radius: 10px; border-left: 4px solid #FF6B6B;">
+                    <strong>💡 За подробни правила за конкретни роли, кликнете върху иконите на детектива или импостъра в началния екран!</strong>
+                </p>
             </div>
         </div>
     </div>
@@ -229,26 +287,26 @@
     <div id="login-modal" class="modal">
         <div class="modal-content login-content">
             <span class="close-modal" id="close-login">&times;</span>
-            <div class="login-header">
-                <h2 data-translate="login_title">Вход</h2>
-                <p data-translate="login_subtitle">Влезте в профила си</p>
+            <div id="Container">
+                <form id="login-form" class="form">
+                    <div id="login-lable" data-translate="login_title">Вход</div>
+                    <input class="form-content" type="text" id="login-username" name="username" placeholder="Потребителско име" required autocomplete="username" />
+                    <input class="form-content" type="password" id="login-password" name="password" placeholder="Парола" required autocomplete="current-password" />
+                    <button type="submit" data-translate="login">Влез</button>
+                </form>
+                <div id="rays">
+                    <svg fill="none" viewBox="0 0 299 152" height="9em" width="18em" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="url(#paint0_linear_8_3)" d="M149.5 152H133.42L9.53674e-07 4.70132e-06H149.5L299 4.70132e-06L165.58 152H149.5Z" />
+                        <defs>
+                            <linearGradient gradientUnits="userSpaceOnUse" y2="12.1981" x2="150.12" y1={152} x1="149.5" id="paint0_linear_8_3">
+                                <stop stopColor="#00E0FF" />
+                                <stop stopOpacity={0} stopColor="#65EDFF" offset={1} />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
             </div>
-            
-            <form id="login-form" class="login-form">
-                <div class="form-group">
-                    <label for="login-username" data-translate="username">Потребителско име</label>
-                    <input type="text" id="login-username" name="username" required autocomplete="username">
-                </div>
-                
-                <div class="form-group">
-                    <label for="login-password" data-translate="password">Парола</label>
-                    <input type="password" id="login-password" name="password" required autocomplete="current-password">
-                </div>
-                
-                <div class="form-actions">
-                    <button type="submit" class="btn login-submit-btn" data-translate="login">Влез</button>
-                </div>
-            </form>
             
             <div class="login-footer">
                 <p data-translate="dont_have_account">Нямате акаунт? <a href="#" id="register-link" data-translate="register">Регистрирайте се</a></p>
@@ -257,7 +315,7 @@
     </div>
 
     <footer class="footer">
-        <p><span data-translate="created_by">Създадено от</span> <span class="brand">DAVIDA GAMES</span></p>
+        <p><span data-translate="created_by">Създадено от</span> <span class="brand">DavidaX</span></p>
     </footer>
 
     <script src="script.js"></script>

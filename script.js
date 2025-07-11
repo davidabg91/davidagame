@@ -3,6 +3,7 @@ const translations = {
     bg: {
         player_count: "Брой играчи",
         start_game: "Започни играта",
+        now: "сега!",
         game_rules: "Правила на играта",
         game_starting: "ИГРАТА ЗАПОЧВА!",
         next_round: "СЛЕДВАЩ РУНД",
@@ -14,6 +15,7 @@ const translations = {
         game_objective_text: "Играта е забавна социална игра, в която един от играчите е \"импостор\", а останалите виждат една и съща картинка. Импосторът трябва да се опитва да се вписва сред останалите, без да разкрие, че не вижда картинката.",
         how_to_play: "КАК СЕ ИГРАЕ",
         rule_1: "В началото на играта всеки играч получава тайна роля - детектив или импостор",
+        player_selection_rule: "Изберете брой играчи (3-8 души)",
         rule_2: "Детективите виждат една и съща картинка, а импосторът получава карта \"Импостор\"",
         rule_3: "Играчите се редуват да казват дума, свързана с картинката",
         rule_4: "Импосторът трябва да слуша думите на другите и да дава общи думи, които да не го разкрият",
@@ -41,8 +43,9 @@ const translations = {
         tip_4: "Наслаждавайте се на играта и бъдете креативни!",
         created_by: "Създадено от",
         player: "Играч",
+        game: "ИГРА",
         you_are_impostor: "Вие сте импостър!",
-        min_players: "Моля, въведете поне 2 играча!",
+        min_players: "Моля, въведете поне 3 играча!",
         level_end: "Край на ниво",
         impostor_was: "Импостърът беше:",
         start_new_round: "Започни нов рунд",
@@ -105,11 +108,15 @@ const translations = {
         register: "Регистриране",
         login_success: "Влязохте успешно!",
         login_error: "Грешка при вход. Проверете потребителското име и паролата.",
-        logout_success: "Излязохте от профила си!"
+        logout_success: "Излязохте от профила си!",
+        attention_title: "ВНИМАНИЕ!",
+        attention_message: "Всички играчи да се одръпнат!",
+        attention_submessage: "Да остане само първият играч!"
     },
     en: {
         player_count: "Number of Players",
         start_game: "Start Game",
+        now: "now!",
         game_rules: "Game Rules",
         game_starting: "GAME STARTING!",
         next_round: "NEXT ROUND",
@@ -121,6 +128,7 @@ const translations = {
         game_objective_text: "The game is a fun social game where one of the players is an \"impostor\" and the others see the same picture. The impostor must try to blend in with the others without revealing that they don't see the picture.",
         how_to_play: "HOW TO PLAY",
         rule_1: "At the beginning of the game, each player receives a secret role - detective or impostor",
+        player_selection_rule: "Choose number of players (3-8 people)",
         rule_2: "Detectives see the same picture, and the impostor receives a card \"Impostor\"",
         rule_3: "Players take turns saying a word related to the picture",
         rule_4: "The impostor must listen to the words of others and give general words that they don't reveal",
@@ -148,8 +156,9 @@ const translations = {
         tip_4: "Enjoy the game and be creative!",
         created_by: "Created by",
         player: "Player",
+        game: "GAME",
         you_are_impostor: "You are the impostor!",
-        min_players: "Please enter at least 2 players!",
+        min_players: "Please enter at least 3 players!",
         level_end: "Level End",
         impostor_was: "The impostor was:",
         start_new_round: "Start New Round",
@@ -212,7 +221,10 @@ const translations = {
         register: "Register",
         login_success: "You logged in successfully!",
         login_error: "Login error. Please check your username and password.",
-        logout_success: "You logged out successfully!"
+        logout_success: "You logged out successfully!",
+        attention_title: "ATTENTION!",
+        attention_message: "All players must step back!",
+        attention_submessage: "Only the first player should remain!"
     }
 };
 
@@ -241,12 +253,18 @@ function applyTranslation() {
     
     // Обновяваме tooltip текстове
     updateTooltips();
+    
+    // Обновяваме текста "сега!" в анимирания бутон
+    updateAnimatedButtonText();
 }
 
 // Функция за обновяване на динамични текстове
 function updateDynamicTexts() {
     if (currentPlayerDisplay) {
-        currentPlayerDisplay.textContent = `${translateText('player')} ${currentPlayer}`;
+        const buttonText = currentPlayerDisplay.querySelector('.button-text');
+        if (buttonText) {
+            buttonText.textContent = `${translateText('player')} ${currentPlayer}`;
+        }
     }
 }
 
@@ -414,7 +432,7 @@ increasePlayersBtn.addEventListener('click', () => {
 // Намаляване на броя играчи
 decreasePlayersBtn.addEventListener('click', () => {
     const currentCount = parseInt(playerCountInput.value);
-    if (currentCount > 2) {
+    if (currentCount > 3) {
         playerCountInput.value = currentCount - 1;
     }
 });
@@ -438,49 +456,44 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Започване на играта
-startGameBtn.addEventListener('click', () => {
-    console.log('=== Играта започва ===');
-    console.log('isUserRegistered преди старт:', isUserRegistered);
-    
-    totalPlayers = parseInt(playerCountInput.value);
-    
-    // Запазване на броя играчи
-    localStorage.setItem('lastPlayerCount', totalPlayers);
-    
-    if (totalPlayers < 2) {
-        showMessage(translateText('min_players'));
-        return;
-    }
-
-    currentPlayer = 1;
-    currentLevel = 0;
-    
-    console.log('Инициализация:');
-    console.log('- currentPlayer:', currentPlayer);
-    console.log('- currentLevel:', currentLevel);
-    console.log('- totalPlayers:', totalPlayers);
-    
-    // Генерираме нови нива
-    generateGameLevels();
-    
-    setupScreen.classList.add('hidden');
-    gameScreen.classList.remove('hidden');
-    showCountdown();
-});
+// Старият event listener е премахнат - сега използваме новия в края на файла
 
 // Показване на обратен брояч
 function showCountdown() {
     let count = 3;
     isCountdownActive = true; // Започваме броенето
-    imagesContainer.innerHTML = `<div class="countdown">${count}</div>`;
-    currentPlayerDisplay.textContent = `${translateText('player')} ${currentPlayer}`;
+    
+    // Добавяме Pac-Man loader над обратния брояч
+    imagesContainer.innerHTML = `
+        <div class="countdown-container">
+            <div class="pacman-loader">
+                <div class="loader-wrapper">
+                    <div class="packman"></div>
+                    <div class="dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="countdown">${count}</div>
+        </div>
+    `;
+    const buttonText = currentPlayerDisplay.querySelector('.button-text');
+    if (buttonText) {
+        buttonText.textContent = `${translateText('player')} ${currentPlayer}`;
+    }
     
     clearInterval(countdownInterval);
     countdownInterval = setInterval(() => {
         count--;
         if (count > 0) {
-            imagesContainer.innerHTML = `<div class="countdown">${count}</div>`;
+            // Обновяваме само брояча, запазвайки loader-а
+            const countdownElement = imagesContainer.querySelector('.countdown');
+            if (countdownElement) {
+                countdownElement.textContent = count;
+            }
         } else {
             clearInterval(countdownInterval);
             isCountdownActive = false; // Край на броенето
@@ -495,7 +508,10 @@ function showPlayerScreen() {
     const isImpostor = currentPlayer === level.impostor;
     
     // Обновяваме текста на играча
-    currentPlayerDisplay.textContent = `${translateText('player')} ${currentPlayer}`;
+    const buttonText = currentPlayerDisplay.querySelector('.button-text');
+    if (buttonText) {
+        buttonText.textContent = `${translateText('player')} ${currentPlayer}`;
+    }
 
     // Изчистваме контейнера първо
     imagesContainer.innerHTML = '';
@@ -514,6 +530,8 @@ function showPlayerScreen() {
         imageCard.innerHTML = `<img src="${level.image}" alt="Image">`;
         imagesContainer.appendChild(imageCard);
     }
+    // Само ако не е първото показване, може да има автоматична смяна (ако някъде има setTimeout или подобно)
+    isFirstPlayerScreen = false;
 }
 
 // Показване на екрана за край на нивото
@@ -803,63 +821,95 @@ document.addEventListener('DOMContentLoaded', function() {
     startFallingEmojis();
 });
 
-// Функция за показване на екрана "ИГРАТА ЗАПОЧВА!"
-function showGameStartScreen() {
-    const gameStartScreen = document.getElementById('game-start-screen');
-    gameStartScreen.classList.remove('hidden');
-    gameStartScreen.classList.add('show');
+// Функция за показване на екрана за внимание
+function showAttentionScreen() {
+    // Създаваме екрана за внимание
+    const attentionScreen = document.createElement('div');
+    attentionScreen.id = 'attention-screen';
+    attentionScreen.className = 'attention-screen';
+    attentionScreen.innerHTML = `
+        <div class="attention-content">
+            <div class="attention-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h1 class="attention-title">${translateText('attention_title')}</h1>
+            <div class="attention-message">${translateText('attention_message')}</div>
+            <div class="attention-submessage">${translateText('attention_submessage')}</div>
+            <div class="attention-timer">
+                <div class="timer-circle">
+                    <span class="timer-number">5</span>
+                </div>
+            </div>
+        </div>
+    `;
     
-    // Спиране на падащите емотикони временно
-    const emojiContainer = document.getElementById('emoji-container');
-    emojiContainer.style.display = 'none';
+    // Добавяме екрана в body
+    document.body.appendChild(attentionScreen);
     
-    // След 3 секунди скриване на екрана и стартиране на играта
+    // Показваме с анимация
     setTimeout(() => {
-        gameStartScreen.classList.add('hide');
-        setTimeout(() => {
-            gameStartScreen.classList.add('hidden');
-            gameStartScreen.classList.remove('show', 'hide');
-            
-            // Възстановяване на падащите емотикони
-            emojiContainer.style.display = 'block';
-            
-            // Стартиране на играта
-            startGame();
-        }, 500);
-    }, 3000);
+        attentionScreen.classList.add('show');
+    }, 10);
+    
+    // Обратен брояч от 5 до 1
+    let count = 5;
+    const timerNumber = attentionScreen.querySelector('.timer-number');
+    const timerInterval = setInterval(() => {
+        count--;
+        if (timerNumber) {
+            timerNumber.textContent = count;
+        }
+        
+        if (count <= 0) {
+            clearInterval(timerInterval);
+            // Скриваме екрана за внимание
+            attentionScreen.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(attentionScreen);
+                // Директно стартираме играта
+                startGame();
+            }, 500);
+        }
+    }, 1000);
 }
 
-// Модифициране на функцията за стартиране на играта
+
+
+// Функция за стартиране на играта
 function startGame() {
-    // Оригиналната логика за стартиране на играта
-    document.getElementById('setup-screen').classList.add('hidden');
-    document.getElementById('game-screen').classList.remove('hidden');
+    console.log('=== Играта започва ===');
+    console.log('isUserRegistered преди старт:', isUserRegistered);
     
-    const playerCount = parseInt(document.getElementById('player-count').value);
-    players = [];
-    currentPlayerIndex = 0;
-    currentRound = 1;
+    totalPlayers = parseInt(playerCountInput.value);
     
-    for (let i = 1; i <= playerCount; i++) {
-        players.push({
-            name: `Играч ${i}`,
-            score: 0,
-            isImpostor: false
-        });
+    // Запазване на броя играчи
+    localStorage.setItem('lastPlayerCount', totalPlayers);
+    
+    if (totalPlayers < 3) {
+        showMessage(translateText('min_players'));
+        return;
     }
+
+    currentPlayer = 1;
+    currentLevel = 0;
     
-    // Избиране на импостор
-    const impostorIndex = Math.floor(Math.random() * players.length);
-    players[impostorIndex].isImpostor = true;
+    console.log('Инициализация:');
+    console.log('- currentPlayer:', currentPlayer);
+    console.log('- currentLevel:', currentLevel);
+    console.log('- totalPlayers:', totalPlayers);
     
-    updateCurrentPlayer();
-    loadRandomImage();
-    startTimer();
+    // Генерираме нови нива
+    generateGameLevels();
+    
+    setupScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    showPlayerScreen(); // директно показваме картинката на първия играч
+    isFirstPlayerScreen = true;
 }
 
 // Модифициране на event listener за бутона "Започни играта"
 document.getElementById('start-game').addEventListener('click', function() {
-    showGameStartScreen();
+    showAttentionScreen();
 });
 
 // Функционалност за избор на език
@@ -954,6 +1004,14 @@ function updateTooltips() {
     }
     if (impostorLogo) {
         impostorLogo.setAttribute('data-tooltip', translateText('click_for_impostor_rules'));
+    }
+}
+
+// Функция за обновяване на текста в анимирания бутон
+function updateAnimatedButtonText() {
+    const nowSpan = document.querySelector('.animated-button .now');
+    if (nowSpan) {
+        nowSpan.textContent = translateText('now');
     }
 }
 
