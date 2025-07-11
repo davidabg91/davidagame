@@ -49,17 +49,7 @@
     
     <div class="container">
         <div class="logo">
-            <span style="--i:1">O</span>
-            <span style="--i:2">d</span>
-            <span style="--i:3">d</span>
-            <span style="--i:4"> </span>
-            <span style="--i:5">O</span>
-            <span style="--i:6">n</span>
-            <span style="--i:7">e</span>
-            <span style="--i:8"> </span>
-            <span style="--i:9">O</span>
-            <span style="--i:10">u</span>
-            <span style="--i:11">t</span>
+            <img src="images/logogame.png" alt="Лого на играта" style="max-width: 100%; height: auto;">
         </div>
         
         <div id="setup-screen">
@@ -290,10 +280,13 @@
             <div id="Container">
                 <form id="login-form" class="form">
                     <div id="login-lable" data-translate="login_title">Вход</div>
-                    <input class="form-content" type="text" id="login-username" name="username" placeholder="Потребителско име" required autocomplete="username" />
+                    <input class="form-content" type="email" id="login-username" name="username" placeholder="Имейл адрес" required autocomplete="username" />
                     <input class="form-content" type="password" id="login-password" name="password" placeholder="Парола" required autocomplete="current-password" />
                     <button type="submit" data-translate="login">Влез</button>
                 </form>
+                <div style="text-align:center; margin-top:10px;">
+                    <a href="#" id="forgot-password-link" style="color:#00bcd4; text-decoration:underline; cursor:pointer;">Забравена парола?</a>
+                </div>
                 <div id="rays">
                     <svg fill="none" viewBox="0 0 299 152" height="9em" width="18em" xmlns="http://www.w3.org/2000/svg">
                         <path fill="url(#paint0_linear_8_3)" d="M149.5 152H133.42L9.53674e-07 4.70132e-06H149.5L299 4.70132e-06L165.58 152H149.5Z" />
@@ -314,10 +307,45 @@
         </div>
     </div>
 
+    <!-- Модал за възстановяване на парола -->
+    <div id="reset-password-modal" class="modal">
+        <div class="modal-content login-content">
+            <span class="close-modal" id="close-reset-password">&times;</span>
+            <form id="reset-password-form" class="form">
+                <div id="reset-label">Възстановяване на парола</div>
+                <input class="form-content" type="email" id="reset-email" name="reset-email" placeholder="Имейл адрес" required autocomplete="email" />
+                <button type="submit">Изпрати линк за възстановяване</button>
+            </form>
+        </div>
+    </div>
+
     <footer class="footer">
         <p><span data-translate="created_by">Създадено от</span> <span class="brand">DavidaX</span></p>
     </footer>
 
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <!-- Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <!-- Firebase Firestore (за профилна информация) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+      // Firebase конфигурация
+      const firebaseConfig = {
+        apiKey: "AIzaSyBzDaVut4DuEkqlFcYzrsiUgv2vWGVsoTw",
+        authDomain: "davidagame-8193b.firebaseapp.com",
+        projectId: "davidagame-8193b",
+        storageBucket: "davidagame-8193b.firebasestorage.app",
+        messagingSenderId: "123529111800",
+        appId: "1:123529111800:web:c89e10bbb735467b06f30d",
+        measurementId: "G-3EVDT0SH0D"
+      };
+      // Инициализация на Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

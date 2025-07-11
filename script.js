@@ -381,31 +381,34 @@ nextPlayerButton.textContent = 'Следващ играч';
 // Генериране на нивата при зареждане на страницата
 function generateGameLevels() {
     gameLevels = [];
-    let availableImages = [...images];
-    
-    // Разбъркваме масива с изображения
-    for (let i = availableImages.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
-    }
-    
-    // Създаваме 16 нива
-    for (let i = 0; i < totalLevels; i++) {
-        // Ако свършат изображенията, добавяме нови от оригиналния масив
-        if (availableImages.length === 0) {
-            availableImages = [...images];
-            // Разбъркваме отново
-            for (let j = availableImages.length - 1; j > 0; j--) {
-                const k = Math.floor(Math.random() * (j + 1));
-                [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
-            }
+    let availableImages;
+    const currentUser = getCurrentUser();
+    if (currentUser && currentUser.username) {
+        availableImages = getUserImagesPool(currentUser.username);
+    } else {
+        availableImages = [...images];
+        for (let i = availableImages.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
         }
-        
-        // Генерираме импостър само ако имаме зададен брой играчи
+    }
+    for (let i = 0; i < totalLevels; i++) {
+        let image;
+        if (currentUser && currentUser.username) {
+            image = getNextImageForUser(currentUser.username);
+        } else {
+            if (availableImages.length === 0) {
+                availableImages = [...images];
+                for (let j = availableImages.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+                }
+            }
+            image = availableImages.pop();
+        }
         const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
-        
         gameLevels.push({
-            image: availableImages.pop(),
+            image: image,
             impostor: impostor
         });
     }
@@ -462,6 +465,7 @@ document.addEventListener('keydown', (e) => {
 function showCountdown() {
     let count = 3;
     isCountdownActive = true; // Започваме броенето
+    setNextPlayerButtonEnabled(false); // Деактивираме бутона
     
     // Добавяме Pac-Man loader над обратния брояч
     imagesContainer.innerHTML = `
@@ -505,6 +509,7 @@ function showCountdown() {
 
 // Показване на екрана на играча
 function showPlayerScreen() {
+    setNextPlayerButtonEnabled(true); // Активираме бутона
     const level = gameLevels[currentLevel];
     const isImpostor = currentPlayer === level.impostor;
     
@@ -537,7 +542,7 @@ function showPlayerScreen() {
 
 // Показване на екрана за край на нивото
 function showLevelEnd() {
-    console.log('=== showLevelEnd извикана ===');
+    console.log('[LIMIT DEBUG] showLevelEnd извикана');
     console.log('currentLevel преди:', currentLevel);
     
     const currentLevelData = gameLevels[currentLevel - 1];
@@ -603,6 +608,11 @@ function showLevelEnd() {
     }
     
     console.log('=== showLevelEnd завършена ===');
+    // Записваме изиграна игра и проверяваме лимита при всеки рунд
+    recordGame();
+    checkFreeGameLimitAndMaybeBlock(() => {
+        // нищо, просто позволяваме да продължи рунда
+    });
 }
 
 // Следващ играч
@@ -635,7 +645,7 @@ function nextPlayer() {
 
 // Показване на резултати
 function showResults() {
-    console.log('showResults извикана');
+    console.log('[LIMIT DEBUG] showResults извикана');
     console.log('currentLevel:', currentLevel);
     console.log('isUserRegistered:', isUserRegistered);
     
@@ -649,17 +659,23 @@ function showResults() {
             <span class="score">${translateText('you_are_impostor')}</span>
         </div>
     `;
+    recordGame(); // Записваме изиграна игра за текущия потребител
 }
 
 // Нова игра
 newGameBtn.addEventListener('click', () => {
-    resultsScreen.classList.add('hidden');
-    setupScreen.classList.remove('hidden');
-    resetGame();
+    // Записваме изиграна игра за текущия потребител ПРЕДИ да проверим лимита
+    recordGame();
+    checkFreeGameLimitAndMaybeBlock(() => {
+        resultsScreen.classList.add('hidden');
+        setupScreen.classList.remove('hidden');
+        resetGame();
+    });
 });
 
 // Рестартиране на играта
 function resetGame() {
+    console.log('[LIMIT DEBUG] resetGame извикана');
     currentPlayer = 1;
     totalPlayers = 0;
     currentLevel = 0;
@@ -681,6 +697,10 @@ function nextLevel() {
 
 // Актуализирам логиката за натискане на бутона
 nextPlayerButton.addEventListener('click', () => {
+    // Ако броенето е активно, не правим нищо
+    if (isCountdownActive) {
+        return;
+    }
     console.log('Level end element:', imagesContainer.querySelector('.level-end'));
     if (imagesContainer.querySelector('.level-end')) {
         nextLevel();
@@ -688,6 +708,20 @@ nextPlayerButton.addEventListener('click', () => {
         nextPlayer();
     }
 });
+
+// Деактивиране/активиране на бутона по време на броенето
+function setNextPlayerButtonEnabled(enabled) {
+    nextPlayerButton.disabled = !enabled;
+    if (!enabled) {
+        nextPlayerButton.classList.add('disabled');
+        nextPlayerButton.style.opacity = '0.5';
+        nextPlayerButton.style.pointerEvents = 'none';
+    } else {
+        nextPlayerButton.classList.remove('disabled');
+        nextPlayerButton.style.opacity = '';
+        nextPlayerButton.style.pointerEvents = '';
+    }
+}
 
 // Функция за показване на надписа "СЛЕДВАЩ РУНД"
 function showNextRoundMessage() {
@@ -878,6 +912,7 @@ function showAttentionScreen() {
 
 // Функция за стартиране на играта
 function startGame() {
+    console.log('[LIMIT DEBUG] startGame извикана');
     console.log('=== Играта започва ===');
     console.log('isUserRegistered преди старт:', isUserRegistered);
     
@@ -910,7 +945,9 @@ function startGame() {
 
 // Модифициране на event listener за бутона "Започни играта"
 document.getElementById('start-game').addEventListener('click', function() {
-    showAttentionScreen();
+    checkFreeGameLimitAndMaybeBlock(() => {
+        showAttentionScreen();
+    });
 });
 
 // Функционалност за избор на език
@@ -1109,29 +1146,28 @@ function showRegistration() {
     console.log('=== showRegistration извикана ===');
     console.log('isRegistrationShown:', isRegistrationShown);
     console.log('isUserRegistered:', isUserRegistered);
-    
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     console.log('isLoggedIn от localStorage:', isLoggedIn);
-    
     console.log('Показваме регистрационния модал...');
     registrationModal.style.display = 'block';
     registrationModal.classList.add('show');
     document.body.style.overflow = 'hidden';
-    
     // Свързване на бутона "Вече имате акаунт?" след показване на модала
     setTimeout(() => {
         const loginLinkBtn = document.getElementById('login-link');
         if (loginLinkBtn) {
-            console.log('Бутонът login-link е намерен след показване на модала!');
-            // Премахваме стария слушател, ако има такъв
-            loginLinkBtn.removeEventListener('click', handleLoginClick);
-            // Добавяме нов слушател
-            loginLinkBtn.addEventListener('click', handleLoginClick);
+            // Премахваме всички стари слушатели чрез клониране
+            const newBtn = loginLinkBtn.cloneNode(true);
+            loginLinkBtn.parentNode.replaceChild(newBtn, loginLinkBtn);
+            newBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                hideRegistration();
+                showLogin();
+            });
         } else {
             console.warn('Бутонът login-link не е намерен след показване на модала!');
         }
     }, 100);
-    
     console.log('=== showRegistration завършена ===');
 }
 
@@ -1190,9 +1226,8 @@ function clearCurrentUser() {
 }
 
 // Обработка на регистрационната форма
-registrationForm.addEventListener('submit', (e) => {
+registrationForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
     const formData = new FormData(registrationForm);
     const username = formData.get('username');
     const email = formData.get('email');
@@ -1202,8 +1237,6 @@ registrationForm.addEventListener('submit', (e) => {
     const favoriteGame = formData.get('favorite-game');
     const terms = formData.get('terms');
     const newsletter = formData.get('newsletter');
-    
-    // Валидация
     if (password !== confirmPassword) {
         showMessage('Паролите не съвпадат!', 'error');
         return;
@@ -1216,17 +1249,11 @@ registrationForm.addEventListener('submit', (e) => {
         showMessage('Трябва да приемете условията за ползване!', 'error');
         return;
     }
-    
-    // Използваме новата функция за регистрация
-    const success = registerUser(username, email, password);
-    
+    const success = await registerUserFirebase(username, email, password, age, favoriteGame, newsletter);
     if (success) {
-        // Скриване на регистрацията
         hideRegistration();
-        // Маркиране като регистриран
         isUserRegistered = true;
         isRegistrationShown = true;
-        // Продължаване на играта
         continueGameAfterRegistration();
     }
 });
@@ -1236,16 +1263,13 @@ function updateProfilePanel() {
     const currentUser = getCurrentUser();
     const profileInfo = document.querySelector('.profile-info');
     const profileActions = document.querySelector('.profile-actions');
-    
     if (currentUser) {
         profileInfo.classList.remove('hidden');
         profileActions.classList.add('hidden');
-        
         const usernameElement = document.getElementById('profile-username');
         if (usernameElement) {
-            usernameElement.textContent = currentUser.username;
+            usernameElement.textContent = currentUser.username || '';
         }
-        
         // Добавяме админ бутон в profile-info секцията
         addAdminButton();
     } else {
@@ -1255,8 +1279,10 @@ function updateProfilePanel() {
 }
 
 // Бутон за изход
-logoutBtn.addEventListener('click', () => {
-    logoutUser();
+logoutBtn.replaceWith(logoutBtn.cloneNode(true));
+const logoutBtnFixed = document.getElementById('logout-btn');
+logoutBtnFixed.addEventListener('click', () => {
+    logoutUserFirebase();
     isUserRegistered = false;
     isRegistrationShown = false;
 });
@@ -1890,9 +1916,14 @@ function showMainMenu() {
 
 // Функция за започване на нова игра
 function startNewGame() {
-    hideGameEndScreen();
-    // Тук можеш да добавиш логика за започване на нова игра
-    location.reload(); // За сега просто презареждаме страницата
+    // Вместо location.reload() използваме лимит и resetGame
+    checkFreeGameLimitAndMaybeBlock(() => {
+        // Скриваме екрана за край на играта, ако има такъв
+        hideGameEndScreen && hideGameEndScreen();
+        resultsScreen.classList.add('hidden');
+        setupScreen.classList.remove('hidden');
+        resetGame();
+    });
 }
 
 // Инициализация при зареждане на страницата
@@ -2132,3 +2163,404 @@ function openAdminPanel() {
 // Добавяме функции за тестване в конзолата
 window.makeAdmin = makeCurrentUserAdmin;
 window.openAdmin = openAdminPanel;
+
+// Firebase регистрация и запис на профил
+async function registerUserFirebase(username, email, password, age, favoriteGame, newsletter) {
+    try {
+        // Създаване на акаунт с имейл и парола
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        // Запис на допълнителна информация във Firestore
+        await db.collection('users').doc(user.uid).set({
+            username,
+            email,
+            age,
+            favoriteGame,
+            newsletter: !!newsletter,
+            registrationDate: new Date().toISOString()
+        });
+        // Запис на текущия потребител в localStorage (само username и uid)
+        localStorage.setItem('currentUser', JSON.stringify({ username, uid: user.uid }));
+        localStorage.setItem('isRegistered', 'true');
+        localStorage.setItem('isLoggedIn', 'true');
+        showMessage('Регистрацията е успешна!', 'success');
+        return true;
+    } catch (error) {
+        if (error.code === 'auth/email-already-in-use') {
+            showMessage('Имейлът вече е използван!', 'error');
+        } else if (error.code === 'auth/weak-password') {
+            showMessage('Паролата трябва да е поне 6 символа!', 'error');
+        } else {
+            showMessage('Грешка при регистрация: ' + error.message, 'error');
+        }
+        return false;
+    }
+}
+
+// ... existing code ...
+// Firebase вход и зареждане на профил
+async function loginUserFirebase(email, password) {
+    try {
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        // Вземаме профилните данни от Firestore
+        const doc = await db.collection('users').doc(user.uid).get();
+        let profile;
+        if (doc.exists) {
+            profile = doc.data();
+        } else {
+            // Ако профилът не съществува, създаваме базов профил
+            profile = {
+                email: user.email,
+                username: user.email.split('@')[0],
+                registrationDate: new Date().toISOString()
+            };
+            await db.collection('users').doc(user.uid).set(profile);
+        }
+        localStorage.setItem('currentUser', JSON.stringify({ ...profile, uid: user.uid }));
+        localStorage.setItem('isLoggedIn', 'true');
+        updateProfilePanel();
+        showMessage('Успешен вход!', 'success');
+        return true;
+    } catch (error) {
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+            showMessage('Грешен имейл или парола!', 'error');
+        } else {
+            showMessage('Грешка при вход: ' + error.message, 'error');
+        }
+        return false;
+    }
+}
+
+// Обработка на login формата
+loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(loginForm);
+    const email = formData.get('username'); // username полето е имейл
+    const password = formData.get('password');
+    const success = await loginUserFirebase(email, password);
+    if (success) {
+        hideLogin();
+        isUserRegistered = true;
+        updateProfilePanel();
+    }
+});
+
+// Firebase изход
+async function logoutUserFirebase() {
+    try {
+        await auth.signOut();
+        localStorage.removeItem('currentUser');
+        localStorage.setItem('isLoggedIn', 'false');
+        updateProfilePanel();
+        showMessage('Успешно излязохте от профила!', 'success');
+    } catch (error) {
+        showMessage('Грешка при изход: ' + error.message, 'error');
+    }
+}
+
+
+// ... existing code ...
+
+// Възстановяване на парола с Firebase
+const forgotPasswordLink = document.getElementById('forgot-password-link');
+const resetPasswordModal = document.getElementById('reset-password-modal');
+const closeResetPassword = document.getElementById('close-reset-password');
+const resetPasswordForm = document.getElementById('reset-password-form');
+
+if (forgotPasswordLink) {
+    forgotPasswordLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        resetPasswordModal.style.display = 'block';
+        resetPasswordModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    });
+}
+if (closeResetPassword) {
+    closeResetPassword.addEventListener('click', () => {
+        resetPasswordModal.style.display = 'none';
+        resetPasswordModal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    });
+}
+if (resetPasswordForm) {
+    resetPasswordForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('reset-email').value;
+        try {
+            await auth.sendPasswordResetEmail(email);
+            showMessage('Изпратен е имейл за възстановяване на паролата!', 'success');
+            resetPasswordModal.style.display = 'none';
+            resetPasswordModal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        } catch (error) {
+            showMessage('Грешка при изпращане: ' + error.message, 'error');
+        }
+    });
+}
+// ... existing code ...
+
+// === БЛОК ЗА ОГРАНИЧЕНИЕ НА БЕЗПЛАТНАТА ВЕРСИЯ ===
+let isPremium = false;
+let freeGameBlockTimeout = null;
+
+function checkFreeGameLimitAndMaybeBlock(startGameCallback) {
+    const currentUser = getCurrentUser();
+    console.log('[LIMIT DEBUG] currentUser:', currentUser);
+    if (currentUser && !isPremium) {
+        const gamesPlayed = currentUser.gamesPlayed || 0;
+        console.log('[LIMIT DEBUG] gamesPlayed:', gamesPlayed);
+        if (gamesPlayed > 0 && gamesPlayed % 3 === 0) {
+            console.log('[LIMIT DEBUG] Показваме модал за лимит!');
+            showFreeGameBlockModal(startGameCallback);
+            return;
+        }
+    }
+    startGameCallback();
+}
+
+function showFreeGameBlockModal(startGameCallback) {
+    // Ако вече има модал, не създаваме нов
+    if (document.getElementById('free-game-block-modal')) return;
+    let seconds = 30;
+    const modal = document.createElement('div');
+    modal.id = 'free-game-block-modal';
+    modal.style.position = 'fixed';
+    modal.style.top = '0';
+    modal.style.left = '0';
+    modal.style.width = '100vw';
+    modal.style.height = '100vh';
+    modal.style.background = 'rgba(0,0,0,0.85)';
+    modal.style.display = 'flex';
+    modal.style.flexDirection = 'column';
+    modal.style.justifyContent = 'center';
+    modal.style.alignItems = 'center';
+    modal.style.zIndex = '9999';
+    modal.innerHTML = `
+        <div style="background: #fff; border-radius: 18px; padding: 32px 24px; max-width: 350px; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.25);">
+            <h2 style="color: #FF6B6B; margin-bottom: 12px;">Безплатна версия</h2>
+            <p style="font-size: 1.1rem; color: #222; margin-bottom: 10px;">Изиграхте 3 поредни игри.<br>Това е лимитът за безплатната версия.<br><b>Изчакайте <span id='free-block-timer'>30</span> секунди</b> преди да започнете нова игра.</p>
+            <button id="buy-premium-btn" style="margin: 10px 0 0 0; padding: 10px 18px; background: #FFD93D; color: #222; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Премахни лимита (2,99€)</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    // Таймер
+    let timer = setInterval(() => {
+        seconds--;
+        document.getElementById('free-block-timer').textContent = seconds;
+        if (seconds <= 0) {
+            clearInterval(timer);
+            document.body.removeChild(modal);
+            if (typeof startGameCallback === 'function') startGameCallback();
+        }
+    }, 1000);
+    // Бутон за покупка
+    document.getElementById('buy-premium-btn').onclick = function() {
+        clearInterval(timer);
+        document.body.removeChild(modal);
+        isPremium = true;
+        localStorage.setItem('isPremium', 'true');
+        showMessage('Благодарим за покупката! Лимитът е премахнат.', 'success');
+        if (typeof startGameCallback === 'function') startGameCallback();
+    };
+}
+
+// При зареждане на страницата проверяваме дали е закупена платена версия
+window.addEventListener('load', () => {
+    if (localStorage.getItem('isPremium') === 'true') {
+        isPremium = true;
+    }
+});
+
+// ... existing code ...
+function getUserImagesPool(username) {
+    let pool = localStorage.getItem('imagesPool_' + username);
+    if (pool) {
+        try {
+            pool = JSON.parse(pool);
+        } catch (e) {
+            pool = null;
+        }
+    }
+    if (!Array.isArray(pool) || pool.length === 0) {
+        // Презареждаме и разбъркваме
+        pool = [...images];
+        for (let i = pool.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [pool[i], pool[j]] = [pool[j], pool[i]];
+        }
+    }
+    return pool;
+}
+
+function saveUserImagesPool(username, pool) {
+    localStorage.setItem('imagesPool_' + username, JSON.stringify(pool));
+}
+
+function getNextImageForUser(username) {
+    let pool = getUserImagesPool(username);
+    const image = pool.pop();
+    saveUserImagesPool(username, pool);
+    // Ако свършат, следващия път ще се презареди
+    return image;
+}
+
+// Модифицирам generateGameLevels така, че за регистриран потребител да ползва user pool-а
+function generateGameLevels() {
+    gameLevels = [];
+    let availableImages;
+    const currentUser = getCurrentUser();
+    if (currentUser && currentUser.username) {
+        availableImages = getUserImagesPool(currentUser.username);
+    } else {
+        availableImages = [...images];
+        for (let i = availableImages.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
+        }
+    }
+    for (let i = 0; i < totalLevels; i++) {
+        let image;
+        if (currentUser && currentUser.username) {
+            image = getNextImageForUser(currentUser.username);
+        } else {
+            if (availableImages.length === 0) {
+                availableImages = [...images];
+                for (let j = availableImages.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+                }
+            }
+            image = availableImages.pop();
+        }
+        const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+        gameLevels.push({
+            image: image,
+            impostor: impostor
+        });
+    }
+}
+// ... existing code ...
+
+// ... existing code ...
+// === FIREBASE imagesPool ===
+async function getUserImagesPoolFirebase(uid) {
+    const userDoc = db.collection('users').doc(uid);
+    const poolDoc = await userDoc.collection('gameData').doc('imagesPool').get();
+    let pool = poolDoc.exists ? poolDoc.data().pool : null;
+    if (!Array.isArray(pool) || pool.length === 0) {
+        // Презареждаме и разбъркваме
+        pool = [...images];
+        for (let i = pool.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [pool[i], pool[j]] = [pool[j], pool[i]];
+        }
+    }
+    return pool;
+}
+
+async function saveUserImagesPoolFirebase(uid, pool) {
+    const userDoc = db.collection('users').doc(uid);
+    await userDoc.collection('gameData').doc('imagesPool').set({ pool });
+}
+
+async function getNextImageForUserFirebase(uid) {
+    let pool = await getUserImagesPoolFirebase(uid);
+    const image = pool.pop();
+    await saveUserImagesPoolFirebase(uid, pool);
+    return image;
+}
+
+// Асинхронна версия на generateGameLevels
+async function generateGameLevelsAsync() {
+    gameLevels = [];
+    const currentUser = getCurrentUser();
+    if (currentUser && currentUser.uid) {
+        for (let i = 0; i < totalLevels; i++) {
+            const image = await getNextImageForUserFirebase(currentUser.uid);
+            const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+            gameLevels.push({
+                image: image,
+                impostor: impostor
+            });
+        }
+    } else {
+        // Гост/нерегистриран - локално както досега
+        let availableImages = [...images];
+        for (let i = availableImages.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
+        }
+        for (let i = 0; i < totalLevels; i++) {
+            if (availableImages.length === 0) {
+                availableImages = [...images];
+                for (let j = availableImages.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+                }
+            }
+            const image = availableImages.pop();
+            const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+            gameLevels.push({
+                image: image,
+                impostor: impostor
+            });
+        }
+    }
+}
+
+// Показване на loader докато се зарежда imagesPool
+function showLoader() {
+    if (!document.getElementById('images-loader')) {
+        const loader = document.createElement('div');
+        loader.id = 'images-loader';
+        loader.style.position = 'fixed';
+        loader.style.top = '0';
+        loader.style.left = '0';
+        loader.style.width = '100vw';
+        loader.style.height = '100vh';
+        loader.style.background = 'rgba(0,0,0,0.5)';
+        loader.style.display = 'flex';
+        loader.style.justifyContent = 'center';
+        loader.style.alignItems = 'center';
+        loader.style.zIndex = '9999';
+        loader.innerHTML = '<div style="background:#fff;padding:30px 40px;border-radius:20px;font-size:1.5rem;">Зареждане...</div>';
+        document.body.appendChild(loader);
+    }
+}
+function hideLoader() {
+    const loader = document.getElementById('images-loader');
+    if (loader) loader.remove();
+}
+
+// Модифицирам startGame да използва generateGameLevelsAsync за регистрирани потребители
+async function startGame() {
+    console.log('[LIMIT DEBUG] startGame извикана');
+    console.log('=== Играта започва ===');
+    console.log('isUserRegistered преди старт:', isUserRegistered);
+    totalPlayers = parseInt(playerCountInput.value);
+    localStorage.setItem('lastPlayerCount', totalPlayers);
+    if (totalPlayers < 3) {
+        showMessage(translateText('min_players'));
+        return;
+    }
+    currentPlayer = 1;
+    currentLevel = 0;
+    console.log('Инициализация:');
+    console.log('- currentPlayer:', currentPlayer);
+    console.log('- currentLevel:', currentLevel);
+    console.log('- totalPlayers:', totalPlayers);
+    const currentUser = getCurrentUser();
+    if (currentUser && currentUser.uid) {
+        showLoader();
+        await generateGameLevelsAsync();
+        hideLoader();
+    } else {
+        generateGameLevels();
+    }
+    setupScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    showPlayerScreen();
+    isFirstPlayerScreen = true;
+}
+// ... existing code ...
