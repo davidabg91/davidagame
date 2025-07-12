@@ -1,3 +1,7 @@
+// Проверка на Firebase достъпност
+console.log('Firebase auth достъпен:', typeof auth !== 'undefined');
+console.log('Firebase db достъпен:', typeof db !== 'undefined');
+
 // Система за превод
 const translations = {
     bg: {
@@ -139,7 +143,8 @@ const translations = {
         duration: "Продължителност:",
         new_game: "Нова игра",
         main_menu: "Главно меню",
-        attention_next_player: "ВНИМАНИЕ: ДА ГЛЕДА САМО СЛЕДВАЩИЯ ИГРАЧ"
+        attention_next_player: "ВНИМАНИЕ: ДА ГЛЕДА САМО СЛЕДВАЩИЯ ИГРАЧ",
+        reveal_impostor: "РАЗКРИИ КОЙ БЕШЕ ИМПОСТЪРА"
     },
     en: {
         player_count: "Number of Players",
@@ -280,7 +285,8 @@ const translations = {
         duration: "Duration:",
         new_game: "New Game",
         main_menu: "Main Menu",
-        attention_next_player: "ATTENTION: ONLY THE NEXT PLAYER SHOULD LOOK"
+        attention_next_player: "ATTENTION: ONLY THE NEXT PLAYER SHOULD LOOK",
+        reveal_impostor: "REVEAL WHO WAS THE IMPOSTOR"
     }
 };
 
@@ -566,8 +572,42 @@ function showCountdown() {
 // Показване на екрана на играча
 function showPlayerScreen() {
     setNextPlayerButtonEnabled(true); // Активираме бутона
+    
+    console.log('=== showPlayerScreen DEBUG ===');
+    console.log('currentLevel:', currentLevel);
+    console.log('gameLevels.length:', gameLevels.length);
+    console.log('gameLevels:', gameLevels);
+    
+    // Проверяваме дали има валиден level
+    if (!gameLevels || currentLevel >= gameLevels.length) {
+        console.log('Генерираме едно ниво при нужда...');
+        // Използваме новата функция за генериране на едно ниво
+        generateSingleLevelAsync().then((level) => {
+            console.log('✅ Едно ниво генерирано:', level);
+            gameLevels.push(level);
+            showPlayerScreenContent();
+        }).catch(error => {
+            console.error('Грешка при генериране на ниво:', error);
+            // Fallback към локално генериране
+            generateGameLevels();
+            showPlayerScreenContent();
+        });
+        return;
+    }
+    
+    showPlayerScreenContent();
+}
+
+function showPlayerScreenContent() {
     const level = gameLevels[currentLevel];
+    if (!level) {
+        console.error('❌ Грешка: level е undefined за currentLevel:', currentLevel);
+        return;
+    }
+    
     const isImpostor = currentPlayer === level.impostor;
+    console.log('✅ Level намерен:', level);
+    console.log('currentPlayer:', currentPlayer, 'isImpostor:', isImpostor);
     
     // Обновяваме текста на играча
     const buttonText = currentPlayerDisplay.querySelector('.button-text');
@@ -623,12 +663,20 @@ function showLevelEnd() {
                     <i class="fas fa-trophy trophy-icon"></i>
                 </div>
                 <i class="fas fa-user-secret impostor-icon animate__animated animate__pulse animate__infinite"></i>
+                <div class="reveal-button-container animate__animated animate__fadeIn">
+                    <button id="reveal-impostor-btn" class="btn reveal-impostor-btn animate__animated animate__pulse animate__infinite">
+                        <i class="fas fa-eye"></i>
+                        ${translateText('reveal_impostor')}
+                    </button>
+                </div>
+                <div id="impostor-reveal-content" class="impostor-reveal-content" style="display: none;">
                 <p class="animate__animated animate__fadeIn">${translateText('impostor_was')}:</p>
                 <div class="impostor-name animate__animated animate__heartBeat">${translateText('player')} ${currentLevelData.impostor}</div>
                 <div class="confetti-container">
                     <i class="fas fa-star confetti"></i>
                     <i class="fas fa-star confetti"></i>
                     <i class="fas fa-star confetti"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -639,6 +687,28 @@ function showLevelEnd() {
         gameControls.parentNode.insertBefore(newRoundBtn, gameControls.nextSibling);
     } else {
         gameControls.parentNode.appendChild(newRoundBtn);
+    }
+    
+    // Добавяме event listener за бутона за разкриване на импостъра
+    const revealImpostorBtn = document.getElementById('reveal-impostor-btn');
+    if (revealImpostorBtn) {
+        revealImpostorBtn.addEventListener('click', () => {
+            const revealContent = document.getElementById('impostor-reveal-content');
+            const revealBtn = document.getElementById('reveal-impostor-btn');
+            
+            if (revealContent && revealBtn) {
+                // Скриваме бутона
+                revealBtn.style.display = 'none';
+                // Показваме съдържанието с анимация
+                revealContent.style.display = 'block';
+                revealContent.classList.add('animate__animated', 'animate__fadeIn');
+                
+                // Добавяме допълнителни ефекти
+                setTimeout(() => {
+                    revealContent.classList.add('animate__heartBeat');
+                }, 500);
+            }
+        });
     }
     // Слушател за бутона
     newRoundBtn.onclick = () => {
@@ -691,6 +761,33 @@ function nextPlayer() {
         currentLevel++;
         console.log('Край на нивото - нов currentLevel:', currentLevel, 'totalLevels:', totalLevels);
         
+        if (currentLevel >= gameLevels.length) {
+            // Генерираме едно ниво при нужда
+            console.log('Генерираме едно ниво при нужда...');
+            generateSingleLevelAsync().then((level) => {
+                console.log('✅ Едно ниво генерирано:', level);
+                gameLevels.push(level);
+                if (currentLevel >= totalLevels) {
+                    // Играта приключи
+                    console.log('Играта приключи, показваме резултати...');
+                    showResults();
+                } else {
+                    // Показваме екрана за край на нивото
+                    console.log('Показваме край на нивото...');
+                    showLevelEnd();
+                }
+            }).catch(error => {
+                console.error('Грешка при генериране на ниво:', error);
+                // Fallback към локално генериране
+                generateGameLevels();
+                if (currentLevel >= totalLevels) {
+                    showResults();
+                } else {
+                    showLevelEnd();
+                }
+            });
+            return;
+        }
         if (currentLevel >= totalLevels) {
             // Играта приключи
             console.log('Играта приключи, показваме резултати...');
@@ -745,8 +842,9 @@ function resetGame() {
     totalPlayers = 0;
     currentLevel = 0;
     roundsPlayed = 0; // Нулираме брояча при нова игра
+    gameLevels = []; // Изчистваме нивата - ще се генерират при нужда
     clearInterval(countdownInterval);
-    generateGameLevels();
+    // НЕ генерираме нива тук - ще се генерират при нужда
 }
 
 // Функция за преминаване към следващото ниво
@@ -831,11 +929,35 @@ function showNextRoundMessage() {
 document.getElementById('end-game').addEventListener('click', () => {
     // Проверка дали потребителят е регистриран и влязъл
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    if (!isUserRegistered || !isLoggedIn) {
-        console.log('Потребителят не е регистриран/влязъл, показваме регистрацията');
+    const isRegistered = localStorage.getItem('isRegistered') === 'true';
+    const currentUser = getCurrentUser();
+    
+    console.log('=== СМЕНИ РУНДА - ПОДРОБНА ПРОВЕРКА ===');
+    console.log('localStorage isLoggedIn:', localStorage.getItem('isLoggedIn'));
+    console.log('localStorage isRegistered:', localStorage.getItem('isRegistered'));
+    console.log('localStorage currentUser:', localStorage.getItem('currentUser'));
+    console.log('getCurrentUser():', currentUser);
+    console.log('isUserRegistered:', isUserRegistered);
+    console.log('Проверка резултати:', {
+        isLoggedIn,
+        isRegistered,
+        hasCurrentUser: !!currentUser,
+        currentUserUsername: currentUser ? currentUser.username : 'null'
+    });
+    
+    // Проверяваме дали потребителят е регистриран И влязъл
+    if (!isRegistered || !isLoggedIn || !currentUser) {
+        console.log('❌ Потребителят не е регистриран/влязъл, показваме регистрацията');
+        console.log('Причини:', {
+            notRegistered: !isRegistered,
+            notLoggedIn: !isLoggedIn,
+            noCurrentUser: !currentUser
+        });
         showRegistration();
         return;
     }
+    
+    console.log('✅ Потребителят е регистриран и влязъл, продължаваме със смяната на рунда');
     
     // Показваме надписа "СЛЕДВАЩ РУНД"
     showNextRoundMessage();
@@ -981,38 +1103,7 @@ function showAttentionScreen() {
 
 
 
-// Функция за стартиране на играта
-function startGame() {
-    console.log('[LIMIT DEBUG] startGame извикана');
-    console.log('=== Играта започва ===');
-    console.log('isUserRegistered преди старт:', isUserRegistered);
-    
-    totalPlayers = parseInt(playerCountInput.value);
-    
-    // Запазване на броя играчи
-    localStorage.setItem('lastPlayerCount', totalPlayers);
-    
-    if (totalPlayers < 3) {
-        showMessage(translateText('min_players'));
-        return;
-    }
-
-    currentPlayer = 1;
-    currentLevel = 0;
-    
-    console.log('Инициализация:');
-    console.log('- currentPlayer:', currentPlayer);
-    console.log('- currentLevel:', currentLevel);
-    console.log('- totalPlayers:', totalPlayers);
-    
-    // Генерираме нови нива
-    generateGameLevels();
-    
-    setupScreen.classList.add('hidden');
-    gameScreen.classList.remove('hidden');
-    showPlayerScreen(); // директно показваме картинката на първия играч
-    isFirstPlayerScreen = true;
-}
+// Функция за стартиране на играта (премахната - използва се async версията)
 
 // Модифициране на event listener за бутона "Започни играта"
 document.getElementById('start-game').addEventListener('click', function() {
@@ -1089,17 +1180,51 @@ window.addEventListener('load', () => {
     
     // Проверка за регистрация
     const isRegistered = localStorage.getItem('isRegistered');
+    const currentUser = getCurrentUser();
     console.log('localStorage isRegistered:', isRegistered);
+    console.log('currentUser при зареждане:', currentUser);
     
-    if (isRegistered === 'true') {
+    if (isRegistered === 'true' && currentUser) {
         isUserRegistered = true;
         isRegistrationShown = true;
-        console.log('Потребителят е регистриран от localStorage');
+        console.log('✅ Потребителят е регистриран:', currentUser.username, 'UID:', currentUser.uid || 'локално');
+    } else if (currentUser && currentUser.uid) {
+        // Ако има currentUser с UID, значи е регистриран в Firebase
+        isUserRegistered = true;
+        isRegistrationShown = true;
+        localStorage.setItem('isRegistered', 'true'); // Поправяме localStorage
+        console.log('✅ Потребителят е регистриран в Firebase, поправяме localStorage:', currentUser.username);
     } else {
-        console.log('Потребителят не е регистриран');
+        console.log('❌ Потребителят не е регистриран');
+        console.log('Причини:', {
+            isRegistered: isRegistered,
+            hasCurrentUser: !!currentUser,
+            currentUser: currentUser
+        });
+        isUserRegistered = false;
+        isRegistrationShown = false;
     }
     
     console.log('Инициализация завършена - isUserRegistered:', isUserRegistered, 'isRegistrationShown:', isRegistrationShown);
+    
+    // Проверка на Firebase auth state
+    if (typeof auth !== 'undefined') {
+        auth.onAuthStateChanged((user) => {
+            console.log('Firebase auth state changed:', user ? user.uid : 'null');
+            if (user) {
+                console.log('Потребителят е влязъл в Firebase:', user.email);
+                // Обновяваме currentUser ако е необходимо
+                const currentUser = getCurrentUser();
+                if (!currentUser || currentUser.uid !== user.uid) {
+                    console.log('Обновяваме currentUser с Firebase данните');
+                    // Тук можем да заредим профилните данни от Firestore
+                }
+            } else {
+                console.log('Потребителят не е влязъл в Firebase');
+            }
+        });
+    }
+    
     updateProfilePanel();
 });
 
@@ -2352,6 +2477,7 @@ async function registerUserFirebase(username, email, password, age, favoriteGame
         localStorage.setItem('currentUser', JSON.stringify({ username, uid: user.uid }));
         localStorage.setItem('isRegistered', 'true');
         localStorage.setItem('isLoggedIn', 'true');
+        console.log('Firebase регистрация успешна за:', username, 'UID:', user.uid);
         showMessage(translateText('registration_success'), 'success');
         return true;
     } catch (error) {
@@ -2388,6 +2514,9 @@ async function loginUserFirebase(email, password) {
         }
         localStorage.setItem('currentUser', JSON.stringify({ ...profile, uid: user.uid }));
         localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('isRegistered', 'true'); // Добавяме това
+        console.log('✅ Firebase вход успешен за:', profile.username, 'UID:', user.uid);
+        console.log('✅ localStorage зададен - isLoggedIn: true, isRegistered: true');
         updateProfilePanel();
         showMessage(translateText('login_success'), 'success');
         return true;
@@ -2411,7 +2540,10 @@ loginForm.addEventListener('submit', async (e) => {
     if (success) {
         hideLogin();
         isUserRegistered = true;
+        console.log('✅ Login успешен - isUserRegistered зададен на true');
         updateProfilePanel();
+    } else {
+        console.log('❌ Login неуспешен');
     }
 });
 
@@ -2421,6 +2553,7 @@ async function logoutUserFirebase() {
         await auth.signOut();
         localStorage.removeItem('currentUser');
         localStorage.setItem('isLoggedIn', 'false');
+        localStorage.setItem('isRegistered', 'false'); // Добавяме това
         updateProfilePanel();
         showMessage(translateText('logout_success'), 'success');
     } catch (error) {
@@ -2618,27 +2751,56 @@ function generateGameLevels() {
 async function getUserImagesPoolFirebase(uid) {
     const userDoc = db.collection('users').doc(uid);
     const poolDoc = await userDoc.collection('gameData').doc('imagesPool').get();
-    let pool = poolDoc.exists ? poolDoc.data().pool : null;
-    if (!Array.isArray(pool) || pool.length === 0) {
-        // Презареждаме и разбъркваме
-        pool = [...images];
-        for (let i = pool.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [pool[i], pool[j]] = [pool[j], pool[i]];
-        }
+    let shownImages = poolDoc.exists ? poolDoc.data().shownImages : [];
+    const poolVersion = poolDoc.exists ? poolDoc.data().version : null;
+    
+    // Проверяваме дали pool-ът е стар (преди промените) или не е правилна версия
+    const currentVersion = '3.0'; // Нова версия на логиката
+    const shouldResetPool = !poolVersion || poolVersion !== currentVersion;
+    
+    if (shouldResetPool) {
+        console.log('Firebase: Pool е стар или с грешна версия, изчистваме и създаваме нов');
+        shownImages = [];
+        await saveUserImagesPoolFirebase(uid, shownImages, currentVersion);
+        console.log('Firebase: Създаден нов pool (версия', currentVersion + ')');
+    } else {
+        console.log('Firebase: Pool съществува с', shownImages.length, 'показани картини (версия', poolVersion + ')');
     }
-    return pool;
+    
+    return shownImages;
 }
 
-async function saveUserImagesPoolFirebase(uid, pool) {
+async function saveUserImagesPoolFirebase(uid, shownImages, version = '3.0') {
     const userDoc = db.collection('users').doc(uid);
-    await userDoc.collection('gameData').doc('imagesPool').set({ pool });
+    await userDoc.collection('gameData').doc('imagesPool').set({ shownImages, version });
 }
 
 async function getNextImageForUserFirebase(uid) {
-    let pool = await getUserImagesPoolFirebase(uid);
-    const image = pool.pop();
-    await saveUserImagesPoolFirebase(uid, pool);
+    let shownImages = await getUserImagesPoolFirebase(uid);
+    
+    // Създаваме списък с всички налични картини, които НЕ са показани
+    let availableImages = images.filter(img => !shownImages.includes(img));
+    
+    // Ако няма налични картини (всички са показани), изчистваме pool-а
+    if (availableImages.length === 0) {
+        console.log('Firebase: Всички картини са показани, изчистваме pool-а');
+        shownImages = [];
+        availableImages = [...images];
+        await saveUserImagesPoolFirebase(uid, shownImages);
+    }
+    
+    // Разбъркваме наличните картини
+    for (let i = availableImages.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
+    }
+    
+    // Вземаме първата картинка и я добавяме към показаните
+    const image = availableImages[0];
+    shownImages.push(image);
+    await saveUserImagesPoolFirebase(uid, shownImages);
+    
+    console.log('Firebase: Взета картинка:', image, 'Показани общо:', shownImages.length, 'Налични остават:', availableImages.length - 1);
     return image;
 }
 
@@ -2646,17 +2808,38 @@ async function getNextImageForUserFirebase(uid) {
 async function generateGameLevelsAsync() {
     gameLevels = [];
     const currentUser = getCurrentUser();
+    
+    // Проверяваме дали потребителят е регистриран в Firebase
     if (currentUser && currentUser.uid) {
+        console.log('Използваме Firebase за потребител:', currentUser.username);
         for (let i = 0; i < totalLevels; i++) {
             const image = await getNextImageForUserFirebase(currentUser.uid);
+            
+            if (!image) {
+                console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
+                // Ако не можем да вземем картинка от Firebase, използваме локално генериране
+                let availableImages = [...images];
+                for (let j = availableImages.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+                }
+                const localImage = availableImages.pop();
+                const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+                gameLevels.push({
+                    image: localImage,
+                    impostor: impostor
+                });
+            } else {
             const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
             gameLevels.push({
                 image: image,
                 impostor: impostor
             });
+            }
         }
     } else {
         // Гост/нерегистриран - локално както досега
+        console.log('Използваме локално генериране за гост потребител');
         let availableImages = [...images];
         for (let i = availableImages.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -2721,31 +2904,35 @@ function hideLoader() {
     if (loader) loader.remove();
 }
 
-// Модифицирам startGame да използва generateGameLevelsAsync за регистрирани потребители
+// Основна функция за стартиране на играта
 async function startGame() {
     console.log('[LIMIT DEBUG] startGame извикана');
     console.log('=== Играта започва ===');
     console.log('isUserRegistered преди старт:', isUserRegistered);
+    
     totalPlayers = parseInt(playerCountInput.value);
     localStorage.setItem('lastPlayerCount', totalPlayers);
+    
     if (totalPlayers < 3) {
         showMessage(translateText('min_players'));
         return;
     }
+    
     currentPlayer = 1;
     currentLevel = 0;
+    gameLevels = []; // Инициализираме празен масив
+    
     console.log('Инициализация:');
     console.log('- currentPlayer:', currentPlayer);
     console.log('- currentLevel:', currentLevel);
     console.log('- totalPlayers:', totalPlayers);
+    
     const currentUser = getCurrentUser();
-    if (currentUser && currentUser.uid) {
-        showLoader();
-        await generateGameLevelsAsync();
-        hideLoader();
-    } else {
-        generateGameLevels();
-    }
+    console.log('Текущ потребител:', currentUser);
+    
+    // НЕ генерираме всички нива тук - ще ги генерираме при нужда
+    console.log('✅ Играта е готова за стартиране (нивата ще се генерират при нужда)');
+    
     setupScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     showPlayerScreen();
@@ -2841,4 +3028,1051 @@ async function setUserNoLimitByEmail(email) {
 }
 window.setUserNoLimitByEmail = setUserNoLimitByEmail;
 
+// Функция за тестване на Firebase връзката
+async function testFirebaseConnection() {
+    try {
+        console.log('Тестваме Firebase връзката...');
+        const testDoc = await db.collection('test').doc('connection').get();
+        console.log('Firebase връзката работи!');
+        return true;
+    } catch (error) {
+        console.error('Грешка при Firebase връзката:', error);
+        return false;
+    }
+}
+
+// Функция за тестване на imagesPool за потребител
+async function testUserImagesPool(uid) {
+    try {
+        console.log('Тестваме imagesPool за потребител:', uid);
+        const pool = await getUserImagesPoolFirebase(uid);
+        console.log('ImagesPool резултат:', pool.length, 'картини');
+        return pool;
+    } catch (error) {
+        console.error('Грешка при тестване на imagesPool:', error);
+        return null;
+    }
+}
+
+// Добавяме функциите в глобалния scope за тестване
+window.testFirebaseConnection = testFirebaseConnection;
+window.testUserImagesPool = testUserImagesPool;
+
+// Функция за проверка на текущия потребител
+function checkCurrentUserStatus() {
+    const currentUser = getCurrentUser();
+    console.log('=== СТАТУС НА ТЕКУЩИЯ ПОТРЕБИТЕЛ ===');
+    console.log('currentUser:', currentUser);
+    if (currentUser) {
+        console.log('Username:', currentUser.username);
+        console.log('UID:', currentUser.uid);
+        console.log('Email:', currentUser.email);
+        console.log('Има Firebase UID:', !!currentUser.uid);
+    } else {
+        console.log('Няма текущ потребител');
+    }
+    return currentUser;
+}
+
+window.checkCurrentUserStatus = checkCurrentUserStatus;
+
+// Функция за тестване на Firebase imagesPool
+async function testFirebaseImagesPool() {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentUser.uid) {
+        console.log('Няма регистриран потребител за тестване');
+        return;
+    }
+    
+    console.log('=== ТЕСТ НА FIREBASE IMAGESPOOL (ВЕРСИЯ 3.0) ===');
+    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    
+    try {
+        // Тестваме връзката
+        const connectionOk = await testFirebaseConnection();
+        if (!connectionOk) {
+            console.error('Firebase връзката не работи!');
+            return;
+        }
+        
+        // Показваме всички картини
+        console.log('Общ брой картини в системата:', images.length);
+        
+        // Тестваме pool-а
+        const shownImages = await getUserImagesPoolFirebase(currentUser.uid);
+        console.log('Показани картини:', shownImages.length);
+        console.log('Налични картини:', images.length - shownImages.length);
+        
+        // Тестваме вземане на картинка
+        const image = await getNextImageForUserFirebase(currentUser.uid);
+        console.log('Взета картинка:', image);
+        
+        // Проверяваме pool-а след вземане
+        const shownImagesAfter = await getUserImagesPoolFirebase(currentUser.uid);
+        console.log('Показани картини след вземане:', shownImagesAfter.length);
+        console.log('Налични картини след вземане:', images.length - shownImagesAfter.length);
+        
+        // Показваме първите 5 показани картини
+        if (shownImagesAfter.length > 0) {
+            console.log('Първи 5 показани картини:', shownImagesAfter.slice(0, 5));
+        }
+        
+    } catch (error) {
+        console.error('Грешка при тестване:', error);
+    }
+}
+
+window.testFirebaseImagesPool = testFirebaseImagesPool;
+
+// Функция за изчистване на pool-а за тестване
+async function clearUserImagesPool() {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentUser.uid) {
+        console.log('Няма регистриран потребител за изчистване');
+        return;
+    }
+    
+    console.log('=== ИЗЧИСТВАНЕ НА IMAGESPOOL ===');
+    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    
+    try {
+        const userDoc = db.collection('users').doc(currentUser.uid);
+        await userDoc.collection('gameData').doc('imagesPool').delete();
+        console.log('Pool изчистен успешно!');
+    } catch (error) {
+        console.error('Грешка при изчистване на pool:', error);
+    }
+}
+
+window.clearUserImagesPool = clearUserImagesPool;
+
+// Функция за показване на статистика за pool-а
+async function showPoolStats() {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentUser.uid) {
+        console.log('Няма регистриран потребител за статистика');
+        return;
+    }
+    
+    console.log('=== СТАТИСТИКА ЗА IMAGESPOOL (ВЕРСИЯ 3.0) ===');
+    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    
+    try {
+        const shownImages = await getUserImagesPoolFirebase(currentUser.uid);
+        console.log('Общ брой картини в системата:', images.length);
+        console.log('Показани картини:', shownImages.length);
+        console.log('Налични картини:', images.length - shownImages.length);
+        console.log('Процент показани:', Math.round((shownImages.length / images.length) * 100) + '%');
+        console.log('Процент налични:', Math.round(((images.length - shownImages.length) / images.length) * 100) + '%');
+        
+        if (shownImages.length > 0) {
+            console.log('Първите 5 показани картини:', shownImages.slice(0, 5));
+        }
+        
+        if (shownImages.length === images.length) {
+            console.log('🎉 Всички картини са показани! При следваща игра pool-ът ще се изчисти.');
+        }
+        
+    } catch (error) {
+        console.error('Грешка при показване на статистика:', error);
+    }
+}
+
+window.showPoolStats = showPoolStats;
+
+// Функция за принудително изчистване на pool-а
+async function forceResetPool() {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentUser.uid) {
+        console.log('Няма регистриран потребител за изчистване');
+        return;
+    }
+    
+    console.log('=== ПРИНУДИТЕЛНО ИЗЧИСТВАНЕ НА POOL (ВЕРСИЯ 3.0) ===');
+    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    
+    try {
+        const userDoc = db.collection('users').doc(currentUser.uid);
+        await userDoc.collection('gameData').doc('imagesPool').delete();
+        console.log('Pool изчистен принудително!');
+        console.log('При следващо стартиране на играта ще се създаде нов pool с версия 3.0.');
+        console.log('Всички картини ще бъдат налични отново.');
+    } catch (error) {
+        console.error('Грешка при принудително изчистване на pool:', error);
+    }
+}
+
+window.forceResetPool = forceResetPool;
+
+// Функция за тестване на текущото състояние на потребителя
+function testUserState() {
+    console.log('=== ТЕСТ НА СЪСТОЯНИЕТО НА ПОТРЕБИТЕЛЯ ===');
+    console.log('localStorage isLoggedIn:', localStorage.getItem('isLoggedIn'));
+    console.log('localStorage isRegistered:', localStorage.getItem('isRegistered'));
+    console.log('localStorage currentUser:', localStorage.getItem('currentUser'));
+    console.log('getCurrentUser():', getCurrentUser());
+    console.log('isUserRegistered:', isUserRegistered);
+    
+    const currentUser = getCurrentUser();
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const isRegistered = localStorage.getItem('isRegistered') === 'true';
+    
+    console.log('Проверка за "смени рунда":', {
+        isLoggedIn,
+        isRegistered,
+        hasCurrentUser: !!currentUser,
+        canChangeRound: isLoggedIn && isRegistered && !!currentUser
+    });
+    
+    return {
+        isLoggedIn,
+        isRegistered,
+        hasCurrentUser: !!currentUser,
+        canChangeRound: isLoggedIn && isRegistered && !!currentUser
+    };
+}
+
+window.testUserState = testUserState;
+
+// Функция за генериране на следващо ниво (лениво зареждане)
+async function generateNextLevel() {
+    if (currentLevel >= gameLevels.length) {
+        // Генерираме ново ниво само когато е нужно
+        const currentUser = getCurrentUser();
+        
+        if (currentUser && currentUser.uid) {
+            console.log('Генерираме ново ниво за Firebase потребител:', currentUser.username);
+            const image = await getNextImageForUserFirebase(currentUser.uid);
+            
+            if (!image) {
+                console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
+                // Fallback към локално генериране
+                let availableImages = [...images];
+                for (let j = availableImages.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+                }
+                const localImage = availableImages.pop();
+                const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+                gameLevels.push({
+                    image: localImage,
+                    impostor: impostor
+                });
+            } else {
+                const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+                gameLevels.push({
+                    image: image,
+                    impostor: impostor
+                });
+            }
+        } else {
+            // Гост/нерегистриран - локално генериране
+            console.log('Генерираме ново ниво за гост потребител');
+            let availableImages = [...images];
+            for (let j = availableImages.length - 1; j > 0; j--) {
+                const k = Math.floor(Math.random() * (j + 1));
+                [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+            }
+            const image = availableImages.pop();
+            const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+            gameLevels.push({
+                image: image,
+                impostor: impostor
+            });
+        }
+    }
+}
+
+// Генериране на едно ниво при нужда
+async function generateSingleLevelAsync() {
+    const currentUser = getCurrentUser();
+    
+    // Проверяваме дали потребителят е регистриран в Firebase
+    if (currentUser && currentUser.uid) {
+        console.log('Генерираме едно ниво с Firebase за потребител:', currentUser.username);
+        const image = await getNextImageForUserFirebase(currentUser.uid);
+        
+        if (!image) {
+            console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
+            // Fallback към локално генериране
+            let availableImages = [...images];
+            for (let j = availableImages.length - 1; j > 0; j--) {
+                const k = Math.floor(Math.random() * (j + 1));
+                [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+            }
+            const localImage = availableImages.pop();
+            const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+            return {
+                image: localImage,
+                impostor: impostor
+            };
+        } else {
+            const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+            return {
+                image: image,
+                impostor: impostor
+            };
+        }
+    } else {
+        // Гост/нерегистриран - локално генериране
+        console.log('Генерираме едно ниво локално за гост потребител');
+        let availableImages = [...images];
+        for (let i = availableImages.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
+        }
+        if (availableImages.length === 0) {
+            availableImages = [...images];
+            for (let j = availableImages.length - 1; j > 0; j--) {
+                const k = Math.floor(Math.random() * (j + 1));
+                [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+            }
+        }
+        const image = availableImages.pop();
+        const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+        return {
+            image: image,
+            impostor: impostor
+        };
+    }
+}
+
+// Асинхронна версия на generateGameLevels (запазваме за обратна съвместимост)
+async function generateGameLevelsAsync() {
+    gameLevels = [];
+    const currentUser = getCurrentUser();
+    
+    // Проверяваме дали потребителят е регистриран в Firebase
+    if (currentUser && currentUser.uid) {
+        console.log('Използваме Firebase за потребител:', currentUser.username);
+        for (let i = 0; i < totalLevels; i++) {
+            const image = await getNextImageForUserFirebase(currentUser.uid);
+            
+            if (!image) {
+                console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
+                // Ако не можем да вземем картинка от Firebase, използваме локално генериране
+                let availableImages = [...images];
+                for (let j = availableImages.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+                }
+                const localImage = availableImages.pop();
+                const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+                gameLevels.push({
+                    image: localImage,
+                    impostor: impostor
+                });
+            } else {
+            const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+            gameLevels.push({
+                image: image,
+                impostor: impostor
+            });
+            }
+        }
+    } else {
+        // Гост/нерегистриран - локално както досега
+        console.log('Използваме локално генериране за гост потребител');
+        let availableImages = [...images];
+        for (let i = availableImages.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
+        }
+        for (let i = 0; i < totalLevels; i++) {
+            if (availableImages.length === 0) {
+                availableImages = [...images];
+                for (let j = availableImages.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+                }
+            }
+            const image = availableImages.pop();
+            const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+            gameLevels.push({
+                image: image,
+                impostor: impostor
+            });
+        }
+    }
+}
+
+// ... existing code ...
+// Асинхронно записване на gamesPlayed във Firebase
+async function recordGameFirebase(currentUser) {
+    if (!currentUser || !currentUser.uid) return;
+    try {
+        const userRef = db.collection('users').doc(currentUser.uid);
+        // Вземи текущите данни
+        const doc = await userRef.get();
+        let gamesPlayed = 1;
+        if (doc.exists && doc.data().gamesPlayed) {
+            gamesPlayed = doc.data().gamesPlayed + 1;
+        }
+        await userRef.update({
+            gamesPlayed: gamesPlayed,
+            lastActivity: new Date().toISOString()
+        });
+        // Обнови локално
+        currentUser.gamesPlayed = gamesPlayed;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    } catch (e) {
+        console.warn('Неуспешен запис във Firebase, ще се запише само локално:', e);
+    }
+}
+
+function recordGame() {
+    const currentUser = getCurrentUser();
+    if (currentUser) {
+        // Увеличаваме броя игри на потребителя
+        const users = JSON.parse(localStorage.getItem('usersDB') || '[]');
+        const userIndex = users.findIndex(u => u.username === currentUser.username);
+        
+        if (userIndex !== -1) {
+            users[userIndex].gamesPlayed = (users[userIndex].gamesPlayed || 0) + 1;
+            users[userIndex].lastActivity = new Date().toISOString();
+            localStorage.setItem('usersDB', JSON.stringify(users));
+            // Обновяваме текущия потребител
+            currentUser.gamesPlayed = users[userIndex].gamesPlayed;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        }
+        // Ако е Firebase потребител, записваме и там
+        if (currentUser.uid) {
+            recordGameFirebase(currentUser);
+        }
+        // Увеличаваме общия брой игри
+        const totalGames = parseInt(localStorage.getItem('totalGames') || '0') + 1;
+        localStorage.setItem('totalGames', totalGames.toString());
+        // Добавяме лог
+        addActivityLog(currentUser.username, 'Завърши игра');
+    }
+}
+// ... existing code ...
+
+// ... existing code ...
+// === FIREBASE: Проверка за nolimit ===
+async function checkUserNoLimit() {
+    const currentUser = getCurrentUser();
+    if (currentUser && currentUser.uid) {
+        const doc = await db.collection('users').doc(currentUser.uid).get();
+        if (doc.exists && doc.data().nolimit === true) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Примерна функция за админите: задаване на nolimit на потребител по имейл
+async function setUserNoLimitByEmail(email) {
+    const usersRef = db.collection('users');
+    const query = await usersRef.where('email', '==', email).get();
+    if (!query.empty) {
+        const userDoc = query.docs[0];
+        await userDoc.ref.update({ nolimit: true });
+        console.log('Потребителят е с nolimit:', email);
+    } else {
+        console.log('Не е намерен потребител с този имейл:', email);
+    }
+}
+window.setUserNoLimitByEmail = setUserNoLimitByEmail;
+
+// Функция за тестване на Firebase връзката
+async function testFirebaseConnection() {
+    try {
+        console.log('Тестваме Firebase връзката...');
+        const testDoc = await db.collection('test').doc('connection').get();
+        console.log('Firebase връзката работи!');
+        return true;
+    } catch (error) {
+        console.error('Грешка при Firebase връзката:', error);
+        return false;
+    }
+}
+
+// Функция за тестване на imagesPool за потребител
+async function testUserImagesPool(uid) {
+    try {
+        console.log('Тестваме imagesPool за потребител:', uid);
+        const pool = await getUserImagesPoolFirebase(uid);
+        console.log('ImagesPool резултат:', pool.length, 'картини');
+        return pool;
+    } catch (error) {
+        console.error('Грешка при тестване на imagesPool:', error);
+        return null;
+    }
+}
+
+// Добавяме функциите в глобалния scope за тестване
+window.testFirebaseConnection = testFirebaseConnection;
+window.testUserImagesPool = testUserImagesPool;
+
+// Функция за проверка на текущия потребител
+function checkCurrentUserStatus() {
+    const currentUser = getCurrentUser();
+    console.log('=== СТАТУС НА ТЕКУЩИЯ ПОТРЕБИТЕЛ ===');
+    console.log('currentUser:', currentUser);
+    if (currentUser) {
+        console.log('Username:', currentUser.username);
+        console.log('UID:', currentUser.uid);
+        console.log('Email:', currentUser.email);
+        console.log('Има Firebase UID:', !!currentUser.uid);
+    } else {
+        console.log('Няма текущ потребител');
+    }
+    return currentUser;
+}
+
+window.checkCurrentUserStatus = checkCurrentUserStatus;
+
+// Функция за тестване на Firebase imagesPool
+async function testFirebaseImagesPool() {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentUser.uid) {
+        console.log('Няма регистриран потребител за тестване');
+        return;
+    }
+    
+    console.log('=== ТЕСТ НА FIREBASE IMAGESPOOL (ВЕРСИЯ 3.0) ===');
+    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    
+    try {
+        // Тестваме връзката
+        const connectionOk = await testFirebaseConnection();
+        if (!connectionOk) {
+            console.error('Firebase връзката не работи!');
+            return;
+        }
+        
+        // Показваме всички картини
+        console.log('Общ брой картини в системата:', images.length);
+        
+        // Тестваме pool-а
+        const shownImages = await getUserImagesPoolFirebase(currentUser.uid);
+        console.log('Показани картини:', shownImages.length);
+        console.log('Налични картини:', images.length - shownImages.length);
+        
+        // Тестваме вземане на картинка
+        const image = await getNextImageForUserFirebase(currentUser.uid);
+        console.log('Взета картинка:', image);
+        
+        // Проверяваме pool-а след вземане
+        const shownImagesAfter = await getUserImagesPoolFirebase(currentUser.uid);
+        console.log('Показани картини след вземане:', shownImagesAfter.length);
+        console.log('Налични картини след вземане:', images.length - shownImagesAfter.length);
+        
+        // Показваме първите 5 показани картини
+        if (shownImagesAfter.length > 0) {
+            console.log('Първи 5 показани картини:', shownImagesAfter.slice(0, 5));
+        }
+        
+    } catch (error) {
+        console.error('Грешка при тестване:', error);
+    }
+}
+
+window.testFirebaseImagesPool = testFirebaseImagesPool;
+
+// Функция за изчистване на pool-а за тестване
+async function clearUserImagesPool() {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentUser.uid) {
+        console.log('Няма регистриран потребител за изчистване');
+        return;
+    }
+    
+    console.log('=== ИЗЧИСТВАНЕ НА IMAGESPOOL ===');
+    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    
+    try {
+        const userDoc = db.collection('users').doc(currentUser.uid);
+        await userDoc.collection('gameData').doc('imagesPool').delete();
+        console.log('Pool изчистен успешно!');
+    } catch (error) {
+        console.error('Грешка при изчистване на pool:', error);
+    }
+}
+
+window.clearUserImagesPool = clearUserImagesPool;
+
+// Функция за показване на статистика за pool-а
+async function showPoolStats() {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentUser.uid) {
+        console.log('Няма регистриран потребител за статистика');
+        return;
+    }
+    
+    console.log('=== СТАТИСТИКА ЗА IMAGESPOOL (ВЕРСИЯ 3.0) ===');
+    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    
+    try {
+        const shownImages = await getUserImagesPoolFirebase(currentUser.uid);
+        console.log('Общ брой картини в системата:', images.length);
+        console.log('Показани картини:', shownImages.length);
+        console.log('Налични картини:', images.length - shownImages.length);
+        console.log('Процент показани:', Math.round((shownImages.length / images.length) * 100) + '%');
+        console.log('Процент налични:', Math.round(((images.length - shownImages.length) / images.length) * 100) + '%');
+        
+        if (shownImages.length > 0) {
+            console.log('Първите 5 показани картини:', shownImages.slice(0, 5));
+        }
+        
+        if (shownImages.length === images.length) {
+            console.log('🎉 Всички картини са показани! При следваща игра pool-ът ще се изчисти.');
+        }
+        
+    } catch (error) {
+        console.error('Грешка при показване на статистика:', error);
+    }
+}
+
+window.showPoolStats = showPoolStats;
+
+// Функция за принудително изчистване на pool-а
+async function forceResetPool() {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentUser.uid) {
+        console.log('Няма регистриран потребител за изчистване');
+        return;
+    }
+    
+    console.log('=== ПРИНУДИТЕЛНО ИЗЧИСТВАНЕ НА POOL (ВЕРСИЯ 3.0) ===');
+    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    
+    try {
+        const userDoc = db.collection('users').doc(currentUser.uid);
+        await userDoc.collection('gameData').doc('imagesPool').delete();
+        console.log('Pool изчистен принудително!');
+        console.log('При следващо стартиране на играта ще се създаде нов pool с версия 3.0.');
+        console.log('Всички картини ще бъдат налични отново.');
+    } catch (error) {
+        console.error('Грешка при принудително изчистване на pool:', error);
+    }
+}
+
+window.forceResetPool = forceResetPool;
+
+// Функция за тестване на текущото състояние на потребителя
+function testUserState() {
+    console.log('=== ТЕСТ НА СЪСТОЯНИЕТО НА ПОТРЕБИТЕЛЯ ===');
+    console.log('localStorage isLoggedIn:', localStorage.getItem('isLoggedIn'));
+    console.log('localStorage isRegistered:', localStorage.getItem('isRegistered'));
+    console.log('localStorage currentUser:', localStorage.getItem('currentUser'));
+    console.log('getCurrentUser():', getCurrentUser());
+    console.log('isUserRegistered:', isUserRegistered);
+    
+    const currentUser = getCurrentUser();
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const isRegistered = localStorage.getItem('isRegistered') === 'true';
+    
+    console.log('Проверка за "смени рунда":', {
+        isLoggedIn,
+        isRegistered,
+        hasCurrentUser: !!currentUser,
+        canChangeRound: isLoggedIn && isRegistered && !!currentUser
+    });
+    
+    return {
+        isLoggedIn,
+        isRegistered,
+        hasCurrentUser: !!currentUser,
+        canChangeRound: isLoggedIn && isRegistered && !!currentUser
+    };
+}
+
+window.testUserState = testUserState;
+
+// Функция за генериране на следващо ниво (лениво зареждане)
+async function generateNextLevel() {
+    if (currentLevel >= gameLevels.length) {
+        // Генерираме ново ниво само когато е нужно
+        const currentUser = getCurrentUser();
+        
+        if (currentUser && currentUser.uid) {
+            console.log('Генерираме ново ниво за Firebase потребител:', currentUser.username);
+            const image = await getNextImageForUserFirebase(currentUser.uid);
+            
+            if (!image) {
+                console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
+                // Fallback към локално генериране
+                let availableImages = [...images];
+                for (let j = availableImages.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+                }
+                const localImage = availableImages.pop();
+                const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+                gameLevels.push({
+                    image: localImage,
+                    impostor: impostor
+                });
+            } else {
+                const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+                gameLevels.push({
+                    image: image,
+                    impostor: impostor
+                });
+            }
+        } else {
+            // Гост/нерегистриран - локално генериране
+            console.log('Генерираме ново ниво за гост потребител');
+            let availableImages = [...images];
+            for (let j = availableImages.length - 1; j > 0; j--) {
+                const k = Math.floor(Math.random() * (j + 1));
+                [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+            }
+            const image = availableImages.pop();
+            const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+            gameLevels.push({
+                image: image,
+                impostor: impostor
+            });
+        }
+    }
+}
+
+// Генериране на едно ниво при нужда
+async function generateSingleLevelAsync() {
+    const currentUser = getCurrentUser();
+    
+    // Проверяваме дали потребителят е регистриран в Firebase
+    if (currentUser && currentUser.uid) {
+        console.log('Генерираме едно ниво с Firebase за потребител:', currentUser.username);
+        const image = await getNextImageForUserFirebase(currentUser.uid);
+        
+        if (!image) {
+            console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
+            // Fallback към локално генериране
+            let availableImages = [...images];
+            for (let j = availableImages.length - 1; j > 0; j--) {
+                const k = Math.floor(Math.random() * (j + 1));
+                [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+            }
+            const localImage = availableImages.pop();
+            const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+            return {
+                image: localImage,
+                impostor: impostor
+            };
+        } else {
+            const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+            return {
+                image: image,
+                impostor: impostor
+            };
+        }
+    } else {
+        // Гост/нерегистриран - локално генериране
+        console.log('Генерираме едно ниво локално за гост потребител');
+        let availableImages = [...images];
+        for (let i = availableImages.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
+        }
+        if (availableImages.length === 0) {
+            availableImages = [...images];
+            for (let j = availableImages.length - 1; j > 0; j--) {
+                const k = Math.floor(Math.random() * (j + 1));
+                [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+            }
+        }
+        const image = availableImages.pop();
+        const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+        return {
+            image: image,
+            impostor: impostor
+        };
+    }
+}
+
+// Асинхронна версия на generateGameLevels (запазваме за обратна съвместимост)
+async function generateGameLevelsAsync() {
+    gameLevels = [];
+    const currentUser = getCurrentUser();
+    
+    // Проверяваме дали потребителят е регистриран в Firebase
+    if (currentUser && currentUser.uid) {
+        console.log('Използваме Firebase за потребител:', currentUser.username);
+        for (let i = 0; i < totalLevels; i++) {
+            const image = await getNextImageForUserFirebase(currentUser.uid);
+            
+            if (!image) {
+                console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
+                // Ако не можем да вземем картинка от Firebase, използваме локално генериране
+                let availableImages = [...images];
+                for (let j = availableImages.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+                }
+                const localImage = availableImages.pop();
+                const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+                gameLevels.push({
+                    image: localImage,
+                    impostor: impostor
+                });
+            } else {
+            const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+            gameLevels.push({
+                image: image,
+                impostor: impostor
+            });
+            }
+        }
+    } else {
+        // Гост/нерегистриран - локално както досега
+        console.log('Използваме локално генериране за гост потребител');
+        let availableImages = [...images];
+        for (let i = availableImages.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
+        }
+        for (let i = 0; i < totalLevels; i++) {
+            if (availableImages.length === 0) {
+                availableImages = [...images];
+                for (let j = availableImages.length - 1; j > 0; j--) {
+                    const k = Math.floor(Math.random() * (j + 1));
+                    [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
+                }
+            }
+            const image = availableImages.pop();
+            const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
+            gameLevels.push({
+                image: image,
+                impostor: impostor
+            });
+        }
+    }
+}
+
+// ... existing code ...
+// Асинхронно записване на лог във Firebase
+async function addActivityLogFirebase(username, action) {
+    try {
+        const currentUser = getCurrentUser();
+        if (!currentUser || !currentUser.uid) return;
+        const userRef = db.collection('users').doc(currentUser.uid);
+        await userRef.collection('logs').add({
+            timestamp: new Date().toISOString(),
+            username: username,
+            action: action
+        });
+    } catch (e) {
+        console.warn('Неуспешен запис на лог във Firebase:', e);
+    }
+}
+
+function addActivityLog(username, action) {
+    const logs = JSON.parse(localStorage.getItem('activityLogs') || '[]');
+    logs.push({
+        timestamp: new Date().toISOString(),
+        username: username,
+        action: action
+    });
+    // Запазваме само последните 1000 лога
+    if (logs.length > 1000) {
+        logs.splice(0, logs.length - 1000);
+    }
+    localStorage.setItem('activityLogs', JSON.stringify(logs));
+    // Ако е Firebase потребител, записваме и там
+    const currentUser = getCurrentUser();
+    if (currentUser && currentUser.uid) {
+        addActivityLogFirebase(username, action);
+    }
+}
+// ... existing code ...
+
+// ... existing code ...
+// ВЗИМАНЕ НА ВСИЧКИ ПОТРЕБИТЕЛИ ОТ FIREBASE
+async function fetchAllUsersFirebase() {
+    try {
+        const usersSnapshot = await db.collection('users').get();
+        return usersSnapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }));
+    } catch (e) {
+        console.warn('Неуспешно взимане на потребители от Firebase:', e);
+        return [];
+    }
+}
+
+// ВЗИМАНЕ НА ВСИЧКИ ЛОГОВЕ ОТ FIREBASE (от всички потребители и гости)
+async function fetchAllLogsFirebase() {
+    try {
+        let allLogs = [];
+        
+        // Взимаме логовете на регистрираните потребители
+        const usersSnapshot = await db.collection('users').get();
+        for (const userDoc of usersSnapshot.docs) {
+            const logsSnapshot = await userDoc.ref.collection('logs').orderBy('timestamp', 'desc').limit(50).get();
+            logsSnapshot.forEach(logDoc => {
+                allLogs.push({
+                    ...logDoc.data(),
+                    userUid: userDoc.id,
+                    type: 'registered'
+                });
+            });
+        }
+        
+        // Взимаме логовете на гостите
+        const guestLogsSnapshot = await db.collection('guestLogs').orderBy('timestamp', 'desc').limit(100).get();
+        guestLogsSnapshot.forEach(logDoc => {
+            allLogs.push({
+                ...logDoc.data(),
+                type: 'guest'
+            });
+        });
+        
+        // Сортираме всички логове по дата (най-нови първо)
+        allLogs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        return allLogs;
+    } catch (e) {
+        console.warn('Неуспешно взимане на логове от Firebase:', e);
+        return [];
+    }
+}
+// ... existing code ...
+
+// ... existing code ...
+// АСИНХРОНЕН АДМИН ПАНЕЛ САМО С FIREBASE ДАННИ
+async function showAdminPanel() {
+    if (!checkIfAdmin()) {
+        showMessage("Нямате права за достъп до административния панел!", "error");
+        return;
+    }
+    // Показваме loader
+    const loader = document.createElement('div');
+    loader.className = 'admin-modal';
+    loader.innerHTML = '<div class="admin-panel"><h2>Зареждане на данни от Firebase...</h2></div>';
+    document.body.appendChild(loader);
+    try {
+        const users = await fetchAllUsersFirebase();
+        const logs = await fetchAllLogsFirebase();
+        // Генерираме HTML за потребители и логове
+        const usersTableHTML = generateUsersTableFirebase(users);
+        const logsHTML = generateActivityLogsFirebase(logs);
+        // Статистика
+        const totalGames = users.reduce((sum, u) => sum + (u.gamesPlayed || 0), 0);
+        const mostActive = users.reduce((prev, curr) => (curr.gamesPlayed||0) > (prev.gamesPlayed||0) ? curr : prev, users[0]||{});
+        const avgGames = users.length ? Math.round(totalGames / users.length) : 0;
+        // Дата за днес и седмицата
+        const today = new Date().toDateString();
+        const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+        const regsToday = users.filter(u => new Date(u.registrationDate).toDateString() === today).length;
+        const regsWeek = users.filter(u => new Date(u.registrationDate) >= weekAgo).length;
+        // HTML на админ панела
+        const adminHTML = `
+        <div class="admin-panel">
+            <div class="admin-header">
+                <h2>🔧 Административен панел</h2>
+                <button class="close-admin-btn" onclick="hideAdminPanel()">✕</button>
+            </div>
+            <div class="admin-stats">
+                <div class="stat-card"><h3>👥 Общо потребители</h3><p class="stat-number">${users.length}</p></div>
+                <div class="stat-card"><h3>🎮 Общо игри</h3><p class="stat-number">${totalGames}</p></div>
+                <div class="stat-card"><h3>📊 Най-активен</h3><p class="stat-number">${mostActive?.username||'-'}</p></div>
+            </div>
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="showTab('users')">Потребители</button>
+                <button class="tab-btn" onclick="showTab('logs')">Логове</button>
+                <button class="tab-btn" onclick="showTab('stats')">Статистика</button>
+            </div>
+            <div id="users-tab" class="tab-content active">
+                <div class="users-list">
+                    <h3>Списък на всички потребители</h3>
+                    <div class="users-table"><table><thead><tr><th>Потребител</th><th>Имейл</th><th>Дата на регистрация</th><th>Изиграни игри</th></tr></thead><tbody id="users-table-body">${usersTableHTML}</tbody></table></div>
+                </div>
+            </div>
+            <div id="logs-tab" class="tab-content">
+                <div class="activity-logs"><h3>Лог на активностите</h3><div class="logs-container">${logsHTML}</div></div>
+            </div>
+            <div id="stats-tab" class="tab-content">
+                <div class="detailed-stats">
+                    <h3>Детайлна статистика</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item"><h4>Регистрации днес</h4><p>${regsToday}</p></div>
+                        <div class="stat-item"><h4>Регистрации тази седмица</h4><p>${regsWeek}</p></div>
+                        <div class="stat-item"><h4>Средно игри на потребител</h4><p>${avgGames}</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        loader.innerHTML = adminHTML;
+        setTimeout(() => { loader.classList.add('show'); }, 10);
+    } catch (e) {
+        loader.innerHTML = '<div class="admin-panel"><h2>Грешка при зареждане на данни от Firebase!</h2><p>'+e+'</p><button onclick="hideAdminPanel()">Затвори</button></div>';
+    }
+}
+
+// Генерира HTML за таблица с потребители от Firebase
+function generateUsersTableFirebase(users) {
+    return users.map(user => `
+        <tr>
+            <td>${user.username||'-'}</td>
+            <td>${user.email||'-'}</td>
+            <td>${user.registrationDate ? formatDate(user.registrationDate) : '-'}</td>
+            <td>${user.gamesPlayed||0}</td>
+        </tr>
+    `).join('');
+}
+
+// Генерира HTML за логове от Firebase
+function generateActivityLogsFirebase(logs) {
+    return logs.map(log => `
+        <div class="log-entry">
+            <span class="log-time">${log.timestamp ? formatDateTime(log.timestamp) : '-'}</span>
+            <span class="log-user">${log.username||'-'} ${log.type === 'guest' ? '(Гост)' : ''}</span>
+            <span class="log-action">${log.action||'-'}</span>
+        </div>
+    `).join('');
+}
+// ... existing code ...
+
+// ... existing code ...
+// Асинхронно записване на лог за гости във Firebase
+async function addGuestLogFirebase(username, action) {
+    try {
+        await db.collection('guestLogs').add({
+            timestamp: new Date().toISOString(),
+            username: username,
+            action: action
+        });
+    } catch (e) {
+        console.warn('Неуспешен запис на гост лог във Firebase:', e);
+    }
+}
+
+// Асинхронно записване на лог във Firebase
+async function addActivityLogFirebase(username, action) {
+    try {
+        const currentUser = getCurrentUser();
+        if (!currentUser || !currentUser.uid) return;
+        const userRef = db.collection('users').doc(currentUser.uid);
+        await userRef.collection('logs').add({
+            timestamp: new Date().toISOString(),
+            username: username,
+            action: action
+        });
+    } catch (e) {
+        console.warn('Неуспешен запис на лог във Firebase:', e);
+    }
+}
+
+function addActivityLog(username, action) {
+    const logs = JSON.parse(localStorage.getItem('activityLogs') || '[]');
+    logs.push({
+        timestamp: new Date().toISOString(),
+        username: username,
+        action: action
+    });
+    // Запазваме само последните 1000 лога
+    if (logs.length > 1000) {
+        logs.splice(0, logs.length - 1000);
+    }
+    localStorage.setItem('activityLogs', JSON.stringify(logs));
+    // Ако е Firebase потребител, записваме в неговите логове
+    const currentUser = getCurrentUser();
+    if (currentUser && currentUser.uid) {
+        addActivityLogFirebase(username, action);
+    } else {
+        // Ако е гост, записваме в гост логовете
+        addGuestLogFirebase(username, action);
+    }
+}
 // ... existing code ...

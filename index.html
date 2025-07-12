@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:; style-src 'self' 'unsafe-inline' https: data: blob:; font-src 'self' https: data: blob:; img-src 'self' data: https: blob:; connect-src 'self' https: wss:; frame-src 'self' https:;">
     <title>Odd One Out</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="comic-button.css">
@@ -287,9 +288,9 @@
                     <svg fill="none" viewBox="0 0 299 152" height="9em" width="18em" xmlns="http://www.w3.org/2000/svg">
                         <path fill="url(#paint0_linear_8_3)" d="M149.5 152H133.42L9.53674e-07 4.70132e-06H149.5L299 4.70132e-06L165.58 152H149.5Z" />
                         <defs>
-                            <linearGradient gradientUnits="userSpaceOnUse" y2="12.1981" x2="150.12" y1={152} x1="149.5" id="paint0_linear_8_3">
+                            <linearGradient gradientUnits="userSpaceOnUse" y2="12.1981" x2="150.12" y1="152" x1="149.5" id="paint0_linear_8_3">
                                 <stop stopColor="#00E0FF" />
-                                <stop stopOpacity={0} stopColor="#65EDFF" offset={1} />
+                                <stop stopOpacity="0" stopColor="#65EDFF" offset="1" />
                             </linearGradient>
                         </defs>
                     </svg>
