@@ -388,6 +388,15 @@ const images = [
     'images/unnamed.jpg',
     'images/снимки-на-стари-телевизори-10.jpg'
 ];
+
+// Масив с 5 картини само за нерегистрирани потребители
+const guestImages = [
+    'images/engin-akyurt-JBicrgiurjs-unsplash.jpg', // диван
+    'images/luc-bercoth-zpJH4ogbTOo-unsplash.jpg', // книга
+    'images/raymond-burrage-x7kiHTL-HgM-unsplash.jpg', // химикал
+    'images/vinicius-amnx-amano-4iNoeQqrLgM-unsplash.jpg', // чиния
+    'images/william-warby-UWznDqb7S9w-unsplash.jpg' // телефон
+];
 let currentPlayer = 1;
 let totalPlayers = 0;
 let currentLevel = 0;
@@ -450,22 +459,28 @@ function generateGameLevels() {
     gameLevels = [];
     let availableImages;
     const currentUser = getCurrentUser();
-    if (currentUser && currentUser.username) {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    if (currentUser && currentUser.username && isLoggedIn) {
+        // За регистрирани потребители - използваме пълния масив с картини
         availableImages = getUserImagesPool(currentUser.username);
     } else {
-        availableImages = [...images];
+        // За нерегистрирани потребители - използваме само 5-те картини
+        availableImages = [...guestImages];
         for (let i = availableImages.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
         }
     }
+    
     for (let i = 0; i < totalLevels; i++) {
         let image;
-        if (currentUser && currentUser.username) {
+        if (currentUser && currentUser.username && isLoggedIn) {
             image = getNextImageForUser(currentUser.username);
         } else {
+            // За нерегистрирани потребители - циклично използваме 5-те картини
             if (availableImages.length === 0) {
-                availableImages = [...images];
+                availableImages = [...guestImages];
                 for (let j = availableImages.length - 1; j > 0; j--) {
                     const k = Math.floor(Math.random() * (j + 1));
                     [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
@@ -479,6 +494,18 @@ function generateGameLevels() {
             impostor: impostor
         });
     }
+}
+
+// Функция за получаване на картини за нерегистрирани потребители
+function getGuestImagesPool() {
+    return [...guestImages];
+}
+
+// Функция за получаване на следваща картина за нерегистрирани потребители
+function getNextGuestImage() {
+    const availableImages = getGuestImagesPool();
+    const randomIndex = Math.floor(Math.random() * availableImages.length);
+    return availableImages[randomIndex];
 }
 
 // Зареждане на последния брой играчи
@@ -2986,10 +3013,12 @@ function generateGameLevels() {
     gameLevels = [];
     let availableImages;
     const currentUser = getCurrentUser();
-    if (currentUser && currentUser.username) {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    if (currentUser && currentUser.username && isLoggedIn) {
         availableImages = getUserImagesPool(currentUser.username);
     } else {
-        availableImages = [...images];
+        availableImages = [...guestImages];
         for (let i = availableImages.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
@@ -2997,11 +3026,11 @@ function generateGameLevels() {
     }
     for (let i = 0; i < totalLevels; i++) {
         let image;
-        if (currentUser && currentUser.username) {
+        if (currentUser && currentUser.username && isLoggedIn) {
             image = getNextImageForUser(currentUser.username);
         } else {
             if (availableImages.length === 0) {
-                availableImages = [...images];
+                availableImages = [...guestImages];
                 for (let j = availableImages.length - 1; j > 0; j--) {
                     const k = Math.floor(Math.random() * (j + 1));
                     [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
@@ -3565,12 +3594,11 @@ async function generateNextLevel() {
 // Генериране на едно ниво при нужда
 async function generateSingleLevelAsync() {
     const currentUser = getCurrentUser();
-    
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     // Проверяваме дали потребителят е регистриран в Firebase
-    if (currentUser && currentUser.uid) {
+    if (currentUser && currentUser.uid && isLoggedIn) {
         console.log('Генерираме едно ниво с Firebase за потребител:', currentUser.username);
         const image = await getNextImageForUserFirebase(currentUser.uid);
-        
         if (!image) {
             console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
             // Fallback към локално генериране
@@ -3593,21 +3621,9 @@ async function generateSingleLevelAsync() {
             };
         }
     } else {
-        // Гост/нерегистриран - локално генериране
-        console.log('Генерираме едно ниво локално за гост потребител');
-        let availableImages = [...images];
-        for (let i = availableImages.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
-        }
-        if (availableImages.length === 0) {
-            availableImages = [...images];
-            for (let j = availableImages.length - 1; j > 0; j--) {
-                const k = Math.floor(Math.random() * (j + 1));
-                [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
-            }
-        }
-        const image = availableImages.pop();
+        // Гост/нерегистриран - използваме само 5-те картини
+        console.log('Генерираме едно ниво за нерегистриран потребител с 5 картини');
+        const image = getNextGuestImage();
         const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
         return {
             image: image,
@@ -4012,12 +4028,11 @@ async function generateNextLevel() {
 // Генериране на едно ниво при нужда
 async function generateSingleLevelAsync() {
     const currentUser = getCurrentUser();
-    
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     // Проверяваме дали потребителят е регистриран в Firebase
-    if (currentUser && currentUser.uid) {
+    if (currentUser && currentUser.uid && isLoggedIn) {
         console.log('Генерираме едно ниво с Firebase за потребител:', currentUser.username);
         const image = await getNextImageForUserFirebase(currentUser.uid);
-        
         if (!image) {
             console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
             // Fallback към локално генериране
@@ -4040,21 +4055,9 @@ async function generateSingleLevelAsync() {
             };
         }
     } else {
-        // Гост/нерегистриран - локално генериране
-        console.log('Генерираме едно ниво локално за гост потребител');
-        let availableImages = [...images];
-        for (let i = availableImages.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
-        }
-        if (availableImages.length === 0) {
-            availableImages = [...images];
-            for (let j = availableImages.length - 1; j > 0; j--) {
-                const k = Math.floor(Math.random() * (j + 1));
-                [availableImages[j], availableImages[k]] = [availableImages[k], availableImages[j]];
-            }
-        }
-        const image = availableImages.pop();
+        // Гост/нерегистриран - използваме само 5-те картини
+        console.log('Генерираме едно ниво за нерегистриран потребител с 5 картини');
+        const image = getNextGuestImage();
         const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
         return {
             image: image,
