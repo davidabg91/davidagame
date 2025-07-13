@@ -2280,19 +2280,8 @@ function addEventListeners() {
         console.log('login-btn НЕ е намерен');
     }
     
-    // Бутон за изход
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-        console.log('logout-btn намерен');
-        logoutBtn.addEventListener('click', () => {
-            console.log('Кликнат logout-btn');
-            logoutUser();
-            isUserRegistered = false;
-            isRegistrationShown = false;
-        });
-    } else {
-        console.log('logout-btn НЕ е намерен');
-    }
+    // Бутон за изход - event listener се добавя в updateProfilePanel()
+    // Тук не добавяме event listener, за да избегнем дублиране
     
     // Форма за регистрация
     const registrationForm = document.getElementById('registration-form');
@@ -2347,23 +2336,7 @@ function addEventListeners() {
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         console.log('login-form намерен');
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            console.log('Изпратена login форма');
-            // ... останалия код ...
-            const formData = new FormData(loginForm);
-            const username = formData.get('username');
-            const password = formData.get('password');
-            
-            // Използваме новата функция за вход
-            const success = loginUser(username, password);
-            
-            if (success) {
-                hideLogin();
-                isUserRegistered = true;
-                updateProfilePanel();
-            }
-        });
+        // Старият event listener е премахнат - използваме само Firebase login
     } else {
         console.log('login-form НЕ е намерен');
     }
