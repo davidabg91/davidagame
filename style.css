@@ -783,14 +783,16 @@ h2 {
 
 .image-card {
     position: relative;
+    width: 420px;
+    height: 280px;
+    margin: 10px;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
     cursor: pointer;
-    max-width: 400px;
-    width: 100%;
-    margin: 0 auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .image-card:hover {
@@ -799,8 +801,58 @@ h2 {
 
 .image-card img {
     width: 100%;
-    height: 300px;
+    height: 100%;
     object-fit: cover;
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-card img.loaded {
+    opacity: 1;
+}
+
+.image-card .image-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    z-index: 10;
+}
+
+.image-card .image-loader svg {
+    width: 100%;
+    height: 100%;
+}
+
+.image-card .image-loader path {
+    stroke: #FF6B6B;
+    stroke-width: 0.6px;
+    animation: dashArray 4s ease-in-out infinite,
+        dashOffset 4s linear infinite;
+}
+
+@keyframes dashArray {
+    0% {
+        stroke-dasharray: 0 1 359 0;
+    }
+    50% {
+        stroke-dasharray: 0 359 1 0;
+    }
+    100% {
+        stroke-dasharray: 359 1 0 0;
+    }
+}
+
+@keyframes dashOffset {
+    0% {
+        stroke-dashoffset: 365;
+    }
+    100% {
+        stroke-dashoffset: 5;
+    }
 }
 
 .image-card.selected {
@@ -843,12 +895,11 @@ h2 {
     gap: 1.5rem;
     border: 2px solid rgba(255, 107, 107, 0.5);
     box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
-    text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
     font-weight: 700;
     margin: 0 auto;
     animation: impostorMessageGlow 2s ease-in-out infinite;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 @keyframes impostorMessageGlow {
@@ -864,7 +915,7 @@ h2 {
 
 .impostor-message div {
     color: #fff;
-    text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+    text-shadow: 1px 1px 2px #000, 0 0 2px #FF6B6B;
     font-weight: 700;
     line-height: 1.4;
 }
@@ -1332,7 +1383,10 @@ h2 {
     display: none;
     position: fixed;
     z-index: 1000;
-    left: 0; top: 0; width: 100vw; height: 100vh;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 40, 0.95) 50%, rgba(0, 0, 0, 0.9) 100%);
     backdrop-filter: blur(10px);
     justify-content: center;
@@ -2944,16 +2998,16 @@ h2 {
         border-radius: 15px;
     }
     
-    /* Съобщения за импостъра - по-големи */
+    /* Съобщения за импостъра - по-малки за да са като картинките */
     .impostor-message {
-        font-size: 2.2rem;
-        padding: 3rem;
-        max-width: 90vw;
-        border-radius: 20px;
+        font-size: 1.6rem;
+        padding: 1.5rem;
+        max-width: 300px;
+        border-radius: 15px;
     }
     
     .impostor-icon {
-        font-size: 5rem;
+        font-size: 3rem;
     }
     
     .reveal-impostor-btn {
@@ -3294,6 +3348,18 @@ h2 {
         font-size: 1rem;
         padding: 10px 20px;
         min-width: 220px;
+    }
+    
+    /* Съобщения за импостъра - още по-малки на най-малки екрани */
+    .impostor-message {
+        font-size: 1.4rem;
+        padding: 1rem;
+        max-width: 250px;
+        border-radius: 12px;
+    }
+    
+    .impostor-icon {
+        font-size: 2.5rem;
     }
     
     .impostor-reveal-content p {
@@ -4802,4 +4868,85 @@ h2 {
     transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   }
+}
+
+/* Image Loader Styles */
+.image-card {
+  position: relative;
+  width: 420px;
+  height: 280px;
+  margin: 10px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-card img.loaded {
+  opacity: 1;
+}
+
+.image-card .image-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  z-index: 10;
+}
+
+.image-card .image-loader svg {
+  width: 100%;
+  height: 100%;
+}
+
+.image-card .image-loader path {
+  stroke: #FF6B6B;
+  stroke-width: 0.6px;
+  animation: dashArray 4s ease-in-out infinite,
+    dashOffset 4s linear infinite;
+}
+
+@keyframes dashArray {
+  0% {
+    stroke-dasharray: 0 1 359 0;
+  }
+  50% {
+    stroke-dasharray: 0 359 1 0;
+  }
+  100% {
+    stroke-dasharray: 359 1 0 0;
+  }
+}
+
+@keyframes dashOffset {
+  0% {
+    stroke-dashoffset: 365;
+  }
+  100% {
+    stroke-dashoffset: 5;
+  }
+}
+
+.image-loader-text {
+  margin-top: 8px;
+  text-align: center;
+  color: #888;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  text-shadow: 0 1px 2px #fff, 0 0 2px #FF6B6B22;
 }
