@@ -2213,11 +2213,112 @@ h2 {
     font-weight: 600;
 }
 
+/* Модален прозорец за първоначално съобщение */
+.welcome-content {
+    max-width: 450px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 40px 30px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.welcome-header {
+    margin-bottom: 25px;
+}
+
+.welcome-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    animation: pulse 2s infinite;
+}
+
+.welcome-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.welcome-header p {
+    font-size: 1.1rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.welcome-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.primary-btn {
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+}
+
+.secondary-btn {
+    background: linear-gradient(45deg, #6C5CE7, #00B894);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.secondary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+}
+
 /* Модален прозорец за регистрация */
 .registration-content {
     max-width: 500px;
     width: 90%;
-    max-height: 90vh;
+    max-height: 95vh;
     overflow-y: auto;
     padding: 30px;
     background: rgba(255, 255, 255, 0.95);
@@ -4949,4 +5050,262 @@ h2 {
   letter-spacing: 0.5px;
   font-weight: 500;
   text-shadow: 0 1px 2px #fff, 0 0 2px #FF6B6B22;
+}
+
+/* Информативно балонче за ползите на регистрацията */
+.registration-benefits-tooltip {
+    position: relative;
+    margin: 15px 0;
+    padding: 12px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.registration-benefits-tooltip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #6C5CE7, #FFD93D);
+    animation: gradientMove 3s ease-in-out infinite;
+}
+
+.registration-benefits-tooltip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.tooltip-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.tooltip-content {
+    padding-right: 50px;
+}
+
+.tooltip-content h4 {
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: center;
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tooltip-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tooltip-content li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    padding: 6px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    font-size: 0.9rem;
+}
+
+.tooltip-content li:nth-child(1) { animation-delay: 0.1s; }
+.tooltip-content li:nth-child(2) { animation-delay: 0.2s; }
+.tooltip-content li:nth-child(3) { animation-delay: 0.3s; }
+.tooltip-content li:nth-child(4) { animation-delay: 0.4s; }
+.tooltip-content li:nth-child(5) { animation-delay: 0.5s; }
+
+.tooltip-content li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tooltip-content li i {
+    width: 16px;
+    margin-right: 8px;
+    color: #4ECDC4;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.tooltip-content li strong {
+    color: #333;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+/* Анимация за появяване на елементите */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Стилове за скролбара на балончето */
+.registration-benefits-tooltip::-webkit-scrollbar {
+    width: 6px;
+}
+
+.registration-benefits-tooltip::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.registration-benefits-tooltip::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+    border-radius: 3px;
+}
+
+.registration-benefits-tooltip::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #FF5252, #26A69A);
+}
+
+/* Responsive дизайн за welcome модала */
+@media (max-width: 768px) {
+    .welcome-content {
+        max-width: 95%;
+        padding: 30px 20px;
+    }
+    
+    .welcome-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .welcome-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .welcome-header p {
+        font-size: 1rem;
+    }
+    
+    .primary-btn, .secondary-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-content {
+        max-width: 98%;
+        padding: 25px 15px;
+    }
+    
+    .welcome-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .welcome-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .welcome-header p {
+        font-size: 0.9rem;
+    }
+    
+    .primary-btn, .secondary-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Responsive дизайн за балончето */
+@media (max-width: 768px) {
+    .registration-benefits-tooltip {
+        margin: 15px 0;
+        padding: 12px;
+        max-height: 180px;
+    }
+    
+    .tooltip-content h4 {
+        font-size: 0.95rem;
+    }
+    
+    .tooltip-content li {
+        font-size: 0.85rem;
+        padding: 5px 8px;
+    }
+    
+    .tooltip-icon {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .registration-benefits-tooltip {
+        margin: 10px 0;
+        padding: 10px;
+    }
+    
+    .tooltip-content {
+        padding-right: 40px;
+    }
+    
+    .tooltip-content h4 {
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+    
+    .tooltip-content li {
+        font-size: 0.85rem;
+        padding: 5px 8px;
+        margin-bottom: 6px;
+    }
+    
+    .tooltip-content li i {
+        width: 16px;
+        margin-right: 8px;
+        font-size: 12px;
+    }
+    
+    .tooltip-icon {
+        width: 22px;
+        height: 22px;
+        font-size: 11px;
+        top: 10px;
+        right: 10px;
+    }
 }

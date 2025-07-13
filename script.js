@@ -421,7 +421,8 @@ const rulesModal = document.getElementById('rules-modal');
 const showRulesBtn = document.getElementById('show-rules');
 const closeModalBtn = document.querySelector('.close-modal');
 
-// DOM елементи за регистрация
+// DOM елементи за модали
+const welcomeModal = document.getElementById('welcome-modal');
 const registrationModal = document.getElementById('registration-modal');
 const registrationForm = document.getElementById('registration-form');
 const loginModal = document.getElementById('login-modal');
@@ -436,6 +437,10 @@ const profileUsername = document.getElementById('profile-username');
 const loginBtn = document.getElementById('login-btn');
 const registerBtn = document.getElementById('register-btn');
 const logoutBtn = document.getElementById('logout-btn');
+
+// Бутони за welcome модала
+const startRegistrationBtn = document.getElementById('start-registration-btn');
+const loginFromWelcomeBtn = document.getElementById('login-from-welcome-btn');
 
 // Променям текста на бутона
 nextPlayerButton.textContent = translateText('next_player');
@@ -1482,17 +1487,54 @@ function showImpostorRules() {
     document.body.style.overflow = 'hidden';
 }
 
+// Функция за показване на welcome модала
+function showWelcomeModal() {
+    console.log('=== showWelcomeModal извикана ===');
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    console.log('isLoggedIn от localStorage:', isLoggedIn);
+    
+    if (!isLoggedIn || isLoggedIn !== 'true') {
+        console.log('Показваме welcome модала...');
+        welcomeModal.style.display = 'block';
+        welcomeModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    } else {
+        // Ако потребителят е логнат, показваме директно регистрацията
+        showRegistrationForm();
+    }
+    console.log('=== showWelcomeModal завършена ===');
+}
+
 // Функция за показване на регистрацията
-function showRegistration() {
-    console.log('=== showRegistration извикана ===');
+function showRegistrationForm() {
+    console.log('=== showRegistrationForm извикана ===');
     console.log('isRegistrationShown:', isRegistrationShown);
     console.log('isUserRegistered:', isUserRegistered);
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     console.log('isLoggedIn от localStorage:', isLoggedIn);
     console.log('Показваме регистрационния модал...');
+    
+    // Скриваме welcome модала
+    welcomeModal.style.display = 'none';
+    welcomeModal.classList.remove('show');
+    
+    // Показваме регистрационния модал
     registrationModal.style.display = 'block';
     registrationModal.classList.add('show');
     document.body.style.overflow = 'hidden';
+    
+    // Показваме балончето с ползите само за нерегистрирани потребители
+    const benefitsTooltip = document.querySelector('.registration-benefits-tooltip');
+    if (benefitsTooltip) {
+        if (!isLoggedIn || isLoggedIn !== 'true') {
+            benefitsTooltip.style.display = 'block';
+            // Добавяме анимация за появяване
+            benefitsTooltip.style.animation = 'fadeInUp 0.6s ease forwards';
+        } else {
+            benefitsTooltip.style.display = 'none';
+        }
+    }
+    
     // Винаги закачаме слушател веднага
     attachLoginLinkListener();
     // Закачаме и при всяка промяна на DOM (например превод)
@@ -1501,7 +1543,12 @@ function showRegistration() {
     });
     observer.observe(registrationModal, { childList: true, subtree: true });
     registrationModal._loginLinkObserver = observer;
-    console.log('=== showRegistration завършена ===');
+    console.log('=== showRegistrationForm завършена ===');
+}
+
+// Запазваме старата функция за обратна съвместимост
+function showRegistration() {
+    showWelcomeModal();
 }
 
 function attachLoginLinkListener() {
@@ -1529,6 +1576,13 @@ function handleLoginClick(e) {
     console.log('Бутонът "Вече имате акаунт?" беше натиснат!');
     hideRegistration();
     showLogin();
+}
+
+// Функция за скриване на welcome модала
+function hideWelcomeModal() {
+    welcomeModal.style.display = 'none';
+    welcomeModal.classList.remove('show');
+    document.body.style.overflow = 'auto';
 }
 
 // Функция за скриване на регистрацията
@@ -1601,6 +1655,12 @@ registrationForm.addEventListener('submit', async (e) => {
     }
     const success = await registerUserFirebase(username, email, password, age, favoriteGame, newsletter);
     if (success) {
+        // Скриваме балончето с ползите след успешна регистрация
+        const benefitsTooltip = document.querySelector('.registration-benefits-tooltip');
+        if (benefitsTooltip) {
+            benefitsTooltip.style.display = 'none';
+        }
+        
         hideRegistration();
         isUserRegistered = true;
         isRegistrationShown = true;
@@ -1651,6 +1711,13 @@ registerLink.addEventListener('click', (e) => {
 closeRegistration.addEventListener('click', () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (!isUserRegistered || !isLoggedIn) {
+        // Показваме балончето с ползите ако потребителят се опитва да затвори без регистрация
+        const benefitsTooltip = document.querySelector('.registration-benefits-tooltip');
+        if (benefitsTooltip) {
+            benefitsTooltip.style.display = 'block';
+            benefitsTooltip.style.animation = 'fadeInUp 0.6s ease forwards';
+        }
+        
         showMessage('Трябва да се регистрирате, за да продължите!', 'error');
         return;
     }
@@ -1669,8 +1736,28 @@ closeLogin.addEventListener('click', () => {
 
 // Функция за продължаване на играта след регистрация
 function continueGameAfterRegistration() {
+    // Скриваме и двата модала
+    hideWelcomeModal();
+    hideRegistration();
     updateProfilePanel();
     console.log('Потребителят е регистриран, продължаваме играта...');
+}
+
+// Event listeners за welcome модала
+if (startRegistrationBtn) {
+    startRegistrationBtn.addEventListener('click', () => {
+        showRegistrationForm();
+    });
+}
+
+if (loginFromWelcomeBtn) {
+    loginFromWelcomeBtn.addEventListener('click', () => {
+        // Скриваме welcome модала
+        welcomeModal.style.display = 'none';
+        welcomeModal.classList.remove('show');
+        // Показваме login модала
+        showLogin();
+    });
 }
 
 // Бутон за регистрация от панела
