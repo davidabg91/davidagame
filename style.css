@@ -92,8 +92,18 @@ body {
 }
 
 @keyframes gradientShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    0%, 100% { 
+        background-position: 0% 50%; 
+    }
+    25% { 
+        background-position: 100% 0%; 
+    }
+    50% { 
+        background-position: 100% 100%; 
+    }
+    75% { 
+        background-position: 0% 100%; 
+    }
 }
 
 .logo span {
@@ -1583,15 +1593,15 @@ h2 {
         box-sizing: border-box;
     }
     .player-selection-container h2 {
-        padding: 20px 30px 20px 50px;
+        padding: 25px 35px 25px 55px;
         font-size: 1.6rem;
-        border-radius: 20px;
+        border-radius: 25px;
         margin-bottom: 20px;
+        letter-spacing: 1px;
     }
     
     .player-selection-container h2::before {
-        font-size: 1.1rem;
-        left: 10px;
+        display: none;
     }
     .player-selection-container .player-count-container {
         padding: 15px 10px;
@@ -1813,71 +1823,58 @@ h2 {
 
 
 .player-selection-container h2::before {
-    content: '👥';
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.4rem;
-    animation: playersIcon 2s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    content: '';
+    display: none;
 }
 
 .player-selection-container h2 {
     margin-bottom: 25px;
     margin-top: 0;
-    padding: 25px 50px 25px 70px;
-    border-radius: 25px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 3px solid transparent;
-    background-clip: padding-box;
+    padding: 30px 60px 30px 80px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
     box-shadow: 
         0 15px 35px rgba(0, 0, 0, 0.2),
-        0 0 0 1px rgba(255, 255, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
     color: white;
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     font-weight: 800;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-    animation: titleGlow 3s ease-in-out infinite;
+    letter-spacing: 2px;
 }
 
 .player-selection-container h2::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    animation: shimmer 3s infinite;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        #FF6B6B 20%, 
+        #FFD93D 40%, 
+        #6C5CE7 60%, 
+        #00B894 80%, 
+        transparent 100%);
+    animation: moveLine 3s linear infinite;
+    box-shadow: 
+        0 0 10px rgba(255, 107, 107, 0.8),
+        0 0 20px rgba(255, 217, 61, 0.6),
+        0 0 30px rgba(108, 92, 231, 0.4),
+        0 0 40px rgba(0, 184, 148, 0.2);
 }
 
-@keyframes titleGlow {
-    0%, 100% { 
-        box-shadow: 
-            0 15px 35px rgba(0, 0, 0, 0.2),
-            0 0 0 1px rgba(255, 255, 255, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.4),
-            0 0 20px rgba(102, 126, 234, 0.5);
-    }
-    50% { 
-        box-shadow: 
-            0 20px 40px rgba(0, 0, 0, 0.3),
-            0 0 0 1px rgba(255, 255, 255, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.5),
-            0 0 30px rgba(102, 126, 234, 0.8);
-        transform: translateY(-2px);
-    }
-}
+/* Анимацията titleGlow е премахната - използваме само moveLine */
 
 @keyframes playersIcon {
     0%, 100% { 
@@ -1898,18 +1895,14 @@ h2 {
     }
 }
 
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
+/* Shimmer анимацията е премахната - използваме moveLine */
 
 .player-selection-container h2:hover {
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-3px);
     box-shadow: 
-        0 25px 50px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(255, 255, 255, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6),
-        0 0 40px rgba(102, 126, 234, 1);
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .player-selection-container .player-count-container {
@@ -2713,7 +2706,7 @@ h2 {
     
     .detective-logo .logo-icon,
     .impostor-logo .logo-icon {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
     }
     
     /* Setup content - по-компактен */
@@ -3163,7 +3156,7 @@ h2 {
     
     .detective-logo .logo-icon,
     .impostor-logo .logo-icon {
-        font-size: 1.2rem;
+        font-size: 0.8rem;
     }
     
     .btn {
@@ -3175,14 +3168,14 @@ h2 {
     
     .player-selection-container h2 {
         font-size: 1.2rem;
-        padding: 15px 20px 15px 35px;
-        border-radius: 15px;
+        padding: 20px 25px 20px 40px;
+        border-radius: 20px;
         margin-bottom: 15px;
+        letter-spacing: 0.5px;
     }
     
     .player-selection-container h2::before {
-        font-size: 0.9rem;
-        left: 8px;
+        display: none;
     }
     
     /* Responsive стилове за новия бутон "Следващ играч" на малки екрани */
