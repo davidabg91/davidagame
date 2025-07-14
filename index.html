@@ -121,7 +121,7 @@
             <div class="game-controls">
                 <div class="next-player-btn-container">
                     <button id="next-player-button" class="next-player-btn-content">
-                        <span class="next-player-btn-title" data-translate="next_player">СЛЕДВАЩ ИГРАЧ</span>
+                        <span class="next-player-btn-title" data-translate="next_player">Next Player</span>
                         <span class="next-player-icon-arrow">
                             <svg width="66px" height="43px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                                 <g id="arrow" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -207,8 +207,8 @@
                 <div class="welcome-icon">
                     <i class="fas fa-gamepad"></i>
                 </div>
-                <h2>🎮 Добре дошли в Odd One Out!</h2>
-                <p>За да продължите да играете, трябва да създадете акаунт</p>
+                <h2 data-translate="welcome_title">🎮 Добре дошли в Odd One Out!</h2>
+                <p data-translate="welcome_subtitle">За да продължите да играете, трябва да създадете акаунт</p>
             </div>
             
             <!-- Информативно балонче за ползите на регистрацията -->
@@ -217,23 +217,23 @@
                     <i class="fas fa-info-circle"></i>
                 </div>
                 <div class="tooltip-content">
-                    <h4>🎯 Защо да се регистрирате?</h4>
+                    <h4 data-translate="welcome_why_register_title">🎯 Защо да се регистрирате?</h4>
                     <ul>
-                        <li><i class="fas fa-database"></i> <strong>База данни:</strong> Няма да виждате едни и същи картини</li>
-                        <li><i class="fas fa-layer-group"></i> <strong>Повече нива:</strong> НОВИ думи и предизвикателства</li>
-                        <li><i class="fas fa-trophy"></i> <strong>Прогрес:</strong> Следете вашите постижения</li>
-                        <li><i class="fas fa-users"></i> <strong>Общност:</strong> Играйте с приятели</li>
-                        <li><i class="fas fa-star"></i> <strong>Ексклузивно съдържание:</strong> Специални теми и карти</li>
+                        <li data-translate="welcome_benefit_1"><i class="fas fa-database"></i> <strong>База данни:</strong> Няма да виждате едни и същи картини</li>
+                        <li data-translate="welcome_benefit_2"><i class="fas fa-layer-group"></i> <strong>Повече нива:</strong> НОВИ думи и предизвикателства</li>
+                        <li data-translate="welcome_benefit_3"><i class="fas fa-trophy"></i> <strong>Прогрес:</strong> Следете вашите постижения</li>
+                        <li data-translate="welcome_benefit_4"><i class="fas fa-users"></i> <strong>Общност:</strong> Играйте с приятели</li>
+                        <li data-translate="welcome_benefit_5"><i class="fas fa-star"></i> <strong>Ексклузивно съдържание:</strong> Специални теми и карти</li>
                     </ul>
                 </div>
             </div>
             
             <div class="welcome-actions">
-                <button id="start-registration-btn" class="btn primary-btn">
+                <button id="start-registration-btn" class="btn primary-btn" data-translate="welcome_create_account_btn">
                     <i class="fas fa-user-plus"></i>
                     Създай акаунт
                 </button>
-                <button id="login-from-welcome-btn" class="btn secondary-btn">
+                <button id="login-from-welcome-btn" class="btn secondary-btn" data-translate="welcome_login_btn">
                     <i class="fas fa-sign-in-alt"></i>
                     Вече имам акаунт
                 </button>
@@ -318,8 +318,8 @@
             <div id="Container">
                 <form id="login-form" class="form">
                     <div id="login-lable" data-translate="login_title">Вход</div>
-                    <input class="form-content" type="email" id="login-username" name="username" placeholder="Имейл адрес" required autocomplete="username" />
-                    <input class="form-content" type="password" id="login-password" name="password" placeholder="Парола" required autocomplete="current-password" />
+                    <input class="form-content" type="email" id="login-username" name="username" placeholder="Имейл адрес" data-translate="email" required autocomplete="username" />
+                    <input class="form-content" type="password" id="login-password" name="password" placeholder="Парола" data-translate="password" required autocomplete="current-password" />
                     <button type="submit" data-translate="login">Влез</button>
                 </form>
                 <div style="text-align:center; margin-top:10px;">
@@ -404,7 +404,7 @@
         </div>
         
         <div class="unlock-pro-title">
-          <h2 data-translate="unlock_pro_title">Отключи пълната версия</h2>
+          <h2 data-translate="unlock_pro_title">Unlock Full Version</h2>
           <div class="unlock-pro-badge">
             <span class="badge-text">PREMIUM</span>
           </div>
@@ -414,19 +414,19 @@
           <div class="price-container">
             <span class="price-currency">€</span>
             <span class="price-amount">3.99</span>
-            <span class="price-period">еднократно</span>
+            <span class="price-period" data-translate="price_period">one-time</span>
           </div>
         </div>
         
         <div class="unlock-pro-benefits">
-          <h3>Предимства на пълната версия:</h3>
+          <h3 data-translate="pro_benefits_title">Full version benefits:</h3>
           <ul class="benefits-list">
-                                    <li><i class="fas fa-check-circle"></i> няма чакане на всеки 3 рунда по 5 мин.</li>
-            <li><i class="fas fa-check-circle"></i> няма реклами и дразнещи съобщения</li>
-            <li><i class="fas fa-check-circle"></i> неограничен брой игри</li>
-            <li><i class="fas fa-check-circle"></i> ексклузивни карти и теми</li>
-            <li><i class="fas fa-check-circle"></i> приоритетна поддръжка</li>
-            <li><i class="fas fa-check-circle"></i> бъдещи обновления включени</li>
+            <li data-translate="pro_benefit_1"><i class="fas fa-check-circle"></i> no waiting every 3 rounds for 5 min.</li>
+            <li data-translate="pro_benefit_2"><i class="fas fa-check-circle"></i> no ads and annoying messages</li>
+            <li data-translate="pro_benefit_3"><i class="fas fa-check-circle"></i> unlimited number of games</li>
+            <li data-translate="pro_benefit_4"><i class="fas fa-check-circle"></i> exclusive cards and themes</li>
+            <li data-translate="pro_benefit_5"><i class="fas fa-check-circle"></i> priority support</li>
+            <li data-translate="pro_benefit_6"><i class="fas fa-check-circle"></i> future updates included</li>
           </ul>
         </div>
         
@@ -442,7 +442,7 @@
         </div>
         
         <div class="unlock-pro-footer">
-          <p class="guarantee">
+          <p class="guarantee" data-translate="pro_guarantee">
             <i class="fas fa-shield-alt"></i>
             100% сигурно плащане • 30-дневна гаранция
           </p>

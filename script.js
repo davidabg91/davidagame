@@ -103,7 +103,7 @@ const translations = {
         create_account: "Създай акаунт",
         already_have_account: "Вече имате акаунт?",
         login: "Вход",
-        registration_required: "Регистрацията е задължителна за продължаване. Можете да се регистрирате или да натиснете 'Влезте' за да влезете с вече съществуващ профил.",
+        registration_required: "Трябва да влезете в профила си, за да продължите!",
         registration_success: "Регистрацията е успешна! Можете да продължите да играете.",
         registration_error: "Грешка при регистрация. Моля, опитайте отново.",
         login_title: "Вход",
@@ -124,27 +124,49 @@ const translations = {
         attention_message: "Всички играчи да се одръпнат!",
         attention_submessage: "Да остане само първият играч!",
         unlock_pro: "Unlock Pro",
-        unlock_pro_title: "Отключи пълната версия",
-        unlock_pro_price: "Цена:",
-        unlock_pro_payment_info: "Плащането става чрез Revolut на линка долу. В бележка към плащането задължително напишете имейл адреса си!",
-        pay_with_revolut: "Плати с Revolut",
-        forgot_password: "Забравена парола?",
-        reset_password_title: "Възстановяване на парола",
-        send_reset_link: "Изпрати линк за възстановяване",
-        reset_email_sent: "Изпратен е имейл за възстановяване на паролата!",
-        free_version: "Безплатна версия",
-        free_limit_message: "Изиграхте 3 поредни рунда. Това е лимитът за безплатната версия. Изчакайте",
-        free_limit_seconds: "секунди преди да продължите.",
-        free_limit_payment_info: "Ако желаете да отключите пълната версия, направете плащане през Revolut. В бележката към превода задължително въведете имейл адреса си!",
-        remove_limit: "Премахни лимита (3.99€)",
-        game_ended: "🎉 Играта приключи!",
-        thanks_for_playing: "Благодарим за играта!",
-        winner: "Победител:",
-        duration: "Продължителност:",
-        new_game: "Нова игра",
-        main_menu: "Главно меню",
-        attention_next_player: "ВНИМАНИЕ: ДА ГЛЕДА САМО СЛЕДВАЩИЯ ИГРАЧ",
-        reveal_impostor: "РАЗКРИИ КОЙ БЕШЕ ИМПОСТЪРА"
+        unlock_pro_title: "Unlock Full Version",
+        unlock_pro_price: "Price:",
+        unlock_pro_payment_info: "Payment is made through Revolut using the link below. In the payment note, please write your email address!",
+        pay_with_revolut: "Pay with Revolut",
+        forgot_password: "Forgot Password?",
+        reset_password_title: "Reset Password",
+        send_reset_link: "Send Reset Link",
+        reset_email_sent: "Password reset email sent!",
+        free_version: "Free Version",
+        free_limit_message: "You played 3 consecutive rounds. This is the limit for the free version. Wait",
+        free_limit_seconds: "seconds before continuing.",
+        free_limit_payment_info: "If you want to unlock the full version, make a payment through Revolut. In the payment note, please enter your email address!",
+        remove_limit: "Remove Limit (3.99€)",
+        game_ended: "🎉 Game Ended!",
+        thanks_for_playing: "Thanks for playing!",
+        winner: "Winner:",
+        duration: "Duration:",
+        main_menu: "Main Menu",
+        attention_next_player: "ВНИМАНИЕ: САМО СЛЕДВАЩИЯТ ИГРАЧ ДА ГЛЕДА",
+        reveal_impostor: "REVEAL WHO WAS THE IMPOSTOR",
+        click_for_detective_rules: "Show detective rules",
+        click_for_impostor_rules: "Show impostor rules",
+        detective_rules_content: "Detective rules content will be displayed here",
+        impostor_rules_content: "Impostor rules content will be displayed here",
+        price_period: "еднократно",
+        pro_benefits_title: "Предимства на пълната версия:",
+        pro_benefit_1: "няма чакане на всеки 3 рунда по 5 мин.",
+        pro_benefit_2: "няма реклами и дразнещи съобщения",
+        pro_benefit_3: "неограничен брой игри",
+        pro_benefit_4: "ексклузивни карти и теми",
+        pro_benefit_5: "приоритетна поддръжка",
+        pro_benefit_6: "бъдещи обновления включени",
+        pro_guarantee: "100% сигурно плащане • 30-дневна гаранция",
+        welcome_title: "🎮 Добре дошли в Odd One Out!",
+        welcome_subtitle: "За да продължите да играете, трябва да създадете акаунт",
+        welcome_why_register_title: "🎯 Защо да се регистрирате?",
+        welcome_benefit_1: "<i class='fas fa-database'></i> <strong>База данни:</strong> Няма да виждате едни и същи картини",
+        welcome_benefit_2: "<i class='fas fa-layer-group'></i> <strong>Повече нива:</strong> НОВИ думи и предизвикателства",
+        welcome_benefit_3: "<i class='fas fa-trophy'></i> <strong>Прогрес:</strong> Следете вашите постижения",
+        welcome_benefit_4: "<i class='fas fa-users'></i> <strong>Общност:</strong> Играйте с приятели",
+        welcome_benefit_5: "<i class='fas fa-star'></i> <strong>Ексклузивно съдържание:</strong> Специални теми и карти",
+        welcome_create_account_btn: "Създай акаунт",
+        welcome_login_btn: "Вече имам акаунт"
     },
     en: {
         player_count: "Number of Players",
@@ -245,7 +267,7 @@ const translations = {
         create_account: "Create Account",
         already_have_account: "Already have an account?",
         login: "Login",
-        registration_required: "Registration is required to continue. You can register or click 'Login' to sign in with an existing account.",
+        registration_required: "You must log in to your account to continue!",
         registration_success: "Registration successful! You can continue playing.",
         registration_error: "Registration error. Please try again.",
         login_title: "Login",
@@ -283,10 +305,30 @@ const translations = {
         thanks_for_playing: "Thanks for playing!",
         winner: "Winner:",
         duration: "Duration:",
-        new_game: "New Game",
         main_menu: "Main Menu",
         attention_next_player: "ATTENTION: ONLY THE NEXT PLAYER SHOULD LOOK",
-        reveal_impostor: "REVEAL WHO WAS THE IMPOSTOR"
+        reveal_impostor: "REVEAL WHO WAS THE IMPOSTOR",
+        click_for_detective_rules: "Show detective rules",
+        click_for_impostor_rules: "Show impostor rules",
+        price_period: "one-time",
+        pro_benefits_title: "Full version benefits:",
+        pro_benefit_1: "no waiting every 3 rounds for 5 min.",
+        pro_benefit_2: "no ads and annoying messages",
+        pro_benefit_3: "unlimited number of games",
+        pro_benefit_4: "exclusive cards and themes",
+        pro_benefit_5: "priority support",
+        pro_benefit_6: "future updates included",
+        pro_guarantee: "100% secure payment • 30-day guarantee",
+        welcome_title: "🎮 Welcome to Odd One Out!",
+        welcome_subtitle: "To continue playing, you need to create an account",
+        welcome_why_register_title: "🎯 Why register?",
+        welcome_benefit_1: "<i class='fas fa-database'></i> <strong>Database:</strong> You won't see the same pictures",
+        welcome_benefit_2: "<i class='fas fa-layer-group'></i> <strong>More levels:</strong> NEW words and challenges",
+        welcome_benefit_3: "<i class='fas fa-trophy'></i> <strong>Progress:</strong> Track your achievements",
+        welcome_benefit_4: "<i class='fas fa-users'></i> <strong>Community:</strong> Play with friends",
+        welcome_benefit_5: "<i class='fas fa-star'></i> <strong>Exclusive content:</strong> Special themes and cards",
+        welcome_create_account_btn: "Create Account",
+        welcome_login_btn: "I already have an account"
     }
 };
 
@@ -303,19 +345,30 @@ function applyTranslation() {
     elements.forEach(element => {
         const key = element.getAttribute('data-translate');
         const translation = translateText(key);
-        if (element.tagName === 'INPUT' && element.type === 'placeholder') {
+        const htmlKeys = [
+            'welcome_benefit_1',
+            'welcome_benefit_2',
+            'welcome_benefit_3',
+            'welcome_benefit_4',
+            'welcome_benefit_5'
+        ];
+        if (htmlKeys.includes(key)) {
+            element.innerHTML = translation;
+        } else if (element.tagName === 'INPUT') {
             element.placeholder = translation;
         } else {
             element.textContent = translation;
         }
     });
-    
+    // Обновяваме и бутона 'Следващ играч' ако съществува
+    const nextPlayerBtnTitle = document.querySelector('.next-player-btn-title');
+    if (nextPlayerBtnTitle) {
+        nextPlayerBtnTitle.textContent = translateText('next_player');
+    }
     // Обновяваме динамични текстове
     updateDynamicTexts();
-    
     // Обновяваме tooltip текстове
     updateTooltips();
-    
     // Обновяваме текста "сега!" в анимирания бутон
     updateAnimatedButtonText();
 }
@@ -452,7 +505,6 @@ const startRegistrationBtn = document.getElementById('start-registration-btn');
 const loginFromWelcomeBtn = document.getElementById('login-from-welcome-btn');
 
 // Променям текста на бутона
-nextPlayerButton.textContent = translateText('next_player');
 
 // Генериране на нивата при зареждане на страницата
 function generateGameLevels() {
@@ -1057,7 +1109,7 @@ window.addEventListener('click', (e) => {
     if (e.target === loginModal) {
         const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
         if (!isLoggedIn) {
-            showMessage('Трябва да влезете в профила си, за да продължите!', 'error');
+            showMessage(translateText('registration_required'), 'error');
             return;
         }
         hideLogin();
@@ -1755,7 +1807,7 @@ closeRegistration.addEventListener('click', () => {
 closeLogin.addEventListener('click', () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (!isLoggedIn) {
-        showMessage('Трябва да влезете в профила си, за да продължите!', 'error');
+        showMessage(translateText('registration_required'), 'error');
         return;
     }
     hideLogin();
@@ -2638,7 +2690,7 @@ function addEventListeners() {
         closeLogin.addEventListener('click', () => {
             const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
             if (!isLoggedIn) {
-                showMessage('Трябва да влезете в профила си, за да продължите!', 'error');
+                showMessage(translateText('registration_required'), 'error');
                 return;
             }
             hideLogin();
