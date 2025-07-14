@@ -384,6 +384,29 @@
       const auth = firebase.auth();
       const db = firebase.firestore();
     </script>
+    <script>
+      // GeoJS API за определяне на държавата по IP
+      (function() {
+        if (!localStorage.getItem('selectedLanguage')) {
+          fetch('https://get.geojs.io/v1/ip/country.json')
+            .then(response => response.json())
+            .then(data => {
+              if (data.country && (data.country === 'Bulgaria' || data.country_code === 'BG')) {
+                localStorage.setItem('selectedLanguage', 'bg');
+              } else {
+                localStorage.setItem('selectedLanguage', 'en');
+              }
+              // Презареждаме, за да се приложи езикът веднага
+              location.reload();
+            })
+            .catch(() => {
+              // Ако има грешка, по подразбиране английски
+              localStorage.setItem('selectedLanguage', 'en');
+              location.reload();
+            });
+        }
+      })();
+    </script>
     <div id="unlock-pro-wrapper">
       <button class="unlock-pro-btn">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24">
