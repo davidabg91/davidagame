@@ -5003,3 +5003,99 @@ input:focus {
         height: 400px;
     }
 }
+
+/* --- COLORFUL PREMIUM MODALS & PANELS --- */
+.online-setup-content, .profile-setup-content, .lobby-content, .setup-content, .modal-content {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%) !important;
+    border: 2px solid transparent !important;
+    background-clip: padding-box !important;
+    position: relative !important;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 2px rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Border Gradient Effect */
+.online-setup-content::before, .profile-setup-content::before, .lobby-content::before, .setup-content::before, .modal-content::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -2px !important; bottom: -2px !important; left: -2px !important; right: -2px !important;
+    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)) !important;
+    border-radius: inherit !important;
+    z-index: -1 !important;
+    opacity: 0.4 !important;
+}
+
+/* Modernizing Login/Register Specifically */
+#login-modal, #registration-modal, #welcome-modal {
+    z-index: 10001 !important;
+    backdrop-filter: blur(15px) !important;
+}
+
+.registration-content, .login-content {
+    max-width: 450px !important;
+    border-radius: 40px !important;
+    padding: 2.5rem !important;
+    background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%) !important;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6) !important;
+}
+
+/* Profiles Panel Fixing & Colorizing */
+.profile-panel {
+    position: fixed !important;
+    top: 20px !important;
+    left: 20px !important;
+    z-index: 20000 !important; /* Extremely high z-index to stay on top */
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(12px) !important;
+    padding: 8px 16px !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+}
+
+.profile-panel:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+    transform: translateY(-2px);
+    border-color: var(--secondary) !important;
+}
+
+#profile-username {
+    font-weight: 800 !important;
+    color: var(--secondary) !important;
+    font-family: var(--font-body);
+}
+
+.profile-btn {
+    padding: 6px 14px !important;
+    font-size: 0.9rem !important;
+    margin: 0 !important;
+}
+
+/* Language Selector Fix */
+.language-selector {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 20000 !important;
+}
+
+/* Colorful Headers */
+.online-setup-content h2, .profile-setup-content h2, .lobby-content h2, .modal-content h2 {
+    background: linear-gradient(to right, #fff, var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Highlight the Logged In State */
+.profile-info {
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+}
