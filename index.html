@@ -62,19 +62,34 @@
                 <div class="logo-vibe">THE ULTIMATE IMPOSTOR GAME</div>
             </h1>
             <h2 class="section-title modern-text" data-translate="choose_mode">Изберете начин на игра</h2>
-            <div class="mode-buttons-container">
-                <button id="local-mode-btn" class="animated-button pulse">
-                    <i class="fas fa-users"></i>
-                    <span class="mode-title" data-translate="local_play">На едно място</span>
-                    <p class="mode-desc" data-translate="local_play_desc">Всички играят на едно устройство</p>
-                </button>
-                <button id="online-mode-btn" class="animated-button pulse online-btn">
-                    <i class="fas fa-globe"></i>
-                    <span class="mode-title" data-translate="online_play">Онлайн игра</span>
-                    <p class="mode-desc" data-translate="online_play_desc">Играйте от различни устройства</p>
-                </button>
+            
+            <div class="mode-cards-grid animate__animated animate__fadeInUp">
+                <div id="local-mode-btn" class="mode-card local-card clickable">
+                    <div class="card-image-wrapper">
+                        <img src="local_mode.png" alt="Local Mode" class="mode-visual">
+                        <div class="card-glass-overlay"></div>
+                    </div>
+                    <div class="card-info">
+                        <div class="mode-icon-circle"><i class="fas fa-users"></i></div>
+                        <h3 data-translate="local_play">На едно място</h3>
+                        <p data-translate="local_play_desc">Всички играят на едно устройство</p>
+                    </div>
+                </div>
+
+                <div id="online-mode-btn" class="mode-card online-card clickable">
+                    <div class="card-image-wrapper">
+                        <img src="online_mode.png" alt="Online Mode" class="mode-visual">
+                        <div class="card-glass-overlay"></div>
+                    </div>
+                    <div class="card-info">
+                        <div class="mode-icon-circle"><i class="fas fa-globe"></i></div>
+                        <h3 data-translate="online_play">Онлайн игра</h3>
+                        <p data-translate="online_play_desc">Играйте от различни устройства</p>
+                    </div>
+                </div>
             </div>
         </div>
+
 
         <div id="setup-screen" class="hidden">
             <div class="setup-content">
