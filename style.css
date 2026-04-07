@@ -5478,3 +5478,37 @@ h3 {
     .container { margin-top: 60px !important; }
     .main-logo { display: none; }
 }
+
+/* --- FINAL SCALE & OVERLAP REFINEMENTS --- */
+.container {
+    max-width: 850px !important; /* Allow wider layout on Desktop */
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 100% !important; /* Proper full-width on Mobile */
+    }
+    
+    .top-nav {
+        z-index: 500 !important; /* Lower z-index so Modals (10000+) cover it */
+        background: linear-gradient(to bottom, rgba(7, 9, 15, 0.8), transparent) !important;
+    }
+}
+
+.modal {
+    z-index: 10001 !important; /* Ensure modals are always on top */
+}
+
+.modal-content {
+    z-index: 10002 !important;
+}
+
+/* Fix Mode Cards on Desktop */
+@media (min-width: 769px) {
+    .mode-card {
+        height: 380px !important; /* Taller on Desktop */
+    }
+    .mode-card .card-info h3 {
+        font-size: 1.8rem !important;
+    }
+}
