@@ -4652,3 +4652,53 @@ h2 {
     border-radius: 15px;
     border: 1px solid var(--surface-border);
 }
+
+/* --- MODERN UI OVERHAUL --- */
+.main-logo {
+    font-family: var(--font-heading);
+    font-size: clamp(3.5rem, 12vw, 6rem);
+    line-height: 0.85;
+    margin: 40px 0 10px 0;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    position: relative;
+    text-shadow: 0 0 20px rgba(255, 61, 113, 0.4), 0 0 40px rgba(0, 229, 255, 0.3);
+}
+.logo-highlight { color: var(--secondary); padding: 0 5px; }
+.logo-vibe {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 6px;
+    color: var(--secondary);
+    font-weight: 900;
+    margin-top: 10px;
+    opacity: 0.9;
+    text-shadow: none;
+}
+.section-title {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: none !important;
+}
+.animated-button {
+    background: linear-gradient(135deg, #FFD600 0%, #FFB000 100%) !important;
+    color: #000 !important;
+    text-shadow: none !important;
+    box-shadow: 0 10px 0 #CC8C00, 0 15px 30px rgba(0, 0, 0, 0.3) !important;
+    border: none !important;
+    border-radius: 20px !important;
+    font-weight: 900 !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+.animated-button:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 0 #CC8C00, 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+}
+.animated-button:active {
+    transform: translateY(8px) scale(0.98);
+    box-shadow: 0 2px 0 #CC8C00, 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+}

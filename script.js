@@ -487,6 +487,9 @@ let totalLevels = 50; // Актуализирано според новия бр
 let gameLevels = [];
 let impostorIndex = 0;
 let isCountdownActive = false;
+let countdownInterval;
+let isFirstPlayerScreen = true;
+let roundsPlayed = 0;
 
 // --- Онлайн Мултиплеър Променливи ---
 let isOnline = false;
@@ -862,48 +865,55 @@ document.addEventListener('keydown', (e) => {
 
 // Показване на обратен брояч
 function showCountdown() {
-    let count = 3;
-    isCountdownActive = true; // Започваме броенето
-    setNextPlayerButtonEnabled(false); // Деактивираме бутона
-    
-    // Добавяме Pac-Man loader над обратния брояч
-    imagesContainer.innerHTML = `
-        <div class="countdown-container">
-            <div class="pacman-loader">
-                <div class="loader-wrapper">
-                    <div class="packman"></div>
-                    <div class="dots">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
+    try {
+        let count = 3;
+        isCountdownActive = true;
+        setNextPlayerButtonEnabled(false);
+        
+        if (imagesContainer) {
+            imagesContainer.innerHTML = `
+                <div class="countdown-container">
+                    <div class="pacman-loader">
+                        <div class="loader-wrapper">
+                            <div class="packman"></div>
+                            <div class="dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="countdown">${count}</div>
+                    <div class="countdown-message">${translateText('attention_next_player')}</div>
                 </div>
-            </div>
-            <div class="countdown">${count}</div>
-            <div class="countdown-message">${translateText('attention_next_player')}</div>
-        </div>
-    `;
-    const buttonText = currentPlayerDisplay.querySelector('.button-text');
-    if (buttonText) {
-        buttonText.textContent = `${translateText('player')} ${currentPlayer}`;
-    }
-    
-    clearInterval(countdownInterval);
-    countdownInterval = setInterval(() => {
-        count--;
-        if (count > 0) {
-            // Обновяваме само брояча, запазвайки loader-а
-            const countdownElement = imagesContainer.querySelector('.countdown');
-            if (countdownElement) {
-                countdownElement.textContent = count;
-            }
-        } else {
-            clearInterval(countdownInterval);
-            isCountdownActive = false; // Край на броенето
-            showPlayerScreen();
+            `;
         }
-    }, 1000);
+        
+        if (currentPlayerDisplay) {
+            const buttonText = currentPlayerDisplay.querySelector('.button-text');
+            if (buttonText) {
+                buttonText.textContent = `${translateText('player')} ${currentPlayer}`;
+            }
+        }
+        
+        clearInterval(countdownInterval);
+        countdownInterval = setInterval(() => {
+            count--;
+            if (count > 0) {
+                const countdownElement = document.querySelector('.countdown');
+                if (countdownElement) countdownElement.textContent = count;
+            } else {
+                clearInterval(countdownInterval);
+                isCountdownActive = false;
+                showPlayerScreen();
+            }
+        }, 1000);
+    } catch (e) {
+        console.error("Crash in showCountdown:", e);
+        isCountdownActive = false;
+        showPlayerScreen();
+    }
 }
 
 // Показване на екрана на играча
@@ -3612,7 +3622,8 @@ setInterval(() => {
 }, 500);
 // ... existing code ...
 
-let roundsPlayed = 0; // Нов брояч за рундове
+// Брояч за рундове (използва се глобалния)
+roundsPlayed = 0; 
 
 // ... existing code ...
 // === FIREBASE: Проверка за nolimit ===
