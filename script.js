@@ -4774,13 +4774,23 @@ function updateLobbyUI() {
     if (!roomData || !roomData.players) return;
     
     lobbyPlayersList.innerHTML = '';
+    const myUid = auth.currentUser ? auth.currentUser.uid : null;
+
     roomData.players.sort((a, b) => a.joinedAt - b.joinedAt).forEach(player => {
         const card = document.createElement('div');
-        card.className = `player-card ${player.uid === roomData.hostId ? 'is-host' : ''}`;
+        const isMe = player.uid === myUid;
+        const isHost = player.uid === roomData.hostId;
+        
+        card.className = `player-card ${isHost ? 'is-host' : ''} ${isMe ? 'is-me animate__animated animate__pulse' : ''}`;
         card.innerHTML = `
-            <div class="player-avatar">${player.avatar}</div>
-            <div class="player-name">${player.name}</div>
-            ${player.isSpectator ? '<div class="spectator-badge" title="Наблюдател">👀</div>' : ''}
+            <div class="avatar">${player.avatar}</div>
+            <div class="name">
+                ${player.name}
+                ${isHost ? '<span class="host-badge">👑</span>' : ''}
+            </div>
+            <div class="status">
+                ${player.isSpectator ? '<span class="spectator-badge" title="Наблюдател">👀</span>' : '<span class="ready-dot"></span>'}
+            </div>
         `;
         lobbyPlayersList.appendChild(card);
     });

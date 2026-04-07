@@ -4702,3 +4702,173 @@ h2 {
     transform: translateY(8px) scale(0.98);
     box-shadow: 0 2px 0 #CC8C00, 0 5px 15px rgba(0, 0, 0, 0.2) !important;
 }
+
+/* --- PREMIUM MOBILE GAME UI (ONLINE MODE) --- */
+.online-setup-content, .profile-setup-content, .lobby-content, .setup-content {
+    background: rgba(15, 23, 42, 0.6) !important;
+    backdrop-filter: blur(20px) saturate(160%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 32px !important;
+    padding: 40px 24px !important;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5) !important;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-family: var(--font-heading) !important;
+    font-size: 2.8rem !important;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+    -webkit-text-stroke: 0 !important;
+    letter-spacing: 0 !important;
+    margin-bottom: 30px !important;
+}
+
+h3 {
+    font-family: var(--font-body);
+    font-weight: 800;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.online-actions, .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Modern Input Fields */
+input[type="text"], input[type="number"], input[type="email"], input[type="password"] {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 2px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 16px !important;
+    padding: 16px 20px !important;
+    color: #fff !important;
+    font-family: var(--font-body) !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: var(--secondary) !important;
+    outline: none !important;
+    box-shadow: 0 0 20px var(--secondary-glow) !important;
+}
+
+/* Room Join Container */
+.room-join-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Modern Button Utility */
+.btn {
+    border-radius: 18px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    padding: 16px 28px !important;
+    font-family: var(--font-body) !important;
+    font-size: 1.1rem !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3) !important;
+    border: none !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, #FF1E56 100%) !important;
+}
+
+.secondary-btn {
+    background: linear-gradient(135deg, var(--secondary) 0%, #00B4D8 100%) !important;
+    color: #000 !important;
+}
+
+.invite-btn {
+    background: #6366F1 !important;
+}
+
+.back-btn {
+    background: rgba(255,255,255,0.1) !important;
+    backdrop-filter: blur(10px);
+}
+
+.btn:hover {
+    transform: translateY(-4px) scale(1.02) !important;
+    filter: brightness(1.2) !important;
+}
+
+/* Avatar List Modern Look */
+.avatar-list {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 12px !important;
+    padding: 10px !important;
+}
+
+.avatar-item {
+    font-size: 2.5rem !important;
+    aspect-ratio: 1/1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255,255,255,0.05) !important;
+    border-radius: 16px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    border: 2px solid transparent !important;
+}
+
+.avatar-item.selected {
+    background: var(--secondary-glow) !important;
+    border-color: var(--secondary) !important;
+    transform: scale(1.1) !important;
+}
+
+/* Player List in Lobby */
+.players-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.player-card {
+    background: rgba(255,255,255,0.05) !important;
+    border-radius: 16px !important;
+    padding: 12px 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.player-card .avatar { font-size: 1.8rem; }
+.player-card .name { font-weight: 700; font-size: 1.1rem; }
+.player-card.is-me { border-color: var(--secondary) !important; background: rgba(0, 229, 255, 0.1) !important; }
+
+/* Lobby Header */
+.lobby-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.lobby-header h2 { margin-bottom: 0 !important; font-size: 1.8rem !important; color: var(--secondary) !important; }
+
+#lobby-room-code {
+    background: rgba(0,0,0,0.3);
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-family: monospace;
+    letter-spacing: 2px;
+    color: #fff;
+}

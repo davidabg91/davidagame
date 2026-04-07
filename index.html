@@ -126,14 +126,15 @@
 
         <!-- Онлайн Екрани -->
         <div id="online-setup-screen" class="hidden">
-            <div class="online-setup-content">
+            <div class="online-setup-content animate__animated animate__zoomIn">
                 <h2 data-translate="online_play">Онлайн игра</h2>
                 <div class="online-actions">
-                    <button id="create-room-btn" class="btn primary-btn">
+                    <button id="create-room-btn" class="btn primary-btn pulse">
                         <i class="fas fa-plus-circle"></i>
                         <span data-translate="create_room">Създай стая</span>
                     </button>
                     <div class="room-join-container">
+                        <h3>Влез в съществуваща стая</h3>
                         <input type="text" id="room-code-input" placeholder="Код на стая" maxlength="6">
                         <button id="join-room-btn" class="btn secondary-btn">
                             <i class="fas fa-sign-in-alt"></i>
@@ -148,29 +149,37 @@
             </div>
         </div>
 
+
         <div id="profile-setup-screen" class="hidden">
-            <div class="profile-setup-content">
+            <div class="profile-setup-content animate__animated animate__fadeInUp">
                 <h2 data-translate="profile_setup">Настройка на профил</h2>
+                
                 <div class="form-group">
-                    <label for="online-nickname" data-translate="nickname">Прякор</label>
-                    <input type="text" id="online-nickname" placeholder="Въведете име">
+                    <label for="online-nickname" data-translate="nickname">Вашият Прякор</label>
+                    <input type="text" id="online-nickname" placeholder="Напр. СуперДетектив">
                 </div>
+
                 <div class="avatar-selection-container">
-                    <h3 data-translate="choose_avatar">Изберете аватар</h3>
+                    <h3 data-translate="choose_avatar">Изберете вашия герой</h3>
                     <div id="avatar-list" class="avatar-list">
                         <!-- Аватарите ще се генерират динамично -->
                     </div>
                 </div>
-                <div class="spectator-toggle">
-                    <input type="checkbox" id="spectator-mode">
-                    <label for="spectator-mode" data-translate="join_as_spectator">Влез като наблюдател</label>
+
+                <div class="spectator-toggle-container">
+                    <input type="checkbox" id="spectator-mode" class="modern-checkbox">
+                    <label for="spectator-mode" data-translate="join_as_spectator">Влез като наблюдател (👀)</label>
                 </div>
-                <button id="confirm-profile-btn" class="btn primary-btn" data-translate="confirm">Потвърди</button>
+
+                <div class="form-actions">
+                    <button id="confirm-profile-btn" class="btn primary-btn" data-translate="confirm">Готово! Към стаята</button>
+                </div>
             </div>
         </div>
 
+
         <div id="lobby-screen" class="hidden">
-            <div class="lobby-content">
+            <div class="lobby-content animate__animated animate__fadeIn">
                 <div class="lobby-header">
                     <h2>Стая: <span id="lobby-room-code">XXXXXX</span></h2>
                     <button id="invite-btn" class="btn invite-btn">
@@ -178,20 +187,25 @@
                         <span data-translate="invite">Покани</span>
                     </button>
                 </div>
-                <div class="players-list-container">
-                    <h3 data-translate="players">Играчи</h3>
+
+                <div class="players-list-section">
+                    <h3 data-translate="players">Присъединени играчи</h3>
                     <div id="lobby-players-list" class="players-list"></div>
                 </div>
-                <div class="lobby-actions">
+
+                <div class="lobby-actions-footer">
                     <button id="start-online-game-btn" class="btn start-btn hidden">
                         <i class="fas fa-play"></i>
-                        <span data-translate="start_game">Започни играта</span>
+                        <span data-translate="start_game">СТАРТИРАЙ ИГРАТА</span>
                     </button>
-                    <p id="waiting-for-host" class="waiting-message" data-translate="waiting_for_host">Изчакване на хоста да започне...</p>
-                    <button id="leave-room-btn" class="btn back-btn" data-translate="leave_room">Напусни стаята</button>
+                    <div id="waiting-for-host" class="waiting-indicator animate__animated animate__pulse animate__infinite">
+                         <span data-translate="waiting_for_host">Изчакване на лидера...</span>
+                    </div>
+                    <button id="leave-room-btn" class="btn back-btn" data-translate="leave_room">Напусни</button>
                 </div>
             </div>
         </div>
+
 
         <div id="game-screen" class="hidden">
             <div class="game-header">
