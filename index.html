@@ -25,33 +25,35 @@
     </div>
     <div class="emoji-container" id="emoji-container"></div>
     
-    <!-- Панел за профил горе в ляво -->
-    <div class="profile-panel" id="profile-panel">
-        <div id="profile-info" class="profile-info hidden">
-            <i class="fas fa-user-circle"></i>
-            <span id="profile-username"></span>
-            <button id="logout-btn" class="btn profile-btn" data-translate="logout">Изход</button>
-        </div>
-        <div id="profile-actions" class="profile-actions">
-            <button id="login-btn" class="btn profile-btn" data-translate="login">Вход</button>
-            <button id="register-btn" class="btn profile-btn" data-translate="register">Регистриране</button>
-        </div>
-    </div>
-    
-    <!-- Бутон за избор на език -->
-    <div class="language-selector">
-        <button id="language-btn" class="language-btn">
-            <i class="fas fa-globe"></i>
-            <span id="current-lang">BG</span>
-        </button>
-        <div class="language-dropdown" id="language-dropdown">
-            <div class="language-option" data-lang="bg">
-                <span class="flag">🇧🇬</span>
-                <span>Български</span>
+    <div class="top-nav">
+        <!-- Панел за профил горе в ляво -->
+        <div class="profile-panel" id="profile-panel">
+            <div id="profile-info" class="profile-info hidden">
+                <i class="fas fa-user-circle"></i>
+                <span id="profile-username"></span>
+                <button id="logout-btn" class="btn profile-btn" data-translate="logout">Изход</button>
             </div>
-            <div class="language-option" data-lang="en">
-                <span class="flag">🇺🇸</span>
-                <span>English</span>
+            <div id="profile-actions" class="profile-actions">
+                <button id="login-btn" class="btn profile-btn" data-translate="login">Вход</button>
+                <button id="register-btn" class="btn profile-btn" data-translate="register">Регистриране</button>
+            </div>
+        </div>
+        
+        <!-- Бутон за избор на език -->
+        <div class="language-selector">
+            <button id="language-btn" class="language-btn">
+                <i class="fas fa-globe"></i>
+                <span id="current-lang">BG</span>
+            </button>
+            <div class="language-dropdown" id="language-dropdown">
+                <div class="language-option" data-lang="bg">
+                    <span class="flag">🇧🇬</span>
+                    <span>Български</span>
+                </div>
+                <div class="language-option" data-lang="en">
+                    <span class="flag">🇺🇸</span>
+                    <span>English</span>
+                </div>
             </div>
         </div>
     </div>
