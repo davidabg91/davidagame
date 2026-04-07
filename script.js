@@ -577,7 +577,69 @@ const spectatorModeCheckbox = document.getElementById('spectator-mode');
 const startRegistrationBtn = document.getElementById('start-registration-btn');
 const loginFromWelcomeBtn = document.getElementById('login-from-welcome-btn');
 
-// Променям текста на бутона
+// Функция за фонови частици
+function initParticles() {
+    const container = document.getElementById('mesh-background-fx');
+    if (!container) return;
+    
+    for (let i = 0; i < 15; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle-fx';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = Math.random() * 100 + 'vh';
+        particle.style.animationDelay = Math.random() * 10 + 's';
+        particle.style.animationDuration = (8 + Math.random() * 10) + 's';
+        container.appendChild(particle);
+    }
+}
+
+function showScreen(screen) {
+    if (!screen) return;
+    
+    // Всички възможни екрани
+    const screens = [
+        modeSelectionScreen, setupScreen, onlineSetupScreen,
+        profileSetupScreen, lobbyScreen, gameScreen, resultsScreen,
+        rulesScreen, historyScreen
+    ].filter(s => s !== null);
+
+    screens.forEach(s => {
+        s.classList.add('hidden');
+        s.classList.remove('animate__animated', 'animate__fadeIn');
+    });
+
+    screen.classList.remove('hidden');
+    screen.classList.add('animate__animated', 'animate__fadeIn');
+    
+    // Добавяме лек "pop" ефект за прехода
+    screen.style.animation = 'screenEnter 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+}
+
+// Глобална функция за красиви съобщения
+function showNotification(title, text, icon = 'info') {
+    return Swal.fire({
+        title: title,
+        text: text,
+        icon: icon,
+        background: 'rgba(26, 26, 46, 0.95)',
+        color: '#fff',
+        confirmButtonColor: 'var(--primary)',
+        confirmButtonText: 'OK',
+        padding: '2rem',
+        borderRadius: '30px',
+        backdrop: `rgba(0,0,0,0.6) blur(4px)`
+    });
+}
+
+// Добавяне на аудио обратна връзка (визуална) за бутоните
+document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        btn.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            btn.style.transform = '';
+        }, 100);
+    });
+});
 
 // Генериране на нивата при зареждане на страницата
 function generateGameLevels() {
@@ -648,6 +710,9 @@ window.addEventListener('load', () => {
     updateProfilePanel();
     initAvatarSelection();
     
+    // Инициализиране на фонови частици
+    initParticles();
+
     // Проверка за стая в URL
     const urlParams = new URLSearchParams(window.location.search);
     const roomFromUrl = urlParams.get('room');
@@ -657,12 +722,8 @@ window.addEventListener('load', () => {
         
         // Проверка дали потребителят е логнат
         if (typeof auth !== 'undefined' && !auth.currentUser) {
-            Swal.fire({
-                title: translateText('attention_title'),
-                text: translateText('registration_required'),
-                icon: 'warning',
-                confirmButtonText: translateText('login')
-            }).then(() => {
+            showNotification(translateText('attention_title'), translateText('registration_required'), 'warning')
+            .then(() => {
                 showWelcomeModal();
             });
             // Запазваме кода в инпута за по-късно
@@ -708,13 +769,6 @@ decreasePlayersBtn.addEventListener('click', () => {
 });
 
 // --- Функции за Обслужване на Екрани ---
-function showScreen(screen) {
-    if (!screen) return;
-    [modeSelectionScreen, setupScreen, onlineSetupScreen, profileSetupScreen, lobbyScreen, gameScreen, resultsScreen].forEach(s => {
-        if (s) s.classList.add('hidden');
-    });
-    screen.classList.remove('hidden');
-}
 
 // Потребителски Интерфейс (Слушатели за Режими)
 localModeBtn?.addEventListener('click', () => {
@@ -724,11 +778,7 @@ localModeBtn?.addEventListener('click', () => {
 
 onlineModeBtn?.addEventListener('click', () => {
     if (!auth.currentUser) {
-        Swal.fire({
-            title: translateText('attention_title'),
-            text: translateText('registration_required'),
-            icon: 'warning'
-        });
+        showNotification(translateText('attention_title'), translateText('registration_required'), 'warning');
         return;
     }
     isOnline = true;
@@ -743,7 +793,7 @@ joinRoomBtn?.addEventListener('click', () => {
     if (code.length === 6) {
         joinExistingRoom(code);
     } else {
-        Swal.fire('Грешка', 'Моля, въведете 6-цифрен код!', 'error');
+        showNotification('Грешка', 'Моля, въведете 6-цифрен код!', 'error');
     }
 });
 
