@@ -1,0 +1,22 @@
+{
+  "name": "Odd One Out",
+  "short_name": "Odd One Out",
+  "description": "Намери различния елемент сред група от подобни",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#4CAF50",
+  "theme_color": "#4CAF50",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "images/logogame.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logogame.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

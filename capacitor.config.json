@@ -1,0 +1,8 @@
+{
+  "appId": "com.davidagame.oddoneout",
+  "appName": "Odd One Out",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}

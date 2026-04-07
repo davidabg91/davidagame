@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Odd One Out</string>
+    <string name="title_activity_main">Odd One Out</string>
+    <string name="package_name">com.davidagame.oddoneout</string>
+    <string name="custom_url_scheme">com.davidagame.oddoneout</string>
+</resources>

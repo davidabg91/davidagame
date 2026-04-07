@@ -1,0 +1,32 @@
+{
+  "name": "odd-one-out-game",
+  "version": "1.0.0",
+  "description": "Odd One Out - Social deduction game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'Build completed'",
+    "ios:build": "npx cap sync ios",
+    "ios:open": "npx cap open ios",
+    "ios:run": "npx cap run ios",
+    "ios:build:release": "npx cap sync ios && echo 'iOS project ready for Xcode build'",
+    "android:build": "npx cap sync android",
+    "android:open": "npx cap open android",
+    "android:run": "npx cap run android",
+    "web:serve": "cd www && npx http-server -p 3000"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.4.2",
+    "@capacitor/core": "^7.4.2",
+    "@capacitor/ios": "^7.4.2",
+    "express": "^4.18.2"
+  },
+  "keywords": [
+    "game",
+    "social",
+    "deduction",
+    "firebase"
+  ],
+  "author": "DavidaX",
+  "license": "MIT"
+}

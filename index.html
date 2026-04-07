@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:; style-src 'self' 'unsafe-inline' https: data: blob:; font-src 'self' https: data: blob:; img-src 'self' data: https: blob:; connect-src 'self' https: wss:; frame-src 'self' https:;">
+    <title>Odd One Out</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="comic-button.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+</head>
+<body>
+    <div class="emoji-container" id="emoji-container"></div>
+    
+    <!-- Панел за профил горе в ляво -->
+    <div class="profile-panel" id="profile-panel">
+        <div id="profile-info" class="profile-info hidden">
+            <i class="fas fa-user-circle"></i>
+            <span id="profile-username"></span>
+            <button id="logout-btn" class="btn profile-btn" data-translate="logout">Изход</button>
+        </div>
+        <div id="profile-actions" class="profile-actions">
+            <button id="login-btn" class="btn profile-btn" data-translate="login">Вход</button>
+            <button id="register-btn" class="btn profile-btn" data-translate="register">Регистриране</button>
+        </div>
+    </div>
+    
+    <!-- Бутон за избор на език -->
+    <div class="language-selector">
+        <button id="language-btn" class="language-btn">
+            <i class="fas fa-globe"></i>
+            <span id="current-lang">BG</span>
+        </button>
+        <div class="language-dropdown" id="language-dropdown">
+            <div class="language-option" data-lang="bg">
+                <span class="flag">🇧🇬</span>
+                <span>Български</span>
+            </div>
+            <div class="language-option" data-lang="en">
+                <span class="flag">🇺🇸</span>
+                <span>English</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div id="mode-selection-screen">
+            <h2 data-translate="choose_mode">Изберете начин на игра</h2>
+            <div class="mode-buttons-container">
+                <button id="local-mode-btn" class="animated-button pulse">
+                    <i class="fas fa-users"></i>
+                    <span class="mode-title" data-translate="local_play">На едно място</span>
+                    <p class="mode-desc" data-translate="local_play_desc">Всички играят на едно устройство</p>
+                </button>
+                <button id="online-mode-btn" class="animated-button pulse online-btn">
+                    <i class="fas fa-globe"></i>
+                    <span class="mode-title" data-translate="online_play">Онлайн игра</span>
+                    <p class="mode-desc" data-translate="online_play_desc">Играйте от различни устройства</p>
+                </button>
+            </div>
+        </div>
+
+        <div id="setup-screen" class="hidden">
+            <div class="setup-content">
+                <div class="detective-logo left" data-role="detective">
+                    <div class="logo-icon"><i class="fas fa-search"></i></div>
+                </div>
+                <div class="player-selection-container">
+                    <h2 data-translate="player_count">Брой играчи</h2>
+                    <div class="player-count-container">
+                        <button id="decrease-players" class="count-btn"><i class="fas fa-minus"></i></button>
+                        <input type="number" id="player-count" value="3" min="3" max="8" readonly>
+                        <button id="increase-players" class="count-btn"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="impostor-logo right" data-role="impostor">
+                    <div class="logo-icon"><i class="fas fa-user-secret"></i></div>
+                </div>
+            </div>
+            <div class="styled-wrapper">
+                <button id="start-game" class="animated-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="36px" height="36px">
+                        <rect width="36" height="36" x="0" y="0" fill="#fdd835" />
+                        <path fill="#e53935" d="M38.67,42H11.52C11.27,40.62,11,38.57,11,36c0-5,0-11,0-11s1.44-7.39,3.22-9.59 c1.67-2.06,2.76-3.48,6.78-4.41c3-0.7,7.13-0.23,9,1c2.15,1.42,3.37,6.67,3.81,11.29c1.49-0.3,5.21,0.2,5.5,1.28 C40.89,30.29,39.48,38.31,38.67,42z" />
+                        <path fill="#b71c1c" d="M39.02,42H11.99c-0.22-2.67-0.48-7.05-0.49-12.72c0.83,4.18,1.63,9.59,6.98,9.79 c3.48,0.12,8.27,0.55,9.83-2.45c1.57-3,3.72-8.95,3.51-15.62c-0.19-5.84-1.75-8.2-2.13-8.7c0.59,0.66,3.74,4.49,4.01,11.7 c0.03,0.83,0.06,1.72,0.08,2.66c4.21-0.15,5.93,1.5,6.07,2.35C40.68,33.85,39.8,38.9,39.02,42z" />
+                        <path fill="#212121" d="M35,27.17c0,3.67-0.28,11.2-0.42,14.83h-2C32.72,38.42,33,30.83,33,27.17 c0-5.54-1.46-12.65-3.55-14.02c-1.65-1.08-5.49-1.48-8.23-0.85c-3.62,0.83-4.57,1.99-6.14,3.92L15,16.32 c-1.31,1.6-2.59,6.92-3,8.96v10.8c0,2.58,0.28,4.61,0.54,5.92H10.5c-0.25-1.41-0.5-3.42-0.5-5.92l0.02-11.09 c0.15-0.77,1.55-7.63,3.43-9.94l0.08-0.09c1.65-2.03,2.96-3.63,7.25-4.61c3.28-0.76,7.67-0.25,9.77,1.13 C33.79,13.6,35,22.23,35,27.17z" />
+                        <path fill="#01579b" d="M17.165,17.283c5.217-0.055,9.391,0.283,9,6.011c-0.391,5.728-8.478,5.533-9.391,5.337 c-0.913-0.196-7.826-0.043-7.696-5.337C9.209,18,13.645,17.32,17.165,17.283z" />
+                        <path fill="#212121" d="M40.739,37.38c-0.28,1.99-0.69,3.53-1.22,4.62h-2.43c0.25-0.19,1.13-1.11,1.67-4.9 c0.57-4-0.23-11.79-0.93-12.78c-0.4-0.4-2.63-0.8-4.37-0.89l0.1-1.99c1.04,0.05,4.53,0.31,5.71,1.49 C40.689,24.36,41.289,33.53,40.739,37.38z" />
+                        <path fill="#81d4fa" d="M10.154,20.201c0.261,2.059-0.196,3.351,2.543,3.546s8.076,1.022,9.402-0.554 c1.326-1.576,1.75-4.365-0.891-5.267C19.336,17.287,12.959,16.251,10.154,20.201z" />
+                        <path fill="#212121" d="M17.615,29.677c-0.502,0-0.873-0.03-1.052-0.069c-0.086-0.019-0.236-0.035-0.434-0.06 c-5.344-0.679-8.053-2.784-8.052-6.255c0.001-2.698,1.17-7.238,8.986-7.32l0.181-0.002c3.444-0.038,6.414-0.068,8.272,1.818 c1.173,1.191,1.712,3,1.647,5.53c-0.044,1.688-0.785,3.147-2.144,4.217C22.785,29.296,19.388,29.677,17.615,29.677z M17.086,17.973 c-7.006,0.074-7.008,4.023-7.008,5.321c-0.001,3.109,3.598,3.926,6.305,4.27c0.273,0.035,0.48,0.063,0.601,0.089 c0.563,0.101,4.68,0.035,6.855-1.732c0.865-0.702,1.299-1.57,1.326-2.653c0.051-1.958-0.301-3.291-1.073-4.075 c-1.262-1.281-3.834-1.255-6.825-1.222L17.086,17.973z" />
+                        <path fill="#e1f5fe" d="M15.078,19.043c1.957-0.326,5.122-0.529,4.435,1.304c-0.489,1.304-7.185,2.185-7.185,0.652 C12.328,19.467,15.078,19.043,15.078,19.043z" />
+                    </svg>
+                    <span class="now">сега!</span>
+                    <span class="play" data-translate="start_game">Започни играта</span>
+                </button>
+            </div>
+            <div class="styled-wrapper-rules">
+                <button id="show-rules" type="button" class="btn-rules">
+                    <strong data-translate="game_rules">ПРАВИЛА НА ИГРАТА</strong>
+                    <div id="container-stars-rules">
+                        <div id="stars-rules" />
+                    </div>
+                    <div id="glow-rules">
+                        <div class="circle-rules" />
+                        <div class="circle-rules" />
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Онлайн Екрани -->
+        <div id="online-setup-screen" class="hidden">
+            <div class="online-setup-content">
+                <h2 data-translate="online_play">Онлайн игра</h2>
+                <div class="online-actions">
+                    <button id="create-room-btn" class="btn primary-btn">
+                        <i class="fas fa-plus-circle"></i>
+                        <span data-translate="create_room">Създай стая</span>
+                    </button>
+                    <div class="room-join-container">
+                        <input type="text" id="room-code-input" placeholder="Код на стая" maxlength="6">
+                        <button id="join-room-btn" class="btn secondary-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span data-translate="join_room">Влез в стая</span>
+                        </button>
+                    </div>
+                </div>
+                <button id="back-to-modes-btn" class="btn back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span data-translate="back">Назад</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="profile-setup-screen" class="hidden">
+            <div class="profile-setup-content">
+                <h2 data-translate="profile_setup">Настройка на профил</h2>
+                <div class="form-group">
+                    <label for="online-nickname" data-translate="nickname">Прякор</label>
+                    <input type="text" id="online-nickname" placeholder="Въведете име">
+                </div>
+                <div class="avatar-selection-container">
+                    <h3 data-translate="choose_avatar">Изберете аватар</h3>
+                    <div id="avatar-list" class="avatar-list">
+                        <!-- Аватарите ще се генерират динамично -->
+                    </div>
+                </div>
+                <div class="spectator-toggle">
+                    <input type="checkbox" id="spectator-mode">
+                    <label for="spectator-mode" data-translate="join_as_spectator">Влез като наблюдател</label>
+                </div>
+                <button id="confirm-profile-btn" class="btn primary-btn" data-translate="confirm">Потвърди</button>
+            </div>
+        </div>
+
+        <div id="lobby-screen" class="hidden">
+            <div class="lobby-content">
+                <div class="lobby-header">
+                    <h2>Стая: <span id="lobby-room-code">XXXXXX</span></h2>
+                    <button id="invite-btn" class="btn invite-btn">
+                        <i class="fas fa-share-alt"></i>
+                        <span data-translate="invite">Покани</span>
+                    </button>
+                </div>
+                <div class="players-list-container">
+                    <h3 data-translate="players">Играчи</h3>
+                    <div id="lobby-players-list" class="players-list"></div>
+                </div>
+                <div class="lobby-actions">
+                    <button id="start-online-game-btn" class="btn start-btn hidden">
+                        <i class="fas fa-play"></i>
+                        <span data-translate="start_game">Започни играта</span>
+                    </button>
+                    <p id="waiting-for-host" class="waiting-message" data-translate="waiting_for_host">Изчакване на хоста да започне...</p>
+                    <button id="leave-room-btn" class="btn back-btn" data-translate="leave_room">Напусни стаята</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-screen" class="hidden">
+            <div class="game-header">
+                <div class="game-status-info">
+                    <span id="game-round-info">Рунд 1/5</span>
+                    <span id="game-room-info" class="room-pill">Стая: XXXXXX</span>
+                </div>
+                <div class="current-player-container">
+                    <div class="comic-brutal-button-container">
+                        <button id="current-player" class="comic-brutal-button">
+                            <div class="button-inner">
+                                <span class="button-text">ИГРАЧ 1</span>
+                                <div class="halftone-overlay" />
+                                <div class="ink-splatter" />
+                            </div>
+                            <div class="button-shadow" />
+                            <div class="button-frame" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="timer"></div>
+            <div id="images-container"></div>
+            
+            <!-- Чат/История компоненти (само за онлайн режим) -->
+            <div id="online-chat-container" class="hidden">
+                <div id="chat-history" class="chat-history"></div>
+                <div id="word-input-container" class="word-input-container hidden">
+                    <input type="text" id="player-word-input" placeholder="Напишете вашата дума...">
+                    <button id="submit-word-btn" class="btn submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="next-round-message" class="next-round-message hidden" data-translate="next_round">СЛЕДВАЩ РУНД</div>
+            <div class="game-controls">
+                <div class="next-player-btn-container">
+                    <button id="next-player-button" class="next-player-btn-content">
+                        <span class="next-player-btn-title" data-translate="next_player">Next Player</span>
+                        <span class="next-player-icon-arrow">
+                            <svg width="66px" height="43px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                                <g id="arrow" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                                    <path id="arrow-icon-one" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF" />
+                                    <path id="arrow-icon-two" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1543933,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF" />
+                                    <path id="arrow-icon-three" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF" />
+                                </g>
+                            </svg>
+                        </span> 
+                    </button>
+                </div>
+                <!-- В онлайн режим тези бутони може да са скрити/различни -->
+                <div id="local-controls" class="change-round-btn-container">
+                    <button id="end-game" class="change-round-submit" data-translate="change_round">СМЕНИ РУНДА</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="results-screen" class="hidden">
+            <h2 data-translate="results">Резултати</h2>
+            <div id="results-list"></div>
+            <button id="new-game" class="btn" data-translate="new_game">Нова игра</button>
+        </div>
+    </div>
+
+    <!-- Facebook бутон -->
+    <div class="facebook-button-wrapper">
+        <a href="https://www.facebook.com/profile.php?id=61578418701694" target="_blank" rel="noopener noreferrer" class="modern-facebook-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 448 512" strokeWidth="0" fill="currentColor" stroke="currentColor" class="facebook-icon">
+                <path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z" />
+            </svg>
+            <span class="facebook-tooltip">Facebook</span>
+        </a>
+    </div>
+
+    <!-- Модален прозорец за правилата -->
+    <div id="rules-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 data-translate="game_rules">Правила на играта</h2>
+            <div class="rules-content">
+                <h3 data-translate="game_objective">ЦЕЛ НА ИГРАТА</h3>
+                <p data-translate="game_objective_text">Odd One Out е забавна социална игра за разкриване на импостъра. Един от играчите е тайно избран като "импостор" и не вижда същата картинка като останалите. Целта е да разкриете кой е импосторът или да останете неразкрит, ако сте импосторът.</p>
+
+                <h3 data-translate="how_to_play">КАК СЕ ИГРАЕ</h3>
+                <ol>
+                    <li data-translate="player_selection_rule">Изберете брой играчи (3-8 души)</li>
+                    <li data-translate="rule_2">Играта автоматично избира кой ще бъде импосторът</li>
+                    <li data-translate="rule_3">Всеки играч вижда своя екран - картинка или съобщение за импостъра</li>
+                    <li data-translate="rule_4">Играчите се редуват да казват дума, свързана с това, което виждат</li>
+                    <li data-translate="rule_5">След всички отговори, обсъдете и се опитайте да разкриете импостъра</li>
+                </ol>
+
+
+
+
+
+                <h3 data-translate="game_end">КРАЙ НА ИГРАТА</h3>
+                <p data-translate="game_end_text">Играта приключва, когато:</p>
+                <ul>
+                    <li data-translate="end_condition_1">Играчите успеят да разкрият импостора</li>
+                    <li data-translate="end_condition_2">Или когато импосторът успее да остане неразкрит до края</li>
+                </ul>
+
+                <h3 data-translate="tips">СЪВЕТИ</h3>
+                <ul>
+                    <li data-translate="tip_1">Внимавайте на детайлите в отговорите на другите играчи</li>
+                    <li data-translate="tip_2">Следете за несъответствия в думите, които се казват</li>
+                    <li data-translate="tip_3">Използвайте логика и интуиция</li>
+                    <li data-translate="tip_4">Наслаждавайте се на играта и бъдете креативни!</li>
+                </ul>
+                
+                <p style="margin-top: 20px; padding: 15px; background: rgba(255, 107, 107, 0.1); border-radius: 10px; border-left: 4px solid #FF6B6B;">
+                    <strong>💡 За подробни правила за конкретни роли, кликнете върху иконите на детектива или импостъра в началния екран!</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модален прозорец за първоначално съобщение -->
+    <div id="welcome-modal" class="modal">
+        <div class="modal-content welcome-content">
+            <div class="welcome-header">
+                <div class="welcome-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h2 data-translate="welcome_title">🎮 Добре дошли в Odd One Out!</h2>
+                <p data-translate="welcome_subtitle">За да продължите да играете, трябва да създадете акаунт</p>
+            </div>
+            
+            <!-- Информативно балонче за ползите на регистрацията -->
+            <div class="registration-benefits-tooltip">
+                <div class="tooltip-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="tooltip-content">
+                    <h4 data-translate="welcome_why_register_title">🎯 Защо да се регистрирате?</h4>
+                    <ul>
+                        <li data-translate="welcome_benefit_1"><i class="fas fa-database"></i> <strong>База данни:</strong> Няма да виждате едни и същи картини</li>
+                        <li data-translate="welcome_benefit_2"><i class="fas fa-layer-group"></i> <strong>Повече нива:</strong> НОВИ думи и предизвикателства</li>
+                        <li data-translate="welcome_benefit_3"><i class="fas fa-trophy"></i> <strong>Прогрес:</strong> Следете вашите постижения</li>
+                        <li data-translate="welcome_benefit_4"><i class="fas fa-users"></i> <strong>Общност:</strong> Играйте с приятели</li>
+                        <li data-translate="welcome_benefit_5"><i class="fas fa-star"></i> <strong>Ексклузивно съдържание:</strong> Специални теми и карти</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="welcome-actions">
+                <button id="start-registration-btn" class="btn primary-btn" data-translate="welcome_create_account_btn">
+                    <i class="fas fa-user-plus"></i>
+                    Създай акаунт
+                </button>
+                <button id="login-from-welcome-btn" class="btn secondary-btn" data-translate="welcome_login_btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Вече имам акаунт
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модален прозорец за регистрация -->
+    <div id="registration-modal" class="modal">
+        <div class="modal-content registration-content">
+            <span class="close-modal" id="close-registration">&times;</span>
+            <div class="registration-header">
+                <h2 data-translate="registration_title">Регистрация</h2>
+                <p data-translate="registration_subtitle">Създайте профил, за да продължите да играете</p>
+            </div>
+            
+            <form id="registration-form" class="registration-form">
+                <div class="form-group">
+                    <label for="username" data-translate="username">Потребителско име</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" data-translate="email">Имейл адрес</label>
+                    <input type="email" id="email" name="email" required autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" data-translate="password">Парола</label>
+                    <input type="password" id="password" name="password" required autocomplete="new-password">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password" data-translate="confirm_password">Потвърди парола</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required autocomplete="new-password">
+                </div>
+                
+                <div class="form-group">
+                    <label for="age" data-translate="age">Възраст</label>
+                    <input type="number" id="age" name="age" min="13" max="100" required autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <label for="favorite-game" data-translate="favorite_game">Любима игра</label>
+                    <select id="favorite-game" name="favorite-game" required autocomplete="off">
+                        <option value="" data-translate="select_option">Изберете опция</option>
+                        <option value="board-games" data-translate="board_games">Настолни игри</option>
+                        <option value="video-games" data-translate="video_games">Видео игри</option>
+                        <option value="card-games" data-translate="card_games">Карти</option>
+                        <option value="puzzle-games" data-translate="puzzle_games">Пъзели</option>
+                        <option value="other" data-translate="other">Друго</option>
+                    </select>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms" data-translate="accept_terms">Приемам условията за ползване</label>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    <label for="newsletter" data-translate="newsletter">Искам да получавам новини за нови игри</label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn register-btn" data-translate="create_account">Създай акаунт</button>
+                </div>
+            </form>
+            
+            <div class="registration-footer">
+                <!-- Премахвам стария линк -->
+                <!-- <p data-translate="already_have_account">Вече имате акаунт? <a href="#" id="login-link" class="login-link-btn" data-translate="login">Влезте</a></p> -->
+                <button type="button" id="open-login-btn" class="btn login-btn" style="margin-top: 10px; width: 100%; background: linear-gradient(45deg, #00bcd4, #4ECDC4); color: white; font-weight: 600; font-size: 1.1rem; border-radius: 25px;" data-translate="login">ВХОД</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модален прозорец за вход -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content login-content">
+            <span class="close-modal" id="close-login">&times;</span>
+            <div id="Container">
+                <form id="login-form" class="form">
+                    <div id="login-lable" data-translate="login_title">Вход</div>
+                    <input class="form-content" type="email" id="login-username" name="username" placeholder="Имейл адрес" data-translate="email" required autocomplete="username" />
+                    <input class="form-content" type="password" id="login-password" name="password" placeholder="Парола" data-translate="password" required autocomplete="current-password" />
+                    <button type="submit" data-translate="login">Влез</button>
+                </form>
+                <div style="text-align:center; margin-top:10px;">
+                    <a href="#" id="forgot-password-link" style="color:#00bcd4; text-decoration:underline; cursor:pointer;" data-translate="forgot_password">Забравена парола?</a>
+                </div>
+                <div id="rays">
+                    <svg fill="none" viewBox="0 0 299 152" height="9em" width="18em" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="url(#paint0_linear_8_3)" d="M149.5 152H133.42L9.53674e-07 4.70132e-06H149.5L299 4.70132e-06L165.58 152H149.5Z" />
+                        <defs>
+                            <linearGradient gradientUnits="userSpaceOnUse" y2="12.1981" x2="150.12" y1="152" x1="149.5" id="paint0_linear_8_3">
+                                <stop stopColor="#00E0FF" />
+                                <stop stopOpacity="0" stopColor="#65EDFF" offset="1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
+            </div>
+            
+            <div class="login-footer">
+                <p data-translate="dont_have_account">Нямате акаунт? <a href="#" id="register-link" data-translate="register">Регистрирайте се</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модал за възстановяване на парола -->
+    <div id="reset-password-modal" class="modal">
+        <div class="modal-content login-content">
+            <span class="close-modal" id="close-reset-password">&times;</span>
+            <form id="reset-password-form" class="form">
+                <div id="reset-label" data-translate="reset_password_title">Възстановяване на парола</div>
+                <input class="form-content" type="email" id="reset-email" name="reset-email" placeholder="Имейл адрес" required autocomplete="email" />
+                <button type="submit" data-translate="send_reset_link">Изпрати линк за възстановяване</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p><span data-translate="created_by">Създадено от</span> <span class="brand">DavidaX</span></p>
+    </footer>
+
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <!-- Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <!-- Firebase Firestore (за профилна информация) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+      // Firebase конфигурация
+      const firebaseConfig = {
+        apiKey: "AIzaSyBzDaVut4DuEkqlFcYzrsiUgv2vWGVsoTw",
+        authDomain: "davidagame-8193b.firebaseapp.com",
+        projectId: "davidagame-8193b",
+        storageBucket: "davidagame-8193b.firebasestorage.app",
+        messagingSenderId: "123529111800",
+        appId: "1:123529111800:web:c89e10bbb735467b06f30d",
+        measurementId: "G-3EVDT0SH0D"
+      };
+      // Инициализация на Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+    </script>
+    <script>
+      // GeoJS API за определяне на държавата по IP
+      (function() {
+        if (!localStorage.getItem('selectedLanguage')) {
+          fetch('https://get.geojs.io/v1/ip/country.json')
+            .then(response => response.json())
+            .then(data => {
+              if (data.country && (data.country === 'Bulgaria' || data.country_code === 'BG')) {
+                localStorage.setItem('selectedLanguage', 'bg');
+              } else {
+                localStorage.setItem('selectedLanguage', 'en');
+              }
+              // Презареждаме, за да се приложи езикът веднага
+              location.reload();
+            })
+            .catch(() => {
+              // Ако има грешка, по подразбиране английски
+              localStorage.setItem('selectedLanguage', 'en');
+              location.reload();
+            });
+        }
+      })();
+    </script>
+    <div id="unlock-pro-wrapper">
+      <button class="unlock-pro-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24">
+          <path d="m18 0 8 12 10-8-4 20H4L0 4l10 8 8-12z" />
+        </svg>
+        <span data-translate="unlock_pro">Unlock Pro</span>
+      </button>
+    </div>
+    <script src="script.js"></script>
+    <!-- Popup за Unlock Pro -->
+    <div id="unlock-pro-modal" class="unlock-pro-modal">
+      <div class="unlock-pro-modal-content">
+        <div class="unlock-pro-header">
+          <div class="unlock-pro-icon">
+            <i class="fas fa-crown"></i>
+          </div>
+          <span class="close-unlock-pro-modal">&times;</span>
+        </div>
+        
+        <div class="unlock-pro-title">
+          <h2 data-translate="unlock_pro_title">Unlock Full Version</h2>
+          <div class="unlock-pro-badge">
+            <span class="badge-text">PREMIUM</span>
+          </div>
+        </div>
+        
+        <div class="unlock-pro-price">
+          <div class="price-container">
+            <span class="price-currency">€</span>
+            <span class="price-amount">3.99</span>
+            <span class="price-period" data-translate="price_period">one-time</span>
+          </div>
+        </div>
+        
+        <div class="unlock-pro-benefits">
+          <h3 data-translate="pro_benefits_title">Full version benefits:</h3>
+          <ul class="benefits-list">
+            <li data-translate="pro_benefit_1"><i class="fas fa-check-circle"></i> no waiting every 3 rounds for 5 min.</li>
+            <li data-translate="pro_benefit_2"><i class="fas fa-check-circle"></i> no ads and annoying messages</li>
+            <li data-translate="pro_benefit_3"><i class="fas fa-check-circle"></i> unlimited number of games</li>
+            <li data-translate="pro_benefit_4"><i class="fas fa-check-circle"></i> exclusive cards and themes</li>
+            <li data-translate="pro_benefit_5"><i class="fas fa-check-circle"></i> priority support</li>
+            <li data-translate="pro_benefit_6"><i class="fas fa-check-circle"></i> future updates included</li>
+          </ul>
+        </div>
+        
+        <div class="unlock-pro-payment">
+          <p class="payment-info" data-translate="unlock_pro_payment_info">
+            Плащането става чрез <strong>Revolut</strong> на линка долу.<br>
+            <strong>В бележка към плащането задължително напишете имейл адреса си!</strong>
+          </p>
+          <a href="https://revolut.me/deyvidp7g" target="_blank" class="revolut-link" data-translate="pay_with_revolut">
+            <i class="fas fa-credit-card"></i>
+            Плати с Revolut
+          </a>
+        </div>
+        
+        <div class="unlock-pro-footer">
+          <p class="guarantee" data-translate="pro_guarantee">
+            <i class="fas fa-shield-alt"></i>
+            100% сигурно плащане • 30-дневна гаранция
+          </p>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
