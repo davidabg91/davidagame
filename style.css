@@ -5223,3 +5223,148 @@ input:focus {
 .detective-hint { color: var(--secondary); opacity: 0.8; }
 .impostor-hint { color: var(--primary); opacity: 0.8; }
 .role-separator { color: rgba(255,255,255,0.2); }
+
+/* --- ODD ONE OUT PRO DESIGN SYSTEM --- */
+:root {
+    --primary: #FF006E;
+    --secondary: #00F5FF;
+    --accent: #FFBE0B;
+    --bg-dark: #07090F;
+    --panel-bg: rgba(18, 22, 33, 0.85);
+    --border-glow: rgba(0, 245, 255, 0.2);
+    --font-heading: 'Luckiest Guy', cursive;
+    --font-main: 'Outfit', sans-serif;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+}
+
+body {
+    background: var(--bg-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: env(safe-area-inset-top) 20px env(safe-area-inset-bottom);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 500px !important; /* Mobile-first scaling */
+    width: 100%;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+}
+
+/* Glass Panel Re-imagined */
+.setup-content, .online-setup-content, .profile-setup-content, .lobby-content, .registration-content, .login-content {
+    background: var(--panel-bg) !important;
+    backdrop-filter: blur(25px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: var(--radius-lg) !important;
+    padding: 32px 24px !important;
+    box-shadow: 
+        0 40px 100px rgba(0,0,0,0.8),
+        inset 0 0 0 1px rgba(255,255,255,0.05) !important;
+}
+
+/* Typography Scale */
+h2 {
+    font-family: var(--font-main) !important;
+    font-weight: 800 !important;
+    font-size: 1.8rem !important;
+    letter-spacing: -0.5px !important;
+    text-transform: none !important;
+    -webkit-text-stroke: 0 !important;
+    text-shadow: none !important;
+    color: #fff !important;
+    margin-bottom: 24px !important;
+}
+
+h3 {
+    font-family: var(--font-main);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Mode Selection - Premium Cards */
+.mode-cards-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+}
+
+.mode-card {
+    height: 300px !important;
+    width: 100% !important;
+    border-radius: var(--radius-md) !important;
+    background: rgba(255,255,255,0.03) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+.mode-card .card-info h3 { font-size: 1.2rem !important; }
+.mode-card .card-info p { font-size: 0.8rem !important; opacity: 0.6; }
+
+/* Tactical Buttons */
+.btn, .animated-button {
+    height: 64px !important;
+    border-radius: var(--radius-md) !important;
+    font-family: var(--font-main) !important;
+    font-weight: 800 !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 0.5px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: none !important;
+}
+
+.primary-btn {
+    background: var(--primary) !important;
+    box-shadow: 0 8px 30px rgba(255, 0, 110, 0.3) !important;
+}
+
+.secondary-btn {
+    background: var(--secondary) !important;
+    box-shadow: 0 8px 30px rgba(0, 245, 255, 0.3) !important;
+}
+
+.btn:active { transform: scale(0.96) !important; }
+
+/* Player Setup Scaling */
+.player-count-control {
+    background: rgba(0,0,0,0.3);
+    border-radius: 24px;
+    padding: 16px;
+    gap: 24px !important;
+}
+
+#player-count {
+    font-size: 3.5rem !important;
+}
+
+.count-btn {
+    width: 54px !important;
+    height: 54px !important;
+    border-radius: 16px !important;
+}
+
+/* Logo Refinement */
+.main-logo {
+    font-size: 3.5rem !important;
+    margin-bottom: 24px !important;
+    letter-spacing: -2px !important;
+}
+
+.logo-vibe {
+    font-size: 0.7rem !important;
+    letter-spacing: 4px !important;
+}
