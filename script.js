@@ -775,10 +775,19 @@ localModeBtn?.addEventListener('click', () => {
 });
 
 onlineModeBtn?.addEventListener('click', () => {
-    if (!auth.currentUser) {
-        showNotification(translateText('attention_title'), translateText('registration_required'), 'warning');
+    // Проверка за логнат потребител
+    if (typeof auth !== 'undefined' && !auth.currentUser) {
+        showNotification(
+            translateText('attention_title'), 
+            translateText('registration_required'), 
+            'warning'
+        ).then(() => {
+            // След като потребителят кликне OK, показваме модала за регистрация/вход
+            showWelcomeModal();
+        });
         return;
     }
+    
     isOnline = true;
     showScreen(onlineSetupScreen);
 });
@@ -4677,6 +4686,14 @@ function addActivityLog(username, action) {
 // --- Firestore Room Management ---
 
 function createNewRoom() {
+    // Проверка за логнат потребител
+    if (!auth.currentUser) {
+        showNotification('Внимание', 'Трябва да влезете в профила си, за да създадете стая!', 'warning').then(() => {
+            showWelcomeModal();
+        });
+        return;
+    }
+
     roomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
     myPlayerUid = auth.currentUser.uid;
     isHost = true;
@@ -4699,6 +4716,14 @@ function createNewRoom() {
 }
 
 function joinExistingRoom(code) {
+    // Проверка за логнат потребител
+    if (!auth.currentUser) {
+        showNotification('Внимание', 'Трябва да влезете в профила си, за да влезете в стая!', 'warning').then(() => {
+            showWelcomeModal();
+        });
+        return;
+    }
+
     db.collection('rooms').doc(code).get().then(doc => {
         if (doc.exists) {
             roomCode = code;
