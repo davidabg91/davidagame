@@ -654,8 +654,23 @@ window.addEventListener('load', () => {
     if (roomFromUrl) {
         isOnline = true;
         roomCode = roomFromUrl.toUpperCase();
-        showScreen(profileSetupScreen);
-        lobbyRoomCodeDisplay.textContent = roomCode;
+        
+        // Проверка дали потребителят е логнат
+        if (typeof auth !== 'undefined' && !auth.currentUser) {
+            Swal.fire({
+                title: translateText('attention_title'),
+                text: translateText('registration_required'),
+                icon: 'warning',
+                confirmButtonText: translateText('login')
+            }).then(() => {
+                showWelcomeModal();
+            });
+            // Запазваме кода в инпута за по-късно
+            roomCodeInput.value = roomCode;
+        } else {
+            showScreen(profileSetupScreen);
+            lobbyRoomCodeDisplay.textContent = roomCode;
+        }
     }
 });
 
@@ -738,6 +753,15 @@ confirmProfileBtn?.addEventListener('click', () => {
         Swal.fire('Грешка', 'Моля, въведете прякор!', 'error');
         return;
     }
+    
+    // Проверка за логнат потребител преди продължаване
+    if (typeof auth !== 'undefined' && !auth.currentUser) {
+        Swal.fire('Грешка', translateText('registration_required'), 'error').then(() => {
+            showWelcomeModal();
+        });
+        return;
+    }
+    
     setupProfile(nickname, selectedAvatar, spectatorModeCheckbox.checked);
 });
 
@@ -4633,6 +4657,15 @@ function joinExistingRoom(code) {
 }
 
 function setupProfile(nickname, avatar, spectator) {
+    if (!auth.currentUser) {
+        Swal.fire('Грешка', 'Трябва да сте влезли в профила си!', 'error');
+        return;
+    }
+    if (!roomCode) {
+        Swal.fire('Грешка', 'Липсва код на стая!', 'error');
+        return;
+    }
+
     amISpectator = spectator;
     const playerData = {
         name: nickname,
@@ -4641,10 +4674,15 @@ function setupProfile(nickname, avatar, spectator) {
         joinedAt: Date.now()
     };
     
-    db.collection('rooms').doc(roomCode).collection('players').doc(auth.currentUser.uid).set(playerData).then(() => {
-        listenToRoom(roomCode);
-        showScreen(lobbyScreen);
-    });
+    db.collection('rooms').doc(roomCode).collection('players').doc(auth.currentUser.uid).set(playerData)
+        .then(() => {
+            listenToRoom(roomCode);
+            showScreen(lobbyScreen);
+        })
+        .catch(err => {
+            console.error('Firestore Error:', err);
+            Swal.fire('Грешка', 'Неуспешно влизане в стаята: ' + err.message, 'error');
+        });
 }
 
 function listenToRoom(code) {
