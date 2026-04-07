@@ -1,128 +1,128 @@
-// Проверка на Firebase достъпност
-console.log('Firebase auth достъпен:', typeof auth !== 'undefined');
-console.log('Firebase db достъпен:', typeof db !== 'undefined');
+﻿// РџСЂРѕРІРµСЂРєР° РЅР° Firebase РґРѕСЃС‚СЉРїРЅРѕСЃС‚
+console.log('Firebase auth РґРѕСЃС‚СЉРїРµРЅ:', typeof auth !== 'undefined');
+console.log('Firebase db РґРѕСЃС‚СЉРїРµРЅ:', typeof db !== 'undefined');
 
-// Система за превод
+// РЎРёСЃС‚РµРјР° Р·Р° РїСЂРµРІРѕРґ
 const translations = {
     bg: {
-        player_count: "Брой играчи",
-        start_game: "Започни играта",
-        now: "сега!",
-        game_rules: "Правила на играта",
-        game_starting: "ИГРАТА ЗАПОЧВА!",
-        next_round: "СЛЕДВАЩ РУНД",
-        next_player: "Следващ играч",
-        change_round: "Смени рунда",
-        results: "Резултати",
-        new_game: "Нова игра",
-        game_objective: "ЦЕЛ НА ИГРАТА",
-        game_objective_text: "Играта е забавна социална игра, в която един от играчите е \"импостор\", а останалите виждат една и съща картинка. Импосторът трябва да се опитва да се вписва сред останалите, без да разкрие, че не вижда картинката.",
-        how_to_play: "КАК СЕ ИГРАЕ",
-        rule_1: "В началото на играта всеки играч получава тайна роля - детектив или импостор",
-        player_selection_rule: "Изберете брой играчи (3-8 души)",
-        rule_2: "Детективите виждат една и съща картинка, а импосторът получава карта \"Импостор\"",
-        rule_3: "Играчите се редуват да казват дума, свързана с картинката",
-        rule_4: "Импосторът трябва да слуша думите на другите и да дава общи думи, които да не го разкрият",
-        rule_5: "Импосторът трябва да се опитва да разбере картинката от думите на другите играчи",
-        impostor_rules: "ПРАВИЛА ЗА ИМПОСТОРА",
-        impostor_rule_1: "Не вижда картинката, която другите играчи виждат",
-        impostor_rule_2: "Трябва да внимателно слуша думите, които другите играчи казват",
-        impostor_rule_3: "Трябва да се опитва да каже дума, която би била логична за картинката",
-        impostor_rule_4: "Трябва да внимава да не разкрие, че не вижда картинката",
-        impostor_rule_5: "Може да използва хитрости, за да изглежда по-достоверен",
-        normal_player_rules: "ПРАВИЛА ЗА НОРМАЛНИТЕ ИГРАЧИ",
-        normal_rule_1: "Виждат една и съща картинка",
-        normal_rule_2: "Трябва да казват думи, свързани с картинката",
-        normal_rule_3: "Могат да задават въпроси, за да разкрият импостора",
-        normal_rule_4: "Трябва да внимават да не разкрият твърде много за картинката",
-        normal_rule_5: "Могат да работят заедно, за да разкрият импостора",
-        game_end: "КРАЙ НА ИГРАТА",
-        game_end_text: "Играта приключва, когато:",
-        end_condition_1: "Детективите се съгласят да посочат импостъра и печелят, ако повечето го разкрият",
-        end_condition_2: "Или когато импосторът успее да остане неразкрит и печели",
-        tips: "СЪВЕТИ",
-        tip_1: "Внимавайте на детайлите в отговорите на другите играчи",
-        tip_2: "Следете за несъответствия в думите, които се казват",
-        tip_3: "Използвайте логика и интуиция",
-        tip_4: "Наслаждавайте се на играта и бъдете креативни!",
-        created_by: "Създадено от",
-        player: "Играч",
-        game: "ИГРА",
-        you_are_impostor: "Вие сте импостър!",
-        min_players: "Моля, въведете поне 3 играча!",
-        level_end: "Край на ниво",
-        impostor_was: "Импостърът беше:",
-        start_new_round: "Започни нов рунд",
-        dont_tell_others: "Не казвайте нищо на другите играчи!",
-        click_for_detective_rules: "Покажи правилата за детективите",
-        click_for_impostor_rules: "Покажи правилата за импостърите",
-        detective_rules_title: "Правила за детективите",
-        detective_objective: "ЦЕЛ",
-        detective_objective_text: "Целта на детективите е да разкрият импостъра сред играчите, като внимателно слушат думите, които се казват.",
-        detective_how_to_play: "КАК СЕ ИГРАЕ",
-        detective_rule_1: "Виждате една и съща картинка с другите детективи",
-        detective_rule_2: "Казвайте думи, свързани с картинката, която виждате",
-        detective_rule_3: "Внимавайте на думите, които другите играчи казват",
-        detective_rule_4: "Анализирайте дали някой дава неясни или общи отговори",
-        detective_rule_5: "Работете заедно с другите детективи за разкриване на импостъра",
-        detective_tips: "СЪВЕТИ",
-        detective_tip_1: "Внимавайте на фините следи в разговорите",
-        detective_tip_2: "Наблюдавайте реакциите и езика на тялото на играчите",
-        detective_tip_3: "Използвайте дедуктивно мислене за разкриване на импостъра",
-        detective_tip_4: "Доверявайте се на инстинктите си и бъдете наблюдателни",
-        impostor_rules_title: "Правила за импостърите",
-        impostor_objective: "ЦЕЛ",
-        impostor_objective_text: "Целта на импостъра е да остане неразкрит сред играчите, като внимателно слуша думите на другите и дава общи отговори.",
-        impostor_how_to_play: "КАК СЕ ИГРАЕ",
-        impostor_rule_1: "Не виждате картинката, която другите играчи виждат",
-        impostor_rule_2: "Внимателно слушайте думите, които другите играчи казват",
-        impostor_rule_3: "Опитвайте се да разберете каква е картинката от думите им",
-        impostor_rule_4: "Казвайте общи думи, които да не ви разкрият",
-        impostor_rule_5: "Избягвайте да казвате твърде специфични думи",
-        impostor_tips: "СЪВЕТИ",
-        impostor_tip_1: "Бъдете внимателни с отговорите си",
-        impostor_tip_2: "Използвайте двусмислен език, за да скриете истинската си самоличност",
-        impostor_tip_3: "Създайте правдоподобна прикриваща история",
-        impostor_tip_4: "Доверявайте се на инстинктите си и бъдете предпазливи",
-        registration_title: "Регистрация",
-        registration_subtitle: "Създайте профил, за да продължите да играете",
-        username: "Потребителско име",
-        email: "Имейл адрес",
-        password: "Парола",
-        confirm_password: "Потвърди парола",
-        age: "Възраст",
-        favorite_game: "Любима игра",
-        select_option: "Изберете опция",
-        board_games: "Настолни игри",
-        video_games: "Видео игри",
-        card_games: "Карти",
-        puzzle_games: "Пъзели",
-        other: "Друго",
-        accept_terms: "Приемам условията за ползване",
-        newsletter: "Искам да получавам новини за нови игри",
-        create_account: "Създай акаунт",
-        already_have_account: "Вече имате акаунт?",
-        login: "Вход",
-        registration_required: "Трябва да влезете в профила си, за да продължите!",
-        registration_success: "Регистрацията е успешна! Можете да продължите да играете.",
-        registration_error: "Грешка при регистрация. Моля, опитайте отново.",
-        login_title: "Вход",
-        login_subtitle: "Влезте в профила си",
-        dont_have_account: "Нямате акаунт?",
-        register: "Регистриране",
-        login_success: "Влязохте успешно!",
-        login_error: "Грешка при вход. Проверете потребителското име и паролата.",
-        logout_success: "Излязохте от профила си!",
-        logout_error: "Грешка при изход",
-        send_error: "Грешка при изпращане",
-        wrong_email_password: "Грешен имейл или парола!",
-        wrong_username_password: "Грешно потребителско име или парола!",
-        username_exists: "Потребителското име вече съществува!",
-        email_exists: "Имейлът вече е използван!",
-        weak_password: "Паролата трябва да е поне 6 символа!",
-        attention_title: "ВНИМАНИЕ!",
-        attention_message: "Всички играчи да се одръпнат!",
-        attention_submessage: "Да остане само първият играч!",
+        player_count: "Р‘СЂРѕР№ РёРіСЂР°С‡Рё",
+        start_game: "Р—Р°РїРѕС‡РЅРё РёРіСЂР°С‚Р°",
+        now: "СЃРµРіР°!",
+        game_rules: "РџСЂР°РІРёР»Р° РЅР° РёРіСЂР°С‚Р°",
+        game_starting: "РР“Р РђРўРђ Р—РђРџРћР§Р’Рђ!",
+        next_round: "РЎР›Р•Р”Р’РђР© Р РЈРќР”",
+        next_player: "РЎР»РµРґРІР°С‰ РёРіСЂР°С‡",
+        change_round: "РЎРјРµРЅРё СЂСѓРЅРґР°",
+        results: "Р РµР·СѓР»С‚Р°С‚Рё",
+        new_game: "РќРѕРІР° РёРіСЂР°",
+        game_objective: "Р¦Р•Р› РќРђ РР“Р РђРўРђ",
+        game_objective_text: "РРіСЂР°С‚Р° Рµ Р·Р°Р±Р°РІРЅР° СЃРѕС†РёР°Р»РЅР° РёРіСЂР°, РІ РєРѕСЏС‚Рѕ РµРґРёРЅ РѕС‚ РёРіСЂР°С‡РёС‚Рµ Рµ \"РёРјРїРѕСЃС‚РѕСЂ\", Р° РѕСЃС‚Р°РЅР°Р»РёС‚Рµ РІРёР¶РґР°С‚ РµРґРЅР° Рё СЃСЉС‰Р° РєР°СЂС‚РёРЅРєР°. РРјРїРѕСЃС‚РѕСЂСЉС‚ С‚СЂСЏР±РІР° РґР° СЃРµ РѕРїРёС‚РІР° РґР° СЃРµ РІРїРёСЃРІР° СЃСЂРµРґ РѕСЃС‚Р°РЅР°Р»РёС‚Рµ, Р±РµР· РґР° СЂР°Р·РєСЂРёРµ, С‡Рµ РЅРµ РІРёР¶РґР° РєР°СЂС‚РёРЅРєР°С‚Р°.",
+        how_to_play: "РљРђРљ РЎР• РР“Р РђР•",
+        rule_1: "Р’ РЅР°С‡Р°Р»РѕС‚Рѕ РЅР° РёРіСЂР°С‚Р° РІСЃРµРєРё РёРіСЂР°С‡ РїРѕР»СѓС‡Р°РІР° С‚Р°Р№РЅР° СЂРѕР»СЏ - РґРµС‚РµРєС‚РёРІ РёР»Рё РёРјРїРѕСЃС‚РѕСЂ",
+        player_selection_rule: "РР·Р±РµСЂРµС‚Рµ Р±СЂРѕР№ РёРіСЂР°С‡Рё (3-8 РґСѓС€Рё)",
+        rule_2: "Р”РµС‚РµРєС‚РёРІРёС‚Рµ РІРёР¶РґР°С‚ РµРґРЅР° Рё СЃСЉС‰Р° РєР°СЂС‚РёРЅРєР°, Р° РёРјРїРѕСЃС‚РѕСЂСЉС‚ РїРѕР»СѓС‡Р°РІР° РєР°СЂС‚Р° \"РРјРїРѕСЃС‚РѕСЂ\"",
+        rule_3: "РРіСЂР°С‡РёС‚Рµ СЃРµ СЂРµРґСѓРІР°С‚ РґР° РєР°Р·РІР°С‚ РґСѓРјР°, СЃРІСЉСЂР·Р°РЅР° СЃ РєР°СЂС‚РёРЅРєР°С‚Р°",
+        rule_4: "РРјРїРѕСЃС‚РѕСЂСЉС‚ С‚СЂСЏР±РІР° РґР° СЃР»СѓС€Р° РґСѓРјРёС‚Рµ РЅР° РґСЂСѓРіРёС‚Рµ Рё РґР° РґР°РІР° РѕР±С‰Рё РґСѓРјРё, РєРѕРёС‚Рѕ РґР° РЅРµ РіРѕ СЂР°Р·РєСЂРёСЏС‚",
+        rule_5: "РРјРїРѕСЃС‚РѕСЂСЉС‚ С‚СЂСЏР±РІР° РґР° СЃРµ РѕРїРёС‚РІР° РґР° СЂР°Р·Р±РµСЂРµ РєР°СЂС‚РёРЅРєР°С‚Р° РѕС‚ РґСѓРјРёС‚Рµ РЅР° РґСЂСѓРіРёС‚Рµ РёРіСЂР°С‡Рё",
+        impostor_rules: "РџР РђР’РР›Рђ Р—Рђ РРњРџРћРЎРўРћР Рђ",
+        impostor_rule_1: "РќРµ РІРёР¶РґР° РєР°СЂС‚РёРЅРєР°С‚Р°, РєРѕСЏС‚Рѕ РґСЂСѓРіРёС‚Рµ РёРіСЂР°С‡Рё РІРёР¶РґР°С‚",
+        impostor_rule_2: "РўСЂСЏР±РІР° РґР° РІРЅРёРјР°С‚РµР»РЅРѕ СЃР»СѓС€Р° РґСѓРјРёС‚Рµ, РєРѕРёС‚Рѕ РґСЂСѓРіРёС‚Рµ РёРіСЂР°С‡Рё РєР°Р·РІР°С‚",
+        impostor_rule_3: "РўСЂСЏР±РІР° РґР° СЃРµ РѕРїРёС‚РІР° РґР° РєР°Р¶Рµ РґСѓРјР°, РєРѕСЏС‚Рѕ Р±Рё Р±РёР»Р° Р»РѕРіРёС‡РЅР° Р·Р° РєР°СЂС‚РёРЅРєР°С‚Р°",
+        impostor_rule_4: "РўСЂСЏР±РІР° РґР° РІРЅРёРјР°РІР° РґР° РЅРµ СЂР°Р·РєСЂРёРµ, С‡Рµ РЅРµ РІРёР¶РґР° РєР°СЂС‚РёРЅРєР°С‚Р°",
+        impostor_rule_5: "РњРѕР¶Рµ РґР° РёР·РїРѕР»Р·РІР° С…РёС‚СЂРѕСЃС‚Рё, Р·Р° РґР° РёР·РіР»РµР¶РґР° РїРѕ-РґРѕСЃС‚РѕРІРµСЂРµРЅ",
+        normal_player_rules: "РџР РђР’РР›Рђ Р—Рђ РќРћР РњРђР›РќРРўР• РР“Р РђР§Р",
+        normal_rule_1: "Р’РёР¶РґР°С‚ РµРґРЅР° Рё СЃСЉС‰Р° РєР°СЂС‚РёРЅРєР°",
+        normal_rule_2: "РўСЂСЏР±РІР° РґР° РєР°Р·РІР°С‚ РґСѓРјРё, СЃРІСЉСЂР·Р°РЅРё СЃ РєР°СЂС‚РёРЅРєР°С‚Р°",
+        normal_rule_3: "РњРѕРіР°С‚ РґР° Р·Р°РґР°РІР°С‚ РІСЉРїСЂРѕСЃРё, Р·Р° РґР° СЂР°Р·РєСЂРёСЏС‚ РёРјРїРѕСЃС‚РѕСЂР°",
+        normal_rule_4: "РўСЂСЏР±РІР° РґР° РІРЅРёРјР°РІР°С‚ РґР° РЅРµ СЂР°Р·РєСЂРёСЏС‚ С‚РІСЉСЂРґРµ РјРЅРѕРіРѕ Р·Р° РєР°СЂС‚РёРЅРєР°С‚Р°",
+        normal_rule_5: "РњРѕРіР°С‚ РґР° СЂР°Р±РѕС‚СЏС‚ Р·Р°РµРґРЅРѕ, Р·Р° РґР° СЂР°Р·РєСЂРёСЏС‚ РёРјРїРѕСЃС‚РѕСЂР°",
+        game_end: "РљР РђР™ РќРђ РР“Р РђРўРђ",
+        game_end_text: "РРіСЂР°С‚Р° РїСЂРёРєР»СЋС‡РІР°, РєРѕРіР°С‚Рѕ:",
+        end_condition_1: "Р”РµС‚РµРєС‚РёРІРёС‚Рµ СЃРµ СЃСЉРіР»Р°СЃСЏС‚ РґР° РїРѕСЃРѕС‡Р°С‚ РёРјРїРѕСЃС‚СЉСЂР° Рё РїРµС‡РµР»СЏС‚, Р°РєРѕ РїРѕРІРµС‡РµС‚Рѕ РіРѕ СЂР°Р·РєСЂРёСЏС‚",
+        end_condition_2: "РР»Рё РєРѕРіР°С‚Рѕ РёРјРїРѕСЃС‚РѕСЂСЉС‚ СѓСЃРїРµРµ РґР° РѕСЃС‚Р°РЅРµ РЅРµСЂР°Р·РєСЂРёС‚ Рё РїРµС‡РµР»Рё",
+        tips: "РЎРЄР’Р•РўР",
+        tip_1: "Р’РЅРёРјР°РІР°Р№С‚Рµ РЅР° РґРµС‚Р°Р№Р»РёС‚Рµ РІ РѕС‚РіРѕРІРѕСЂРёС‚Рµ РЅР° РґСЂСѓРіРёС‚Рµ РёРіСЂР°С‡Рё",
+        tip_2: "РЎР»РµРґРµС‚Рµ Р·Р° РЅРµСЃСЉРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РґСѓРјРёС‚Рµ, РєРѕРёС‚Рѕ СЃРµ РєР°Р·РІР°С‚",
+        tip_3: "РР·РїРѕР»Р·РІР°Р№С‚Рµ Р»РѕРіРёРєР° Рё РёРЅС‚СѓРёС†РёСЏ",
+        tip_4: "РќР°СЃР»Р°Р¶РґР°РІР°Р№С‚Рµ СЃРµ РЅР° РёРіСЂР°С‚Р° Рё Р±СЉРґРµС‚Рµ РєСЂРµР°С‚РёРІРЅРё!",
+        created_by: "РЎСЉР·РґР°РґРµРЅРѕ РѕС‚",
+        player: "РРіСЂР°С‡",
+        game: "РР“Р Рђ",
+        you_are_impostor: "Р’РёРµ СЃС‚Рµ РёРјРїРѕСЃС‚СЉСЂ!",
+        min_players: "РњРѕР»СЏ, РІСЉРІРµРґРµС‚Рµ РїРѕРЅРµ 3 РёРіСЂР°С‡Р°!",
+        level_end: "РљСЂР°Р№ РЅР° РЅРёРІРѕ",
+        impostor_was: "РРјРїРѕСЃС‚СЉСЂСЉС‚ Р±РµС€Рµ:",
+        start_new_round: "Р—Р°РїРѕС‡РЅРё РЅРѕРІ СЂСѓРЅРґ",
+        dont_tell_others: "РќРµ РєР°Р·РІР°Р№С‚Рµ РЅРёС‰Рѕ РЅР° РґСЂСѓРіРёС‚Рµ РёРіСЂР°С‡Рё!",
+        click_for_detective_rules: "РџРѕРєР°Р¶Рё РїСЂР°РІРёР»Р°С‚Р° Р·Р° РґРµС‚РµРєС‚РёРІРёС‚Рµ",
+        click_for_impostor_rules: "РџРѕРєР°Р¶Рё РїСЂР°РІРёР»Р°С‚Р° Р·Р° РёРјРїРѕСЃС‚СЉСЂРёС‚Рµ",
+        detective_rules_title: "РџСЂР°РІРёР»Р° Р·Р° РґРµС‚РµРєС‚РёРІРёС‚Рµ",
+        detective_objective: "Р¦Р•Р›",
+        detective_objective_text: "Р¦РµР»С‚Р° РЅР° РґРµС‚РµРєС‚РёРІРёС‚Рµ Рµ РґР° СЂР°Р·РєСЂРёСЏС‚ РёРјРїРѕСЃС‚СЉСЂР° СЃСЂРµРґ РёРіСЂР°С‡РёС‚Рµ, РєР°С‚Рѕ РІРЅРёРјР°С‚РµР»РЅРѕ СЃР»СѓС€Р°С‚ РґСѓРјРёС‚Рµ, РєРѕРёС‚Рѕ СЃРµ РєР°Р·РІР°С‚.",
+        detective_how_to_play: "РљРђРљ РЎР• РР“Р РђР•",
+        detective_rule_1: "Р’РёР¶РґР°С‚Рµ РµРґРЅР° Рё СЃСЉС‰Р° РєР°СЂС‚РёРЅРєР° СЃ РґСЂСѓРіРёС‚Рµ РґРµС‚РµРєС‚РёРІРё",
+        detective_rule_2: "РљР°Р·РІР°Р№С‚Рµ РґСѓРјРё, СЃРІСЉСЂР·Р°РЅРё СЃ РєР°СЂС‚РёРЅРєР°С‚Р°, РєРѕСЏС‚Рѕ РІРёР¶РґР°С‚Рµ",
+        detective_rule_3: "Р’РЅРёРјР°РІР°Р№С‚Рµ РЅР° РґСѓРјРёС‚Рµ, РєРѕРёС‚Рѕ РґСЂСѓРіРёС‚Рµ РёРіСЂР°С‡Рё РєР°Р·РІР°С‚",
+        detective_rule_4: "РђРЅР°Р»РёР·РёСЂР°Р№С‚Рµ РґР°Р»Рё РЅСЏРєРѕР№ РґР°РІР° РЅРµСЏСЃРЅРё РёР»Рё РѕР±С‰Рё РѕС‚РіРѕРІРѕСЂРё",
+        detective_rule_5: "Р Р°Р±РѕС‚РµС‚Рµ Р·Р°РµРґРЅРѕ СЃ РґСЂСѓРіРёС‚Рµ РґРµС‚РµРєС‚РёРІРё Р·Р° СЂР°Р·РєСЂРёРІР°РЅРµ РЅР° РёРјРїРѕСЃС‚СЉСЂР°",
+        detective_tips: "РЎРЄР’Р•РўР",
+        detective_tip_1: "Р’РЅРёРјР°РІР°Р№С‚Рµ РЅР° С„РёРЅРёС‚Рµ СЃР»РµРґРё РІ СЂР°Р·РіРѕРІРѕСЂРёС‚Рµ",
+        detective_tip_2: "РќР°Р±Р»СЋРґР°РІР°Р№С‚Рµ СЂРµР°РєС†РёРёС‚Рµ Рё РµР·РёРєР° РЅР° С‚СЏР»РѕС‚Рѕ РЅР° РёРіСЂР°С‡РёС‚Рµ",
+        detective_tip_3: "РР·РїРѕР»Р·РІР°Р№С‚Рµ РґРµРґСѓРєС‚РёРІРЅРѕ РјРёСЃР»РµРЅРµ Р·Р° СЂР°Р·РєСЂРёРІР°РЅРµ РЅР° РёРјРїРѕСЃС‚СЉСЂР°",
+        detective_tip_4: "Р”РѕРІРµСЂСЏРІР°Р№С‚Рµ СЃРµ РЅР° РёРЅСЃС‚РёРЅРєС‚РёС‚Рµ СЃРё Рё Р±СЉРґРµС‚Рµ РЅР°Р±Р»СЋРґР°С‚РµР»РЅРё",
+        impostor_rules_title: "РџСЂР°РІРёР»Р° Р·Р° РёРјРїРѕСЃС‚СЉСЂРёС‚Рµ",
+        impostor_objective: "Р¦Р•Р›",
+        impostor_objective_text: "Р¦РµР»С‚Р° РЅР° РёРјРїРѕСЃС‚СЉСЂР° Рµ РґР° РѕСЃС‚Р°РЅРµ РЅРµСЂР°Р·РєСЂРёС‚ СЃСЂРµРґ РёРіСЂР°С‡РёС‚Рµ, РєР°С‚Рѕ РІРЅРёРјР°С‚РµР»РЅРѕ СЃР»СѓС€Р° РґСѓРјРёС‚Рµ РЅР° РґСЂСѓРіРёС‚Рµ Рё РґР°РІР° РѕР±С‰Рё РѕС‚РіРѕРІРѕСЂРё.",
+        impostor_how_to_play: "РљРђРљ РЎР• РР“Р РђР•",
+        impostor_rule_1: "РќРµ РІРёР¶РґР°С‚Рµ РєР°СЂС‚РёРЅРєР°С‚Р°, РєРѕСЏС‚Рѕ РґСЂСѓРіРёС‚Рµ РёРіСЂР°С‡Рё РІРёР¶РґР°С‚",
+        impostor_rule_2: "Р’РЅРёРјР°С‚РµР»РЅРѕ СЃР»СѓС€Р°Р№С‚Рµ РґСѓРјРёС‚Рµ, РєРѕРёС‚Рѕ РґСЂСѓРіРёС‚Рµ РёРіСЂР°С‡Рё РєР°Р·РІР°С‚",
+        impostor_rule_3: "РћРїРёС‚РІР°Р№С‚Рµ СЃРµ РґР° СЂР°Р·Р±РµСЂРµС‚Рµ РєР°РєРІР° Рµ РєР°СЂС‚РёРЅРєР°С‚Р° РѕС‚ РґСѓРјРёС‚Рµ РёРј",
+        impostor_rule_4: "РљР°Р·РІР°Р№С‚Рµ РѕР±С‰Рё РґСѓРјРё, РєРѕРёС‚Рѕ РґР° РЅРµ РІРё СЂР°Р·РєСЂРёСЏС‚",
+        impostor_rule_5: "РР·Р±СЏРіРІР°Р№С‚Рµ РґР° РєР°Р·РІР°С‚Рµ С‚РІСЉСЂРґРµ СЃРїРµС†РёС„РёС‡РЅРё РґСѓРјРё",
+        impostor_tips: "РЎРЄР’Р•РўР",
+        impostor_tip_1: "Р‘СЉРґРµС‚Рµ РІРЅРёРјР°С‚РµР»РЅРё СЃ РѕС‚РіРѕРІРѕСЂРёС‚Рµ СЃРё",
+        impostor_tip_2: "РР·РїРѕР»Р·РІР°Р№С‚Рµ РґРІСѓСЃРјРёСЃР»РµРЅ РµР·РёРє, Р·Р° РґР° СЃРєСЂРёРµС‚Рµ РёСЃС‚РёРЅСЃРєР°С‚Р° СЃРё СЃР°РјРѕР»РёС‡РЅРѕСЃС‚",
+        impostor_tip_3: "РЎСЉР·РґР°Р№С‚Рµ РїСЂР°РІРґРѕРїРѕРґРѕР±РЅР° РїСЂРёРєСЂРёРІР°С‰Р° РёСЃС‚РѕСЂРёСЏ",
+        impostor_tip_4: "Р”РѕРІРµСЂСЏРІР°Р№С‚Рµ СЃРµ РЅР° РёРЅСЃС‚РёРЅРєС‚РёС‚Рµ СЃРё Рё Р±СЉРґРµС‚Рµ РїСЂРµРґРїР°Р·Р»РёРІРё",
+        registration_title: "Р РµРіРёСЃС‚СЂР°С†РёСЏ",
+        registration_subtitle: "РЎСЉР·РґР°Р№С‚Рµ РїСЂРѕС„РёР», Р·Р° РґР° РїСЂРѕРґСЉР»Р¶РёС‚Рµ РґР° РёРіСЂР°РµС‚Рµ",
+        username: "РџРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ",
+        email: "РРјРµР№Р» Р°РґСЂРµСЃ",
+        password: "РџР°СЂРѕР»Р°",
+        confirm_password: "РџРѕС‚РІСЉСЂРґРё РїР°СЂРѕР»Р°",
+        age: "Р’СЉР·СЂР°СЃС‚",
+        favorite_game: "Р›СЋР±РёРјР° РёРіСЂР°",
+        select_option: "РР·Р±РµСЂРµС‚Рµ РѕРїС†РёСЏ",
+        board_games: "РќР°СЃС‚РѕР»РЅРё РёРіСЂРё",
+        video_games: "Р’РёРґРµРѕ РёРіСЂРё",
+        card_games: "РљР°СЂС‚Рё",
+        puzzle_games: "РџСЉР·РµР»Рё",
+        other: "Р”СЂСѓРіРѕ",
+        accept_terms: "РџСЂРёРµРјР°Рј СѓСЃР»РѕРІРёСЏС‚Р° Р·Р° РїРѕР»Р·РІР°РЅРµ",
+        newsletter: "РСЃРєР°Рј РґР° РїРѕР»СѓС‡Р°РІР°Рј РЅРѕРІРёРЅРё Р·Р° РЅРѕРІРё РёРіСЂРё",
+        create_account: "РЎСЉР·РґР°Р№ Р°РєР°СѓРЅС‚",
+        already_have_account: "Р’РµС‡Рµ РёРјР°С‚Рµ Р°РєР°СѓРЅС‚?",
+        login: "Р’С…РѕРґ",
+        registration_required: "РўСЂСЏР±РІР° РґР° РІР»РµР·РµС‚Рµ РІ РїСЂРѕС„РёР»Р° СЃРё, Р·Р° РґР° РїСЂРѕРґСЉР»Р¶РёС‚Рµ!",
+        registration_success: "Р РµРіРёСЃС‚СЂР°С†РёСЏС‚Р° Рµ СѓСЃРїРµС€РЅР°! РњРѕР¶РµС‚Рµ РґР° РїСЂРѕРґСЉР»Р¶РёС‚Рµ РґР° РёРіСЂР°РµС‚Рµ.",
+        registration_error: "Р“СЂРµС€РєР° РїСЂРё СЂРµРіРёСЃС‚СЂР°С†РёСЏ. РњРѕР»СЏ, РѕРїРёС‚Р°Р№С‚Рµ РѕС‚РЅРѕРІРѕ.",
+        login_title: "Р’С…РѕРґ",
+        login_subtitle: "Р’Р»РµР·С‚Рµ РІ РїСЂРѕС„РёР»Р° СЃРё",
+        dont_have_account: "РќСЏРјР°С‚Рµ Р°РєР°СѓРЅС‚?",
+        register: "Р РµРіРёСЃС‚СЂРёСЂР°РЅРµ",
+        login_success: "Р’Р»СЏР·РѕС…С‚Рµ СѓСЃРїРµС€РЅРѕ!",
+        login_error: "Р“СЂРµС€РєР° РїСЂРё РІС…РѕРґ. РџСЂРѕРІРµСЂРµС‚Рµ РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕС‚Рѕ РёРјРµ Рё РїР°СЂРѕР»Р°С‚Р°.",
+        logout_success: "РР·Р»СЏР·РѕС…С‚Рµ РѕС‚ РїСЂРѕС„РёР»Р° СЃРё!",
+        logout_error: "Р“СЂРµС€РєР° РїСЂРё РёР·С…РѕРґ",
+        send_error: "Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµ",
+        wrong_email_password: "Р“СЂРµС€РµРЅ РёРјРµР№Р» РёР»Рё РїР°СЂРѕР»Р°!",
+        wrong_username_password: "Р“СЂРµС€РЅРѕ РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ РёР»Рё РїР°СЂРѕР»Р°!",
+        username_exists: "РџРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕС‚Рѕ РёРјРµ РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР°!",
+        email_exists: "РРјРµР№Р»СЉС‚ РІРµС‡Рµ Рµ РёР·РїРѕР»Р·РІР°РЅ!",
+        weak_password: "РџР°СЂРѕР»Р°С‚Р° С‚СЂСЏР±РІР° РґР° Рµ РїРѕРЅРµ 6 СЃРёРјРІРѕР»Р°!",
+        attention_title: "Р’РќРРњРђРќРР•!",
+        attention_message: "Р’СЃРёС‡РєРё РёРіСЂР°С‡Рё РґР° СЃРµ РѕРґСЂСЉРїРЅР°С‚!",
+        attention_submessage: "Р”Р° РѕСЃС‚Р°РЅРµ СЃР°РјРѕ РїСЉСЂРІРёСЏС‚ РёРіСЂР°С‡!",
         unlock_pro: "Unlock Pro",
         unlock_pro_title: "Unlock Full Version",
         unlock_pro_price: "Price:",
@@ -136,54 +136,54 @@ const translations = {
         free_limit_message: "You played 3 consecutive rounds. This is the limit for the free version. Wait",
         free_limit_seconds: "seconds before continuing.",
         free_limit_payment_info: "If you want to unlock the full version, make a payment through Revolut. In the payment note, please enter your email address!",
-        remove_limit: "Remove Limit (3.99€)",
-        game_ended: "🎉 Game Ended!",
+        remove_limit: "Remove Limit (3.99в‚¬)",
+        game_ended: "рџЋ‰ Game Ended!",
         thanks_for_playing: "Thanks for playing!",
         winner: "Winner:",
         duration: "Duration:",
         main_menu: "Main Menu",
-        attention_next_player: "ВНИМАНИЕ: САМО СЛЕДВАЩИЯТ ИГРАЧ ДА ГЛЕДА",
+        attention_next_player: "Р’РќРРњРђРќРР•: РЎРђРњРћ РЎР›Р•Р”Р’РђР©РРЇРў РР“Р РђР§ Р”Рђ Р“Р›Р•Р”Рђ",
         reveal_impostor: "REVEAL WHO WAS THE IMPOSTOR",
         click_for_detective_rules: "Show detective rules",
         click_for_impostor_rules: "Show impostor rules",
         detective_rules_content: "Detective rules content will be displayed here",
         impostor_rules_content: "Impostor rules content will be displayed here",
-        price_period: "еднократно",
-        pro_benefits_title: "Предимства на пълната версия:",
-        pro_benefit_1: "няма чакане на всеки 3 рунда по 5 мин.",
-        pro_benefit_2: "няма реклами и дразнещи съобщения",
-        pro_benefit_3: "неограничен брой игри",
-        pro_benefit_4: "ексклузивни карти и теми",
-        pro_benefit_5: "приоритетна поддръжка",
-        pro_benefit_6: "бъдещи обновления включени",
-        pro_guarantee: "100% сигурно плащане • 30-дневна гаранция",
-        welcome_title: "🎮 Добре дошли в Odd One Out!",
-        welcome_subtitle: "За да продължите да играете, трябва да създадете акаунт",
-        welcome_why_register_title: "🎯 Защо да се регистрирате?",
-        welcome_benefit_1: "<i class='fas fa-database'></i> <strong>База данни:</strong> Няма да виждате едни и същи картини",
-        welcome_benefit_2: "<i class='fas fa-layer-group'></i> <strong>Повече нива:</strong> НОВИ думи и предизвикателства",
-        welcome_benefit_3: "<i class='fas fa-trophy'></i> <strong>Прогрес:</strong> Следете вашите постижения",
-        welcome_benefit_4: "<i class='fas fa-users'></i> <strong>Общност:</strong> Играйте с приятели",
-        welcome_benefit_5: "<i class='fas fa-star'></i> <strong>Ексклузивно съдържание:</strong> Специални теми и карти",
-        welcome_create_account_btn: "Създай акаунт",
-        welcome_login_btn: "Вече имам акаунт",
-        choose_mode: "Изберете начин на игра",
-        local_play: "На едно място",
-        local_play_desc: "Всички играят на едно устройство",
-        online_play: "Онлайн игра",
-        online_play_desc: "Играйте от различни устройства",
-        create_room: "Създай стая",
-        join_room: "Влез в стая",
-        profile_setup: "Настройка на профил",
-        nickname: "Прякор",
-        choose_avatar: "Изберете аватар",
-        join_as_spectator: "Влез като наблюдател",
-        confirm: "Потвърди",
-        invite: "Покани",
-        players: "Играчи",
-        waiting_for_host: "Изчакване на хоста да започне...",
-        leave_room: "Напусни стаята",
-        back: "Назад"
+        price_period: "РµРґРЅРѕРєСЂР°С‚РЅРѕ",
+        pro_benefits_title: "РџСЂРµРґРёРјСЃС‚РІР° РЅР° РїСЉР»РЅР°С‚Р° РІРµСЂСЃРёСЏ:",
+        pro_benefit_1: "РЅСЏРјР° С‡Р°РєР°РЅРµ РЅР° РІСЃРµРєРё 3 СЂСѓРЅРґР° РїРѕ 5 РјРёРЅ.",
+        pro_benefit_2: "РЅСЏРјР° СЂРµРєР»Р°РјРё Рё РґСЂР°Р·РЅРµС‰Рё СЃСЉРѕР±С‰РµРЅРёСЏ",
+        pro_benefit_3: "РЅРµРѕРіСЂР°РЅРёС‡РµРЅ Р±СЂРѕР№ РёРіСЂРё",
+        pro_benefit_4: "РµРєСЃРєР»СѓР·РёРІРЅРё РєР°СЂС‚Рё Рё С‚РµРјРё",
+        pro_benefit_5: "РїСЂРёРѕСЂРёС‚РµС‚РЅР° РїРѕРґРґСЂСЉР¶РєР°",
+        pro_benefit_6: "Р±СЉРґРµС‰Рё РѕР±РЅРѕРІР»РµРЅРёСЏ РІРєР»СЋС‡РµРЅРё",
+        pro_guarantee: "100% СЃРёРіСѓСЂРЅРѕ РїР»Р°С‰Р°РЅРµ вЂў 30-РґРЅРµРІРЅР° РіР°СЂР°РЅС†РёСЏ",
+        welcome_title: "рџЋ® Р”РѕР±СЂРµ РґРѕС€Р»Рё РІ Odd One Out!",
+        welcome_subtitle: "Р—Р° РґР° РїСЂРѕРґСЉР»Р¶РёС‚Рµ РґР° РёРіСЂР°РµС‚Рµ, С‚СЂСЏР±РІР° РґР° СЃСЉР·РґР°РґРµС‚Рµ Р°РєР°СѓРЅС‚",
+        welcome_why_register_title: "рџЋЇ Р—Р°С‰Рѕ РґР° СЃРµ СЂРµРіРёСЃС‚СЂРёСЂР°С‚Рµ?",
+        welcome_benefit_1: "<i class='fas fa-database'></i> <strong>Р‘Р°Р·Р° РґР°РЅРЅРё:</strong> РќСЏРјР° РґР° РІРёР¶РґР°С‚Рµ РµРґРЅРё Рё СЃСЉС‰Рё РєР°СЂС‚РёРЅРё",
+        welcome_benefit_2: "<i class='fas fa-layer-group'></i> <strong>РџРѕРІРµС‡Рµ РЅРёРІР°:</strong> РќРћР’Р РґСѓРјРё Рё РїСЂРµРґРёР·РІРёРєР°С‚РµР»СЃС‚РІР°",
+        welcome_benefit_3: "<i class='fas fa-trophy'></i> <strong>РџСЂРѕРіСЂРµСЃ:</strong> РЎР»РµРґРµС‚Рµ РІР°С€РёС‚Рµ РїРѕСЃС‚РёР¶РµРЅРёСЏ",
+        welcome_benefit_4: "<i class='fas fa-users'></i> <strong>РћР±С‰РЅРѕСЃС‚:</strong> РРіСЂР°Р№С‚Рµ СЃ РїСЂРёСЏС‚РµР»Рё",
+        welcome_benefit_5: "<i class='fas fa-star'></i> <strong>Р•РєСЃРєР»СѓР·РёРІРЅРѕ СЃСЉРґСЉСЂР¶Р°РЅРёРµ:</strong> РЎРїРµС†РёР°Р»РЅРё С‚РµРјРё Рё РєР°СЂС‚Рё",
+        welcome_create_account_btn: "РЎСЉР·РґР°Р№ Р°РєР°СѓРЅС‚",
+        welcome_login_btn: "Р’РµС‡Рµ РёРјР°Рј Р°РєР°СѓРЅС‚",
+        choose_mode: "РР·Р±РµСЂРµС‚Рµ РЅР°С‡РёРЅ РЅР° РёРіСЂР°",
+        local_play: "РќР° РµРґРЅРѕ РјСЏСЃС‚Рѕ",
+        local_play_desc: "Р’СЃРёС‡РєРё РёРіСЂР°СЏС‚ РЅР° РµРґРЅРѕ СѓСЃС‚СЂРѕР№СЃС‚РІРѕ",
+        online_play: "РћРЅР»Р°Р№РЅ РёРіСЂР°",
+        online_play_desc: "РРіСЂР°Р№С‚Рµ РѕС‚ СЂР°Р·Р»РёС‡РЅРё СѓСЃС‚СЂРѕР№СЃС‚РІР°",
+        create_room: "РЎСЉР·РґР°Р№ СЃС‚Р°СЏ",
+        join_room: "Р’Р»РµР· РІ СЃС‚Р°СЏ",
+        profile_setup: "РќР°СЃС‚СЂРѕР№РєР° РЅР° РїСЂРѕС„РёР»",
+        nickname: "РџСЂСЏРєРѕСЂ",
+        choose_avatar: "РР·Р±РµСЂРµС‚Рµ Р°РІР°С‚Р°СЂ",
+        join_as_spectator: "Р’Р»РµР· РєР°С‚Рѕ РЅР°Р±Р»СЋРґР°С‚РµР»",
+        confirm: "РџРѕС‚РІСЉСЂРґРё",
+        invite: "РџРѕРєР°РЅРё",
+        players: "РРіСЂР°С‡Рё",
+        waiting_for_host: "РР·С‡Р°РєРІР°РЅРµ РЅР° С…РѕСЃС‚Р° РґР° Р·Р°РїРѕС‡РЅРµ...",
+        leave_room: "РќР°РїСѓСЃРЅРё СЃС‚Р°СЏС‚Р°",
+        back: "РќР°Р·Р°Рґ"
     },
     en: {
         player_count: "Number of Players",
@@ -317,8 +317,8 @@ const translations = {
         free_limit_message: "You played 3 consecutive rounds. This is the limit for the free version. Wait",
         free_limit_seconds: "seconds before continuing.",
         free_limit_payment_info: "If you want to unlock the full version, make a payment through Revolut. In the payment note, please enter your email address!",
-        remove_limit: "Remove Limit (3.99€)",
-        game_ended: "🎉 Game Ended!",
+        remove_limit: "Remove Limit (3.99в‚¬)",
+        game_ended: "рџЋ‰ Game Ended!",
         thanks_for_playing: "Thanks for playing!",
         winner: "Winner:",
         duration: "Duration:",
@@ -335,10 +335,10 @@ const translations = {
         pro_benefit_4: "exclusive cards and themes",
         pro_benefit_5: "priority support",
         pro_benefit_6: "future updates included",
-        pro_guarantee: "100% secure payment • 30-day guarantee",
-        welcome_title: "🎮 Welcome to Odd One Out!",
+        pro_guarantee: "100% secure payment вЂў 30-day guarantee",
+        welcome_title: "рџЋ® Welcome to Odd One Out!",
         welcome_subtitle: "To continue playing, you need to create an account",
-        welcome_why_register_title: "🎯 Why register?",
+        welcome_why_register_title: "рџЋЇ Why register?",
         welcome_benefit_1: "<i class='fas fa-database'></i> <strong>Database:</strong> You won't see the same pictures",
         welcome_benefit_2: "<i class='fas fa-layer-group'></i> <strong>More levels:</strong> NEW words and challenges",
         welcome_benefit_3: "<i class='fas fa-trophy'></i> <strong>Progress:</strong> Track your achievements",
@@ -368,12 +368,12 @@ const translations = {
 
 let currentLanguage = 'bg';
 
-// Функция за превод на текст
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїСЂРµРІРѕРґ РЅР° С‚РµРєСЃС‚
 function translateText(key) {
     return translations[currentLanguage][key] || translations['bg'][key] || key;
 }
 
-// Функция за прилагане на превода
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїСЂРёР»Р°РіР°РЅРµ РЅР° РїСЂРµРІРѕРґР°
 function applyTranslation() {
     const elements = document.querySelectorAll('[data-translate]');
     elements.forEach(element => {
@@ -394,20 +394,18 @@ function applyTranslation() {
             element.textContent = translation;
         }
     });
-    // Обновяваме и бутона 'Следващ играч' ако съществува
+    // РћР±РЅРѕРІСЏРІР°РјРµ Рё Р±СѓС‚РѕРЅР° 'РЎР»РµРґРІР°С‰ РёРіСЂР°С‡' Р°РєРѕ СЃСЉС‰РµСЃС‚РІСѓРІР°
     const nextPlayerBtnTitle = document.querySelector('.next-player-btn-title');
     if (nextPlayerBtnTitle) {
         nextPlayerBtnTitle.textContent = translateText('next_player');
     }
-    // Обновяваме динамични текстове
+    // РћР±РЅРѕРІСЏРІР°РјРµ РґРёРЅР°РјРёС‡РЅРё С‚РµРєСЃС‚РѕРІРµ
     updateDynamicTexts();
-    // Обновяваме tooltip текстове
-    updateTooltips();
-    // Обновяваме текста "сега!" в анимирания бутон
-    updateAnimatedButtonText();
+    // РћР±РЅРѕРІСЏРІР°РјРµ tooltip С‚РµРєСЃС‚РѕРІРµ
+    // РћР±РЅРѕРІСЏРІР°РјРµ С‚РµРєСЃС‚Р° "СЃРµРіР°!" РІ Р°РЅРёРјРёСЂР°РЅРёСЏ Р±СѓС‚РѕРЅ
 }
 
-// Функция за обновяване на динамични текстове
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° РґРёРЅР°РјРёС‡РЅРё С‚РµРєСЃС‚РѕРІРµ
 function updateDynamicTexts() {
     if (currentPlayerDisplay) {
         const buttonText = currentPlayerDisplay.querySelector('.button-text');
@@ -417,26 +415,26 @@ function updateDynamicTexts() {
     }
 }
 
-// Масив с изображения на различни обекти
+// РњР°СЃРёРІ СЃ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° СЂР°Р·Р»РёС‡РЅРё РѕР±РµРєС‚Рё
 const images = [
-    // Локални изображения - само тези, които съществуват в папката images
-    'images/engin-akyurt-JBicrgiurjs-unsplash.jpg', // диван (sofa)
-    'images/luc-bercoth-zpJH4ogbTOo-unsplash.jpg', // книга (book)
-    'images/raymond-burrage-x7kiHTL-HgM-unsplash.jpg', // химикал (pen)
-    'images/vinicius-amnx-amano-4iNoeQqrLgM-unsplash.jpg', // чиния (plate)
-    'images/william-warby-UWznDqb7S9w-unsplash.jpg', // телефон (phone)
-    'images/andy-watkins-ZDRXR3MxyJM-unsplash.jpg', // компютър (computer)
-    'images/mostafa-amini-nasab-uSvuZ7Ovo5M-unsplash.jpg', // мишка (mouse)
-    'images/maria-lupan-jGTIP-92Tmc-unsplash.jpg', // часовник
-    'images/kukla-radostina-xodeshta-govoreshta-muzikalna-kukla-01-2508x2676.jpg', // кукла
-    'images/gotvarska-pecka-tok-crown-54am-a-class-multifunctional--4-tok--bal-image_60868467dab13_800x800.jpeg', // печка
-    'images/18686404_605.jpg', // стол
-    'images/0345705001580038918_2077471_920x708.webp', // лампа
-    'images/heart-157895_640.webp', // сърце
-    'images/MV5BMTkwOTY0MTc1NV5BMl5BanBnXkFtZTcwMDQwNjA2NQ@@._V1_.jpg', // филм
-    'images/240326-pirates-ch-1328-2b4d4f.jpg', // пирати
-    'images/Carrot-PNG-Free-Download.png', // морков
-    // Добавяме нови изображения от папката images
+    // Р›РѕРєР°Р»РЅРё РёР·РѕР±СЂР°Р¶РµРЅРёСЏ - СЃР°РјРѕ С‚РµР·Рё, РєРѕРёС‚Рѕ СЃСЉС‰РµСЃС‚РІСѓРІР°С‚ РІ РїР°РїРєР°С‚Р° images
+    'images/engin-akyurt-JBicrgiurjs-unsplash.jpg', // РґРёРІР°РЅ (sofa)
+    'images/luc-bercoth-zpJH4ogbTOo-unsplash.jpg', // РєРЅРёРіР° (book)
+    'images/raymond-burrage-x7kiHTL-HgM-unsplash.jpg', // С…РёРјРёРєР°Р» (pen)
+    'images/vinicius-amnx-amano-4iNoeQqrLgM-unsplash.jpg', // С‡РёРЅРёСЏ (plate)
+    'images/william-warby-UWznDqb7S9w-unsplash.jpg', // С‚РµР»РµС„РѕРЅ (phone)
+    'images/andy-watkins-ZDRXR3MxyJM-unsplash.jpg', // РєРѕРјРїСЋС‚СЉСЂ (computer)
+    'images/mostafa-amini-nasab-uSvuZ7Ovo5M-unsplash.jpg', // РјРёС€РєР° (mouse)
+    'images/maria-lupan-jGTIP-92Tmc-unsplash.jpg', // С‡Р°СЃРѕРІРЅРёРє
+    'images/kukla-radostina-xodeshta-govoreshta-muzikalna-kukla-01-2508x2676.jpg', // РєСѓРєР»Р°
+    'images/gotvarska-pecka-tok-crown-54am-a-class-multifunctional--4-tok--bal-image_60868467dab13_800x800.jpeg', // РїРµС‡РєР°
+    'images/18686404_605.jpg', // СЃС‚РѕР»
+    'images/0345705001580038918_2077471_920x708.webp', // Р»Р°РјРїР°
+    'images/heart-157895_640.webp', // СЃСЉСЂС†Рµ
+    'images/MV5BMTkwOTY0MTc1NV5BMl5BanBnXkFtZTcwMDQwNjA2NQ@@._V1_.jpg', // С„РёР»Рј
+    'images/240326-pirates-ch-1328-2b4d4f.jpg', // РїРёСЂР°С‚Рё
+    'images/Carrot-PNG-Free-Download.png', // РјРѕСЂРєРѕРІ
+    // Р”РѕР±Р°РІСЏРјРµ РЅРѕРІРё РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РѕС‚ РїР°РїРєР°С‚Р° images
     'images/109880.jpg',
     'images/1462104889_5_559x345.jpg',
     'images/1592629345176.jpg',
@@ -473,41 +471,41 @@ const images = [
     'images/spondz-bob-kvadratni-gasi-bebe-11sm-image_616ac52401c3c_1920x1920.jpeg',
     'images/thumb6_aD7tej.jpg',
     'images/unnamed.jpg',
-    'images/снимки-на-стари-телевизори-10.jpg'
+    'images/СЃРЅРёРјРєРё-РЅР°-СЃС‚Р°СЂРё-С‚РµР»РµРІРёР·РѕСЂРё-10.jpg'
 ];
 
-// Масив с 5 картини само за нерегистрирани потребители
+// РњР°СЃРёРІ СЃ 5 РєР°СЂС‚РёРЅРё СЃР°РјРѕ Р·Р° РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅРё РїРѕС‚СЂРµР±РёС‚РµР»Рё
 const guestImages = [
-    'images/engin-akyurt-JBicrgiurjs-unsplash.jpg', // диван
-    'images/luc-bercoth-zpJH4ogbTOo-unsplash.jpg', // книга
-    'images/raymond-burrage-x7kiHTL-HgM-unsplash.jpg', // химикал
-    'images/vinicius-amnx-amano-4iNoeQqrLgM-unsplash.jpg', // чиния
-    'images/william-warby-UWznDqb7S9w-unsplash.jpg' // телефон
+    'images/engin-akyurt-JBicrgiurjs-unsplash.jpg', // РґРёРІР°РЅ
+    'images/luc-bercoth-zpJH4ogbTOo-unsplash.jpg', // РєРЅРёРіР°
+    'images/raymond-burrage-x7kiHTL-HgM-unsplash.jpg', // С…РёРјРёРєР°Р»
+    'images/vinicius-amnx-amano-4iNoeQqrLgM-unsplash.jpg', // С‡РёРЅРёСЏ
+    'images/william-warby-UWznDqb7S9w-unsplash.jpg' // С‚РµР»РµС„РѕРЅ
 ];
 let currentPlayer = 1;
 let totalPlayers = 0;
 let currentLevel = 0;
-let totalLevels = 50; // Актуализирано според новия брой изображения
+let totalLevels = 50; // РђРєС‚СѓР°Р»РёР·РёСЂР°РЅРѕ СЃРїРѕСЂРµРґ РЅРѕРІРёСЏ Р±СЂРѕР№ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
 let gameLevels = [];
 let impostorIndex = 0;
 let isCountdownActive = false;
 
-// --- Онлайн Мултиплеър Променливи ---
+// --- РћРЅР»Р°Р№РЅ РњСѓР»С‚РёРїР»РµСЉСЂ РџСЂРѕРјРµРЅР»РёРІРё ---
 let isOnline = false;
 let roomCode = null;
 let roomData = null;
 let currentTurnUid = null;
 let myPlayerUid = null;
 let isHost = false;
-let selectedAvatar = '🕵️';
+let selectedAvatar = 'рџ•µпёЏ';
 let amISpectator = false;
-const avatars = ['🕵️', '🕵️‍♀️', '😎', '🧐', '🤫', '👀', '💼', '🔍', '📱', '🎮', '🍕', '🐱', '🐶', '🦄', '👽', '🤖'];
+const avatars = ['рџ•µпёЏ', 'рџ•µпёЏвЂЌв™ЂпёЏ', 'рџЋ', 'рџ§ђ', 'рџ¤«', 'рџ‘Ђ', 'рџ’ј', 'рџ”Ќ', 'рџ“±', 'рџЋ®', 'рџЌ•', 'рџђ±', 'рџђ¶', 'рџ¦„', 'рџ‘Ѕ', 'рџ¤–'];
 
-// Променливи за регистрация
+// РџСЂРѕРјРµРЅР»РёРІРё Р·Р° СЂРµРіРёСЃС‚СЂР°С†РёСЏ
 let isRegistrationShown = false;
 let isUserRegistered = false;
 
-// DOM елементи
+// DOM РµР»РµРјРµРЅС‚Рё
 const setupScreen = document.getElementById('setup-screen');
 const gameScreen = document.getElementById('game-screen');
 const resultsScreen = document.getElementById('results-screen');
@@ -522,12 +520,12 @@ const timerDisplay = document.getElementById('timer');
 const imagesContainer = document.getElementById('images-container');
 const resultsList = document.getElementById('results-list');
 
-// Модален прозорец за правилата
+// РњРѕРґР°Р»РµРЅ РїСЂРѕР·РѕСЂРµС† Р·Р° РїСЂР°РІРёР»Р°С‚Р°
 const rulesModal = document.getElementById('rules-modal');
 const showRulesBtn = document.getElementById('show-rules');
 const closeModalBtn = document.querySelector('.close-modal');
 
-// DOM елементи за модали
+// DOM РµР»РµРјРµРЅС‚Рё Р·Р° РјРѕРґР°Р»Рё
 const welcomeModal = document.getElementById('welcome-modal');
 const registrationModal = document.getElementById('registration-modal');
 const registrationForm = document.getElementById('registration-form');
@@ -544,7 +542,7 @@ const loginBtn = document.getElementById('login-btn');
 const registerBtn = document.getElementById('register-btn');
 const logoutBtn = document.getElementById('logout-btn');
 
-// --- Онлайн DOM Елементи ---
+// --- РћРЅР»Р°Р№РЅ DOM Р•Р»РµРјРµРЅС‚Рё ---
 const modeSelectionScreen = document.getElementById('mode-selection-screen');
 const localModeBtn = document.getElementById('local-mode-btn');
 const onlineModeBtn = document.getElementById('online-mode-btn');
@@ -573,11 +571,11 @@ const gameRoomInfoDisplay = document.getElementById('game-room-info');
 const localControls = document.getElementById('local-controls');
 const spectatorModeCheckbox = document.getElementById('spectator-mode');
 
-// Бутони за welcome модала
+// Р‘СѓС‚РѕРЅРё Р·Р° welcome РјРѕРґР°Р»Р°
 const startRegistrationBtn = document.getElementById('start-registration-btn');
 const loginFromWelcomeBtn = document.getElementById('login-from-welcome-btn');
 
-// Функция за фонови частици
+// Р¤СѓРЅРєС†РёСЏ Р·Р° С„РѕРЅРѕРІРё С‡Р°СЃС‚РёС†Рё
 function initParticles() {
     const container = document.getElementById('mesh-background-fx');
     if (!container) return;
@@ -596,11 +594,10 @@ function initParticles() {
 function showScreen(screen) {
     if (!screen) return;
     
-    // Всички възможни екрани
+    // Р’СЃРёС‡РєРё РІСЉР·РјРѕР¶РЅРё РµРєСЂР°РЅРё
     const screens = [
         modeSelectionScreen, setupScreen, onlineSetupScreen,
-        profileSetupScreen, lobbyScreen, gameScreen, resultsScreen,
-        rulesScreen, historyScreen
+        profileSetupScreen, lobbyScreen, gameScreen, resultsScreen
     ].filter(s => s !== null);
 
     screens.forEach(s => {
@@ -611,11 +608,11 @@ function showScreen(screen) {
     screen.classList.remove('hidden');
     screen.classList.add('animate__animated', 'animate__fadeIn');
     
-    // Добавяме лек "pop" ефект за прехода
+    // Р”РѕР±Р°РІСЏРјРµ Р»РµРє "pop" РµС„РµРєС‚ Р·Р° РїСЂРµС…РѕРґР°
     screen.style.animation = 'screenEnter 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
 }
 
-// Глобална функция за красиви съобщения
+// Р“Р»РѕР±Р°Р»РЅР° С„СѓРЅРєС†РёСЏ Р·Р° РєСЂР°СЃРёРІРё СЃСЉРѕР±С‰РµРЅРёСЏ
 function showNotification(title, text, icon = 'info') {
     return Swal.fire({
         title: title,
@@ -631,7 +628,7 @@ function showNotification(title, text, icon = 'info') {
     });
 }
 
-// Добавяне на аудио обратна връзка (визуална) за бутоните
+// Р”РѕР±Р°РІСЏРЅРµ РЅР° Р°СѓРґРёРѕ РѕР±СЂР°С‚РЅР° РІСЂСЉР·РєР° (РІРёР·СѓР°Р»РЅР°) Р·Р° Р±СѓС‚РѕРЅРёС‚Рµ
 document.querySelectorAll('.btn').forEach(btn => {
     btn.addEventListener('click', () => {
         btn.style.transform = 'scale(0.95)';
@@ -641,7 +638,7 @@ document.querySelectorAll('.btn').forEach(btn => {
     });
 });
 
-// Генериране на нивата при зареждане на страницата
+// Р“РµРЅРµСЂРёСЂР°РЅРµ РЅР° РЅРёРІР°С‚Р° РїСЂРё Р·Р°СЂРµР¶РґР°РЅРµ РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р°
 function generateGameLevels() {
     gameLevels = [];
     let availableImages;
@@ -649,10 +646,10 @@ function generateGameLevels() {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     
     if (currentUser && currentUser.username && isLoggedIn) {
-        // За регистрирани потребители - използваме пълния масив с картини
+        // Р—Р° СЂРµРіРёСЃС‚СЂРёСЂР°РЅРё РїРѕС‚СЂРµР±РёС‚РµР»Рё - РёР·РїРѕР»Р·РІР°РјРµ РїСЉР»РЅРёСЏ РјР°СЃРёРІ СЃ РєР°СЂС‚РёРЅРё
         availableImages = getUserImagesPool(currentUser.username);
     } else {
-        // За нерегистрирани потребители - използваме само 5-те картини
+        // Р—Р° РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅРё РїРѕС‚СЂРµР±РёС‚РµР»Рё - РёР·РїРѕР»Р·РІР°РјРµ СЃР°РјРѕ 5-С‚Рµ РєР°СЂС‚РёРЅРё
         availableImages = [...guestImages];
         for (let i = availableImages.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -665,7 +662,7 @@ function generateGameLevels() {
         if (currentUser && currentUser.username && isLoggedIn) {
             image = getNextImageForUser(currentUser.username);
         } else {
-            // За нерегистрирани потребители - циклично използваме 5-те картини
+            // Р—Р° РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅРё РїРѕС‚СЂРµР±РёС‚РµР»Рё - С†РёРєР»РёС‡РЅРѕ РёР·РїРѕР»Р·РІР°РјРµ 5-С‚Рµ РєР°СЂС‚РёРЅРё
             if (availableImages.length === 0) {
                 availableImages = [...guestImages];
                 for (let j = availableImages.length - 1; j > 0; j--) {
@@ -683,19 +680,19 @@ function generateGameLevels() {
     }
 }
 
-// Функция за получаване на картини за нерегистрирани потребители
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕР»СѓС‡Р°РІР°РЅРµ РЅР° РєР°СЂС‚РёРЅРё Р·Р° РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅРё РїРѕС‚СЂРµР±РёС‚РµР»Рё
 function getGuestImagesPool() {
     return [...guestImages];
 }
 
-// Функция за получаване на следваща картина за нерегистрирани потребители
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕР»СѓС‡Р°РІР°РЅРµ РЅР° СЃР»РµРґРІР°С‰Р° РєР°СЂС‚РёРЅР° Р·Р° РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅРё РїРѕС‚СЂРµР±РёС‚РµР»Рё
 function getNextGuestImage() {
     const availableImages = getGuestImagesPool();
     const randomIndex = Math.floor(Math.random() * availableImages.length);
     return availableImages[randomIndex];
 }
 
-// Зареждане на страницата
+// Р—Р°СЂРµР¶РґР°РЅРµ РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р°
 window.addEventListener('load', () => {
     const savedPlayerCount = localStorage.getItem('lastPlayerCount');
     if (savedPlayerCount) {
@@ -703,30 +700,30 @@ window.addEventListener('load', () => {
         totalPlayers = parseInt(savedPlayerCount);
     }
     
-    // Показваме първо избора на режим
+    // РџРѕРєР°Р·РІР°РјРµ РїСЉСЂРІРѕ РёР·Р±РѕСЂР° РЅР° СЂРµР¶РёРј
     showScreen(modeSelectionScreen);
     
     generateGameLevels();
     updateProfilePanel();
     initAvatarSelection();
     
-    // Инициализиране на фонови частици
+    // РРЅРёС†РёР°Р»РёР·РёСЂР°РЅРµ РЅР° С„РѕРЅРѕРІРё С‡Р°СЃС‚РёС†Рё
     initParticles();
 
-    // Проверка за стая в URL
+    // РџСЂРѕРІРµСЂРєР° Р·Р° СЃС‚Р°СЏ РІ URL
     const urlParams = new URLSearchParams(window.location.search);
     const roomFromUrl = urlParams.get('room');
     if (roomFromUrl) {
         isOnline = true;
         roomCode = roomFromUrl.toUpperCase();
         
-        // Проверка дали потребителят е логнат
+        // РџСЂРѕРІРµСЂРєР° РґР°Р»Рё РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ Р»РѕРіРЅР°С‚
         if (typeof auth !== 'undefined' && !auth.currentUser) {
             showNotification(translateText('attention_title'), translateText('registration_required'), 'warning')
             .then(() => {
                 showWelcomeModal();
             });
-            // Запазваме кода в инпута за по-късно
+            // Р—Р°РїР°Р·РІР°РјРµ РєРѕРґР° РІ РёРЅРїСѓС‚Р° Р·Р° РїРѕ-РєСЉСЃРЅРѕ
             roomCodeInput.value = roomCode;
         } else {
             showScreen(profileSetupScreen);
@@ -752,7 +749,7 @@ function initAvatarSelection() {
     });
 }
 
-// Увеличаване на броя играчи
+// РЈРІРµР»РёС‡Р°РІР°РЅРµ РЅР° Р±СЂРѕСЏ РёРіСЂР°С‡Рё
 increasePlayersBtn.addEventListener('click', () => {
     const currentCount = parseInt(playerCountInput.value);
     if (currentCount < 8) {
@@ -760,7 +757,7 @@ increasePlayersBtn.addEventListener('click', () => {
     }
 });
 
-// Намаляване на броя играчи
+// РќР°РјР°Р»СЏРІР°РЅРµ РЅР° Р±СЂРѕСЏ РёРіСЂР°С‡Рё
 decreasePlayersBtn.addEventListener('click', () => {
     const currentCount = parseInt(playerCountInput.value);
     if (currentCount > 3) {
@@ -768,9 +765,9 @@ decreasePlayersBtn.addEventListener('click', () => {
     }
 });
 
-// --- Функции за Обслужване на Екрани ---
+// --- Р¤СѓРЅРєС†РёРё Р·Р° РћР±СЃР»СѓР¶РІР°РЅРµ РЅР° Р•РєСЂР°РЅРё ---
 
-// Потребителски Интерфейс (Слушатели за Режими)
+// РџРѕС‚СЂРµР±РёС‚РµР»СЃРєРё РРЅС‚РµСЂС„РµР№СЃ (РЎР»СѓС€Р°С‚РµР»Рё Р·Р° Р РµР¶РёРјРё)
 localModeBtn?.addEventListener('click', () => {
     isOnline = false;
     showScreen(setupScreen);
@@ -793,20 +790,20 @@ joinRoomBtn?.addEventListener('click', () => {
     if (code.length === 6) {
         joinExistingRoom(code);
     } else {
-        showNotification('Грешка', 'Моля, въведете 6-цифрен код!', 'error');
+        showNotification('Р“СЂРµС€РєР°', 'РњРѕР»СЏ, РІСЉРІРµРґРµС‚Рµ 6-С†РёС„СЂРµРЅ РєРѕРґ!', 'error');
     }
 });
 
 confirmProfileBtn?.addEventListener('click', () => {
     const nickname = onlineNicknameInput.value.trim();
     if (!nickname) {
-        Swal.fire('Грешка', 'Моля, въведете прякор!', 'error');
+        Swal.fire('Р“СЂРµС€РєР°', 'РњРѕР»СЏ, РІСЉРІРµРґРµС‚Рµ РїСЂСЏРєРѕСЂ!', 'error');
         return;
     }
     
-    // Проверка за логнат потребител преди продължаване
+    // РџСЂРѕРІРµСЂРєР° Р·Р° Р»РѕРіРЅР°С‚ РїРѕС‚СЂРµР±РёС‚РµР» РїСЂРµРґРё РїСЂРѕРґСЉР»Р¶Р°РІР°РЅРµ
     if (typeof auth !== 'undefined' && !auth.currentUser) {
-        Swal.fire('Грешка', translateText('registration_required'), 'error').then(() => {
+        Swal.fire('Р“СЂРµС€РєР°', translateText('registration_required'), 'error').then(() => {
             showWelcomeModal();
         });
         return;
@@ -821,8 +818,8 @@ inviteBtn?.addEventListener('click', () => {
     const inviteUrl = `${window.location.origin}${window.location.pathname}?room=${roomCode}`;
     navigator.clipboard.writeText(inviteUrl).then(() => {
         Swal.fire({
-            title: 'Копирано!',
-            text: 'Линкът за покана е копиран в клипборда.',
+            title: 'РљРѕРїРёСЂР°РЅРѕ!',
+            text: 'Р›РёРЅРєСЉС‚ Р·Р° РїРѕРєР°РЅР° Рµ РєРѕРїРёСЂР°РЅ РІ РєР»РёРїР±РѕСЂРґР°.',
             icon: 'success',
             timer: 2000,
             showConfirmButton: false
@@ -844,17 +841,17 @@ playerWordInput?.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') submitWordBtn.click();
 });
 
-// Слушател за клавиша SPACE
+// РЎР»СѓС€Р°С‚РµР» Р·Р° РєР»Р°РІРёС€Р° SPACE
 document.addEventListener('keydown', (e) => {
     if (e.code === 'Space' && gameScreen.classList.contains('hidden') === false) {
         e.preventDefault();
-        // Проверяваме дали броенето е активно
+        // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё Р±СЂРѕРµРЅРµС‚Рѕ Рµ Р°РєС‚РёРІРЅРѕ
         if (isCountdownActive) {
-            return; // Ако броенето е активно, не позволяваме натискането на SPACE
+            return; // РђРєРѕ Р±СЂРѕРµРЅРµС‚Рѕ Рµ Р°РєС‚РёРІРЅРѕ, РЅРµ РїРѕР·РІРѕР»СЏРІР°РјРµ РЅР°С‚РёСЃРєР°РЅРµС‚Рѕ РЅР° SPACE
         }
-        // Проверяваме дали сме на екрана за край на нивото
+        // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё СЃРјРµ РЅР° РµРєСЂР°РЅР° Р·Р° РєСЂР°Р№ РЅР° РЅРёРІРѕС‚Рѕ
         if (imagesContainer.querySelector('.level-end')) {
-            // Преминаваме към следващото ниво
+            // РџСЂРµРјРёРЅР°РІР°РјРµ РєСЉРј СЃР»РµРґРІР°С‰РѕС‚Рѕ РЅРёРІРѕ
             currentPlayer = 1;
             showCountdown();
         } else {
@@ -863,15 +860,15 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Старият event listener е премахнат - сега използваме новия в края на файла
+// РЎС‚Р°СЂРёСЏС‚ event listener Рµ РїСЂРµРјР°С…РЅР°С‚ - СЃРµРіР° РёР·РїРѕР»Р·РІР°РјРµ РЅРѕРІРёСЏ РІ РєСЂР°СЏ РЅР° С„Р°Р№Р»Р°
 
-// Показване на обратен брояч
+// РџРѕРєР°Р·РІР°РЅРµ РЅР° РѕР±СЂР°С‚РµРЅ Р±СЂРѕСЏС‡
 function showCountdown() {
     let count = 3;
-    isCountdownActive = true; // Започваме броенето
-    setNextPlayerButtonEnabled(false); // Деактивираме бутона
+    isCountdownActive = true; // Р—Р°РїРѕС‡РІР°РјРµ Р±СЂРѕРµРЅРµС‚Рѕ
+    setNextPlayerButtonEnabled(false); // Р”РµР°РєС‚РёРІРёСЂР°РјРµ Р±СѓС‚РѕРЅР°
     
-    // Добавяме Pac-Man loader над обратния брояч
+    // Р”РѕР±Р°РІСЏРјРµ Pac-Man loader РЅР°Рґ РѕР±СЂР°С‚РЅРёСЏ Р±СЂРѕСЏС‡
     imagesContainer.innerHTML = `
         <div class="countdown-container">
             <div class="pacman-loader">
@@ -898,39 +895,39 @@ function showCountdown() {
     countdownInterval = setInterval(() => {
         count--;
         if (count > 0) {
-            // Обновяваме само брояча, запазвайки loader-а
+            // РћР±РЅРѕРІСЏРІР°РјРµ СЃР°РјРѕ Р±СЂРѕСЏС‡Р°, Р·Р°РїР°Р·РІР°Р№РєРё loader-Р°
             const countdownElement = imagesContainer.querySelector('.countdown');
             if (countdownElement) {
                 countdownElement.textContent = count;
             }
         } else {
             clearInterval(countdownInterval);
-            isCountdownActive = false; // Край на броенето
+            isCountdownActive = false; // РљСЂР°Р№ РЅР° Р±СЂРѕРµРЅРµС‚Рѕ
             showPlayerScreen();
         }
     }, 1000);
 }
 
-// Показване на екрана на играча
+// РџРѕРєР°Р·РІР°РЅРµ РЅР° РµРєСЂР°РЅР° РЅР° РёРіСЂР°С‡Р°
 function showPlayerScreen() {
-    setNextPlayerButtonEnabled(true); // Активираме бутона
+    setNextPlayerButtonEnabled(true); // РђРєС‚РёРІРёСЂР°РјРµ Р±СѓС‚РѕРЅР°
     
     console.log('=== showPlayerScreen DEBUG ===');
     console.log('currentLevel:', currentLevel);
     console.log('gameLevels.length:', gameLevels.length);
     console.log('gameLevels:', gameLevels);
     
-    // Проверяваме дали има валиден level
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РёРјР° РІР°Р»РёРґРµРЅ level
     if (!gameLevels || currentLevel >= gameLevels.length) {
-        console.log('Генерираме едно ниво при нужда...');
-        // Използваме новата функция за генериране на едно ниво
+        console.log('Р“РµРЅРµСЂРёСЂР°РјРµ РµРґРЅРѕ РЅРёРІРѕ РїСЂРё РЅСѓР¶РґР°...');
+        // РР·РїРѕР»Р·РІР°РјРµ РЅРѕРІР°С‚Р° С„СѓРЅРєС†РёСЏ Р·Р° РіРµРЅРµСЂРёСЂР°РЅРµ РЅР° РµРґРЅРѕ РЅРёРІРѕ
         generateSingleLevelAsync().then((level) => {
-            console.log('✅ Едно ниво генерирано:', level);
+            console.log('вњ… Р•РґРЅРѕ РЅРёРІРѕ РіРµРЅРµСЂРёСЂР°РЅРѕ:', level);
             gameLevels.push(level);
             showPlayerScreenContent();
         }).catch(error => {
-            console.error('Грешка при генериране на ниво:', error);
-            // Fallback към локално генериране
+            console.error('Р“СЂРµС€РєР° РїСЂРё РіРµРЅРµСЂРёСЂР°РЅРµ РЅР° РЅРёРІРѕ:', error);
+            // Fallback РєСЉРј Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ
             generateGameLevels();
             showPlayerScreenContent();
         });
@@ -943,36 +940,36 @@ function showPlayerScreen() {
 function showPlayerScreenContent() {
     const level = gameLevels[currentLevel];
     if (!level) {
-        console.error('❌ Грешка: level е undefined за currentLevel:', currentLevel);
+        console.error('вќЊ Р“СЂРµС€РєР°: level Рµ undefined Р·Р° currentLevel:', currentLevel);
         return;
     }
     
     const isImpostor = currentPlayer === level.impostor;
-    console.log('✅ Level намерен:', level);
+    console.log('вњ… Level РЅР°РјРµСЂРµРЅ:', level);
     console.log('currentPlayer:', currentPlayer, 'isImpostor:', isImpostor);
     
-    // Обновяваме текста на играча
+    // РћР±РЅРѕРІСЏРІР°РјРµ С‚РµРєСЃС‚Р° РЅР° РёРіСЂР°С‡Р°
     const buttonText = currentPlayerDisplay.querySelector('.button-text');
     if (buttonText) {
         buttonText.textContent = `${translateText('player')} ${currentPlayer}`;
     }
 
-    // Изчистваме контейнера първо
+    // РР·С‡РёСЃС‚РІР°РјРµ РєРѕРЅС‚РµР№РЅРµСЂР° РїСЉСЂРІРѕ
     imagesContainer.innerHTML = '';
 
     if (isImpostor) {
-        // Импостърът не вижда изображението
+        // РРјРїРѕСЃС‚СЉСЂСЉС‚ РЅРµ РІРёР¶РґР° РёР·РѕР±СЂР°Р¶РµРЅРёРµС‚Рѕ
         imagesContainer.innerHTML = `
             <div class="impostor-message">
                 <i class="fas fa-user-secret impostor-icon"></i>
                 <div>${translateText('you_are_impostor')} ${translateText('dont_tell_others')}</div>
             </div>`;
     } else {
-        // Останалите играчи виждат изображението
+        // РћСЃС‚Р°РЅР°Р»РёС‚Рµ РёРіСЂР°С‡Рё РІРёР¶РґР°С‚ РёР·РѕР±СЂР°Р¶РµРЅРёРµС‚Рѕ
         const imageCard = document.createElement('div');
         imageCard.className = 'image-card';
         
-        // Добавяме loader-а
+        // Р”РѕР±Р°РІСЏРјРµ loader-Р°
         const loaderHTML = `
             <div class="image-loader">
                 <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="loader">
@@ -992,7 +989,7 @@ function showPlayerScreenContent() {
                     <path pathLength="360" d="M 49.5975 9.0325 V 19.3422 H 38.689 C 38.5937 18.6105 38.5061 17.9301 38.4329 17.3569 C 38.2063 15.5828 37.4422 13.9868 36.2237 12.7413 C 34.8748 11.3624 33.2514 10.6633 31.3984 10.6633 C 27.3688 10.6633 25.8233 13.5309 25.556 15.0901 C 25.1526 15.5932 24.3175 16.7856 23.916 18.46 C 23.8568 18.7069 23.8106 19.0066 23.7778 19.3421 H 14.4025 V 9.0323 H 49.5975 Z" />
                     <path pathLength="360" d="M 30.2223 21.2875 C 30.5674 21.2875 30.8471 21.0195 30.8471 20.6889 V 18.92 L 31.9916 18.9675 C 32.3376 18.9833 32.628 18.7259 32.643 18.3956 C 32.658 18.0654 32.3907 17.786 32.0459 17.7717 L 30.2495 17.6969 C 30.077 17.6889 29.9133 17.7497 29.7902 17.8624 C 29.6671 17.9753 29.5976 18.1315 29.5976 18.2948 V 20.6889 C 29.5974 21.0195 29.8772 21.2875 30.2223 21.2875 Z" />
                 </svg>
-                <div class="image-loader-text">Зареждам снимката...</div>
+                <div class="image-loader-text">Р—Р°СЂРµР¶РґР°Рј СЃРЅРёРјРєР°С‚Р°...</div>
             </div>
             <img src="${level.image}" alt="Image" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
         `;
@@ -1000,19 +997,19 @@ function showPlayerScreenContent() {
         imageCard.innerHTML = loaderHTML;
         imagesContainer.appendChild(imageCard);
     }
-    // Само ако не е първото показване, може да има автоматична смяна (ако някъде има setTimeout или подобно)
+    // РЎР°РјРѕ Р°РєРѕ РЅРµ Рµ РїСЉСЂРІРѕС‚Рѕ РїРѕРєР°Р·РІР°РЅРµ, РјРѕР¶Рµ РґР° РёРјР° Р°РІС‚РѕРјР°С‚РёС‡РЅР° СЃРјСЏРЅР° (Р°РєРѕ РЅСЏРєСЉРґРµ РёРјР° setTimeout РёР»Рё РїРѕРґРѕР±РЅРѕ)
     isFirstPlayerScreen = false;
 }
 
-// Показване на екрана за край на нивото
+// РџРѕРєР°Р·РІР°РЅРµ РЅР° РµРєСЂР°РЅР° Р·Р° РєСЂР°Р№ РЅР° РЅРёРІРѕС‚Рѕ
 function showLevelEnd() {
-    console.log('[LIMIT DEBUG] showLevelEnd извикана');
-    console.log('currentLevel преди:', currentLevel);
+    console.log('[LIMIT DEBUG] showLevelEnd РёР·РІРёРєР°РЅР°');
+    console.log('currentLevel РїСЂРµРґРё:', currentLevel);
     
     const currentLevelData = gameLevels[currentLevel - 1];
-    // Скриваме бутоните най-отдолу
+    // РЎРєСЂРёРІР°РјРµ Р±СѓС‚РѕРЅРёС‚Рµ РЅР°Р№-РѕС‚РґРѕР»Сѓ
     document.querySelector('.game-controls').style.display = 'none';
-    // Създаваме бутона за нов рунд
+    // РЎСЉР·РґР°РІР°РјРµ Р±СѓС‚РѕРЅР° Р·Р° РЅРѕРІ СЂСѓРЅРґ
     let newRoundBtn = document.getElementById('start-new-round');
     if (!newRoundBtn) {
         newRoundBtn = document.createElement('button');
@@ -1049,7 +1046,7 @@ function showLevelEnd() {
             </div>
         </div>
     `;
-    // Добавяме бутона след .game-controls
+    // Р”РѕР±Р°РІСЏРјРµ Р±СѓС‚РѕРЅР° СЃР»РµРґ .game-controls
     const gameControls = document.querySelector('.game-controls');
     if (gameControls.nextSibling) {
         gameControls.parentNode.insertBefore(newRoundBtn, gameControls.nextSibling);
@@ -1057,7 +1054,7 @@ function showLevelEnd() {
         gameControls.parentNode.appendChild(newRoundBtn);
     }
     
-    // Добавяме event listener за бутона за разкриване на импостъра
+    // Р”РѕР±Р°РІСЏРјРµ event listener Р·Р° Р±СѓС‚РѕРЅР° Р·Р° СЂР°Р·РєСЂРёРІР°РЅРµ РЅР° РёРјРїРѕСЃС‚СЉСЂР°
     const revealImpostorBtn = document.getElementById('reveal-impostor-btn');
     if (revealImpostorBtn) {
         revealImpostorBtn.addEventListener('click', () => {
@@ -1065,20 +1062,20 @@ function showLevelEnd() {
             const revealBtn = document.getElementById('reveal-impostor-btn');
             
             if (revealContent && revealBtn) {
-                // Скриваме бутона
+                // РЎРєСЂРёРІР°РјРµ Р±СѓС‚РѕРЅР°
                 revealBtn.style.display = 'none';
-                // Показваме съдържанието с анимация
+                // РџРѕРєР°Р·РІР°РјРµ СЃСЉРґСЉСЂР¶Р°РЅРёРµС‚Рѕ СЃ Р°РЅРёРјР°С†РёСЏ
                 revealContent.style.display = 'block';
                 revealContent.classList.add('animate__animated', 'animate__fadeIn');
                 
-                // Добавяме допълнителни ефекти
+                // Р”РѕР±Р°РІСЏРјРµ РґРѕРїСЉР»РЅРёС‚РµР»РЅРё РµС„РµРєС‚Рё
                 setTimeout(() => {
                     revealContent.classList.add('animate__heartBeat');
                 }, 500);
             }
         });
     }
-    // Слушател за бутона
+    // РЎР»СѓС€Р°С‚РµР» Р·Р° Р±СѓС‚РѕРЅР°
     newRoundBtn.onclick = () => {
         currentPlayer = 1;
         document.querySelector('.game-controls').style.display = '';
@@ -1086,60 +1083,60 @@ function showLevelEnd() {
         showCountdown();
     };
 
-    // Показваме регистрацията веднага след първия рунд
+    // РџРѕРєР°Р·РІР°РјРµ СЂРµРіРёСЃС‚СЂР°С†РёСЏС‚Р° РІРµРґРЅР°РіР° СЃР»РµРґ РїСЉСЂРІРёСЏ СЂСѓРЅРґ
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    console.log('Проверка за регистрация след първи рунд:');
+    console.log('РџСЂРѕРІРµСЂРєР° Р·Р° СЂРµРіРёСЃС‚СЂР°С†РёСЏ СЃР»РµРґ РїСЉСЂРІРё СЂСѓРЅРґ:');
     console.log('- currentLevel:', currentLevel, '| Number(currentLevel) === 1:', Number(currentLevel) === 1);
     console.log('- isLoggedIn:', isLoggedIn);
     console.log('- registrationModal.style.display:', registrationModal.style.display);
     if (Number(currentLevel) === 1 && isLoggedIn !== 'true' && registrationModal.style.display !== 'block') {
-        console.log('Показваме формата за регистрация, защото не си влязъл!');
+        console.log('РџРѕРєР°Р·РІР°РјРµ С„РѕСЂРјР°С‚Р° Р·Р° СЂРµРіРёСЃС‚СЂР°С†РёСЏ, Р·Р°С‰РѕС‚Рѕ РЅРµ СЃРё РІР»СЏР·СЉР»!');
         setTimeout(() => {
             showRegistration();
         }, 1000);
     } else {
-        console.log('НЕ показваме формата за регистрация. Условията не са изпълнени.');
+        console.log('РќР• РїРѕРєР°Р·РІР°РјРµ С„РѕСЂРјР°С‚Р° Р·Р° СЂРµРіРёСЃС‚СЂР°С†РёСЏ. РЈСЃР»РѕРІРёСЏС‚Р° РЅРµ СЃР° РёР·РїСЉР»РЅРµРЅРё.');
     }
     
-    console.log('=== showLevelEnd завършена ===');
-    // Записваме изиграна игра и проверяваме лимита при всеки рунд
+    console.log('=== showLevelEnd Р·Р°РІСЉСЂС€РµРЅР° ===');
+    // Р—Р°РїРёСЃРІР°РјРµ РёР·РёРіСЂР°РЅР° РёРіСЂР° Рё РїСЂРѕРІРµСЂСЏРІР°РјРµ Р»РёРјРёС‚Р° РїСЂРё РІСЃРµРєРё СЂСѓРЅРґ
     recordGame();
     roundsPlayed++;
-    // Проверка за лимит на всеки 3 рунда
+    // РџСЂРѕРІРµСЂРєР° Р·Р° Р»РёРјРёС‚ РЅР° РІСЃРµРєРё 3 СЂСѓРЅРґР°
     checkFreeGameLimitAndMaybeBlock(() => {
-        // нищо, просто позволяваме да продължи рунда
+        // РЅРёС‰Рѕ, РїСЂРѕСЃС‚Рѕ РїРѕР·РІРѕР»СЏРІР°РјРµ РґР° РїСЂРѕРґСЉР»Р¶Рё СЂСѓРЅРґР°
     });
 }
 
-// Следващ играч
+// РЎР»РµРґРІР°С‰ РёРіСЂР°С‡
 function nextPlayer() {
     currentPlayer++;
-    console.log('=== nextPlayer извикана ===');
-    console.log('currentPlayer:', currentPlayer, 'totalPlayers:', totalPlayers, 'currentLevel преди:', currentLevel);
+    console.log('=== nextPlayer РёР·РІРёРєР°РЅР° ===');
+    console.log('currentPlayer:', currentPlayer, 'totalPlayers:', totalPlayers, 'currentLevel РїСЂРµРґРё:', currentLevel);
     
     if (currentPlayer > totalPlayers) {
-        // Край на нивото
+        // РљСЂР°Р№ РЅР° РЅРёРІРѕС‚Рѕ
         currentLevel++;
-        console.log('Край на нивото - нов currentLevel:', currentLevel, 'totalLevels:', totalLevels);
+        console.log('РљСЂР°Р№ РЅР° РЅРёРІРѕС‚Рѕ - РЅРѕРІ currentLevel:', currentLevel, 'totalLevels:', totalLevels);
         
         if (currentLevel >= gameLevels.length) {
-            // Генерираме едно ниво при нужда
-            console.log('Генерираме едно ниво при нужда...');
+            // Р“РµРЅРµСЂРёСЂР°РјРµ РµРґРЅРѕ РЅРёРІРѕ РїСЂРё РЅСѓР¶РґР°
+            console.log('Р“РµРЅРµСЂРёСЂР°РјРµ РµРґРЅРѕ РЅРёРІРѕ РїСЂРё РЅСѓР¶РґР°...');
             generateSingleLevelAsync().then((level) => {
-                console.log('✅ Едно ниво генерирано:', level);
+                console.log('вњ… Р•РґРЅРѕ РЅРёРІРѕ РіРµРЅРµСЂРёСЂР°РЅРѕ:', level);
                 gameLevels.push(level);
                 if (currentLevel >= totalLevels) {
-                    // Играта приключи
-                    console.log('Играта приключи, показваме резултати...');
+                    // РРіСЂР°С‚Р° РїСЂРёРєР»СЋС‡Рё
+                    console.log('РРіСЂР°С‚Р° РїСЂРёРєР»СЋС‡Рё, РїРѕРєР°Р·РІР°РјРµ СЂРµР·СѓР»С‚Р°С‚Рё...');
                     showResults();
                 } else {
-                    // Показваме екрана за край на нивото
-                    console.log('Показваме край на нивото...');
+                    // РџРѕРєР°Р·РІР°РјРµ РµРєСЂР°РЅР° Р·Р° РєСЂР°Р№ РЅР° РЅРёРІРѕС‚Рѕ
+                    console.log('РџРѕРєР°Р·РІР°РјРµ РєСЂР°Р№ РЅР° РЅРёРІРѕС‚Рѕ...');
                     showLevelEnd();
                 }
             }).catch(error => {
-                console.error('Грешка при генериране на ниво:', error);
-                // Fallback към локално генериране
+                console.error('Р“СЂРµС€РєР° РїСЂРё РіРµРЅРµСЂРёСЂР°РЅРµ РЅР° РЅРёРІРѕ:', error);
+                // Fallback РєСЉРј Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ
                 generateGameLevels();
                 if (currentLevel >= totalLevels) {
                     showResults();
@@ -1150,25 +1147,25 @@ function nextPlayer() {
             return;
         }
         if (currentLevel >= totalLevels) {
-            // Играта приключи
-            console.log('Играта приключи, показваме резултати...');
+            // РРіСЂР°С‚Р° РїСЂРёРєР»СЋС‡Рё
+            console.log('РРіСЂР°С‚Р° РїСЂРёРєР»СЋС‡Рё, РїРѕРєР°Р·РІР°РјРµ СЂРµР·СѓР»С‚Р°С‚Рё...');
             showResults();
         } else {
-            // Показваме екрана за край на нивото
-            console.log('Показваме край на нивото...');
+            // РџРѕРєР°Р·РІР°РјРµ РµРєСЂР°РЅР° Р·Р° РєСЂР°Р№ РЅР° РЅРёРІРѕС‚Рѕ
+            console.log('РџРѕРєР°Р·РІР°РјРµ РєСЂР°Р№ РЅР° РЅРёРІРѕС‚Рѕ...');
             showLevelEnd();
         }
     } else {
-        console.log('Продължаваме със следващия играч');
+        console.log('РџСЂРѕРґСЉР»Р¶Р°РІР°РјРµ СЃСЉСЃ СЃР»РµРґРІР°С‰РёСЏ РёРіСЂР°С‡');
         showCountdown();
     }
     
-    console.log('=== nextPlayer завършена ===');
+    console.log('=== nextPlayer Р·Р°РІСЉСЂС€РµРЅР° ===');
 }
 
-// Показване на резултати
+// РџРѕРєР°Р·РІР°РЅРµ РЅР° СЂРµР·СѓР»С‚Р°С‚Рё
 function showResults() {
-    console.log('[LIMIT DEBUG] showResults извикана');
+    console.log('[LIMIT DEBUG] showResults РёР·РІРёРєР°РЅР°');
     console.log('currentLevel:', currentLevel);
     console.log('isUserRegistered:', isUserRegistered);
     
@@ -1182,12 +1179,12 @@ function showResults() {
             <span class="score">${translateText('you_are_impostor')}</span>
         </div>
     `;
-    recordGame(); // Записваме изиграна игра за текущия потребител
+    recordGame(); // Р—Р°РїРёСЃРІР°РјРµ РёР·РёРіСЂР°РЅР° РёРіСЂР° Р·Р° С‚РµРєСѓС‰РёСЏ РїРѕС‚СЂРµР±РёС‚РµР»
 }
 
-// Нова игра
+// РќРѕРІР° РёРіСЂР°
 newGameBtn.addEventListener('click', () => {
-    // Записваме изиграна игра за текущия потребител ПРЕДИ да проверим лимита
+    // Р—Р°РїРёСЃРІР°РјРµ РёР·РёРіСЂР°РЅР° РёРіСЂР° Р·Р° С‚РµРєСѓС‰РёСЏ РїРѕС‚СЂРµР±РёС‚РµР» РџР Р•Р”Р РґР° РїСЂРѕРІРµСЂРёРј Р»РёРјРёС‚Р°
     recordGame();
     checkFreeGameLimitAndMaybeBlock(() => {
         resultsScreen.classList.add('hidden');
@@ -1196,33 +1193,33 @@ newGameBtn.addEventListener('click', () => {
     });
 });
 
-// Рестартиране на играта
+// Р РµСЃС‚Р°СЂС‚РёСЂР°РЅРµ РЅР° РёРіСЂР°С‚Р°
 function resetGame() {
-    console.log('[LIMIT DEBUG] resetGame извикана');
+    console.log('[LIMIT DEBUG] resetGame РёР·РІРёРєР°РЅР°');
     currentPlayer = 1;
     totalPlayers = 0;
     currentLevel = 0;
-    roundsPlayed = 0; // Нулираме брояча при нова игра
-    gameLevels = []; // Изчистваме нивата - ще се генерират при нужда
+    roundsPlayed = 0; // РќСѓР»РёСЂР°РјРµ Р±СЂРѕСЏС‡Р° РїСЂРё РЅРѕРІР° РёРіСЂР°
+    gameLevels = []; // РР·С‡РёСЃС‚РІР°РјРµ РЅРёРІР°С‚Р° - С‰Рµ СЃРµ РіРµРЅРµСЂРёСЂР°С‚ РїСЂРё РЅСѓР¶РґР°
     clearInterval(countdownInterval);
-    // НЕ генерираме нива тук - ще се генерират при нужда
+    // РќР• РіРµРЅРµСЂРёСЂР°РјРµ РЅРёРІР° С‚СѓРє - С‰Рµ СЃРµ РіРµРЅРµСЂРёСЂР°С‚ РїСЂРё РЅСѓР¶РґР°
 }
 
-// Функция за преминаване към следващото ниво
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїСЂРµРјРёРЅР°РІР°РЅРµ РєСЉРј СЃР»РµРґРІР°С‰РѕС‚Рѕ РЅРёРІРѕ
 function nextLevel() {
     currentLevel++;
     if (currentLevel >= totalLevels) {
-        // Играта приключи
+        // РРіСЂР°С‚Р° РїСЂРёРєР»СЋС‡Рё
         showResults();
     } else {
-        // Показваме екрана за край на нивото
+        // РџРѕРєР°Р·РІР°РјРµ РµРєСЂР°РЅР° Р·Р° РєСЂР°Р№ РЅР° РЅРёРІРѕС‚Рѕ
         showLevelEnd();
     }
 }
 
-// Актуализирам логиката за натискане на бутона
+// РђРєС‚СѓР°Р»РёР·РёСЂР°Рј Р»РѕРіРёРєР°С‚Р° Р·Р° РЅР°С‚РёСЃРєР°РЅРµ РЅР° Р±СѓС‚РѕРЅР°
 nextPlayerButton.addEventListener('click', () => {
-    // Ако броенето е активно, не правим нищо
+    // РђРєРѕ Р±СЂРѕРµРЅРµС‚Рѕ Рµ Р°РєС‚РёРІРЅРѕ, РЅРµ РїСЂР°РІРёРј РЅРёС‰Рѕ
     if (isCountdownActive) {
         return;
     }
@@ -1234,7 +1231,7 @@ nextPlayerButton.addEventListener('click', () => {
     }
 });
 
-// Деактивиране/активиране на бутона по време на броенето
+// Р”РµР°РєС‚РёРІРёСЂР°РЅРµ/Р°РєС‚РёРІРёСЂР°РЅРµ РЅР° Р±СѓС‚РѕРЅР° РїРѕ РІСЂРµРјРµ РЅР° Р±СЂРѕРµРЅРµС‚Рѕ
 function setNextPlayerButtonEnabled(enabled) {
     nextPlayerButton.disabled = !enabled;
     if (!enabled) {
@@ -1248,22 +1245,22 @@ function setNextPlayerButtonEnabled(enabled) {
     }
 }
 
-// Функция за показване на надписа "СЛЕДВАЩ РУНД"
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° РЅР°РґРїРёСЃР° "РЎР›Р•Р”Р’РђР© Р РЈРќР”"
 function showNextRoundMessage() {
     const message = document.getElementById('next-round-message');
     
-    // Премахваме всички класове
+    // РџСЂРµРјР°С…РІР°РјРµ РІСЃРёС‡РєРё РєР»Р°СЃРѕРІРµ
     message.classList.remove('hidden', 'hide', 'show');
     
-    // Започваме с малък размер и невидим
+    // Р—Р°РїРѕС‡РІР°РјРµ СЃ РјР°Р»СЉРє СЂР°Р·РјРµСЂ Рё РЅРµРІРёРґРёРј
     message.style.transform = 'translate(-50%, -50%) scale(0.5)';
     message.style.opacity = '0';
     message.style.filter = 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8))';
     
-    // Показваме елемента
+    // РџРѕРєР°Р·РІР°РјРµ РµР»РµРјРµРЅС‚Р°
     message.classList.remove('hidden');
     
-    // Анимация за появяване
+    // РђРЅРёРјР°С†РёСЏ Р·Р° РїРѕСЏРІСЏРІР°РЅРµ
     setTimeout(() => {
         message.style.transition = 'all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
         message.style.transform = 'translate(-50%, -50%) scale(1.1)';
@@ -1271,14 +1268,14 @@ function showNextRoundMessage() {
         message.style.filter = 'drop-shadow(0 0 30px rgba(255, 255, 255, 1))';
     }, 10);
     
-    // Скриваме надписа след 2 секунди
+    // РЎРєСЂРёРІР°РјРµ РЅР°РґРїРёСЃР° СЃР»РµРґ 2 СЃРµРєСѓРЅРґРё
     setTimeout(() => {
-        // Анимация за изчезване
+        // РђРЅРёРјР°С†РёСЏ Р·Р° РёР·С‡РµР·РІР°РЅРµ
         message.style.transform = 'translate(-50%, -50%) scale(1.5)';
         message.style.opacity = '0';
         message.style.filter = 'drop-shadow(0 0 40px rgba(255, 255, 255, 0.6)) blur(5px)';
         
-        // След анимацията за скриване, добавяме hidden класа
+        // РЎР»РµРґ Р°РЅРёРјР°С†РёСЏС‚Р° Р·Р° СЃРєСЂРёРІР°РЅРµ, РґРѕР±Р°РІСЏРјРµ hidden РєР»Р°СЃР°
         setTimeout(() => {
             message.classList.add('hidden');
             message.style.transition = '';
@@ -1286,30 +1283,30 @@ function showNextRoundMessage() {
     }, 2000);
 }
 
-// Добавяме функционалност за бутона "Смени рунда"
+// Р”РѕР±Р°РІСЏРјРµ С„СѓРЅРєС†РёРѕРЅР°Р»РЅРѕСЃС‚ Р·Р° Р±СѓС‚РѕРЅР° "РЎРјРµРЅРё СЂСѓРЅРґР°"
 document.getElementById('end-game').addEventListener('click', () => {
-    // Проверка дали потребителят е регистриран и влязъл
+    // РџСЂРѕРІРµСЂРєР° РґР°Р»Рё РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ Рё РІР»СЏР·СЉР»
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const isRegistered = localStorage.getItem('isRegistered') === 'true';
     const currentUser = getCurrentUser();
     
-    console.log('=== СМЕНИ РУНДА - ПОДРОБНА ПРОВЕРКА ===');
+    console.log('=== РЎРњР•РќР Р РЈРќР”Рђ - РџРћР”Р РћР‘РќРђ РџР РћР’Р•Р РљРђ ===');
     console.log('localStorage isLoggedIn:', localStorage.getItem('isLoggedIn'));
     console.log('localStorage isRegistered:', localStorage.getItem('isRegistered'));
     console.log('localStorage currentUser:', localStorage.getItem('currentUser'));
     console.log('getCurrentUser():', currentUser);
     console.log('isUserRegistered:', isUserRegistered);
-    console.log('Проверка резултати:', {
+    console.log('РџСЂРѕРІРµСЂРєР° СЂРµР·СѓР»С‚Р°С‚Рё:', {
         isLoggedIn,
         isRegistered,
         hasCurrentUser: !!currentUser,
         currentUserUsername: currentUser ? currentUser.username : 'null'
     });
     
-    // Проверяваме дали потребителят е регистриран И влязъл
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ Р РІР»СЏР·СЉР»
     if (!isRegistered || !isLoggedIn || !currentUser) {
-        console.log('❌ Потребителят не е регистриран/влязъл, показваме регистрацията');
-        console.log('Причини:', {
+        console.log('вќЊ РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ РЅРµ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ/РІР»СЏР·СЉР», РїРѕРєР°Р·РІР°РјРµ СЂРµРіРёСЃС‚СЂР°С†РёСЏС‚Р°');
+        console.log('РџСЂРёС‡РёРЅРё:', {
             notRegistered: !isRegistered,
             notLoggedIn: !isLoggedIn,
             noCurrentUser: !currentUser
@@ -1318,12 +1315,12 @@ document.getElementById('end-game').addEventListener('click', () => {
         return;
     }
     
-    console.log('✅ Потребителят е регистриран и влязъл, продължаваме със смяната на рунда');
+    console.log('вњ… РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ Рё РІР»СЏР·СЉР», РїСЂРѕРґСЉР»Р¶Р°РІР°РјРµ СЃСЉСЃ СЃРјСЏРЅР°С‚Р° РЅР° СЂСѓРЅРґР°');
     
-    // Показваме надписа "СЛЕДВАЩ РУНД"
+    // РџРѕРєР°Р·РІР°РјРµ РЅР°РґРїРёСЃР° "РЎР›Р•Р”Р’РђР© Р РЈРќР”"
     showNextRoundMessage();
     
-    // Изчакваме 2 секунди преди да продължим
+    // РР·С‡Р°РєРІР°РјРµ 2 СЃРµРєСѓРЅРґРё РїСЂРµРґРё РґР° РїСЂРѕРґСЉР»Р¶РёРј
     setTimeout(() => {
         currentLevel++;
         if (currentLevel >= totalLevels) {
@@ -1335,26 +1332,26 @@ document.getElementById('end-game').addEventListener('click', () => {
     }, 2000);
 });
 
-// Показване на модалния прозорец
+// РџРѕРєР°Р·РІР°РЅРµ РЅР° РјРѕРґР°Р»РЅРёСЏ РїСЂРѕР·РѕСЂРµС†
 showRulesBtn.addEventListener('click', () => {
     rulesModal.style.display = 'block';
-    document.body.style.overflow = 'hidden'; // Предотвратява скролване на фона
+    document.body.style.overflow = 'hidden'; // РџСЂРµРґРѕС‚РІСЂР°С‚СЏРІР° СЃРєСЂРѕР»РІР°РЅРµ РЅР° С„РѕРЅР°
 });
 
-// Затваряне на модалния прозорец
+// Р—Р°С‚РІР°СЂСЏРЅРµ РЅР° РјРѕРґР°Р»РЅРёСЏ РїСЂРѕР·РѕСЂРµС†
 closeModalBtn.addEventListener('click', () => {
     rulesModal.style.display = 'none';
-    document.body.style.overflow = 'auto'; // Възстановява скролването
+    document.body.style.overflow = 'auto'; // Р’СЉР·СЃС‚Р°РЅРѕРІСЏРІР° СЃРєСЂРѕР»РІР°РЅРµС‚Рѕ
 });
 
-// Затваряне на модалните прозорци при клик извън тях
+// Р—Р°С‚РІР°СЂСЏРЅРµ РЅР° РјРѕРґР°Р»РЅРёС‚Рµ РїСЂРѕР·РѕСЂС†Рё РїСЂРё РєР»РёРє РёР·РІСЉРЅ С‚СЏС…
 window.addEventListener('click', (e) => {
-    // Затваряне на модала за правилата
+    // Р—Р°С‚РІР°СЂСЏРЅРµ РЅР° РјРѕРґР°Р»Р° Р·Р° РїСЂР°РІРёР»Р°С‚Р°
     if (e.target === rulesModal) {
         rulesModal.style.display = 'none';
         document.body.style.overflow = 'auto';
     }
-    // Затваряне на регистрационния модал при клик извън него
+    // Р—Р°С‚РІР°СЂСЏРЅРµ РЅР° СЂРµРіРёСЃС‚СЂР°С†РёРѕРЅРЅРёСЏ РјРѕРґР°Р» РїСЂРё РєР»РёРє РёР·РІСЉРЅ РЅРµРіРѕ
     if (e.target === registrationModal) {
         const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
         if (!isUserRegistered || !isLoggedIn) {
@@ -1363,7 +1360,7 @@ window.addEventListener('click', (e) => {
         }
         hideRegistration();
     }
-    // Затваряне на login модала при клик извън него
+    // Р—Р°С‚РІР°СЂСЏРЅРµ РЅР° login РјРѕРґР°Р»Р° РїСЂРё РєР»РёРє РёР·РІСЉРЅ РЅРµРіРѕ
     if (e.target === loginModal) {
         const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
         if (!isLoggedIn) {
@@ -1374,20 +1371,20 @@ window.addEventListener('click', (e) => {
     }
 });
 
-// Функция за създаване на падащи емотикони
+// Р¤СѓРЅРєС†РёСЏ Р·Р° СЃСЉР·РґР°РІР°РЅРµ РЅР° РїР°РґР°С‰Рё РµРјРѕС‚РёРєРѕРЅРё
 function createFallingEmoji() {
-    const emojis = ['🎮', '🎯', '🎲', '🎪', '🎨', '🎭', '🎪', '🎯', '🎲', '🎮', '😄', '🎉', '✨', '💫', '🎊'];
+    const emojis = ['рџЋ®', 'рџЋЇ', 'рџЋІ', 'рџЋЄ', 'рџЋЁ', 'рџЋ­', 'рџЋЄ', 'рџЋЇ', 'рџЋІ', 'рџЋ®', 'рџ„', 'рџЋ‰', 'вњЁ', 'рџ’«', 'рџЋЉ'];
     const container = document.getElementById('emoji-container');
     
     const emoji = document.createElement('div');
     emoji.className = 'falling-emoji';
     emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     emoji.style.left = Math.random() * 100 + '%';
-    emoji.style.animationDuration = (Math.random() * 2 + 2) + 's'; // 2-4 секунди
+    emoji.style.animationDuration = (Math.random() * 2 + 2) + 's'; // 2-4 СЃРµРєСѓРЅРґРё
     
     container.appendChild(emoji);
     
-    // Премахване на емотикона след анимацията
+    // РџСЂРµРјР°С…РІР°РЅРµ РЅР° РµРјРѕС‚РёРєРѕРЅР° СЃР»РµРґ Р°РЅРёРјР°С†РёСЏС‚Р°
     setTimeout(() => {
         if (emoji.parentNode) {
             emoji.parentNode.removeChild(emoji);
@@ -1395,24 +1392,24 @@ function createFallingEmoji() {
     }, 5000);
 }
 
-// Стартиране на падащите емотикони
+// РЎС‚Р°СЂС‚РёСЂР°РЅРµ РЅР° РїР°РґР°С‰РёС‚Рµ РµРјРѕС‚РёРєРѕРЅРё
 function startFallingEmojis() {
-    // Създаване на емотикон на всеки 1-2 секунди
+    // РЎСЉР·РґР°РІР°РЅРµ РЅР° РµРјРѕС‚РёРєРѕРЅ РЅР° РІСЃРµРєРё 1-2 СЃРµРєСѓРЅРґРё
     setInterval(() => {
-        if (Math.random() < 0.7) { // 70% шанс за създаване
+        if (Math.random() < 0.7) { // 70% С€Р°РЅСЃ Р·Р° СЃСЉР·РґР°РІР°РЅРµ
             createFallingEmoji();
         }
     }, 1000);
 }
 
-// Стартиране на ефекта когато страницата се зареди
+// РЎС‚Р°СЂС‚РёСЂР°РЅРµ РЅР° РµС„РµРєС‚Р° РєРѕРіР°С‚Рѕ СЃС‚СЂР°РЅРёС†Р°С‚Р° СЃРµ Р·Р°СЂРµРґРё
 document.addEventListener('DOMContentLoaded', function() {
     startFallingEmojis();
 });
 
-// Функция за показване на екрана за внимание
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° РµРєСЂР°РЅР° Р·Р° РІРЅРёРјР°РЅРёРµ
 function showAttentionScreen() {
-    // Създаваме екрана за внимание
+    // РЎСЉР·РґР°РІР°РјРµ РµРєСЂР°РЅР° Р·Р° РІРЅРёРјР°РЅРёРµ
     const attentionScreen = document.createElement('div');
     attentionScreen.id = 'attention-screen';
     attentionScreen.className = 'attention-screen';
@@ -1432,15 +1429,15 @@ function showAttentionScreen() {
         </div>
     `;
     
-    // Добавяме екрана в body
+    // Р”РѕР±Р°РІСЏРјРµ РµРєСЂР°РЅР° РІ body
     document.body.appendChild(attentionScreen);
     
-    // Показваме с анимация
+    // РџРѕРєР°Р·РІР°РјРµ СЃ Р°РЅРёРјР°С†РёСЏ
     setTimeout(() => {
         attentionScreen.classList.add('show');
     }, 10);
     
-    // Обратен брояч от 5 до 1
+    // РћР±СЂР°С‚РµРЅ Р±СЂРѕСЏС‡ РѕС‚ 5 РґРѕ 1
     let count = 5;
     const timerNumber = attentionScreen.querySelector('.timer-number');
     const timerInterval = setInterval(() => {
@@ -1451,11 +1448,11 @@ function showAttentionScreen() {
         
         if (count <= 0) {
             clearInterval(timerInterval);
-            // Скриваме екрана за внимание
+            // РЎРєСЂРёРІР°РјРµ РµРєСЂР°РЅР° Р·Р° РІРЅРёРјР°РЅРёРµ
             attentionScreen.classList.remove('show');
             setTimeout(() => {
                 document.body.removeChild(attentionScreen);
-                // Директно стартираме играта
+                // Р”РёСЂРµРєС‚РЅРѕ СЃС‚Р°СЂС‚РёСЂР°РјРµ РёРіСЂР°С‚Р°
                 startGame();
             }, 500);
         }
@@ -1464,14 +1461,14 @@ function showAttentionScreen() {
 
 
 
-// Функция за стартиране на играта (премахната - използва се async версията)
+// Р¤СѓРЅРєС†РёСЏ Р·Р° СЃС‚Р°СЂС‚РёСЂР°РЅРµ РЅР° РёРіСЂР°С‚Р° (РїСЂРµРјР°С…РЅР°С‚Р° - РёР·РїРѕР»Р·РІР° СЃРµ async РІРµСЂСЃРёСЏС‚Р°)
 
-// Функция за проверка на активен таймер за изчакване
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїСЂРѕРІРµСЂРєР° РЅР° Р°РєС‚РёРІРµРЅ С‚Р°Р№РјРµСЂ Р·Р° РёР·С‡Р°РєРІР°РЅРµ
 function checkActiveWaitTimer() {
     const currentUser = getCurrentUser();
     if (!currentUser) return false;
     
-    // Проверяваме дали потребителят е premium
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ premium
     const isPremium = localStorage.getItem('isPremium') === 'true';
     if (isPremium) return false;
     
@@ -1481,28 +1478,28 @@ function checkActiveWaitTimer() {
     
     console.log('[LIMIT DEBUG] checkActiveWaitTimer - gamesPlayed:', gamesPlayed, 'lastModalTime:', lastModalTime, 'now:', now, 'isPremium:', isPremium);
     
-    // Проверяваме дали има активен таймер (модалът е показан в последните 5 минути)
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РёРјР° Р°РєС‚РёРІРµРЅ С‚Р°Р№РјРµСЂ (РјРѕРґР°Р»СЉС‚ Рµ РїРѕРєР°Р·Р°РЅ РІ РїРѕСЃР»РµРґРЅРёС‚Рµ 5 РјРёРЅСѓС‚Рё)
     if (lastModalTime > 0 && now - lastModalTime < 300000) {
         const remainingSeconds = Math.max(0, 300 - Math.floor((now - lastModalTime) / 1000));
         if (remainingSeconds > 0) {
-            console.log('[LIMIT DEBUG] Има активен таймер за изчакване:', remainingSeconds, 'секунди');
+            console.log('[LIMIT DEBUG] РРјР° Р°РєС‚РёРІРµРЅ С‚Р°Р№РјРµСЂ Р·Р° РёР·С‡Р°РєРІР°РЅРµ:', remainingSeconds, 'СЃРµРєСѓРЅРґРё');
             return remainingSeconds;
         }
     }
     
-    console.log('[LIMIT DEBUG] Няма активен таймер');
+    console.log('[LIMIT DEBUG] РќСЏРјР° Р°РєС‚РёРІРµРЅ С‚Р°Р№РјРµСЂ');
     return false;
 }
 
-// Функция за показване на модал с оставащо време
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° РјРѕРґР°Р» СЃ РѕСЃС‚Р°РІР°С‰Рѕ РІСЂРµРјРµ
 function showModalWithRemainingTime(remainingSeconds) {
-    // Проверяваме дали модалът вече съществува
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РјРѕРґР°Р»СЉС‚ РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР°
     if (document.getElementById('free-game-block-modal')) {
-        console.log('[LIMIT DEBUG] Модалът вече съществува, не показваме отново');
+        console.log('[LIMIT DEBUG] РњРѕРґР°Р»СЉС‚ РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР°, РЅРµ РїРѕРєР°Р·РІР°РјРµ РѕС‚РЅРѕРІРѕ');
         return;
     }
     
-    console.log('[LIMIT DEBUG] Показваме модал с оставащо време:', remainingSeconds, 'секунди');
+    console.log('[LIMIT DEBUG] РџРѕРєР°Р·РІР°РјРµ РјРѕРґР°Р» СЃ РѕСЃС‚Р°РІР°С‰Рѕ РІСЂРµРјРµ:', remainingSeconds, 'СЃРµРєСѓРЅРґРё');
     
     const modal = document.createElement('div');
     modal.id = 'free-game-block-modal';
@@ -1527,7 +1524,7 @@ function showModalWithRemainingTime(remainingSeconds) {
     `;
     document.body.appendChild(modal);
     
-    // Таймер
+    // РўР°Р№РјРµСЂ
     let seconds = remainingSeconds;
     let timer = setInterval(() => {
         seconds--;
@@ -1536,138 +1533,137 @@ function showModalWithRemainingTime(remainingSeconds) {
             clearInterval(timer);
             document.body.removeChild(modal);
             isModalBeingShown = false;
-            // Изчистваме времето на показване на модала и флага за зареждане
+            // РР·С‡РёСЃС‚РІР°РјРµ РІСЂРµРјРµС‚Рѕ РЅР° РїРѕРєР°Р·РІР°РЅРµ РЅР° РјРѕРґР°Р»Р° Рё С„Р»Р°РіР° Р·Р° Р·Р°СЂРµР¶РґР°РЅРµ
             localStorage.removeItem('lastModalShowTime');
             localStorage.removeItem('modalShownOnLoad');
         }
     }, 1000);
     
-    // Бутон за покупка
+    // Р‘СѓС‚РѕРЅ Р·Р° РїРѕРєСѓРїРєР°
     document.getElementById('buy-premium-btn').onclick = function() {
         window.open('https://revolut.me/deyvidp7g', '_blank');
     };
 }
 
-// Модифициране на event listener за бутона "Започни играта"
+// РњРѕРґРёС„РёС†РёСЂР°РЅРµ РЅР° event listener Р·Р° Р±СѓС‚РѕРЅР° "Р—Р°РїРѕС‡РЅРё РёРіСЂР°С‚Р°"
 document.getElementById('start-game').addEventListener('click', function() {
-    // Нулираме флага за стартиране от модал
+    // РќСѓР»РёСЂР°РјРµ С„Р»Р°РіР° Р·Р° СЃС‚Р°СЂС‚РёСЂР°РЅРµ РѕС‚ РјРѕРґР°Р»
     isStartingGameFromModal = false;
-    console.log('[LIMIT DEBUG] Нулираме isStartingGameFromModal при натискане на "Започни играта"');
+    console.log('[LIMIT DEBUG] РќСѓР»РёСЂР°РјРµ isStartingGameFromModal РїСЂРё РЅР°С‚РёСЃРєР°РЅРµ РЅР° "Р—Р°РїРѕС‡РЅРё РёРіСЂР°С‚Р°"');
     
-    // Проверяваме дали има активен таймер за изчакване
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РёРјР° Р°РєС‚РёРІРµРЅ С‚Р°Р№РјРµСЂ Р·Р° РёР·С‡Р°РєРІР°РЅРµ
     const remainingSeconds = checkActiveWaitTimer();
-    console.log('[LIMIT DEBUG] "Започни играта" - remainingSeconds:', remainingSeconds);
+    console.log('[LIMIT DEBUG] "Р—Р°РїРѕС‡РЅРё РёРіСЂР°С‚Р°" - remainingSeconds:', remainingSeconds);
     
     if (remainingSeconds > 0) {
-        // Проверяваме дали модалът вече е показан при зареждане на страницата
+        // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РјРѕРґР°Р»СЉС‚ РІРµС‡Рµ Рµ РїРѕРєР°Р·Р°РЅ РїСЂРё Р·Р°СЂРµР¶РґР°РЅРµ РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р°
         const modalShownOnLoad = localStorage.getItem('modalShownOnLoad') === 'true';
-        console.log('[LIMIT DEBUG] "Започни играта" - modalShownOnLoad:', modalShownOnLoad);
+        console.log('[LIMIT DEBUG] "Р—Р°РїРѕС‡РЅРё РёРіСЂР°С‚Р°" - modalShownOnLoad:', modalShownOnLoad);
         
         if (!modalShownOnLoad) {
-            console.log('[LIMIT DEBUG] Показваме модал с оставащо време:', remainingSeconds, 'секунди');
+            console.log('[LIMIT DEBUG] РџРѕРєР°Р·РІР°РјРµ РјРѕРґР°Р» СЃ РѕСЃС‚Р°РІР°С‰Рѕ РІСЂРµРјРµ:', remainingSeconds, 'СЃРµРєСѓРЅРґРё');
             isModalBeingShown = true;
             showModalWithRemainingTime(remainingSeconds);
         } else {
-            console.log('[LIMIT DEBUG] Модалът вече е показан при зареждане, не показваме отново');
+            console.log('[LIMIT DEBUG] РњРѕРґР°Р»СЉС‚ РІРµС‡Рµ Рµ РїРѕРєР°Р·Р°РЅ РїСЂРё Р·Р°СЂРµР¶РґР°РЅРµ, РЅРµ РїРѕРєР°Р·РІР°РјРµ РѕС‚РЅРѕРІРѕ');
         }
         return;
     }
     
-    // Изчистваме флага за модал показан при зареждане
+    // РР·С‡РёСЃС‚РІР°РјРµ С„Р»Р°РіР° Р·Р° РјРѕРґР°Р» РїРѕРєР°Р·Р°РЅ РїСЂРё Р·Р°СЂРµР¶РґР°РЅРµ
     localStorage.removeItem('modalShownOnLoad');
     
-    console.log('[LIMIT DEBUG] "Започни играта" - няма активен таймер, продължаваме с нормалната логика');
+    console.log('[LIMIT DEBUG] "Р—Р°РїРѕС‡РЅРё РёРіСЂР°С‚Р°" - РЅСЏРјР° Р°РєС‚РёРІРµРЅ С‚Р°Р№РјРµСЂ, РїСЂРѕРґСЉР»Р¶Р°РІР°РјРµ СЃ РЅРѕСЂРјР°Р»РЅР°С‚Р° Р»РѕРіРёРєР°');
     
     checkFreeGameLimitAndMaybeBlock(() => {
         showAttentionScreen();
     });
 });
 
-// Функционалност за избор на език
+// Р¤СѓРЅРєС†РёРѕРЅР°Р»РЅРѕСЃС‚ Р·Р° РёР·Р±РѕСЂ РЅР° РµР·РёРє
 const languageBtn = document.getElementById('language-btn');
 const languageDropdown = document.getElementById('language-dropdown');
 const currentLangSpan = document.getElementById('current-lang');
 const languageOptions = document.querySelectorAll('.language-option');
 
-// Показване/скриване на dropdown менюто
+// РџРѕРєР°Р·РІР°РЅРµ/СЃРєСЂРёРІР°РЅРµ РЅР° dropdown РјРµРЅСЋС‚Рѕ
 languageBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     languageDropdown.classList.toggle('show');
 });
 
-// Скриване на dropdown при клик извън него
+// РЎРєСЂРёРІР°РЅРµ РЅР° dropdown РїСЂРё РєР»РёРє РёР·РІСЉРЅ РЅРµРіРѕ
 document.addEventListener('click', () => {
     languageDropdown.classList.remove('show');
 });
 
-// Избор на език
+// РР·Р±РѕСЂ РЅР° РµР·РёРє
 languageOptions.forEach(option => {
     option.addEventListener('click', () => {
         const lang = option.getAttribute('data-lang');
         changeLanguage(lang);
         
-        // Обновяване на активния език в dropdown
+        // РћР±РЅРѕРІСЏРІР°РЅРµ РЅР° Р°РєС‚РёРІРЅРёСЏ РµР·РёРє РІ dropdown
         languageOptions.forEach(opt => opt.classList.remove('active'));
         option.classList.add('active');
         
-        // Скриване на dropdown
+        // РЎРєСЂРёРІР°РЅРµ РЅР° dropdown
         languageDropdown.classList.remove('show');
     });
 });
 
-// Функция за смяна на езика
+// Р¤СѓРЅРєС†РёСЏ Р·Р° СЃРјСЏРЅР° РЅР° РµР·РёРєР°
 function changeLanguage(lang) {
     currentLanguage = lang;
     currentLangSpan.textContent = lang.toUpperCase();
     
-    // Запазване на избрания език в localStorage
+    // Р—Р°РїР°Р·РІР°РЅРµ РЅР° РёР·Р±СЂР°РЅРёСЏ РµР·РёРє РІ localStorage
     localStorage.setItem('selectedLanguage', lang);
     
-    // Прилагане на превода
+    // РџСЂРёР»Р°РіР°РЅРµ РЅР° РїСЂРµРІРѕРґР°
     applyTranslation();
     
-    // Обновяване на динамични текстове
+    // РћР±РЅРѕРІСЏРІР°РЅРµ РЅР° РґРёРЅР°РјРёС‡РЅРё С‚РµРєСЃС‚РѕРІРµ
     updateDynamicTexts();
 }
 
-// Зареждане на запазения език при стартиране
+// Р—Р°СЂРµР¶РґР°РЅРµ РЅР° Р·Р°РїР°Р·РµРЅРёСЏ РµР·РёРє РїСЂРё СЃС‚Р°СЂС‚РёСЂР°РЅРµ
 window.addEventListener('load', () => {
     const savedLanguage = localStorage.getItem('selectedLanguage');
     if (savedLanguage && translations[savedLanguage]) {
         changeLanguage(savedLanguage);
     } else {
-        // По подразбиране български
+        // РџРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ Р±СЉР»РіР°СЂСЃРєРё
         changeLanguage('bg');
     }
     
-    // Прилагане на превода при зареждане
+    // РџСЂРёР»Р°РіР°РЅРµ РЅР° РїСЂРµРІРѕРґР° РїСЂРё Р·Р°СЂРµР¶РґР°РЅРµ
     applyTranslation();
     
-    // Добавяне на tooltip текстове
-    updateTooltips();
+    // Р”РѕР±Р°РІСЏРЅРµ РЅР° tooltip С‚РµРєСЃС‚РѕРІРµ
     
-    // Добавяне на event listeners за иконите
+    // Р”РѕР±Р°РІСЏРЅРµ РЅР° event listeners Р·Р° РёРєРѕРЅРёС‚Рµ
     setupRoleIcons();
     
-    // Проверка за регистрация
+    // РџСЂРѕРІРµСЂРєР° Р·Р° СЂРµРіРёСЃС‚СЂР°С†РёСЏ
     const isRegistered = localStorage.getItem('isRegistered');
     const currentUser = getCurrentUser();
     console.log('localStorage isRegistered:', isRegistered);
-    console.log('currentUser при зареждане:', currentUser);
+    console.log('currentUser РїСЂРё Р·Р°СЂРµР¶РґР°РЅРµ:', currentUser);
     
     if (isRegistered === 'true' && currentUser) {
         isUserRegistered = true;
         isRegistrationShown = true;
-        console.log('✅ Потребителят е регистриран:', currentUser.username, 'UID:', currentUser.uid || 'локално');
+        console.log('вњ… РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ:', currentUser.username, 'UID:', currentUser.uid || 'Р»РѕРєР°Р»РЅРѕ');
     } else if (currentUser && currentUser.uid) {
-        // Ако има currentUser с UID, значи е регистриран в Firebase
+        // РђРєРѕ РёРјР° currentUser СЃ UID, Р·РЅР°С‡Рё Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РІ Firebase
         isUserRegistered = true;
         isRegistrationShown = true;
-        localStorage.setItem('isRegistered', 'true'); // Поправяме localStorage
-        console.log('✅ Потребителят е регистриран в Firebase, поправяме localStorage:', currentUser.username);
+        localStorage.setItem('isRegistered', 'true'); // РџРѕРїСЂР°РІСЏРјРµ localStorage
+        console.log('вњ… РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РІ Firebase, РїРѕРїСЂР°РІСЏРјРµ localStorage:', currentUser.username);
     } else {
-        console.log('❌ Потребителят не е регистриран');
-        console.log('Причини:', {
+        console.log('вќЊ РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ РЅРµ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ');
+        console.log('РџСЂРёС‡РёРЅРё:', {
             isRegistered: isRegistered,
             hasCurrentUser: !!currentUser,
             currentUser: currentUser
@@ -1676,46 +1672,46 @@ window.addEventListener('load', () => {
         isRegistrationShown = false;
     }
     
-    console.log('Инициализация завършена - isUserRegistered:', isUserRegistered, 'isRegistrationShown:', isRegistrationShown);
+    console.log('РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р·Р°РІСЉСЂС€РµРЅР° - isUserRegistered:', isUserRegistered, 'isRegistrationShown:', isRegistrationShown);
     
-    // Проверка на Firebase auth state
+    // РџСЂРѕРІРµСЂРєР° РЅР° Firebase auth state
     if (typeof auth !== 'undefined') {
         auth.onAuthStateChanged((user) => {
             console.log('Firebase auth state changed:', user ? user.uid : 'null');
             if (user) {
-                console.log('Потребителят е влязъл в Firebase:', user.email);
-                // Обновяваме currentUser ако е необходимо
+                console.log('РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ РІР»СЏР·СЉР» РІ Firebase:', user.email);
+                // РћР±РЅРѕРІСЏРІР°РјРµ currentUser Р°РєРѕ Рµ РЅРµРѕР±С…РѕРґРёРјРѕ
                 const currentUser = getCurrentUser();
                 if (!currentUser || currentUser.uid !== user.uid) {
-                    console.log('Обновяваме currentUser с Firebase данните');
-                    // Тук можем да заредим профилните данни от Firestore
+                    console.log('РћР±РЅРѕРІСЏРІР°РјРµ currentUser СЃ Firebase РґР°РЅРЅРёС‚Рµ');
+                    // РўСѓРє РјРѕР¶РµРј РґР° Р·Р°СЂРµРґРёРј РїСЂРѕС„РёР»РЅРёС‚Рµ РґР°РЅРЅРё РѕС‚ Firestore
                 }
             } else {
-                console.log('Потребителят не е влязъл в Firebase');
+                console.log('РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ РЅРµ Рµ РІР»СЏР·СЉР» РІ Firebase');
             }
         });
     }
     
     updateProfilePanel();
     
-    // Проверяваме дали има активен таймер за изчакване при зареждане на страницата
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РёРјР° Р°РєС‚РёРІРµРЅ С‚Р°Р№РјРµСЂ Р·Р° РёР·С‡Р°РєРІР°РЅРµ РїСЂРё Р·Р°СЂРµР¶РґР°РЅРµ РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р°
     setTimeout(() => {
         const remainingSeconds = checkActiveWaitTimer();
-        console.log('[LIMIT DEBUG] При зареждане на страницата - remainingSeconds:', remainingSeconds);
+        console.log('[LIMIT DEBUG] РџСЂРё Р·Р°СЂРµР¶РґР°РЅРµ РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р° - remainingSeconds:', remainingSeconds);
         
         if (remainingSeconds > 0) {
-            console.log('[LIMIT DEBUG] При зареждане на страницата - има активен таймер:', remainingSeconds, 'секунди');
+            console.log('[LIMIT DEBUG] РџСЂРё Р·Р°СЂРµР¶РґР°РЅРµ РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р° - РёРјР° Р°РєС‚РёРІРµРЅ С‚Р°Р№РјРµСЂ:', remainingSeconds, 'СЃРµРєСѓРЅРґРё');
             isModalBeingShown = true;
-            // Маркираме че модалът е показан при зареждане
+            // РњР°СЂРєРёСЂР°РјРµ С‡Рµ РјРѕРґР°Р»СЉС‚ Рµ РїРѕРєР°Р·Р°РЅ РїСЂРё Р·Р°СЂРµР¶РґР°РЅРµ
             localStorage.setItem('modalShownOnLoad', 'true');
             showModalWithRemainingTime(remainingSeconds);
         } else {
-            console.log('[LIMIT DEBUG] При зареждане на страницата - няма активен таймер');
+            console.log('[LIMIT DEBUG] РџСЂРё Р·Р°СЂРµР¶РґР°РЅРµ РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р° - РЅСЏРјР° Р°РєС‚РёРІРµРЅ С‚Р°Р№РјРµСЂ');
         }
-    }, 1000); // Изчакваме 1 секунда за да се заредят всички компоненти
+    }, 1000); // РР·С‡Р°РєРІР°РјРµ 1 СЃРµРєСѓРЅРґР° Р·Р° РґР° СЃРµ Р·Р°СЂРµРґСЏС‚ РІСЃРёС‡РєРё РєРѕРјРїРѕРЅРµРЅС‚Рё
 });
 
-// Функция за обновяване на tooltip текстове
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° tooltip С‚РµРєСЃС‚РѕРІРµ
 function updateTooltips() {
     const detectiveLogo = document.querySelector('.detective-logo');
     const impostorLogo = document.querySelector('.impostor-logo');
@@ -1728,7 +1724,7 @@ function updateTooltips() {
     }
 }
 
-// Функция за обновяване на текста в анимирания бутон
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° С‚РµРєСЃС‚Р° РІ Р°РЅРёРјРёСЂР°РЅРёСЏ Р±СѓС‚РѕРЅ
 function updateAnimatedButtonText() {
     const nowSpan = document.querySelector('.animated-button .now');
     if (nowSpan) {
@@ -1736,7 +1732,7 @@ function updateAnimatedButtonText() {
     }
 }
 
-// Функция за настройване на иконите за роли
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РЅР°СЃС‚СЂРѕР№РІР°РЅРµ РЅР° РёРєРѕРЅРёС‚Рµ Р·Р° СЂРѕР»Рё
 function setupRoleIcons() {
     const detectiveLogo = document.querySelector('.detective-logo');
     const impostorLogo = document.querySelector('.impostor-logo');
@@ -1754,7 +1750,7 @@ function setupRoleIcons() {
     }
 }
 
-// Функция за показване на правилата за детективите
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° РїСЂР°РІРёР»Р°С‚Р° Р·Р° РґРµС‚РµРєС‚РёРІРёС‚Рµ
 function showDetectiveRules() {
     const modal = document.getElementById('rules-modal');
     const modalContent = modal.querySelector('.modal-content');
@@ -1789,7 +1785,7 @@ function showDetectiveRules() {
     document.body.style.overflow = 'hidden';
 }
 
-// Функция за показване на правилата за импостърите
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° РїСЂР°РІРёР»Р°С‚Р° Р·Р° РёРјРїРѕСЃС‚СЉСЂРёС‚Рµ
 function showImpostorRules() {
     const modal = document.getElementById('rules-modal');
     const modalContent = modal.querySelector('.modal-content');
@@ -1824,66 +1820,66 @@ function showImpostorRules() {
     document.body.style.overflow = 'hidden';
 }
 
-// Функция за показване на welcome модала
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° welcome РјРѕРґР°Р»Р°
 function showWelcomeModal() {
-    console.log('=== showWelcomeModal извикана ===');
+    console.log('=== showWelcomeModal РёР·РІРёРєР°РЅР° ===');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    console.log('isLoggedIn от localStorage:', isLoggedIn);
+    console.log('isLoggedIn РѕС‚ localStorage:', isLoggedIn);
     
     if (!isLoggedIn || isLoggedIn !== 'true') {
-        console.log('Показваме welcome модала...');
+        console.log('РџРѕРєР°Р·РІР°РјРµ welcome РјРѕРґР°Р»Р°...');
         welcomeModal.style.display = 'block';
         welcomeModal.classList.add('show');
         document.body.style.overflow = 'hidden';
     } else {
-        // Ако потребителят е логнат, показваме директно регистрацията
+        // РђРєРѕ РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ Р»РѕРіРЅР°С‚, РїРѕРєР°Р·РІР°РјРµ РґРёСЂРµРєС‚РЅРѕ СЂРµРіРёСЃС‚СЂР°С†РёСЏС‚Р°
         showRegistrationForm();
     }
-    console.log('=== showWelcomeModal завършена ===');
+    console.log('=== showWelcomeModal Р·Р°РІСЉСЂС€РµРЅР° ===');
 }
 
-// Функция за показване на регистрацията
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° СЂРµРіРёСЃС‚СЂР°С†РёСЏС‚Р°
 function showRegistrationForm() {
-    console.log('=== showRegistrationForm извикана ===');
+    console.log('=== showRegistrationForm РёР·РІРёРєР°РЅР° ===');
     console.log('isRegistrationShown:', isRegistrationShown);
     console.log('isUserRegistered:', isUserRegistered);
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    console.log('isLoggedIn от localStorage:', isLoggedIn);
-    console.log('Показваме регистрационния модал...');
+    console.log('isLoggedIn РѕС‚ localStorage:', isLoggedIn);
+    console.log('РџРѕРєР°Р·РІР°РјРµ СЂРµРіРёСЃС‚СЂР°С†РёРѕРЅРЅРёСЏ РјРѕРґР°Р»...');
     
-    // Скриваме welcome модала
+    // РЎРєСЂРёРІР°РјРµ welcome РјРѕРґР°Р»Р°
     welcomeModal.style.display = 'none';
     welcomeModal.classList.remove('show');
     
-    // Показваме регистрационния модал
+    // РџРѕРєР°Р·РІР°РјРµ СЂРµРіРёСЃС‚СЂР°С†РёРѕРЅРЅРёСЏ РјРѕРґР°Р»
     registrationModal.style.display = 'block';
     registrationModal.classList.add('show');
     document.body.style.overflow = 'hidden';
     
-    // Показваме балончето с ползите само за нерегистрирани потребители
+    // РџРѕРєР°Р·РІР°РјРµ Р±Р°Р»РѕРЅС‡РµС‚Рѕ СЃ РїРѕР»Р·РёС‚Рµ СЃР°РјРѕ Р·Р° РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅРё РїРѕС‚СЂРµР±РёС‚РµР»Рё
     const benefitsTooltip = document.querySelector('.registration-benefits-tooltip');
     if (benefitsTooltip) {
         if (!isLoggedIn || isLoggedIn !== 'true') {
             benefitsTooltip.style.display = 'block';
-            // Добавяме анимация за появяване
+            // Р”РѕР±Р°РІСЏРјРµ Р°РЅРёРјР°С†РёСЏ Р·Р° РїРѕСЏРІСЏРІР°РЅРµ
             benefitsTooltip.style.animation = 'fadeInUp 0.6s ease forwards';
         } else {
             benefitsTooltip.style.display = 'none';
         }
     }
     
-    // Винаги закачаме слушател веднага
+    // Р’РёРЅР°РіРё Р·Р°РєР°С‡Р°РјРµ СЃР»СѓС€Р°С‚РµР» РІРµРґРЅР°РіР°
     attachLoginLinkListener();
-    // Закачаме и при всяка промяна на DOM (например превод)
+    // Р—Р°РєР°С‡Р°РјРµ Рё РїСЂРё РІСЃСЏРєР° РїСЂРѕРјСЏРЅР° РЅР° DOM (РЅР°РїСЂРёРјРµСЂ РїСЂРµРІРѕРґ)
     const observer = new MutationObserver(() => {
         attachLoginLinkListener();
     });
     observer.observe(registrationModal, { childList: true, subtree: true });
     registrationModal._loginLinkObserver = observer;
-    console.log('=== showRegistrationForm завършена ===');
+    console.log('=== showRegistrationForm Р·Р°РІСЉСЂС€РµРЅР° ===');
 }
 
-// Запазваме старата функция за обратна съвместимост
+// Р—Р°РїР°Р·РІР°РјРµ СЃС‚Р°СЂР°С‚Р° С„СѓРЅРєС†РёСЏ Р·Р° РѕР±СЂР°С‚РЅР° СЃСЉРІРјРµСЃС‚РёРјРѕСЃС‚
 function showRegistration() {
     showWelcomeModal();
 }
@@ -1895,56 +1891,56 @@ function attachLoginLinkListener() {
         loginLinkBtn.style.outline = '2px solid #00fff7';
         loginLinkBtn.style.outlineOffset = '2px';
         loginLinkBtn.onclick = function(e) {
-            console.log('Кликнат е login-link!');
+            console.log('РљР»РёРєРЅР°С‚ Рµ login-link!');
             e.preventDefault();
             hideRegistration();
             showLogin();
         };
     } else {
-        console.warn('Бутонът login-link не е намерен!');
+        console.warn('Р‘СѓС‚РѕРЅСЉС‚ login-link РЅРµ Рµ РЅР°РјРµСЂРµРЅ!');
     }
 }
 
-// Функция за обработка на клика върху бутона "Вече имате акаунт?"
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РѕР±СЂР°Р±РѕС‚РєР° РЅР° РєР»РёРєР° РІСЉСЂС…Сѓ Р±СѓС‚РѕРЅР° "Р’РµС‡Рµ РёРјР°С‚Рµ Р°РєР°СѓРЅС‚?"
 function handleLoginClick(e) {
     e.preventDefault();
     e.stopPropagation();
-    alert('Бутонът "Вече имате акаунт?" беше натиснат!');
-    console.log('Бутонът "Вече имате акаунт?" беше натиснат!');
+    alert('Р‘СѓС‚РѕРЅСЉС‚ "Р’РµС‡Рµ РёРјР°С‚Рµ Р°РєР°СѓРЅС‚?" Р±РµС€Рµ РЅР°С‚РёСЃРЅР°С‚!');
+    console.log('Р‘СѓС‚РѕРЅСЉС‚ "Р’РµС‡Рµ РёРјР°С‚Рµ Р°РєР°СѓРЅС‚?" Р±РµС€Рµ РЅР°С‚РёСЃРЅР°С‚!');
     hideRegistration();
     showLogin();
 }
 
-// Функция за скриване на welcome модала
+// Р¤СѓРЅРєС†РёСЏ Р·Р° СЃРєСЂРёРІР°РЅРµ РЅР° welcome РјРѕРґР°Р»Р°
 function hideWelcomeModal() {
     welcomeModal.style.display = 'none';
     welcomeModal.classList.remove('show');
     document.body.style.overflow = 'auto';
 }
 
-// Функция за скриване на регистрацията
+// Р¤СѓРЅРєС†РёСЏ Р·Р° СЃРєСЂРёРІР°РЅРµ РЅР° СЂРµРіРёСЃС‚СЂР°С†РёСЏС‚Р°
 function hideRegistration() {
     registrationModal.style.display = 'none';
     registrationModal.classList.remove('show');
     document.body.style.overflow = 'auto';
 }
 
-// Функция за показване на вход
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° РІС…РѕРґ
 function showLogin() {
-    console.log('showLogin извикана');
+    console.log('showLogin РёР·РІРёРєР°РЅР°');
     loginModal.style.display = 'block';
     loginModal.classList.add('show');
     document.body.style.overflow = 'hidden';
 }
 
-// Функция за скриване на вход
+// Р¤СѓРЅРєС†РёСЏ Р·Р° СЃРєСЂРёРІР°РЅРµ РЅР° РІС…РѕРґ
 function hideLogin() {
     loginModal.style.display = 'none';
     loginModal.classList.remove('show');
     document.body.style.overflow = 'auto';
 }
 
-// Помощни функции за работа с localStorage база
+// РџРѕРјРѕС‰РЅРё С„СѓРЅРєС†РёРё Р·Р° СЂР°Р±РѕС‚Р° СЃ localStorage Р±Р°Р·Р°
 function getUsersDB() {
     return JSON.parse(localStorage.getItem('usersDB') || '[]');
 }
@@ -1966,7 +1962,7 @@ function clearCurrentUser() {
     localStorage.removeItem('currentUser');
 }
 
-// Обработка на регистрационната форма
+// РћР±СЂР°Р±РѕС‚РєР° РЅР° СЂРµРіРёСЃС‚СЂР°С†РёРѕРЅРЅР°С‚Р° С„РѕСЂРјР°
 registrationForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(registrationForm);
@@ -1979,20 +1975,20 @@ registrationForm.addEventListener('submit', async (e) => {
     const terms = formData.get('terms');
     const newsletter = formData.get('newsletter');
     if (password !== confirmPassword) {
-        showMessage('Паролите не съвпадат!', 'error');
+        showMessage('РџР°СЂРѕР»РёС‚Рµ РЅРµ СЃСЉРІРїР°РґР°С‚!', 'error');
         return;
     }
     if (parseInt(age) < 13) {
-        showMessage('Трябва да сте на 13 години или повече!', 'error');
+        showMessage('РўСЂСЏР±РІР° РґР° СЃС‚Рµ РЅР° 13 РіРѕРґРёРЅРё РёР»Рё РїРѕРІРµС‡Рµ!', 'error');
         return;
     }
     if (!terms) {
-        showMessage('Трябва да приемете условията за ползване!', 'error');
+        showMessage('РўСЂСЏР±РІР° РґР° РїСЂРёРµРјРµС‚Рµ СѓСЃР»РѕРІРёСЏС‚Р° Р·Р° РїРѕР»Р·РІР°РЅРµ!', 'error');
         return;
     }
     const success = await registerUserFirebase(username, email, password, age, favoriteGame, newsletter);
     if (success) {
-        // Скриваме балончето с ползите след успешна регистрация
+        // РЎРєСЂРёРІР°РјРµ Р±Р°Р»РѕРЅС‡РµС‚Рѕ СЃ РїРѕР»Р·РёС‚Рµ СЃР»РµРґ СѓСЃРїРµС€РЅР° СЂРµРіРёСЃС‚СЂР°С†РёСЏ
         const benefitsTooltip = document.querySelector('.registration-benefits-tooltip');
         if (benefitsTooltip) {
             benefitsTooltip.style.display = 'none';
@@ -2005,7 +2001,7 @@ registrationForm.addEventListener('submit', async (e) => {
     }
 });
 
-// Функция за обновяване на панела за профил
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° РїР°РЅРµР»Р° Р·Р° РїСЂРѕС„РёР»
 function updateProfilePanel() {
     const currentUser = getCurrentUser();
     const profileInfo = document.querySelector('.profile-info');
@@ -2017,7 +2013,7 @@ function updateProfilePanel() {
         if (usernameElement) {
             usernameElement.textContent = currentUser.username || '';
         }
-        // Добавяме админ бутон в profile-info секцията
+        // Р”РѕР±Р°РІСЏРјРµ Р°РґРјРёРЅ Р±СѓС‚РѕРЅ РІ profile-info СЃРµРєС†РёСЏС‚Р°
         addAdminButton();
     } else {
         profileInfo.classList.add('hidden');
@@ -2025,7 +2021,7 @@ function updateProfilePanel() {
     }
 }
 
-// Бутон за изход
+// Р‘СѓС‚РѕРЅ Р·Р° РёР·С…РѕРґ
 logoutBtn.replaceWith(logoutBtn.cloneNode(true));
 const logoutBtnFixed = document.getElementById('logout-btn');
 logoutBtnFixed.addEventListener('click', () => {
@@ -2034,34 +2030,34 @@ logoutBtnFixed.addEventListener('click', () => {
     isRegistrationShown = false;
 });
 
-// Линк за преминаване от регистрация към вход
-// (вече не е нужен, използваме директна функция switchToLogin)
+// Р›РёРЅРє Р·Р° РїСЂРµРјРёРЅР°РІР°РЅРµ РѕС‚ СЂРµРіРёСЃС‚СЂР°С†РёСЏ РєСЉРј РІС…РѕРґ
+// (РІРµС‡Рµ РЅРµ Рµ РЅСѓР¶РµРЅ, РёР·РїРѕР»Р·РІР°РјРµ РґРёСЂРµРєС‚РЅР° С„СѓРЅРєС†РёСЏ switchToLogin)
 
-// Линк за преминаване от вход към регистрация
+// Р›РёРЅРє Р·Р° РїСЂРµРјРёРЅР°РІР°РЅРµ РѕС‚ РІС…РѕРґ РєСЉРј СЂРµРіРёСЃС‚СЂР°С†РёСЏ
 registerLink.addEventListener('click', (e) => {
     e.preventDefault();
     hideLogin();
     showRegistration();
 });
 
-// Бутон за затваряне на регистрационния модал
+// Р‘СѓС‚РѕРЅ Р·Р° Р·Р°С‚РІР°СЂСЏРЅРµ РЅР° СЂРµРіРёСЃС‚СЂР°С†РёРѕРЅРЅРёСЏ РјРѕРґР°Р»
 closeRegistration.addEventListener('click', () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (!isUserRegistered || !isLoggedIn) {
-        // Показваме балончето с ползите ако потребителят се опитва да затвори без регистрация
+        // РџРѕРєР°Р·РІР°РјРµ Р±Р°Р»РѕРЅС‡РµС‚Рѕ СЃ РїРѕР»Р·РёС‚Рµ Р°РєРѕ РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ СЃРµ РѕРїРёС‚РІР° РґР° Р·Р°С‚РІРѕСЂРё Р±РµР· СЂРµРіРёСЃС‚СЂР°С†РёСЏ
         const benefitsTooltip = document.querySelector('.registration-benefits-tooltip');
         if (benefitsTooltip) {
             benefitsTooltip.style.display = 'block';
             benefitsTooltip.style.animation = 'fadeInUp 0.6s ease forwards';
         }
         
-        showMessage('Трябва да се регистрирате, за да продължите!', 'error');
+        showMessage('РўСЂСЏР±РІР° РґР° СЃРµ СЂРµРіРёСЃС‚СЂРёСЂР°С‚Рµ, Р·Р° РґР° РїСЂРѕРґСЉР»Р¶РёС‚Рµ!', 'error');
         return;
     }
     hideRegistration();
 });
 
-// Бутон за затваряне на login модала
+// Р‘СѓС‚РѕРЅ Р·Р° Р·Р°С‚РІР°СЂСЏРЅРµ РЅР° login РјРѕРґР°Р»Р°
 closeLogin.addEventListener('click', () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (!isLoggedIn) {
@@ -2071,16 +2067,16 @@ closeLogin.addEventListener('click', () => {
     hideLogin();
 });
 
-// Функция за продължаване на играта след регистрация
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїСЂРѕРґСЉР»Р¶Р°РІР°РЅРµ РЅР° РёРіСЂР°С‚Р° СЃР»РµРґ СЂРµРіРёСЃС‚СЂР°С†РёСЏ
 function continueGameAfterRegistration() {
-    // Скриваме и двата модала
+    // РЎРєСЂРёРІР°РјРµ Рё РґРІР°С‚Р° РјРѕРґР°Р»Р°
     hideWelcomeModal();
     hideRegistration();
     updateProfilePanel();
-    console.log('Потребителят е регистриран, продължаваме играта...');
+    console.log('РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ, РїСЂРѕРґСЉР»Р¶Р°РІР°РјРµ РёРіСЂР°С‚Р°...');
 }
 
-// Event listeners за welcome модала
+// Event listeners Р·Р° welcome РјРѕРґР°Р»Р°
 if (startRegistrationBtn) {
     startRegistrationBtn.addEventListener('click', () => {
         showRegistrationForm();
@@ -2089,27 +2085,27 @@ if (startRegistrationBtn) {
 
 if (loginFromWelcomeBtn) {
     loginFromWelcomeBtn.addEventListener('click', () => {
-        // Скриваме welcome модала
+        // РЎРєСЂРёРІР°РјРµ welcome РјРѕРґР°Р»Р°
         welcomeModal.style.display = 'none';
         welcomeModal.classList.remove('show');
-        // Показваме login модала
+        // РџРѕРєР°Р·РІР°РјРµ login РјРѕРґР°Р»Р°
         showLogin();
     });
 }
 
-// Бутон за регистрация от панела
+// Р‘СѓС‚РѕРЅ Р·Р° СЂРµРіРёСЃС‚СЂР°С†РёСЏ РѕС‚ РїР°РЅРµР»Р°
 registerBtn.addEventListener('click', () => {
     showRegistration();
 });
 
-// Бутон за вход от панела
+// Р‘СѓС‚РѕРЅ Р·Р° РІС…РѕРґ РѕС‚ РїР°РЅРµР»Р°
 loginBtn.addEventListener('click', () => {
     showLogin();
 });
 
-// Функция за показване на модално съобщение
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° РјРѕРґР°Р»РЅРѕ СЃСЉРѕР±С‰РµРЅРёРµ
 function showMessage(message, type = 'info') {
-    // Създаваме модален елемент
+    // РЎСЉР·РґР°РІР°РјРµ РјРѕРґР°Р»РµРЅ РµР»РµРјРµРЅС‚
     const modal = document.createElement('div');
     modal.className = 'message-modal';
     modal.innerHTML = `
@@ -2119,15 +2115,15 @@ function showMessage(message, type = 'info') {
         </div>
     `;
     
-    // Добавяме в body
+    // Р”РѕР±Р°РІСЏРјРµ РІ body
     document.body.appendChild(modal);
     
-    // Показваме с анимация
+    // РџРѕРєР°Р·РІР°РјРµ СЃ Р°РЅРёРјР°С†РёСЏ
     setTimeout(() => {
         modal.classList.add('show');
     }, 10);
     
-    // Затваряне при клик на бутона
+    // Р—Р°С‚РІР°СЂСЏРЅРµ РїСЂРё РєР»РёРє РЅР° Р±СѓС‚РѕРЅР°
     const closeBtn = modal.querySelector('.message-close-btn');
     closeBtn.addEventListener('click', () => {
         modal.classList.remove('show');
@@ -2136,7 +2132,7 @@ function showMessage(message, type = 'info') {
         }, 300);
     });
     
-    // Автоматично затваряне след 5 секунди
+    // РђРІС‚РѕРјР°С‚РёС‡РЅРѕ Р·Р°С‚РІР°СЂСЏРЅРµ СЃР»РµРґ 5 СЃРµРєСѓРЅРґРё
     setTimeout(() => {
         if (document.body.contains(modal)) {
             modal.classList.remove('show');
@@ -2149,63 +2145,63 @@ function showMessage(message, type = 'info') {
     }, 5000);
 }
 
-// Административен панел
+// РђРґРјРёРЅРёСЃС‚СЂР°С‚РёРІРµРЅ РїР°РЅРµР»
 let adminMode = false;
-let adminPassword = "admin123"; // В реална ситуация това трябва да е в сървъра
+let adminPassword = "admin123"; // Р’ СЂРµР°Р»РЅР° СЃРёС‚СѓР°С†РёСЏ С‚РѕРІР° С‚СЂСЏР±РІР° РґР° Рµ РІ СЃСЉСЂРІСЉСЂР°
 
-// Функция за проверка дали потребителят е админ
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїСЂРѕРІРµСЂРєР° РґР°Р»Рё РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ Р°РґРјРёРЅ
 function checkIfAdmin() {
     const currentUser = getCurrentUser();
     return currentUser && currentUser.isAdmin === true;
 }
 
-// Функция за показване на административния панел
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° Р°РґРјРёРЅРёСЃС‚СЂР°С‚РёРІРЅРёСЏ РїР°РЅРµР»
 function showAdminPanel() {
     if (!checkIfAdmin()) {
-        showMessage("Нямате права за достъп до административния панел!", "error");
+        showMessage("РќСЏРјР°С‚Рµ РїСЂР°РІР° Р·Р° РґРѕСЃС‚СЉРї РґРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РёРІРЅРёСЏ РїР°РЅРµР»!", "error");
         return;
     }
     
     const adminHTML = `
         <div class="admin-panel">
             <div class="admin-header">
-                <h2>🔧 Административен панел</h2>
-                <button class="close-admin-btn" onclick="hideAdminPanel()">✕</button>
+                <h2>рџ”§ РђРґРјРёРЅРёСЃС‚СЂР°С‚РёРІРµРЅ РїР°РЅРµР»</h2>
+                <button class="close-admin-btn" onclick="hideAdminPanel()">вњ•</button>
             </div>
             
             <div class="admin-stats">
                 <div class="stat-card">
-                    <h3>👥 Общо потребители</h3>
+                    <h3>рџ‘Ґ РћР±С‰Рѕ РїРѕС‚СЂРµР±РёС‚РµР»Рё</h3>
                     <p class="stat-number">${getAllUsers().length}</p>
                 </div>
                 <div class="stat-card">
-                    <h3>🎮 Общо игри</h3>
+                    <h3>рџЋ® РћР±С‰Рѕ РёРіСЂРё</h3>
                     <p class="stat-number">${getTotalGames()}</p>
                 </div>
                 <div class="stat-card">
-                    <h3>📊 Активни сесии</h3>
+                    <h3>рџ“Љ РђРєС‚РёРІРЅРё СЃРµСЃРёРё</h3>
                     <p class="stat-number">${getActiveSessions()}</p>
                 </div>
             </div>
             
             <div class="admin-tabs">
-                <button class="tab-btn active" onclick="showTab('users')">Потребители</button>
-                <button class="tab-btn" onclick="showTab('logs')">Логове</button>
-                <button class="tab-btn" onclick="showTab('stats')">Статистика</button>
+                <button class="tab-btn active" onclick="showTab('users')">РџРѕС‚СЂРµР±РёС‚РµР»Рё</button>
+                <button class="tab-btn" onclick="showTab('logs')">Р›РѕРіРѕРІРµ</button>
+                <button class="tab-btn" onclick="showTab('stats')">РЎС‚Р°С‚РёСЃС‚РёРєР°</button>
             </div>
             
             <div id="users-tab" class="tab-content active">
                 <div class="users-list">
-                    <h3>Списък на всички потребители</h3>
+                    <h3>РЎРїРёСЃСЉРє РЅР° РІСЃРёС‡РєРё РїРѕС‚СЂРµР±РёС‚РµР»Рё</h3>
                     <div class="users-table">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Потребител</th>
-                                    <th>Имейл</th>
-                                    <th>Дата на регистрация</th>
-                                    <th>Последна активност</th>
-                                    <th>Действия</th>
+                                    <th>РџРѕС‚СЂРµР±РёС‚РµР»</th>
+                                    <th>РРјРµР№Р»</th>
+                                    <th>Р”Р°С‚Р° РЅР° СЂРµРіРёСЃС‚СЂР°С†РёСЏ</th>
+                                    <th>РџРѕСЃР»РµРґРЅР° Р°РєС‚РёРІРЅРѕСЃС‚</th>
+                                    <th>Р”РµР№СЃС‚РІРёСЏ</th>
                                 </tr>
                             </thead>
                             <tbody id="users-table-body">
@@ -2218,7 +2214,7 @@ function showAdminPanel() {
             
             <div id="logs-tab" class="tab-content">
                 <div class="activity-logs">
-                    <h3>Лог на активностите</h3>
+                    <h3>Р›РѕРі РЅР° Р°РєС‚РёРІРЅРѕСЃС‚РёС‚Рµ</h3>
                     <div class="logs-container">
                         ${generateActivityLogs()}
                     </div>
@@ -2227,22 +2223,22 @@ function showAdminPanel() {
             
             <div id="stats-tab" class="tab-content">
                 <div class="detailed-stats">
-                    <h3>Детайлна статистика</h3>
+                    <h3>Р”РµС‚Р°Р№Р»РЅР° СЃС‚Р°С‚РёСЃС‚РёРєР°</h3>
                     <div class="stats-grid">
                         <div class="stat-item">
-                            <h4>Регистрации днес</h4>
+                            <h4>Р РµРіРёСЃС‚СЂР°С†РёРё РґРЅРµСЃ</h4>
                             <p>${getRegistrationsToday()}</p>
                         </div>
                         <div class="stat-item">
-                            <h4>Регистрации тази седмица</h4>
+                            <h4>Р РµРіРёСЃС‚СЂР°С†РёРё С‚Р°Р·Рё СЃРµРґРјРёС†Р°</h4>
                             <p>${getRegistrationsThisWeek()}</p>
                         </div>
                         <div class="stat-item">
-                            <h4>Най-активен потребител</h4>
+                            <h4>РќР°Р№-Р°РєС‚РёРІРµРЅ РїРѕС‚СЂРµР±РёС‚РµР»</h4>
                             <p>${getMostActiveUser()}</p>
                         </div>
                         <div class="stat-item">
-                            <h4>Средно игри на потребител</h4>
+                            <h4>РЎСЂРµРґРЅРѕ РёРіСЂРё РЅР° РїРѕС‚СЂРµР±РёС‚РµР»</h4>
                             <p>${getAverageGamesPerUser()}</p>
                         </div>
                     </div>
@@ -2251,19 +2247,19 @@ function showAdminPanel() {
         </div>
     `;
     
-    // Създаваме модален прозорец за админ панела
+    // РЎСЉР·РґР°РІР°РјРµ РјРѕРґР°Р»РµРЅ РїСЂРѕР·РѕСЂРµС† Р·Р° Р°РґРјРёРЅ РїР°РЅРµР»Р°
     const adminModal = document.createElement('div');
     adminModal.className = 'admin-modal';
     adminModal.innerHTML = adminHTML;
     document.body.appendChild(adminModal);
     
-    // Анимация за показване
+    // РђРЅРёРјР°С†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ
     setTimeout(() => {
         adminModal.classList.add('show');
     }, 10);
 }
 
-// Функция за скриване на административния панел
+// Р¤СѓРЅРєС†РёСЏ Р·Р° СЃРєСЂРёРІР°РЅРµ РЅР° Р°РґРјРёРЅРёСЃС‚СЂР°С‚РёРІРЅРёСЏ РїР°РЅРµР»
 function hideAdminPanel() {
     const adminModal = document.querySelector('.admin-modal');
     if (adminModal) {
@@ -2274,26 +2270,26 @@ function hideAdminPanel() {
     }
 }
 
-// Функция за показване на различни табове
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° СЂР°Р·Р»РёС‡РЅРё С‚Р°Р±РѕРІРµ
 function showTab(tabName) {
-    // Скриваме всички табове
+    // РЎРєСЂРёРІР°РјРµ РІСЃРёС‡РєРё С‚Р°Р±РѕРІРµ
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
     });
     
-    // Премахваме активния клас от всички бутони
+    // РџСЂРµРјР°С…РІР°РјРµ Р°РєС‚РёРІРЅРёСЏ РєР»Р°СЃ РѕС‚ РІСЃРёС‡РєРё Р±СѓС‚РѕРЅРё
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
     });
     
-    // Показваме избрания таб
+    // РџРѕРєР°Р·РІР°РјРµ РёР·Р±СЂР°РЅРёСЏ С‚Р°Р±
     document.getElementById(tabName + '-tab').classList.add('active');
     
-    // Добавяме активен клас на бутона
+    // Р”РѕР±Р°РІСЏРјРµ Р°РєС‚РёРІРµРЅ РєР»Р°СЃ РЅР° Р±СѓС‚РѕРЅР°
     event.target.classList.add('active');
 }
 
-// Функция за генериране на таблица с потребители
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РіРµРЅРµСЂРёСЂР°РЅРµ РЅР° С‚Р°Р±Р»РёС†Р° СЃ РїРѕС‚СЂРµР±РёС‚РµР»Рё
 function generateUsersTable() {
     const users = getAllUsers();
     return users.map(user => `
@@ -2303,17 +2299,17 @@ function generateUsersTable() {
             <td>${formatDate(user.registrationDate)}</td>
             <td>${formatDate(user.lastActivity)}</td>
             <td>
-                <button class="admin-btn small" onclick="editUser('${user.username}')">✏️</button>
+                <button class="admin-btn small" onclick="editUser('${user.username}')">вњЏпёЏ</button>
                 <button class="admin-btn small" onclick="toggleUserStatus('${user.username}')">
-                    ${user.isBlocked ? '🔓' : '🔒'}
+                    ${user.isBlocked ? 'рџ”“' : 'рџ”’'}
                 </button>
-                <button class="admin-btn small danger" onclick="deleteUser('${user.username}')">🗑️</button>
+                <button class="admin-btn small danger" onclick="deleteUser('${user.username}')">рџ—‘пёЏ</button>
             </td>
         </tr>
     `).join('');
 }
 
-// Функция за генериране на логове на активностите
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РіРµРЅРµСЂРёСЂР°РЅРµ РЅР° Р»РѕРіРѕРІРµ РЅР° Р°РєС‚РёРІРЅРѕСЃС‚РёС‚Рµ
 function generateActivityLogs() {
     const logs = getActivityLogs();
     return logs.map(log => `
@@ -2325,7 +2321,7 @@ function generateActivityLogs() {
     `).join('');
 }
 
-// Помощни функции за статистика
+// РџРѕРјРѕС‰РЅРё С„СѓРЅРєС†РёРё Р·Р° СЃС‚Р°С‚РёСЃС‚РёРєР°
 function getAllUsers() {
     const users = JSON.parse(localStorage.getItem('usersDB') || '[]');
     return users;
@@ -2361,7 +2357,7 @@ function getRegistrationsThisWeek() {
 
 function getMostActiveUser() {
     const users = getAllUsers();
-    if (users.length === 0) return 'Няма данни';
+    if (users.length === 0) return 'РќСЏРјР° РґР°РЅРЅРё';
     
     const mostActive = users.reduce((prev, current) => 
         (current.gamesPlayed || 0) > (prev.gamesPlayed || 0) ? current : prev
@@ -2380,10 +2376,10 @@ function getAverageGamesPerUser() {
 
 function getActivityLogs() {
     const logs = JSON.parse(localStorage.getItem('activityLogs') || '[]');
-    return logs.slice(-50); // Последните 50 лога
+    return logs.slice(-50); // РџРѕСЃР»РµРґРЅРёС‚Рµ 50 Р»РѕРіР°
 }
 
-// Функция за добавяне на лог
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РґРѕР±Р°РІСЏРЅРµ РЅР° Р»РѕРі
 function addActivityLog(username, action) {
     const logs = JSON.parse(localStorage.getItem('activityLogs') || '[]');
     logs.push({
@@ -2392,7 +2388,7 @@ function addActivityLog(username, action) {
         action: action
     });
     
-    // Запазваме само последните 1000 лога
+    // Р—Р°РїР°Р·РІР°РјРµ СЃР°РјРѕ РїРѕСЃР»РµРґРЅРёС‚Рµ 1000 Р»РѕРіР°
     if (logs.length > 1000) {
         logs.splice(0, logs.length - 1000);
     }
@@ -2400,19 +2396,19 @@ function addActivityLog(username, action) {
     localStorage.setItem('activityLogs', JSON.stringify(logs));
 }
 
-// Функции за управление на потребители
+// Р¤СѓРЅРєС†РёРё Р·Р° СѓРїСЂР°РІР»РµРЅРёРµ РЅР° РїРѕС‚СЂРµР±РёС‚РµР»Рё
 function editUser(username) {
     const users = getAllUsers();
     const user = users.find(u => u.username === username);
     
     if (user) {
-        const newEmail = prompt('Нов имейл:', user.email);
+        const newEmail = prompt('РќРѕРІ РёРјРµР№Р»:', user.email);
         if (newEmail && newEmail !== user.email) {
             user.email = newEmail;
             user.lastModified = new Date().toISOString();
             localStorage.setItem('usersDB', JSON.stringify(users));
-            addActivityLog('ADMIN', `Редактира потребител: ${username}`);
-            showMessage('Потребителят е редактиран успешно!', 'success');
+            addActivityLog('ADMIN', `Р РµРґР°РєС‚РёСЂР° РїРѕС‚СЂРµР±РёС‚РµР»: ${username}`);
+            showMessage('РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЂРµРґР°РєС‚РёСЂР°РЅ СѓСЃРїРµС€РЅРѕ!', 'success');
             refreshAdminPanel();
         }
     }
@@ -2427,33 +2423,33 @@ function toggleUserStatus(username) {
         user.lastModified = new Date().toISOString();
         localStorage.setItem('usersDB', JSON.stringify(users));
         
-        const action = user.isBlocked ? 'блокира' : 'отблокира';
-        addActivityLog('ADMIN', `${action} потребител: ${username}`);
-        showMessage(`Потребителят е ${action}н успешно!`, 'success');
+        const action = user.isBlocked ? 'Р±Р»РѕРєРёСЂР°' : 'РѕС‚Р±Р»РѕРєРёСЂР°';
+        addActivityLog('ADMIN', `${action} РїРѕС‚СЂРµР±РёС‚РµР»: ${username}`);
+        showMessage(`РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ ${action}РЅ СѓСЃРїРµС€РЅРѕ!`, 'success');
         refreshAdminPanel();
     }
 }
 
 function deleteUser(username) {
-    if (confirm(`Сигурни ли сте, че искате да изтриете потребителя ${username}?`)) {
+    if (confirm(`РЎРёРіСѓСЂРЅРё Р»Рё СЃС‚Рµ, С‡Рµ РёСЃРєР°С‚Рµ РґР° РёР·С‚СЂРёРµС‚Рµ РїРѕС‚СЂРµР±РёС‚РµР»СЏ ${username}?`)) {
         const users = getAllUsers();
         const filteredUsers = users.filter(u => u.username !== username);
         localStorage.setItem('usersDB', JSON.stringify(filteredUsers));
         
-        addActivityLog('ADMIN', `Изтри потребител: ${username}`);
-        showMessage('Потребителят е изтрит успешно!', 'success');
+        addActivityLog('ADMIN', `РР·С‚СЂРё РїРѕС‚СЂРµР±РёС‚РµР»: ${username}`);
+        showMessage('РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ РёР·С‚СЂРёС‚ СѓСЃРїРµС€РЅРѕ!', 'success');
         refreshAdminPanel();
     }
 }
 
 function refreshAdminPanel() {
-    // Обновяваме таблицата с потребители
+    // РћР±РЅРѕРІСЏРІР°РјРµ С‚Р°Р±Р»РёС†Р°С‚Р° СЃ РїРѕС‚СЂРµР±РёС‚РµР»Рё
     const tableBody = document.getElementById('users-table-body');
     if (tableBody) {
         tableBody.innerHTML = generateUsersTable();
     }
     
-    // Обновяваме статистиката
+    // РћР±РЅРѕРІСЏРІР°РјРµ СЃС‚Р°С‚РёСЃС‚РёРєР°С‚Р°
     const statNumbers = document.querySelectorAll('.stat-number');
     if (statNumbers.length >= 3) {
         statNumbers[0].textContent = getAllUsers().length;
@@ -2462,67 +2458,67 @@ function refreshAdminPanel() {
     }
 }
 
-// Функция за форматиране на дата
+// Р¤СѓРЅРєС†РёСЏ Р·Р° С„РѕСЂРјР°С‚РёСЂР°РЅРµ РЅР° РґР°С‚Р°
 function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('bg-BG');
 }
 
-// Функция за форматиране на дата и час
+// Р¤СѓРЅРєС†РёСЏ Р·Р° С„РѕСЂРјР°С‚РёСЂР°РЅРµ РЅР° РґР°С‚Р° Рё С‡Р°СЃ
 function formatDateTime(dateString) {
     const date = new Date(dateString);
     return date.toLocaleString('bg-BG');
 }
 
-// Добавяме бутон за админ панел в профилния панел
+// Р”РѕР±Р°РІСЏРјРµ Р±СѓС‚РѕРЅ Р·Р° Р°РґРјРёРЅ РїР°РЅРµР» РІ РїСЂРѕС„РёР»РЅРёСЏ РїР°РЅРµР»
 function addAdminButton() {
-    console.log('addAdminButton извикана');
+    console.log('addAdminButton РёР·РІРёРєР°РЅР°');
     const currentUser = getCurrentUser();
     console.log('Current user:', currentUser);
     
     if (currentUser && currentUser.isAdmin === true) {
-        console.log('Потребителят е админ, добавяме бутон');
+        console.log('РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ Р°РґРјРёРЅ, РґРѕР±Р°РІСЏРјРµ Р±СѓС‚РѕРЅ');
         const profileInfo = document.querySelector('.profile-info');
         console.log('Profile info element:', profileInfo);
         
         if (profileInfo && !document.querySelector('.admin-btn')) {
             const adminBtn = document.createElement('button');
             adminBtn.className = 'profile-btn admin-btn';
-            adminBtn.innerHTML = '🔧';
-            adminBtn.title = 'Административен панел';
+            adminBtn.innerHTML = 'рџ”§';
+            adminBtn.title = 'РђРґРјРёРЅРёСЃС‚СЂР°С‚РёРІРµРЅ РїР°РЅРµР»';
             adminBtn.onclick = showAdminPanel;
             profileInfo.appendChild(adminBtn);
-            console.log('Админ бутон добавен успешно');
+            console.log('РђРґРјРёРЅ Р±СѓС‚РѕРЅ РґРѕР±Р°РІРµРЅ СѓСЃРїРµС€РЅРѕ');
         } else {
-            console.log('Profile info не е намерен или админ бутон вече съществува');
+            console.log('Profile info РЅРµ Рµ РЅР°РјРµСЂРµРЅ РёР»Рё Р°РґРјРёРЅ Р±СѓС‚РѕРЅ РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР°');
         }
     } else {
-        console.log('Потребителят не е админ или няма currentUser');
+        console.log('РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ РЅРµ Рµ Р°РґРјРёРЅ РёР»Рё РЅСЏРјР° currentUser');
         if (currentUser) {
             console.log('Current user details:', currentUser);
         }
     }
 }
 
-// Модифицираме функцията за вход, за да добавя админ права
+// РњРѕРґРёС„РёС†РёСЂР°РјРµ С„СѓРЅРєС†РёСЏС‚Р° Р·Р° РІС…РѕРґ, Р·Р° РґР° РґРѕР±Р°РІСЏ Р°РґРјРёРЅ РїСЂР°РІР°
 function loginUser(username, password) {
     const users = getUsersDB();
     const user = users.find(u => u.username === username);
     
-    // Проверяваме и двата варианта на паролата
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ Рё РґРІР°С‚Р° РІР°СЂРёР°РЅС‚Р° РЅР° РїР°СЂРѕР»Р°С‚Р°
     const isValidPassword = user && (
         user.passwordHash === btoa(password) || 
         user.password === password
     );
     
     if (isValidPassword) {
-        // Ако няма админ, правим този потребител админ
+        // РђРєРѕ РЅСЏРјР° Р°РґРјРёРЅ, РїСЂР°РІРёРј С‚РѕР·Рё РїРѕС‚СЂРµР±РёС‚РµР» Р°РґРјРёРЅ
         if (!users.some(u => u.isAdmin)) {
             user.isAdmin = true;
             saveUsersDB(users);
         }
         
-        // Обновяваме последната активност
+        // РћР±РЅРѕРІСЏРІР°РјРµ РїРѕСЃР»РµРґРЅР°С‚Р° Р°РєС‚РёРІРЅРѕСЃС‚
         user.lastActivity = new Date().toISOString();
         saveUsersDB(users);
         
@@ -2537,10 +2533,10 @@ function loginUser(username, password) {
     }
 }
 
-// Модифицираме функцията за регистрация, за да добавя админ права
+// РњРѕРґРёС„РёС†РёСЂР°РјРµ С„СѓРЅРєС†РёСЏС‚Р° Р·Р° СЂРµРіРёСЃС‚СЂР°С†РёСЏ, Р·Р° РґР° РґРѕР±Р°РІСЏ Р°РґРјРёРЅ РїСЂР°РІР°
 function registerUser(username, email, password) {
     const users = getUsersDB();
-    // Проверка за уникалност
+    // РџСЂРѕРІРµСЂРєР° Р·Р° СѓРЅРёРєР°Р»РЅРѕСЃС‚
     if (users.find(u => u.username === username)) {
         showMessage(translateText('username_exists'), 'error');
         return false;
@@ -2549,9 +2545,9 @@ function registerUser(username, email, password) {
         showMessage(translateText('email_exists'), 'error');
         return false;
     }
-    // Симулиране на "хеширане" на паролата (само за демо)
+    // РЎРёРјСѓР»РёСЂР°РЅРµ РЅР° "С…РµС€РёСЂР°РЅРµ" РЅР° РїР°СЂРѕР»Р°С‚Р° (СЃР°РјРѕ Р·Р° РґРµРјРѕ)
     const passwordHash = btoa(password);
-    // Създаване на нов потребител
+    // РЎСЉР·РґР°РІР°РЅРµ РЅР° РЅРѕРІ РїРѕС‚СЂРµР±РёС‚РµР»
     const userData = {
         username,
         email,
@@ -2559,7 +2555,7 @@ function registerUser(username, email, password) {
         registrationDate: new Date().toISOString(),
         isAdmin: false
     };
-    // Ако това е първият потребител, правим го админ
+    // РђРєРѕ С‚РѕРІР° Рµ РїСЉСЂРІРёСЏС‚ РїРѕС‚СЂРµР±РёС‚РµР», РїСЂР°РІРёРј РіРѕ Р°РґРјРёРЅ
     if (users.length === 0) {
         userData.isAdmin = true;
     }
@@ -2572,11 +2568,11 @@ function registerUser(username, email, password) {
     return true;
 }
 
-// Функция за записване на игра
+// Р¤СѓРЅРєС†РёСЏ Р·Р° Р·Р°РїРёСЃРІР°РЅРµ РЅР° РёРіСЂР°
 function recordGame() {
     const currentUser = getCurrentUser();
     if (currentUser) {
-        // Увеличаваме броя игри на потребителя
+        // РЈРІРµР»РёС‡Р°РІР°РјРµ Р±СЂРѕСЏ РёРіСЂРё РЅР° РїРѕС‚СЂРµР±РёС‚РµР»СЏ
         const users = JSON.parse(localStorage.getItem('usersDB') || '[]');
         const userIndex = users.findIndex(u => u.username === currentUser.username);
         
@@ -2585,43 +2581,43 @@ function recordGame() {
             users[userIndex].lastActivity = new Date().toISOString();
             localStorage.setItem('usersDB', JSON.stringify(users));
             
-            // Обновяваме текущия потребител
+            // РћР±РЅРѕРІСЏРІР°РјРµ С‚РµРєСѓС‰РёСЏ РїРѕС‚СЂРµР±РёС‚РµР»
             currentUser.gamesPlayed = users[userIndex].gamesPlayed;
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
         }
         
-        // Увеличаваме общия брой игри
+        // РЈРІРµР»РёС‡Р°РІР°РјРµ РѕР±С‰РёСЏ Р±СЂРѕР№ РёРіСЂРё
         const totalGames = parseInt(localStorage.getItem('totalGames') || '0') + 1;
         localStorage.setItem('totalGames', totalGames.toString());
         
-        // Добавяме лог
-        addActivityLog(currentUser.username, 'Завърши игра');
+        // Р”РѕР±Р°РІСЏРјРµ Р»РѕРі
+        addActivityLog(currentUser.username, 'Р—Р°РІСЉСЂС€Рё РёРіСЂР°');
     }
 }
 
-// Функция за следене на активни сесии
+// Р¤СѓРЅРєС†РёСЏ Р·Р° СЃР»РµРґРµРЅРµ РЅР° Р°РєС‚РёРІРЅРё СЃРµСЃРёРё
 function trackActiveSession() {
     const currentUser = getCurrentUser();
     if (currentUser) {
-        // Увеличаваме броя активни сесии
+        // РЈРІРµР»РёС‡Р°РІР°РјРµ Р±СЂРѕСЏ Р°РєС‚РёРІРЅРё СЃРµСЃРёРё
         const activeSessions = parseInt(localStorage.getItem('activeSessions') || '0') + 1;
         localStorage.setItem('activeSessions', activeSessions.toString());
         
-        // Добавяме лог
-        addActivityLog(currentUser.username, 'Започна нова сесия');
+        // Р”РѕР±Р°РІСЏРјРµ Р»РѕРі
+        addActivityLog(currentUser.username, 'Р—Р°РїРѕС‡РЅР° РЅРѕРІР° СЃРµСЃРёСЏ');
     }
 }
 
-// Модифицираме функцията за изход, за да намалим активните сесии
+// РњРѕРґРёС„РёС†РёСЂР°РјРµ С„СѓРЅРєС†РёСЏС‚Р° Р·Р° РёР·С…РѕРґ, Р·Р° РґР° РЅР°РјР°Р»РёРј Р°РєС‚РёРІРЅРёС‚Рµ СЃРµСЃРёРё
 function logoutUser() {
     const currentUser = getCurrentUser();
     if (currentUser) {
-        // Намаляваме броя активни сесии
+        // РќР°РјР°Р»СЏРІР°РјРµ Р±СЂРѕСЏ Р°РєС‚РёРІРЅРё СЃРµСЃРёРё
         const activeSessions = Math.max(0, parseInt(localStorage.getItem('activeSessions') || '0') - 1);
         localStorage.setItem('activeSessions', activeSessions.toString());
         
-        // Добавяме лог
-        addActivityLog(currentUser.username, 'Излязъл от системата');
+        // Р”РѕР±Р°РІСЏРјРµ Р»РѕРі
+        addActivityLog(currentUser.username, 'РР·Р»СЏР·СЉР» РѕС‚ СЃРёСЃС‚РµРјР°С‚Р°');
     }
     
     localStorage.removeItem('currentUser');
@@ -2629,16 +2625,16 @@ function logoutUser() {
     updateProfilePanel();
 }
 
-// Модифицираме функцията за край на играта, за да записваме статистиката
+// РњРѕРґРёС„РёС†РёСЂР°РјРµ С„СѓРЅРєС†РёСЏС‚Р° Р·Р° РєСЂР°Р№ РЅР° РёРіСЂР°С‚Р°, Р·Р° РґР° Р·Р°РїРёСЃРІР°РјРµ СЃС‚Р°С‚РёСЃС‚РёРєР°С‚Р°
 function endGame() {
-    // Записваме играта
+    // Р—Р°РїРёСЃРІР°РјРµ РёРіСЂР°С‚Р°
     recordGame();
     
-    // Показваме екрана за край на играта
+    // РџРѕРєР°Р·РІР°РјРµ РµРєСЂР°РЅР° Р·Р° РєСЂР°Р№ РЅР° РёРіСЂР°С‚Р°
     showGameEndScreen();
 }
 
-// Функция за показване на екрана за край на играта
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° РµРєСЂР°РЅР° Р·Р° РєСЂР°Р№ РЅР° РёРіСЂР°С‚Р°
 function showGameEndScreen() {
     const gameEndHTML = `
         <div class="game-end-screen">
@@ -2663,19 +2659,19 @@ function showGameEndScreen() {
         </div>
     `;
     
-    // Създаваме модален прозорец за края на играта
+    // РЎСЉР·РґР°РІР°РјРµ РјРѕРґР°Р»РµРЅ РїСЂРѕР·РѕСЂРµС† Р·Р° РєСЂР°СЏ РЅР° РёРіСЂР°С‚Р°
     const gameEndModal = document.createElement('div');
     gameEndModal.className = 'game-end-modal';
     gameEndModal.innerHTML = gameEndHTML;
     document.body.appendChild(gameEndModal);
     
-    // Анимация за показване
+    // РђРЅРёРјР°С†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ
     setTimeout(() => {
         gameEndModal.classList.add('show');
     }, 10);
 }
 
-// Функция за скриване на екрана за край на играта
+// Р¤СѓРЅРєС†РёСЏ Р·Р° СЃРєСЂРёРІР°РЅРµ РЅР° РµРєСЂР°РЅР° Р·Р° РєСЂР°Р№ РЅР° РёРіСЂР°С‚Р°
 function hideGameEndScreen() {
     const gameEndModal = document.querySelector('.game-end-modal');
     if (gameEndModal) {
@@ -2686,33 +2682,33 @@ function hideGameEndScreen() {
     }
 }
 
-// Функция за показване на главното меню
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° РіР»Р°РІРЅРѕС‚Рѕ РјРµРЅСЋ
 function showMainMenu() {
     hideGameEndScreen();
-    // Тук можеш да добавиш логика за връщане към главното меню
-    location.reload(); // За сега просто презареждаме страницата
+    // РўСѓРє РјРѕР¶РµС€ РґР° РґРѕР±Р°РІРёС€ Р»РѕРіРёРєР° Р·Р° РІСЂСЉС‰Р°РЅРµ РєСЉРј РіР»Р°РІРЅРѕС‚Рѕ РјРµРЅСЋ
+    location.reload(); // Р—Р° СЃРµРіР° РїСЂРѕСЃС‚Рѕ РїСЂРµР·Р°СЂРµР¶РґР°РјРµ СЃС‚СЂР°РЅРёС†Р°С‚Р°
 }
 
-// Функция за започване на нова игра
+// Р¤СѓРЅРєС†РёСЏ Р·Р° Р·Р°РїРѕС‡РІР°РЅРµ РЅР° РЅРѕРІР° РёРіСЂР°
 function startNewGame() {
-    console.log('[LIMIT DEBUG] startNewGame извикана');
+    console.log('[LIMIT DEBUG] startNewGame РёР·РІРёРєР°РЅР°');
     
-    // Проверяваме дали има активен таймер за изчакване
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РёРјР° Р°РєС‚РёРІРµРЅ С‚Р°Р№РјРµСЂ Р·Р° РёР·С‡Р°РєРІР°РЅРµ
     const remainingSeconds = checkActiveWaitTimer();
     console.log('[LIMIT DEBUG] startNewGame - remainingSeconds:', remainingSeconds);
     
     if (remainingSeconds > 0) {
-        console.log('[LIMIT DEBUG] В startNewGame - има активен таймер:', remainingSeconds, 'секунди');
+        console.log('[LIMIT DEBUG] Р’ startNewGame - РёРјР° Р°РєС‚РёРІРµРЅ С‚Р°Р№РјРµСЂ:', remainingSeconds, 'СЃРµРєСѓРЅРґРё');
         isModalBeingShown = true;
         showModalWithRemainingTime(remainingSeconds);
         return;
     }
     
-    console.log('[LIMIT DEBUG] startNewGame - няма активен таймер, продължаваме с нормалната логика');
+    console.log('[LIMIT DEBUG] startNewGame - РЅСЏРјР° Р°РєС‚РёРІРµРЅ С‚Р°Р№РјРµСЂ, РїСЂРѕРґСЉР»Р¶Р°РІР°РјРµ СЃ РЅРѕСЂРјР°Р»РЅР°С‚Р° Р»РѕРіРёРєР°');
     
-    // Вместо location.reload() използваме лимит и resetGame
+    // Р’РјРµСЃС‚Рѕ location.reload() РёР·РїРѕР»Р·РІР°РјРµ Р»РёРјРёС‚ Рё resetGame
     checkFreeGameLimitAndMaybeBlock(() => {
-        // Скриваме екрана за край на играта, ако има такъв
+        // РЎРєСЂРёРІР°РјРµ РµРєСЂР°РЅР° Р·Р° РєСЂР°Р№ РЅР° РёРіСЂР°С‚Р°, Р°РєРѕ РёРјР° С‚Р°РєСЉРІ
         hideGameEndScreen && hideGameEndScreen();
         resultsScreen.classList.add('hidden');
         setupScreen.classList.remove('hidden');
@@ -2720,24 +2716,24 @@ function startNewGame() {
     });
 }
 
-// Инициализация при зареждане на страницата
+// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїСЂРё Р·Р°СЂРµР¶РґР°РЅРµ РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р°
 document.addEventListener('DOMContentLoaded', function() {
-    // Обновяваме профилния панел
+    // РћР±РЅРѕРІСЏРІР°РјРµ РїСЂРѕС„РёР»РЅРёСЏ РїР°РЅРµР»
     updateProfilePanel();
     
-    // Добавяме админ бутон ако е нужно
+    // Р”РѕР±Р°РІСЏРјРµ Р°РґРјРёРЅ Р±СѓС‚РѕРЅ Р°РєРѕ Рµ РЅСѓР¶РЅРѕ
     addAdminButton();
     
-    // Инициализираме статистиката
+    // РРЅРёС†РёР°Р»РёР·РёСЂР°РјРµ СЃС‚Р°С‚РёСЃС‚РёРєР°С‚Р°
     initializeStats();
     
-    // Проверяваме дали потребителят е влязъл
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ РІР»СЏР·СЉР»
     const currentUser = getCurrentUser();
     if (currentUser) {
         isUserRegistered = true;
     }
     
-    // Добавяме event listeners
+    // Р”РѕР±Р°РІСЏРјРµ event listeners
     addEventListeners();
     
     const openLoginBtn = document.getElementById('open-login-btn');
@@ -2764,12 +2760,12 @@ document.addEventListener('DOMContentLoaded', function() {
         unlockProBtn.addEventListener('click', function() {
             console.log('Unlock Pro button clicked!');
             unlockProModal.classList.add('show');
-            document.body.style.overflow = 'hidden'; // Предотвратява скролване
+            document.body.style.overflow = 'hidden'; // РџСЂРµРґРѕС‚РІСЂР°С‚СЏРІР° СЃРєСЂРѕР»РІР°РЅРµ
             console.log('Modal should be visible now');
         });
         closeUnlockProModal.addEventListener('click', function() {
             unlockProModal.classList.remove('show');
-            document.body.style.overflow = ''; // Възстановява скролването
+            document.body.style.overflow = ''; // Р’СЉР·СЃС‚Р°РЅРѕРІСЏРІР° СЃРєСЂРѕР»РІР°РЅРµС‚Рѕ
         });
         unlockProModal.addEventListener('click', function(e) {
             if (e.target === unlockProModal) {
@@ -2778,7 +2774,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Затваряне с Escape клавиш
+        // Р—Р°С‚РІР°СЂСЏРЅРµ СЃ Escape РєР»Р°РІРёС€
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && unlockProModal.classList.contains('show')) {
                 unlockProModal.classList.remove('show');
@@ -2792,7 +2788,7 @@ document.addEventListener('DOMContentLoaded', function() {
             closeUnlockProModal: !!closeUnlockProModal
         });
         
-        // Опитай отново след малко закъснение
+        // РћРїРёС‚Р°Р№ РѕС‚РЅРѕРІРѕ СЃР»РµРґ РјР°Р»РєРѕ Р·Р°РєСЉСЃРЅРµРЅРёРµ
         setTimeout(() => {
             const retryUnlockProBtn = document.querySelector('.unlock-pro-btn');
             const retryUnlockProModal = document.getElementById('unlock-pro-modal');
@@ -2820,61 +2816,61 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Функция за инициализиране на статистиката
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РёРЅРёС†РёР°Р»РёР·РёСЂР°РЅРµ РЅР° СЃС‚Р°С‚РёСЃС‚РёРєР°С‚Р°
 function initializeStats() {
-    // Ако няма записани игри, започваме от 0
+    // РђРєРѕ РЅСЏРјР° Р·Р°РїРёСЃР°РЅРё РёРіСЂРё, Р·Р°РїРѕС‡РІР°РјРµ РѕС‚ 0
     if (!localStorage.getItem('totalGames')) {
         localStorage.setItem('totalGames', '0');
     }
     
-    // Ако няма записани активни сесии, започваме от 0
+    // РђРєРѕ РЅСЏРјР° Р·Р°РїРёСЃР°РЅРё Р°РєС‚РёРІРЅРё СЃРµСЃРёРё, Р·Р°РїРѕС‡РІР°РјРµ РѕС‚ 0
     if (!localStorage.getItem('activeSessions')) {
         localStorage.setItem('activeSessions', '0');
     }
     
-    // Ако няма записани логове, създаваме празен масив
+    // РђРєРѕ РЅСЏРјР° Р·Р°РїРёСЃР°РЅРё Р»РѕРіРѕРІРµ, СЃСЉР·РґР°РІР°РјРµ РїСЂР°Р·РµРЅ РјР°СЃРёРІ
     if (!localStorage.getItem('activityLogs')) {
         localStorage.setItem('activityLogs', JSON.stringify([]));
     }
 }
 
-// Функция за добавяне на всички event listeners
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РґРѕР±Р°РІСЏРЅРµ РЅР° РІСЃРёС‡РєРё event listeners
 function addEventListeners() {
-    // Бутон за регистрация от панела
+    // Р‘СѓС‚РѕРЅ Р·Р° СЂРµРіРёСЃС‚СЂР°С†РёСЏ РѕС‚ РїР°РЅРµР»Р°
     const registerBtn = document.getElementById('register-btn');
     if (registerBtn) {
-        console.log('register-btn намерен');
+        console.log('register-btn РЅР°РјРµСЂРµРЅ');
         registerBtn.addEventListener('click', () => {
-            console.log('Кликнат register-btn');
+            console.log('РљР»РёРєРЅР°С‚ register-btn');
             showRegistration();
         });
     } else {
-        console.log('register-btn НЕ е намерен');
+        console.log('register-btn РќР• Рµ РЅР°РјРµСЂРµРЅ');
     }
     
-    // Бутон за вход от панела
+    // Р‘СѓС‚РѕРЅ Р·Р° РІС…РѕРґ РѕС‚ РїР°РЅРµР»Р°
     const loginBtn = document.getElementById('login-btn');
     if (loginBtn) {
-        console.log('login-btn намерен');
+        console.log('login-btn РЅР°РјРµСЂРµРЅ');
         loginBtn.addEventListener('click', () => {
-            console.log('Кликнат login-btn');
+            console.log('РљР»РёРєРЅР°С‚ login-btn');
             showLogin();
         });
     } else {
-        console.log('login-btn НЕ е намерен');
+        console.log('login-btn РќР• Рµ РЅР°РјРµСЂРµРЅ');
     }
     
-    // Бутон за изход - event listener се добавя в updateProfilePanel()
-    // Тук не добавяме event listener, за да избегнем дублиране
+    // Р‘СѓС‚РѕРЅ Р·Р° РёР·С…РѕРґ - event listener СЃРµ РґРѕР±Р°РІСЏ РІ updateProfilePanel()
+    // РўСѓРє РЅРµ РґРѕР±Р°РІСЏРјРµ event listener, Р·Р° РґР° РёР·Р±РµРіРЅРµРј РґСѓР±Р»РёСЂР°РЅРµ
     
-    // Форма за регистрация
+    // Р¤РѕСЂРјР° Р·Р° СЂРµРіРёСЃС‚СЂР°С†РёСЏ
     const registrationForm = document.getElementById('registration-form');
     if (registrationForm) {
-        console.log('registration-form намерен');
+        console.log('registration-form РЅР°РјРµСЂРµРЅ');
         registrationForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            console.log('Изпратена регистрационна форма');
-            // ... останалия код ...
+            console.log('РР·РїСЂР°С‚РµРЅР° СЂРµРіРёСЃС‚СЂР°С†РёРѕРЅРЅР° С„РѕСЂРјР°');
+            // ... РѕСЃС‚Р°РЅР°Р»РёСЏ РєРѕРґ ...
             const formData = new FormData(registrationForm);
             const username = formData.get('username');
             const email = formData.get('email');
@@ -2885,66 +2881,66 @@ function addEventListeners() {
             const terms = formData.get('terms');
             const newsletter = formData.get('newsletter');
             
-            // Валидация
+            // Р’Р°Р»РёРґР°С†РёСЏ
             if (password !== confirmPassword) {
-                showMessage('Паролите не съвпадат!', 'error');
+                showMessage('РџР°СЂРѕР»РёС‚Рµ РЅРµ СЃСЉРІРїР°РґР°С‚!', 'error');
                 return;
             }
             if (parseInt(age) < 13) {
-                showMessage('Трябва да сте на 13 години или повече!', 'error');
+                showMessage('РўСЂСЏР±РІР° РґР° СЃС‚Рµ РЅР° 13 РіРѕРґРёРЅРё РёР»Рё РїРѕРІРµС‡Рµ!', 'error');
                 return;
             }
             if (!terms) {
-                showMessage('Трябва да приемете условията за ползване!', 'error');
+                showMessage('РўСЂСЏР±РІР° РґР° РїСЂРёРµРјРµС‚Рµ СѓСЃР»РѕРІРёСЏС‚Р° Р·Р° РїРѕР»Р·РІР°РЅРµ!', 'error');
                 return;
             }
             
-            // Използваме новата функция за регистрация
+            // РР·РїРѕР»Р·РІР°РјРµ РЅРѕРІР°С‚Р° С„СѓРЅРєС†РёСЏ Р·Р° СЂРµРіРёСЃС‚СЂР°С†РёСЏ
             const success = registerUser(username, email, password);
             
             if (success) {
-                // Скриване на регистрацията
+                // РЎРєСЂРёРІР°РЅРµ РЅР° СЂРµРіРёСЃС‚СЂР°С†РёСЏС‚Р°
                 hideRegistration();
-                // Маркиране като регистриран
+                // РњР°СЂРєРёСЂР°РЅРµ РєР°С‚Рѕ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ
                 isUserRegistered = true;
                 isRegistrationShown = true;
-                // Продължаване на играта
+                // РџСЂРѕРґСЉР»Р¶Р°РІР°РЅРµ РЅР° РёРіСЂР°С‚Р°
                 continueGameAfterRegistration();
             }
         });
     } else {
-        console.log('registration-form НЕ е намерен');
+        console.log('registration-form РќР• Рµ РЅР°РјРµСЂРµРЅ');
     }
     
-    // Форма за вход
+    // Р¤РѕСЂРјР° Р·Р° РІС…РѕРґ
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
-        console.log('login-form намерен');
-        // Старият event listener е премахнат - използваме само Firebase login
+        console.log('login-form РЅР°РјРµСЂРµРЅ');
+        // РЎС‚Р°СЂРёСЏС‚ event listener Рµ РїСЂРµРјР°С…РЅР°С‚ - РёР·РїРѕР»Р·РІР°РјРµ СЃР°РјРѕ Firebase login
     } else {
-        console.log('login-form НЕ е намерен');
+        console.log('login-form РќР• Рµ РЅР°РјРµСЂРµРЅ');
     }
     
-    // Бутон за затваряне на регистрацията
+    // Р‘СѓС‚РѕРЅ Р·Р° Р·Р°С‚РІР°СЂСЏРЅРµ РЅР° СЂРµРіРёСЃС‚СЂР°С†РёСЏС‚Р°
     const closeRegistration = document.getElementById('close-registration');
     if (closeRegistration) {
-        console.log('close-registration намерен');
+        console.log('close-registration РЅР°РјРµСЂРµРЅ');
         closeRegistration.addEventListener('click', () => {
             const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
             if (!isUserRegistered || !isLoggedIn) {
-                showMessage('Трябва да се регистрирате, за да продължите!', 'error');
+                showMessage('РўСЂСЏР±РІР° РґР° СЃРµ СЂРµРіРёСЃС‚СЂРёСЂР°С‚Рµ, Р·Р° РґР° РїСЂРѕРґСЉР»Р¶РёС‚Рµ!', 'error');
                 return;
             }
             hideRegistration();
         });
     } else {
-        console.log('close-registration НЕ е намерен');
+        console.log('close-registration РќР• Рµ РЅР°РјРµСЂРµРЅ');
     }
     
-    // Бутон за затваряне на login
+    // Р‘СѓС‚РѕРЅ Р·Р° Р·Р°С‚РІР°СЂСЏРЅРµ РЅР° login
     const closeLogin = document.getElementById('close-login');
     if (closeLogin) {
-        console.log('close-login намерен');
+        console.log('close-login РЅР°РјРµСЂРµРЅ');
         closeLogin.addEventListener('click', () => {
             const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
             if (!isLoggedIn) {
@@ -2954,37 +2950,37 @@ function addEventListeners() {
             hideLogin();
         });
     } else {
-        console.log('close-login НЕ е намерен');
+        console.log('close-login РќР• Рµ РЅР°РјРµСЂРµРЅ');
     }
     
-    // Линк за преминаване от регистрация към вход
+    // Р›РёРЅРє Р·Р° РїСЂРµРјРёРЅР°РІР°РЅРµ РѕС‚ СЂРµРіРёСЃС‚СЂР°С†РёСЏ РєСЉРј РІС…РѕРґ
     const loginLink = document.getElementById('login-link');
     if (loginLink) {
-        console.log('login-link намерен');
+        console.log('login-link РЅР°РјРµСЂРµРЅ');
         loginLink.addEventListener('click', (e) => {
             e.preventDefault();
             hideRegistration();
             showLogin();
         });
     } else {
-        console.log('login-link НЕ е намерен');
+        console.log('login-link РќР• Рµ РЅР°РјРµСЂРµРЅ');
     }
     
-    // Линк за преминаване от вход към регистрация
+    // Р›РёРЅРє Р·Р° РїСЂРµРјРёРЅР°РІР°РЅРµ РѕС‚ РІС…РѕРґ РєСЉРј СЂРµРіРёСЃС‚СЂР°С†РёСЏ
     const registerLink = document.getElementById('register-link');
     if (registerLink) {
-        console.log('register-link намерен');
+        console.log('register-link РЅР°РјРµСЂРµРЅ');
         registerLink.addEventListener('click', (e) => {
             e.preventDefault();
             hideLogin();
             showRegistration();
         });
     } else {
-        console.log('register-link НЕ е намерен');
+        console.log('register-link РќР• Рµ РЅР°РјРµСЂРµРЅ');
     }
 }
 
-// Функция за ръчно задаване на админ права (за тестване)
+// Р¤СѓРЅРєС†РёСЏ Р·Р° СЂСЉС‡РЅРѕ Р·Р°РґР°РІР°РЅРµ РЅР° Р°РґРјРёРЅ РїСЂР°РІР° (Р·Р° С‚РµСЃС‚РІР°РЅРµ)
 function makeCurrentUserAdmin() {
     const currentUser = getCurrentUser();
     if (currentUser) {
@@ -2994,34 +2990,34 @@ function makeCurrentUserAdmin() {
             users[userIndex].isAdmin = true;
             saveUsersDB(users);
             
-            // Обновяваме текущия потребител
+            // РћР±РЅРѕРІСЏРІР°РјРµ С‚РµРєСѓС‰РёСЏ РїРѕС‚СЂРµР±РёС‚РµР»
             currentUser.isAdmin = true;
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
             
-            showMessage('Потребителят е направен админ!', 'success');
+            showMessage('РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ РЅР°РїСЂР°РІРµРЅ Р°РґРјРёРЅ!', 'success');
             updateProfilePanel();
         }
     } else {
-        showMessage('Няма влязъл потребител!', 'error');
+        showMessage('РќСЏРјР° РІР»СЏР·СЉР» РїРѕС‚СЂРµР±РёС‚РµР»!', 'error');
     }
 }
 
-// Функция за ръчно отваряне на админ панела (за тестване)
+// Р¤СѓРЅРєС†РёСЏ Р·Р° СЂСЉС‡РЅРѕ РѕС‚РІР°СЂСЏРЅРµ РЅР° Р°РґРјРёРЅ РїР°РЅРµР»Р° (Р·Р° С‚РµСЃС‚РІР°РЅРµ)
 function openAdminPanel() {
     showAdminPanel();
 }
 
-// Добавяме функции за тестване в конзолата
+// Р”РѕР±Р°РІСЏРјРµ С„СѓРЅРєС†РёРё Р·Р° С‚РµСЃС‚РІР°РЅРµ РІ РєРѕРЅР·РѕР»Р°С‚Р°
 window.makeAdmin = makeCurrentUserAdmin;
 window.openAdmin = openAdminPanel;
 
-// Firebase регистрация и запис на профил
+// Firebase СЂРµРіРёСЃС‚СЂР°С†РёСЏ Рё Р·Р°РїРёСЃ РЅР° РїСЂРѕС„РёР»
 async function registerUserFirebase(username, email, password, age, favoriteGame, newsletter) {
     try {
-        // Създаване на акаунт с имейл и парола
+        // РЎСЉР·РґР°РІР°РЅРµ РЅР° Р°РєР°СѓРЅС‚ СЃ РёРјРµР№Р» Рё РїР°СЂРѕР»Р°
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
         const user = userCredential.user;
-        // Запис на допълнителна информация във Firestore
+        // Р—Р°РїРёСЃ РЅР° РґРѕРїСЉР»РЅРёС‚РµР»РЅР° РёРЅС„РѕСЂРјР°С†РёСЏ РІСЉРІ Firestore
         await db.collection('users').doc(user.uid).set({
             username,
             email,
@@ -3030,11 +3026,11 @@ async function registerUserFirebase(username, email, password, age, favoriteGame
             newsletter: !!newsletter,
             registrationDate: new Date().toISOString()
         });
-        // Запис на текущия потребител в localStorage (само username и uid)
+        // Р—Р°РїРёСЃ РЅР° С‚РµРєСѓС‰РёСЏ РїРѕС‚СЂРµР±РёС‚РµР» РІ localStorage (СЃР°РјРѕ username Рё uid)
         localStorage.setItem('currentUser', JSON.stringify({ username, uid: user.uid }));
         localStorage.setItem('isRegistered', 'true');
         localStorage.setItem('isLoggedIn', 'true');
-        console.log('Firebase регистрация успешна за:', username, 'UID:', user.uid);
+        console.log('Firebase СЂРµРіРёСЃС‚СЂР°С†РёСЏ СѓСЃРїРµС€РЅР° Р·Р°:', username, 'UID:', user.uid);
         showMessage(translateText('registration_success'), 'success');
         return true;
     } catch (error) {
@@ -3050,18 +3046,18 @@ async function registerUserFirebase(username, email, password, age, favoriteGame
 }
 
 // ... existing code ...
-// Firebase вход и зареждане на профил
+// Firebase РІС…РѕРґ Рё Р·Р°СЂРµР¶РґР°РЅРµ РЅР° РїСЂРѕС„РёР»
 async function loginUserFirebase(email, password) {
     try {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
         const user = userCredential.user;
-        // Вземаме профилните данни от Firestore
+        // Р’Р·РµРјР°РјРµ РїСЂРѕС„РёР»РЅРёС‚Рµ РґР°РЅРЅРё РѕС‚ Firestore
         const doc = await db.collection('users').doc(user.uid).get();
         let profile;
         if (doc.exists) {
             profile = doc.data();
         } else {
-            // Ако профилът не съществува, създаваме базов профил
+            // РђРєРѕ РїСЂРѕС„РёР»СЉС‚ РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°, СЃСЉР·РґР°РІР°РјРµ Р±Р°Р·РѕРІ РїСЂРѕС„РёР»
             profile = {
                 email: user.email,
                 username: user.email.split('@')[0],
@@ -3071,9 +3067,9 @@ async function loginUserFirebase(email, password) {
         }
         localStorage.setItem('currentUser', JSON.stringify({ ...profile, uid: user.uid }));
         localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('isRegistered', 'true'); // Добавяме това
-        console.log('✅ Firebase вход успешен за:', profile.username, 'UID:', user.uid);
-        console.log('✅ localStorage зададен - isLoggedIn: true, isRegistered: true');
+        localStorage.setItem('isRegistered', 'true'); // Р”РѕР±Р°РІСЏРјРµ С‚РѕРІР°
+        console.log('вњ… Firebase РІС…РѕРґ СѓСЃРїРµС€РµРЅ Р·Р°:', profile.username, 'UID:', user.uid);
+        console.log('вњ… localStorage Р·Р°РґР°РґРµРЅ - isLoggedIn: true, isRegistered: true');
         updateProfilePanel();
         showMessage(translateText('login_success'), 'success');
         return true;
@@ -3087,30 +3083,30 @@ async function loginUserFirebase(email, password) {
     }
 }
 
-// Обработка на login формата
+// РћР±СЂР°Р±РѕС‚РєР° РЅР° login С„РѕСЂРјР°С‚Р°
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(loginForm);
-    const email = formData.get('username'); // username полето е имейл
+    const email = formData.get('username'); // username РїРѕР»РµС‚Рѕ Рµ РёРјРµР№Р»
     const password = formData.get('password');
     const success = await loginUserFirebase(email, password);
     if (success) {
         hideLogin();
         isUserRegistered = true;
-        console.log('✅ Login успешен - isUserRegistered зададен на true');
+        console.log('вњ… Login СѓСЃРїРµС€РµРЅ - isUserRegistered Р·Р°РґР°РґРµРЅ РЅР° true');
         updateProfilePanel();
     } else {
-        console.log('❌ Login неуспешен');
+        console.log('вќЊ Login РЅРµСѓСЃРїРµС€РµРЅ');
     }
 });
 
-// Firebase изход
+// Firebase РёР·С…РѕРґ
 async function logoutUserFirebase() {
     try {
         await auth.signOut();
         localStorage.removeItem('currentUser');
         localStorage.setItem('isLoggedIn', 'false');
-        localStorage.setItem('isRegistered', 'false'); // Добавяме това
+        localStorage.setItem('isRegistered', 'false'); // Р”РѕР±Р°РІСЏРјРµ С‚РѕРІР°
         updateProfilePanel();
         showMessage(translateText('logout_success'), 'success');
     } catch (error) {
@@ -3121,7 +3117,7 @@ async function logoutUserFirebase() {
 
 // ... existing code ...
 
-// Възстановяване на парола с Firebase
+// Р’СЉР·СЃС‚Р°РЅРѕРІСЏРІР°РЅРµ РЅР° РїР°СЂРѕР»Р° СЃ Firebase
 const forgotPasswordLink = document.getElementById('forgot-password-link');
 const resetPasswordModal = document.getElementById('reset-password-modal');
 const closeResetPassword = document.getElementById('close-reset-password');
@@ -3159,13 +3155,13 @@ if (resetPasswordForm) {
 }
 // ... existing code ...
 
-// === БЛОК ЗА ОГРАНИЧЕНИЕ НА БЕЗПЛАТНАТА ВЕРСИЯ ===
+// === Р‘Р›РћРљ Р—Рђ РћР“Р РђРќРР§Р•РќРР• РќРђ Р‘Р•Р—РџР›РђРўРќРђРўРђ Р’Р•Р РЎРРЇ ===
 let isPremium = false;
 let freeGameBlockTimeout = null;
 
-let isStartingGameFromModal = false; // Флаг за да знаем дали стартираме от модал
-let lastModalShowTime = 0; // Време на последното показване на модала
-let isModalBeingShown = false; // Флаг за да знаем дали модалът се показва в момента
+let isStartingGameFromModal = false; // Р¤Р»Р°Рі Р·Р° РґР° Р·РЅР°РµРј РґР°Р»Рё СЃС‚Р°СЂС‚РёСЂР°РјРµ РѕС‚ РјРѕРґР°Р»
+let lastModalShowTime = 0; // Р’СЂРµРјРµ РЅР° РїРѕСЃР»РµРґРЅРѕС‚Рѕ РїРѕРєР°Р·РІР°РЅРµ РЅР° РјРѕРґР°Р»Р°
+let isModalBeingShown = false; // Р¤Р»Р°Рі Р·Р° РґР° Р·РЅР°РµРј РґР°Р»Рё РјРѕРґР°Р»СЉС‚ СЃРµ РїРѕРєР°Р·РІР° РІ РјРѕРјРµРЅС‚Р°
 
 function checkFreeGameLimitAndMaybeBlock(startGameCallback) {
     const currentUser = getCurrentUser();
@@ -3176,63 +3172,63 @@ function checkFreeGameLimitAndMaybeBlock(startGameCallback) {
         const gamesPlayed = currentUser.gamesPlayed || 0;
         console.log('[LIMIT DEBUG] gamesPlayed:', gamesPlayed);
         
-        // Проверяваме дали трябва да покажем модал (на всеки 3 рунда)
+        // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё С‚СЂСЏР±РІР° РґР° РїРѕРєР°Р¶РµРј РјРѕРґР°Р» (РЅР° РІСЃРµРєРё 3 СЂСѓРЅРґР°)
         if (gamesPlayed > 0 && gamesPlayed % 3 === 0) {
-            // Проверяваме дали вече сме показали модал за този конкретен брой игри
+            // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РІРµС‡Рµ СЃРјРµ РїРѕРєР°Р·Р°Р»Рё РјРѕРґР°Р» Р·Р° С‚РѕР·Рё РєРѕРЅРєСЂРµС‚РµРЅ Р±СЂРѕР№ РёРіСЂРё
             const lastShownForGames = parseInt(localStorage.getItem('lastLimitModalGames') || '0');
             
             if (gamesPlayed > lastShownForGames) {
-                // Допълнителна защита - не показваме модал ако е показан в последните 5 секунди
+                // Р”РѕРїСЉР»РЅРёС‚РµР»РЅР° Р·Р°С‰РёС‚Р° - РЅРµ РїРѕРєР°Р·РІР°РјРµ РјРѕРґР°Р» Р°РєРѕ Рµ РїРѕРєР°Р·Р°РЅ РІ РїРѕСЃР»РµРґРЅРёС‚Рµ 5 СЃРµРєСѓРЅРґРё
                 const now = Date.now();
                 if (now - lastModalShowTime < 5000) {
-                    console.log('[LIMIT DEBUG] Модалът е показан преди малко, не показваме отново');
+                    console.log('[LIMIT DEBUG] РњРѕРґР°Р»СЉС‚ Рµ РїРѕРєР°Р·Р°РЅ РїСЂРµРґРё РјР°Р»РєРѕ, РЅРµ РїРѕРєР°Р·РІР°РјРµ РѕС‚РЅРѕРІРѕ');
                     startGameCallback();
                     return;
                 }
                 
-                // Допълнителна защита - не показваме модал ако вече се показва
+                // Р”РѕРїСЉР»РЅРёС‚РµР»РЅР° Р·Р°С‰РёС‚Р° - РЅРµ РїРѕРєР°Р·РІР°РјРµ РјРѕРґР°Р» Р°РєРѕ РІРµС‡Рµ СЃРµ РїРѕРєР°Р·РІР°
                 if (isModalBeingShown) {
-                    console.log('[LIMIT DEBUG] Модалът вече се показва, не показваме отново');
+                    console.log('[LIMIT DEBUG] РњРѕРґР°Р»СЉС‚ РІРµС‡Рµ СЃРµ РїРѕРєР°Р·РІР°, РЅРµ РїРѕРєР°Р·РІР°РјРµ РѕС‚РЅРѕРІРѕ');
                     startGameCallback();
                     return;
                 }
                 
-                console.log('[LIMIT DEBUG] Показваме модал за лимит! gamesPlayed:', gamesPlayed, 'lastShownForGames:', lastShownForGames);
+                console.log('[LIMIT DEBUG] РџРѕРєР°Р·РІР°РјРµ РјРѕРґР°Р» Р·Р° Р»РёРјРёС‚! gamesPlayed:', gamesPlayed, 'lastShownForGames:', lastShownForGames);
                 lastModalShowTime = now;
                 isModalBeingShown = true;
                 localStorage.setItem('lastLimitModalGames', gamesPlayed.toString());
-                isStartingGameFromModal = true; // Маркираме че ще стартираме от модал
+                isStartingGameFromModal = true; // РњР°СЂРєРёСЂР°РјРµ С‡Рµ С‰Рµ СЃС‚Р°СЂС‚РёСЂР°РјРµ РѕС‚ РјРѕРґР°Р»
             showFreeGameBlockModal(startGameCallback);
             return;
             } else {
-                console.log('[LIMIT DEBUG] Модалът вече е показан за този брой игри:', gamesPlayed);
+                console.log('[LIMIT DEBUG] РњРѕРґР°Р»СЉС‚ РІРµС‡Рµ Рµ РїРѕРєР°Р·Р°РЅ Р·Р° С‚РѕР·Рё Р±СЂРѕР№ РёРіСЂРё:', gamesPlayed);
             }
         }
     }
     startGameCallback();
 }
 
-// Модифицирам showFreeGameBlockModal да проверява за nolimit
+// РњРѕРґРёС„РёС†РёСЂР°Рј showFreeGameBlockModal РґР° РїСЂРѕРІРµСЂСЏРІР° Р·Р° nolimit
 async function showFreeGameBlockModal(startGameCallback) {
-    // FIREBASE: ако потребителят има nolimit, не показваме модала
+    // FIREBASE: Р°РєРѕ РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ РёРјР° nolimit, РЅРµ РїРѕРєР°Р·РІР°РјРµ РјРѕРґР°Р»Р°
     if (await checkUserNoLimit()) {
         if (typeof startGameCallback === 'function') startGameCallback();
         return;
     }
     
-    // Проверяваме дали модалът вече е показан
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РјРѕРґР°Р»СЉС‚ РІРµС‡Рµ Рµ РїРѕРєР°Р·Р°РЅ
     if (document.getElementById('free-game-block-modal')) {
-        console.log('Модалът вече е показан, не показваме отново');
-        isModalBeingShown = false; // Нулираме флага ако модалът вече съществува
+        console.log('РњРѕРґР°Р»СЉС‚ РІРµС‡Рµ Рµ РїРѕРєР°Р·Р°РЅ, РЅРµ РїРѕРєР°Р·РІР°РјРµ РѕС‚РЅРѕРІРѕ');
+        isModalBeingShown = false; // РќСѓР»РёСЂР°РјРµ С„Р»Р°РіР° Р°РєРѕ РјРѕРґР°Р»СЉС‚ РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР°
         if (typeof startGameCallback === 'function') startGameCallback();
         return;
     }
     
-    // Запазваме времето на показване на модала
+    // Р—Р°РїР°Р·РІР°РјРµ РІСЂРµРјРµС‚Рѕ РЅР° РїРѕРєР°Р·РІР°РЅРµ РЅР° РјРѕРґР°Р»Р°
     const modalStartTime = Date.now();
     localStorage.setItem('lastModalShowTime', modalStartTime.toString());
     
-    let seconds = 300; // 5 минути
+    let seconds = 300; // 5 РјРёРЅСѓС‚Рё
     const modal = document.createElement('div');
     modal.id = 'free-game-block-modal';
     modal.style.position = 'fixed';
@@ -3256,29 +3252,29 @@ async function showFreeGameBlockModal(startGameCallback) {
     `;
     document.body.appendChild(modal);
     
-    // Таймер
+    // РўР°Р№РјРµСЂ
     let timer = setInterval(() => {
         seconds--;
         document.getElementById('free-block-timer').textContent = seconds;
         if (seconds <= 0) {
             clearInterval(timer);
             document.body.removeChild(modal);
-            isModalBeingShown = false; // Нулираме флага когато модалът се затвори
-            // Изчистваме времето на показване на модала и флага за зареждане
+            isModalBeingShown = false; // РќСѓР»РёСЂР°РјРµ С„Р»Р°РіР° РєРѕРіР°С‚Рѕ РјРѕРґР°Р»СЉС‚ СЃРµ Р·Р°С‚РІРѕСЂРё
+            // РР·С‡РёСЃС‚РІР°РјРµ РІСЂРµРјРµС‚Рѕ РЅР° РїРѕРєР°Р·РІР°РЅРµ РЅР° РјРѕРґР°Р»Р° Рё С„Р»Р°РіР° Р·Р° Р·Р°СЂРµР¶РґР°РЅРµ
             localStorage.removeItem('lastModalShowTime');
             localStorage.removeItem('modalShownOnLoad');
             if (typeof startGameCallback === 'function') startGameCallback();
         }
     }, 1000);
     
-    // Бутон за покупка
+    // Р‘СѓС‚РѕРЅ Р·Р° РїРѕРєСѓРїРєР°
     document.getElementById('buy-premium-btn').onclick = function() {
         window.open('https://revolut.me/deyvidp7g', '_blank');
-        // НЕ затваряме модала, не спираме таймера
+        // РќР• Р·Р°С‚РІР°СЂСЏРјРµ РјРѕРґР°Р»Р°, РЅРµ СЃРїРёСЂР°РјРµ С‚Р°Р№РјРµСЂР°
     };
 }
 
-// При зареждане на страницата проверяваме дали е закупена платена версия
+// РџСЂРё Р·Р°СЂРµР¶РґР°РЅРµ РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р° РїСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё Рµ Р·Р°РєСѓРїРµРЅР° РїР»Р°С‚РµРЅР° РІРµСЂСЃРёСЏ
 window.addEventListener('load', () => {
     if (localStorage.getItem('isPremium') === 'true') {
         isPremium = true;
@@ -3296,7 +3292,7 @@ function getUserImagesPool(username) {
         }
     }
     if (!Array.isArray(pool) || pool.length === 0) {
-        // Презареждаме и разбъркваме
+        // РџСЂРµР·Р°СЂРµР¶РґР°РјРµ Рё СЂР°Р·Р±СЉСЂРєРІР°РјРµ
         pool = [...images];
         for (let i = pool.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -3314,11 +3310,11 @@ function getNextImageForUser(username) {
     let pool = getUserImagesPool(username);
     const image = pool.pop();
     saveUserImagesPool(username, pool);
-    // Ако свършат, следващия път ще се презареди
+    // РђРєРѕ СЃРІСЉСЂС€Р°С‚, СЃР»РµРґРІР°С‰РёСЏ РїСЉС‚ С‰Рµ СЃРµ РїСЂРµР·Р°СЂРµРґРё
     return image;
 }
 
-// Модифицирам generateGameLevels така, че за регистриран потребител да ползва user pool-а
+// РњРѕРґРёС„РёС†РёСЂР°Рј generateGameLevels С‚Р°РєР°, С‡Рµ Р·Р° СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РїРѕС‚СЂРµР±РёС‚РµР» РґР° РїРѕР»Р·РІР° user pool-Р°
 function generateGameLevels() {
     gameLevels = [];
     let availableImages;
@@ -3365,17 +3361,17 @@ async function getUserImagesPoolFirebase(uid) {
     let shownImages = poolDoc.exists ? poolDoc.data().shownImages : [];
     const poolVersion = poolDoc.exists ? poolDoc.data().version : null;
     
-    // Проверяваме дали pool-ът е стар (преди промените) или не е правилна версия
-    const currentVersion = '3.0'; // Нова версия на логиката
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё pool-СЉС‚ Рµ СЃС‚Р°СЂ (РїСЂРµРґРё РїСЂРѕРјРµРЅРёС‚Рµ) РёР»Рё РЅРµ Рµ РїСЂР°РІРёР»РЅР° РІРµСЂСЃРёСЏ
+    const currentVersion = '3.0'; // РќРѕРІР° РІРµСЂСЃРёСЏ РЅР° Р»РѕРіРёРєР°С‚Р°
     const shouldResetPool = !poolVersion || poolVersion !== currentVersion;
     
     if (shouldResetPool) {
-        console.log('Firebase: Pool е стар или с грешна версия, изчистваме и създаваме нов');
+        console.log('Firebase: Pool Рµ СЃС‚Р°СЂ РёР»Рё СЃ РіСЂРµС€РЅР° РІРµСЂСЃРёСЏ, РёР·С‡РёСЃС‚РІР°РјРµ Рё СЃСЉР·РґР°РІР°РјРµ РЅРѕРІ');
         shownImages = [];
         await saveUserImagesPoolFirebase(uid, shownImages, currentVersion);
-        console.log('Firebase: Създаден нов pool (версия', currentVersion + ')');
+        console.log('Firebase: РЎСЉР·РґР°РґРµРЅ РЅРѕРІ pool (РІРµСЂСЃРёСЏ', currentVersion + ')');
     } else {
-        console.log('Firebase: Pool съществува с', shownImages.length, 'показани картини (версия', poolVersion + ')');
+        console.log('Firebase: Pool СЃСЉС‰РµСЃС‚РІСѓРІР° СЃ', shownImages.length, 'РїРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё (РІРµСЂСЃРёСЏ', poolVersion + ')');
     }
     
     return shownImages;
@@ -3389,46 +3385,46 @@ async function saveUserImagesPoolFirebase(uid, shownImages, version = '3.0') {
 async function getNextImageForUserFirebase(uid) {
     let shownImages = await getUserImagesPoolFirebase(uid);
     
-    // Създаваме списък с всички налични картини, които НЕ са показани
+    // РЎСЉР·РґР°РІР°РјРµ СЃРїРёСЃСЉРє СЃ РІСЃРёС‡РєРё РЅР°Р»РёС‡РЅРё РєР°СЂС‚РёРЅРё, РєРѕРёС‚Рѕ РќР• СЃР° РїРѕРєР°Р·Р°РЅРё
     let availableImages = images.filter(img => !shownImages.includes(img));
     
-    // Ако няма налични картини (всички са показани), изчистваме pool-а
+    // РђРєРѕ РЅСЏРјР° РЅР°Р»РёС‡РЅРё РєР°СЂС‚РёРЅРё (РІСЃРёС‡РєРё СЃР° РїРѕРєР°Р·Р°РЅРё), РёР·С‡РёСЃС‚РІР°РјРµ pool-Р°
     if (availableImages.length === 0) {
-        console.log('Firebase: Всички картини са показани, изчистваме pool-а');
+        console.log('Firebase: Р’СЃРёС‡РєРё РєР°СЂС‚РёРЅРё СЃР° РїРѕРєР°Р·Р°РЅРё, РёР·С‡РёСЃС‚РІР°РјРµ pool-Р°');
         shownImages = [];
         availableImages = [...images];
         await saveUserImagesPoolFirebase(uid, shownImages);
     }
     
-    // Разбъркваме наличните картини
+    // Р Р°Р·Р±СЉСЂРєРІР°РјРµ РЅР°Р»РёС‡РЅРёС‚Рµ РєР°СЂС‚РёРЅРё
     for (let i = availableImages.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [availableImages[i], availableImages[j]] = [availableImages[j], availableImages[i]];
     }
     
-    // Вземаме първата картинка и я добавяме към показаните
+    // Р’Р·РµРјР°РјРµ РїСЉСЂРІР°С‚Р° РєР°СЂС‚РёРЅРєР° Рё СЏ РґРѕР±Р°РІСЏРјРµ РєСЉРј РїРѕРєР°Р·Р°РЅРёС‚Рµ
     const image = availableImages[0];
     shownImages.push(image);
     await saveUserImagesPoolFirebase(uid, shownImages);
     
-    console.log('Firebase: Взета картинка:', image, 'Показани общо:', shownImages.length, 'Налични остават:', availableImages.length - 1);
+    console.log('Firebase: Р’Р·РµС‚Р° РєР°СЂС‚РёРЅРєР°:', image, 'РџРѕРєР°Р·Р°РЅРё РѕР±С‰Рѕ:', shownImages.length, 'РќР°Р»РёС‡РЅРё РѕСЃС‚Р°РІР°С‚:', availableImages.length - 1);
     return image;
 }
 
-// Асинхронна версия на generateGameLevels
+// РђСЃРёРЅС…СЂРѕРЅРЅР° РІРµСЂСЃРёСЏ РЅР° generateGameLevels
 async function generateGameLevelsAsync() {
     gameLevels = [];
     const currentUser = getCurrentUser();
     
-    // Проверяваме дали потребителят е регистриран в Firebase
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РІ Firebase
     if (currentUser && currentUser.uid) {
-        console.log('Използваме Firebase за потребител:', currentUser.username);
+        console.log('РР·РїРѕР»Р·РІР°РјРµ Firebase Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username);
         for (let i = 0; i < totalLevels; i++) {
             const image = await getNextImageForUserFirebase(currentUser.uid);
             
             if (!image) {
-                console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
-                // Ако не можем да вземем картинка от Firebase, използваме локално генериране
+                console.error('Firebase: РќРµ СѓСЃРїСЏС…РјРµ РґР° РІР·РµРјРµРј РєР°СЂС‚РёРЅРєР°, РёР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ');
+                // РђРєРѕ РЅРµ РјРѕР¶РµРј РґР° РІР·РµРјРµРј РєР°СЂС‚РёРЅРєР° РѕС‚ Firebase, РёР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ
                 let availableImages = [...images];
                 for (let j = availableImages.length - 1; j > 0; j--) {
                     const k = Math.floor(Math.random() * (j + 1));
@@ -3449,8 +3445,8 @@ async function generateGameLevelsAsync() {
             }
         }
     } else {
-        // Гост/нерегистриран - локално както досега
-        console.log('Използваме локално генериране за гост потребител');
+        // Р“РѕСЃС‚/РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅ - Р»РѕРєР°Р»РЅРѕ РєР°РєС‚Рѕ РґРѕСЃРµРіР°
+        console.log('РР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ Р·Р° РіРѕСЃС‚ РїРѕС‚СЂРµР±РёС‚РµР»');
         let availableImages = [...images];
         for (let i = availableImages.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -3474,7 +3470,7 @@ async function generateGameLevelsAsync() {
     }
 }
 
-// Показване на loader докато се зарежда imagesPool
+// РџРѕРєР°Р·РІР°РЅРµ РЅР° loader РґРѕРєР°С‚Рѕ СЃРµ Р·Р°СЂРµР¶РґР° imagesPool
 function showLoader() {
     if (!document.getElementById('images-loader')) {
         const loader = document.createElement('div');
@@ -3515,17 +3511,17 @@ function hideLoader() {
     if (loader) loader.remove();
 }
 
-// Основна функция за стартиране на играта
+// РћСЃРЅРѕРІРЅР° С„СѓРЅРєС†РёСЏ Р·Р° СЃС‚Р°СЂС‚РёСЂР°РЅРµ РЅР° РёРіСЂР°С‚Р°
 async function startGame() {
-    console.log('[LIMIT DEBUG] startGame извикана');
-    console.log('=== Играта започва ===');
-    console.log('isUserRegistered преди старт:', isUserRegistered);
+    console.log('[LIMIT DEBUG] startGame РёР·РІРёРєР°РЅР°');
+    console.log('=== РРіСЂР°С‚Р° Р·Р°РїРѕС‡РІР° ===');
+    console.log('isUserRegistered РїСЂРµРґРё СЃС‚Р°СЂС‚:', isUserRegistered);
     console.log('[LIMIT DEBUG] isStartingGameFromModal:', isStartingGameFromModal);
     
-    // Нулираме флага за стартиране от модал
+    // РќСѓР»РёСЂР°РјРµ С„Р»Р°РіР° Р·Р° СЃС‚Р°СЂС‚РёСЂР°РЅРµ РѕС‚ РјРѕРґР°Р»
     if (isStartingGameFromModal) {
         isStartingGameFromModal = false;
-        console.log('[LIMIT DEBUG] Нулираме isStartingGameFromModal');
+        console.log('[LIMIT DEBUG] РќСѓР»РёСЂР°РјРµ isStartingGameFromModal');
     }
     
     totalPlayers = parseInt(playerCountInput.value);
@@ -3538,18 +3534,18 @@ async function startGame() {
     
     currentPlayer = 1;
     currentLevel = 0;
-    gameLevels = []; // Инициализираме празен масив
+    gameLevels = []; // РРЅРёС†РёР°Р»РёР·РёСЂР°РјРµ РїСЂР°Р·РµРЅ РјР°СЃРёРІ
     
-    console.log('Инициализация:');
+    console.log('РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ:');
     console.log('- currentPlayer:', currentPlayer);
     console.log('- currentLevel:', currentLevel);
     console.log('- totalPlayers:', totalPlayers);
     
     const currentUser = getCurrentUser();
-    console.log('Текущ потребител:', currentUser);
+    console.log('РўРµРєСѓС‰ РїРѕС‚СЂРµР±РёС‚РµР»:', currentUser);
     
-    // НЕ генерираме всички нива тук - ще ги генерираме при нужда
-    console.log('✅ Играта е готова за стартиране (нивата ще се генерират при нужда)');
+    // РќР• РіРµРЅРµСЂРёСЂР°РјРµ РІСЃРёС‡РєРё РЅРёРІР° С‚СѓРє - С‰Рµ РіРё РіРµРЅРµСЂРёСЂР°РјРµ РїСЂРё РЅСѓР¶РґР°
+    console.log('вњ… РРіСЂР°С‚Р° Рµ РіРѕС‚РѕРІР° Р·Р° СЃС‚Р°СЂС‚РёСЂР°РЅРµ (РЅРёРІР°С‚Р° С‰Рµ СЃРµ РіРµРЅРµСЂРёСЂР°С‚ РїСЂРё РЅСѓР¶РґР°)');
     
     setupScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
@@ -3560,31 +3556,31 @@ async function startGame() {
 
 // ... existing code ...
 function attachLoginLinkListener() {
-    // Ако вече има listener, не правим нищо
+    // РђРєРѕ РІРµС‡Рµ РёРјР° listener, РЅРµ РїСЂР°РІРёРј РЅРёС‰Рѕ
     const loginLink = document.getElementById('login-link');
     if (loginLink) {
         loginLink.onclick = function(e) {
             e.preventDefault();
-            console.log('Кликнат е login-link!');
+            console.log('РљР»РёРєРЅР°С‚ Рµ login-link!');
             showLogin();
         };
         loginLink.tabIndex = 0;
         loginLink.style.outline = '2px solid #00fff7';
-        console.log('attachLoginLinkListener: Закачен успешно!');
+        console.log('attachLoginLinkListener: Р—Р°РєР°С‡РµРЅ СѓСЃРїРµС€РЅРѕ!');
     } else {
-        console.warn('attachLoginLinkListener: login-link не е намерен! Ще следим с MutationObserver.');
-        // Създаваме observer, който следи за появата на login-link
+        console.warn('attachLoginLinkListener: login-link РЅРµ Рµ РЅР°РјРµСЂРµРЅ! Р©Рµ СЃР»РµРґРёРј СЃ MutationObserver.');
+        // РЎСЉР·РґР°РІР°РјРµ observer, РєРѕР№С‚Рѕ СЃР»РµРґРё Р·Р° РїРѕСЏРІР°С‚Р° РЅР° login-link
         const observer = new MutationObserver(() => {
             const link = document.getElementById('login-link');
             if (link) {
                 link.onclick = function(e) {
                     e.preventDefault();
-                    console.log('Кликнат е login-link! (observer)');
+                    console.log('РљР»РёРєРЅР°С‚ Рµ login-link! (observer)');
                     showLogin();
                 };
                 link.tabIndex = 0;
                 link.style.outline = '2px solid #00fff7';
-                console.log('attachLoginLinkListener: Закачен успешно чрез observer!');
+                console.log('attachLoginLinkListener: Р—Р°РєР°С‡РµРЅ СѓСЃРїРµС€РЅРѕ С‡СЂРµР· observer!');
                 observer.disconnect();
             }
         });
@@ -3594,33 +3590,33 @@ function attachLoginLinkListener() {
 // ... existing code ...
 
 // ... existing code ...
-// === ГЛОБАЛЕН OBSERVER ЗА login-link ===
-// (observer премахнат, защото вече не се използва login-link)
+// === Р“Р›РћР‘РђР›Р•Рќ OBSERVER Р—Рђ login-link ===
+// (observer РїСЂРµРјР°С…РЅР°С‚, Р·Р°С‰РѕС‚Рѕ РІРµС‡Рµ РЅРµ СЃРµ РёР·РїРѕР»Р·РІР° login-link)
 // ... existing code ...
 
 // ... existing code ...
-// === АГРЕСИВЕН INTERVAL ЗА login-link ===
+// === РђР“Р Р•РЎРР’Р•Рќ INTERVAL Р—Рђ login-link ===
 setInterval(() => {
     const loginLink = document.getElementById('login-link');
     if (loginLink && !loginLink._loginListenerAttached) {
         loginLink.onclick = function(e) {
             e.preventDefault();
-            console.log('Кликнат е login-link! (interval)');
+            console.log('РљР»РёРєРЅР°С‚ Рµ login-link! (interval)');
             hideRegistration();
             showLogin();
         };
         loginLink.tabIndex = 0;
         loginLink.style.outline = '2px solid #00fff7';
         loginLink._loginListenerAttached = true;
-        console.log('[INTERVAL] Закачен listener на login-link!', loginLink);
+        console.log('[INTERVAL] Р—Р°РєР°С‡РµРЅ listener РЅР° login-link!', loginLink);
     }
 }, 500);
 // ... existing code ...
 
-let roundsPlayed = 0; // Нов брояч за рундове
+let roundsPlayed = 0; // РќРѕРІ Р±СЂРѕСЏС‡ Р·Р° СЂСѓРЅРґРѕРІРµ
 
 // ... existing code ...
-// === FIREBASE: Проверка за nolimit ===
+// === FIREBASE: РџСЂРѕРІРµСЂРєР° Р·Р° nolimit ===
 async function checkUserNoLimit() {
     const currentUser = getCurrentUser();
     if (currentUser && currentUser.uid) {
@@ -3632,199 +3628,199 @@ async function checkUserNoLimit() {
     return false;
 }
 
-// Примерна функция за админите: задаване на nolimit на потребител по имейл
+// РџСЂРёРјРµСЂРЅР° С„СѓРЅРєС†РёСЏ Р·Р° Р°РґРјРёРЅРёС‚Рµ: Р·Р°РґР°РІР°РЅРµ РЅР° nolimit РЅР° РїРѕС‚СЂРµР±РёС‚РµР» РїРѕ РёРјРµР№Р»
 async function setUserNoLimitByEmail(email) {
     const usersRef = db.collection('users');
     const query = await usersRef.where('email', '==', email).get();
     if (!query.empty) {
         const userDoc = query.docs[0];
         await userDoc.ref.update({ nolimit: true });
-        console.log('Потребителят е с nolimit:', email);
+        console.log('РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЃ nolimit:', email);
     } else {
-        console.log('Не е намерен потребител с този имейл:', email);
+        console.log('РќРµ Рµ РЅР°РјРµСЂРµРЅ РїРѕС‚СЂРµР±РёС‚РµР» СЃ С‚РѕР·Рё РёРјРµР№Р»:', email);
     }
 }
 window.setUserNoLimitByEmail = setUserNoLimitByEmail;
 
-// Функция за тестване на Firebase връзката
+// Р¤СѓРЅРєС†РёСЏ Р·Р° С‚РµСЃС‚РІР°РЅРµ РЅР° Firebase РІСЂСЉР·РєР°С‚Р°
 async function testFirebaseConnection() {
     try {
-        console.log('Тестваме Firebase връзката...');
+        console.log('РўРµСЃС‚РІР°РјРµ Firebase РІСЂСЉР·РєР°С‚Р°...');
         const testDoc = await db.collection('test').doc('connection').get();
-        console.log('Firebase връзката работи!');
+        console.log('Firebase РІСЂСЉР·РєР°С‚Р° СЂР°Р±РѕС‚Рё!');
         return true;
     } catch (error) {
-        console.error('Грешка при Firebase връзката:', error);
+        console.error('Р“СЂРµС€РєР° РїСЂРё Firebase РІСЂСЉР·РєР°С‚Р°:', error);
         return false;
     }
 }
 
-// Функция за тестване на imagesPool за потребител
+// Р¤СѓРЅРєС†РёСЏ Р·Р° С‚РµСЃС‚РІР°РЅРµ РЅР° imagesPool Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»
 async function testUserImagesPool(uid) {
     try {
-        console.log('Тестваме imagesPool за потребител:', uid);
+        console.log('РўРµСЃС‚РІР°РјРµ imagesPool Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»:', uid);
         const pool = await getUserImagesPoolFirebase(uid);
-        console.log('ImagesPool резултат:', pool.length, 'картини');
+        console.log('ImagesPool СЂРµР·СѓР»С‚Р°С‚:', pool.length, 'РєР°СЂС‚РёРЅРё');
         return pool;
     } catch (error) {
-        console.error('Грешка при тестване на imagesPool:', error);
+        console.error('Р“СЂРµС€РєР° РїСЂРё С‚РµСЃС‚РІР°РЅРµ РЅР° imagesPool:', error);
         return null;
     }
 }
 
-// Добавяме функциите в глобалния scope за тестване
+// Р”РѕР±Р°РІСЏРјРµ С„СѓРЅРєС†РёРёС‚Рµ РІ РіР»РѕР±Р°Р»РЅРёСЏ scope Р·Р° С‚РµСЃС‚РІР°РЅРµ
 window.testFirebaseConnection = testFirebaseConnection;
 window.testUserImagesPool = testUserImagesPool;
 
-// Функция за проверка на текущия потребител
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїСЂРѕРІРµСЂРєР° РЅР° С‚РµРєСѓС‰РёСЏ РїРѕС‚СЂРµР±РёС‚РµР»
 function checkCurrentUserStatus() {
     const currentUser = getCurrentUser();
-    console.log('=== СТАТУС НА ТЕКУЩИЯ ПОТРЕБИТЕЛ ===');
+    console.log('=== РЎРўРђРўРЈРЎ РќРђ РўР•РљРЈР©РРЇ РџРћРўР Р•Р‘РРўР•Р› ===');
     console.log('currentUser:', currentUser);
     if (currentUser) {
         console.log('Username:', currentUser.username);
         console.log('UID:', currentUser.uid);
         console.log('Email:', currentUser.email);
-        console.log('Има Firebase UID:', !!currentUser.uid);
+        console.log('РРјР° Firebase UID:', !!currentUser.uid);
     } else {
-        console.log('Няма текущ потребител');
+        console.log('РќСЏРјР° С‚РµРєСѓС‰ РїРѕС‚СЂРµР±РёС‚РµР»');
     }
     return currentUser;
 }
 
 window.checkCurrentUserStatus = checkCurrentUserStatus;
 
-// Функция за тестване на Firebase imagesPool
+// Р¤СѓРЅРєС†РёСЏ Р·Р° С‚РµСЃС‚РІР°РЅРµ РЅР° Firebase imagesPool
 async function testFirebaseImagesPool() {
     const currentUser = getCurrentUser();
     if (!currentUser || !currentUser.uid) {
-        console.log('Няма регистриран потребител за тестване');
+        console.log('РќСЏРјР° СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РїРѕС‚СЂРµР±РёС‚РµР» Р·Р° С‚РµСЃС‚РІР°РЅРµ');
         return;
     }
     
-    console.log('=== ТЕСТ НА FIREBASE IMAGESPOOL (ВЕРСИЯ 3.0) ===');
-    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    console.log('=== РўР•РЎРў РќРђ FIREBASE IMAGESPOOL (Р’Р•Р РЎРРЇ 3.0) ===');
+    console.log('РџРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username, 'UID:', currentUser.uid);
     
     try {
-        // Тестваме връзката
+        // РўРµСЃС‚РІР°РјРµ РІСЂСЉР·РєР°С‚Р°
         const connectionOk = await testFirebaseConnection();
         if (!connectionOk) {
-            console.error('Firebase връзката не работи!');
+            console.error('Firebase РІСЂСЉР·РєР°С‚Р° РЅРµ СЂР°Р±РѕС‚Рё!');
             return;
         }
         
-        // Показваме всички картини
-        console.log('Общ брой картини в системата:', images.length);
+        // РџРѕРєР°Р·РІР°РјРµ РІСЃРёС‡РєРё РєР°СЂС‚РёРЅРё
+        console.log('РћР±С‰ Р±СЂРѕР№ РєР°СЂС‚РёРЅРё РІ СЃРёСЃС‚РµРјР°С‚Р°:', images.length);
         
-        // Тестваме pool-а
+        // РўРµСЃС‚РІР°РјРµ pool-Р°
         const shownImages = await getUserImagesPoolFirebase(currentUser.uid);
-        console.log('Показани картини:', shownImages.length);
-        console.log('Налични картини:', images.length - shownImages.length);
+        console.log('РџРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё:', shownImages.length);
+        console.log('РќР°Р»РёС‡РЅРё РєР°СЂС‚РёРЅРё:', images.length - shownImages.length);
         
-        // Тестваме вземане на картинка
+        // РўРµСЃС‚РІР°РјРµ РІР·РµРјР°РЅРµ РЅР° РєР°СЂС‚РёРЅРєР°
         const image = await getNextImageForUserFirebase(currentUser.uid);
-        console.log('Взета картинка:', image);
+        console.log('Р’Р·РµС‚Р° РєР°СЂС‚РёРЅРєР°:', image);
         
-        // Проверяваме pool-а след вземане
+        // РџСЂРѕРІРµСЂСЏРІР°РјРµ pool-Р° СЃР»РµРґ РІР·РµРјР°РЅРµ
         const shownImagesAfter = await getUserImagesPoolFirebase(currentUser.uid);
-        console.log('Показани картини след вземане:', shownImagesAfter.length);
-        console.log('Налични картини след вземане:', images.length - shownImagesAfter.length);
+        console.log('РџРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё СЃР»РµРґ РІР·РµРјР°РЅРµ:', shownImagesAfter.length);
+        console.log('РќР°Р»РёС‡РЅРё РєР°СЂС‚РёРЅРё СЃР»РµРґ РІР·РµРјР°РЅРµ:', images.length - shownImagesAfter.length);
         
-        // Показваме първите 5 показани картини
+        // РџРѕРєР°Р·РІР°РјРµ РїСЉСЂРІРёС‚Рµ 5 РїРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё
         if (shownImagesAfter.length > 0) {
-            console.log('Първи 5 показани картини:', shownImagesAfter.slice(0, 5));
+            console.log('РџСЉСЂРІРё 5 РїРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё:', shownImagesAfter.slice(0, 5));
         }
         
     } catch (error) {
-        console.error('Грешка при тестване:', error);
+        console.error('Р“СЂРµС€РєР° РїСЂРё С‚РµСЃС‚РІР°РЅРµ:', error);
     }
 }
 
 window.testFirebaseImagesPool = testFirebaseImagesPool;
 
-// Функция за изчистване на pool-а за тестване
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РёР·С‡РёСЃС‚РІР°РЅРµ РЅР° pool-Р° Р·Р° С‚РµСЃС‚РІР°РЅРµ
 async function clearUserImagesPool() {
     const currentUser = getCurrentUser();
     if (!currentUser || !currentUser.uid) {
-        console.log('Няма регистриран потребител за изчистване');
+        console.log('РќСЏРјР° СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РїРѕС‚СЂРµР±РёС‚РµР» Р·Р° РёР·С‡РёСЃС‚РІР°РЅРµ');
         return;
     }
     
-    console.log('=== ИЗЧИСТВАНЕ НА IMAGESPOOL ===');
-    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    console.log('=== РР—Р§РРЎРўР’РђРќР• РќРђ IMAGESPOOL ===');
+    console.log('РџРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username, 'UID:', currentUser.uid);
     
     try {
         const userDoc = db.collection('users').doc(currentUser.uid);
         await userDoc.collection('gameData').doc('imagesPool').delete();
-        console.log('Pool изчистен успешно!');
+        console.log('Pool РёР·С‡РёСЃС‚РµРЅ СѓСЃРїРµС€РЅРѕ!');
     } catch (error) {
-        console.error('Грешка при изчистване на pool:', error);
+        console.error('Р“СЂРµС€РєР° РїСЂРё РёР·С‡РёСЃС‚РІР°РЅРµ РЅР° pool:', error);
     }
 }
 
 window.clearUserImagesPool = clearUserImagesPool;
 
-// Функция за показване на статистика за pool-а
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° СЃС‚Р°С‚РёСЃС‚РёРєР° Р·Р° pool-Р°
 async function showPoolStats() {
     const currentUser = getCurrentUser();
     if (!currentUser || !currentUser.uid) {
-        console.log('Няма регистриран потребител за статистика');
+        console.log('РќСЏРјР° СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РїРѕС‚СЂРµР±РёС‚РµР» Р·Р° СЃС‚Р°С‚РёСЃС‚РёРєР°');
         return;
     }
     
-    console.log('=== СТАТИСТИКА ЗА IMAGESPOOL (ВЕРСИЯ 3.0) ===');
-    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    console.log('=== РЎРўРђРўРРЎРўРРљРђ Р—Рђ IMAGESPOOL (Р’Р•Р РЎРРЇ 3.0) ===');
+    console.log('РџРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username, 'UID:', currentUser.uid);
     
     try {
         const shownImages = await getUserImagesPoolFirebase(currentUser.uid);
-        console.log('Общ брой картини в системата:', images.length);
-        console.log('Показани картини:', shownImages.length);
-        console.log('Налични картини:', images.length - shownImages.length);
-        console.log('Процент показани:', Math.round((shownImages.length / images.length) * 100) + '%');
-        console.log('Процент налични:', Math.round(((images.length - shownImages.length) / images.length) * 100) + '%');
+        console.log('РћР±С‰ Р±СЂРѕР№ РєР°СЂС‚РёРЅРё РІ СЃРёСЃС‚РµРјР°С‚Р°:', images.length);
+        console.log('РџРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё:', shownImages.length);
+        console.log('РќР°Р»РёС‡РЅРё РєР°СЂС‚РёРЅРё:', images.length - shownImages.length);
+        console.log('РџСЂРѕС†РµРЅС‚ РїРѕРєР°Р·Р°РЅРё:', Math.round((shownImages.length / images.length) * 100) + '%');
+        console.log('РџСЂРѕС†РµРЅС‚ РЅР°Р»РёС‡РЅРё:', Math.round(((images.length - shownImages.length) / images.length) * 100) + '%');
         
         if (shownImages.length > 0) {
-            console.log('Първите 5 показани картини:', shownImages.slice(0, 5));
+            console.log('РџСЉСЂРІРёС‚Рµ 5 РїРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё:', shownImages.slice(0, 5));
         }
         
         if (shownImages.length === images.length) {
-            console.log('🎉 Всички картини са показани! При следваща игра pool-ът ще се изчисти.');
+            console.log('рџЋ‰ Р’СЃРёС‡РєРё РєР°СЂС‚РёРЅРё СЃР° РїРѕРєР°Р·Р°РЅРё! РџСЂРё СЃР»РµРґРІР°С‰Р° РёРіСЂР° pool-СЉС‚ С‰Рµ СЃРµ РёР·С‡РёСЃС‚Рё.');
         }
         
     } catch (error) {
-        console.error('Грешка при показване на статистика:', error);
+        console.error('Р“СЂРµС€РєР° РїСЂРё РїРѕРєР°Р·РІР°РЅРµ РЅР° СЃС‚Р°С‚РёСЃС‚РёРєР°:', error);
     }
 }
 
 window.showPoolStats = showPoolStats;
 
-// Функция за принудително изчистване на pool-а
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїСЂРёРЅСѓРґРёС‚РµР»РЅРѕ РёР·С‡РёСЃС‚РІР°РЅРµ РЅР° pool-Р°
 async function forceResetPool() {
     const currentUser = getCurrentUser();
     if (!currentUser || !currentUser.uid) {
-        console.log('Няма регистриран потребител за изчистване');
+        console.log('РќСЏРјР° СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РїРѕС‚СЂРµР±РёС‚РµР» Р·Р° РёР·С‡РёСЃС‚РІР°РЅРµ');
         return;
     }
     
-    console.log('=== ПРИНУДИТЕЛНО ИЗЧИСТВАНЕ НА POOL (ВЕРСИЯ 3.0) ===');
-    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    console.log('=== РџР РРќРЈР”РРўР•Р›РќРћ РР—Р§РРЎРўР’РђРќР• РќРђ POOL (Р’Р•Р РЎРРЇ 3.0) ===');
+    console.log('РџРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username, 'UID:', currentUser.uid);
     
     try {
         const userDoc = db.collection('users').doc(currentUser.uid);
         await userDoc.collection('gameData').doc('imagesPool').delete();
-        console.log('Pool изчистен принудително!');
-        console.log('При следващо стартиране на играта ще се създаде нов pool с версия 3.0.');
-        console.log('Всички картини ще бъдат налични отново.');
+        console.log('Pool РёР·С‡РёСЃС‚РµРЅ РїСЂРёРЅСѓРґРёС‚РµР»РЅРѕ!');
+        console.log('РџСЂРё СЃР»РµРґРІР°С‰Рѕ СЃС‚Р°СЂС‚РёСЂР°РЅРµ РЅР° РёРіСЂР°С‚Р° С‰Рµ СЃРµ СЃСЉР·РґР°РґРµ РЅРѕРІ pool СЃ РІРµСЂСЃРёСЏ 3.0.');
+        console.log('Р’СЃРёС‡РєРё РєР°СЂС‚РёРЅРё С‰Рµ Р±СЉРґР°С‚ РЅР°Р»РёС‡РЅРё РѕС‚РЅРѕРІРѕ.');
     } catch (error) {
-        console.error('Грешка при принудително изчистване на pool:', error);
+        console.error('Р“СЂРµС€РєР° РїСЂРё РїСЂРёРЅСѓРґРёС‚РµР»РЅРѕ РёР·С‡РёСЃС‚РІР°РЅРµ РЅР° pool:', error);
     }
 }
 
 window.forceResetPool = forceResetPool;
 
-// Функция за тестване на текущото състояние на потребителя
+// Р¤СѓРЅРєС†РёСЏ Р·Р° С‚РµСЃС‚РІР°РЅРµ РЅР° С‚РµРєСѓС‰РѕС‚Рѕ СЃСЉСЃС‚РѕСЏРЅРёРµ РЅР° РїРѕС‚СЂРµР±РёС‚РµР»СЏ
 function testUserState() {
-    console.log('=== ТЕСТ НА СЪСТОЯНИЕТО НА ПОТРЕБИТЕЛЯ ===');
+    console.log('=== РўР•РЎРў РќРђ РЎРЄРЎРўРћРЇРќРР•РўРћ РќРђ РџРћРўР Р•Р‘РРўР•Р›РЇ ===');
     console.log('localStorage isLoggedIn:', localStorage.getItem('isLoggedIn'));
     console.log('localStorage isRegistered:', localStorage.getItem('isRegistered'));
     console.log('localStorage currentUser:', localStorage.getItem('currentUser'));
@@ -3835,7 +3831,7 @@ function testUserState() {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const isRegistered = localStorage.getItem('isRegistered') === 'true';
     
-    console.log('Проверка за "смени рунда":', {
+    console.log('РџСЂРѕРІРµСЂРєР° Р·Р° "СЃРјРµРЅРё СЂСѓРЅРґР°":', {
         isLoggedIn,
         isRegistered,
         hasCurrentUser: !!currentUser,
@@ -3852,19 +3848,19 @@ function testUserState() {
 
 window.testUserState = testUserState;
 
-// Функция за генериране на следващо ниво (лениво зареждане)
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РіРµРЅРµСЂРёСЂР°РЅРµ РЅР° СЃР»РµРґРІР°С‰Рѕ РЅРёРІРѕ (Р»РµРЅРёРІРѕ Р·Р°СЂРµР¶РґР°РЅРµ)
 async function generateNextLevel() {
     if (currentLevel >= gameLevels.length) {
-        // Генерираме ново ниво само когато е нужно
+        // Р“РµРЅРµСЂРёСЂР°РјРµ РЅРѕРІРѕ РЅРёРІРѕ СЃР°РјРѕ РєРѕРіР°С‚Рѕ Рµ РЅСѓР¶РЅРѕ
         const currentUser = getCurrentUser();
         
         if (currentUser && currentUser.uid) {
-            console.log('Генерираме ново ниво за Firebase потребител:', currentUser.username);
+            console.log('Р“РµРЅРµСЂРёСЂР°РјРµ РЅРѕРІРѕ РЅРёРІРѕ Р·Р° Firebase РїРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username);
             const image = await getNextImageForUserFirebase(currentUser.uid);
             
             if (!image) {
-                console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
-                // Fallback към локално генериране
+                console.error('Firebase: РќРµ СѓСЃРїСЏС…РјРµ РґР° РІР·РµРјРµРј РєР°СЂС‚РёРЅРєР°, РёР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ');
+                // Fallback РєСЉРј Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ
                 let availableImages = [...images];
                 for (let j = availableImages.length - 1; j > 0; j--) {
                     const k = Math.floor(Math.random() * (j + 1));
@@ -3884,8 +3880,8 @@ async function generateNextLevel() {
                 });
             }
         } else {
-            // Гост/нерегистриран - локално генериране
-            console.log('Генерираме ново ниво за гост потребител');
+            // Р“РѕСЃС‚/РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅ - Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ
+            console.log('Р“РµРЅРµСЂРёСЂР°РјРµ РЅРѕРІРѕ РЅРёРІРѕ Р·Р° РіРѕСЃС‚ РїРѕС‚СЂРµР±РёС‚РµР»');
             let availableImages = [...images];
             for (let j = availableImages.length - 1; j > 0; j--) {
                 const k = Math.floor(Math.random() * (j + 1));
@@ -3901,17 +3897,17 @@ async function generateNextLevel() {
     }
 }
 
-// Генериране на едно ниво при нужда
+// Р“РµРЅРµСЂРёСЂР°РЅРµ РЅР° РµРґРЅРѕ РЅРёРІРѕ РїСЂРё РЅСѓР¶РґР°
 async function generateSingleLevelAsync() {
     const currentUser = getCurrentUser();
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    // Проверяваме дали потребителят е регистриран в Firebase
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РІ Firebase
     if (currentUser && currentUser.uid && isLoggedIn) {
-        console.log('Генерираме едно ниво с Firebase за потребител:', currentUser.username);
+        console.log('Р“РµРЅРµСЂРёСЂР°РјРµ РµРґРЅРѕ РЅРёРІРѕ СЃ Firebase Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username);
         const image = await getNextImageForUserFirebase(currentUser.uid);
         if (!image) {
-            console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
-            // Fallback към локално генериране
+            console.error('Firebase: РќРµ СѓСЃРїСЏС…РјРµ РґР° РІР·РµРјРµРј РєР°СЂС‚РёРЅРєР°, РёР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ');
+            // Fallback РєСЉРј Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ
             let availableImages = [...images];
             for (let j = availableImages.length - 1; j > 0; j--) {
                 const k = Math.floor(Math.random() * (j + 1));
@@ -3931,8 +3927,8 @@ async function generateSingleLevelAsync() {
             };
         }
     } else {
-        // Гост/нерегистриран - използваме само 5-те картини
-        console.log('Генерираме едно ниво за нерегистриран потребител с 5 картини');
+        // Р“РѕСЃС‚/РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅ - РёР·РїРѕР»Р·РІР°РјРµ СЃР°РјРѕ 5-С‚Рµ РєР°СЂС‚РёРЅРё
+        console.log('Р“РµРЅРµСЂРёСЂР°РјРµ РµРґРЅРѕ РЅРёРІРѕ Р·Р° РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅ РїРѕС‚СЂРµР±РёС‚РµР» СЃ 5 РєР°СЂС‚РёРЅРё');
         const image = getNextGuestImage();
         const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
         return {
@@ -3942,20 +3938,20 @@ async function generateSingleLevelAsync() {
     }
 }
 
-// Асинхронна версия на generateGameLevels (запазваме за обратна съвместимост)
+// РђСЃРёРЅС…СЂРѕРЅРЅР° РІРµСЂСЃРёСЏ РЅР° generateGameLevels (Р·Р°РїР°Р·РІР°РјРµ Р·Р° РѕР±СЂР°С‚РЅР° СЃСЉРІРјРµСЃС‚РёРјРѕСЃС‚)
 async function generateGameLevelsAsync() {
     gameLevels = [];
     const currentUser = getCurrentUser();
     
-    // Проверяваме дали потребителят е регистриран в Firebase
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РІ Firebase
     if (currentUser && currentUser.uid) {
-        console.log('Използваме Firebase за потребител:', currentUser.username);
+        console.log('РР·РїРѕР»Р·РІР°РјРµ Firebase Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username);
         for (let i = 0; i < totalLevels; i++) {
             const image = await getNextImageForUserFirebase(currentUser.uid);
             
             if (!image) {
-                console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
-                // Ако не можем да вземем картинка от Firebase, използваме локално генериране
+                console.error('Firebase: РќРµ СѓСЃРїСЏС…РјРµ РґР° РІР·РµРјРµРј РєР°СЂС‚РёРЅРєР°, РёР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ');
+                // РђРєРѕ РЅРµ РјРѕР¶РµРј РґР° РІР·РµРјРµРј РєР°СЂС‚РёРЅРєР° РѕС‚ Firebase, РёР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ
                 let availableImages = [...images];
                 for (let j = availableImages.length - 1; j > 0; j--) {
                     const k = Math.floor(Math.random() * (j + 1));
@@ -3976,8 +3972,8 @@ async function generateGameLevelsAsync() {
             }
         }
     } else {
-        // Гост/нерегистриран - локално както досега
-        console.log('Използваме локално генериране за гост потребител');
+        // Р“РѕСЃС‚/РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅ - Р»РѕРєР°Р»РЅРѕ РєР°РєС‚Рѕ РґРѕСЃРµРіР°
+        console.log('РР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ Р·Р° РіРѕСЃС‚ РїРѕС‚СЂРµР±РёС‚РµР»');
         let availableImages = [...images];
         for (let i = availableImages.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -4002,12 +3998,12 @@ async function generateGameLevelsAsync() {
 }
 
 // ... existing code ...
-// Асинхронно записване на gamesPlayed във Firebase
+// РђСЃРёРЅС…СЂРѕРЅРЅРѕ Р·Р°РїРёСЃРІР°РЅРµ РЅР° gamesPlayed РІСЉРІ Firebase
 async function recordGameFirebase(currentUser) {
     if (!currentUser || !currentUser.uid) return;
     try {
         const userRef = db.collection('users').doc(currentUser.uid);
-        // Вземи текущите данни
+        // Р’Р·РµРјРё С‚РµРєСѓС‰РёС‚Рµ РґР°РЅРЅРё
         const doc = await userRef.get();
         let gamesPlayed = 1;
         if (doc.exists && doc.data().gamesPlayed) {
@@ -4017,18 +4013,18 @@ async function recordGameFirebase(currentUser) {
             gamesPlayed: gamesPlayed,
             lastActivity: new Date().toISOString()
         });
-        // Обнови локално
+        // РћР±РЅРѕРІРё Р»РѕРєР°Р»РЅРѕ
         currentUser.gamesPlayed = gamesPlayed;
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
     } catch (e) {
-        console.warn('Неуспешен запис във Firebase, ще се запише само локално:', e);
+        console.warn('РќРµСѓСЃРїРµС€РµРЅ Р·Р°РїРёСЃ РІСЉРІ Firebase, С‰Рµ СЃРµ Р·Р°РїРёС€Рµ СЃР°РјРѕ Р»РѕРєР°Р»РЅРѕ:', e);
     }
 }
 
 function recordGame() {
     const currentUser = getCurrentUser();
     if (currentUser) {
-        // Увеличаваме броя игри на потребителя
+        // РЈРІРµР»РёС‡Р°РІР°РјРµ Р±СЂРѕСЏ РёРіСЂРё РЅР° РїРѕС‚СЂРµР±РёС‚РµР»СЏ
         const users = JSON.parse(localStorage.getItem('usersDB') || '[]');
         const userIndex = users.findIndex(u => u.username === currentUser.username);
         
@@ -4036,25 +4032,25 @@ function recordGame() {
             users[userIndex].gamesPlayed = (users[userIndex].gamesPlayed || 0) + 1;
             users[userIndex].lastActivity = new Date().toISOString();
             localStorage.setItem('usersDB', JSON.stringify(users));
-            // Обновяваме текущия потребител
+            // РћР±РЅРѕРІСЏРІР°РјРµ С‚РµРєСѓС‰РёСЏ РїРѕС‚СЂРµР±РёС‚РµР»
             currentUser.gamesPlayed = users[userIndex].gamesPlayed;
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
         }
-        // Ако е Firebase потребител, записваме и там
+        // РђРєРѕ Рµ Firebase РїРѕС‚СЂРµР±РёС‚РµР», Р·Р°РїРёСЃРІР°РјРµ Рё С‚Р°Рј
         if (currentUser.uid) {
             recordGameFirebase(currentUser);
         }
-        // Увеличаваме общия брой игри
+        // РЈРІРµР»РёС‡Р°РІР°РјРµ РѕР±С‰РёСЏ Р±СЂРѕР№ РёРіСЂРё
         const totalGames = parseInt(localStorage.getItem('totalGames') || '0') + 1;
         localStorage.setItem('totalGames', totalGames.toString());
-        // Добавяме лог
-        addActivityLog(currentUser.username, 'Завърши игра');
+        // Р”РѕР±Р°РІСЏРјРµ Р»РѕРі
+        addActivityLog(currentUser.username, 'Р—Р°РІСЉСЂС€Рё РёРіСЂР°');
     }
 }
 // ... existing code ...
 
 // ... existing code ...
-// === FIREBASE: Проверка за nolimit ===
+// === FIREBASE: РџСЂРѕРІРµСЂРєР° Р·Р° nolimit ===
 async function checkUserNoLimit() {
     const currentUser = getCurrentUser();
     if (currentUser && currentUser.uid) {
@@ -4066,199 +4062,199 @@ async function checkUserNoLimit() {
     return false;
 }
 
-// Примерна функция за админите: задаване на nolimit на потребител по имейл
+// РџСЂРёРјРµСЂРЅР° С„СѓРЅРєС†РёСЏ Р·Р° Р°РґРјРёРЅРёС‚Рµ: Р·Р°РґР°РІР°РЅРµ РЅР° nolimit РЅР° РїРѕС‚СЂРµР±РёС‚РµР» РїРѕ РёРјРµР№Р»
 async function setUserNoLimitByEmail(email) {
     const usersRef = db.collection('users');
     const query = await usersRef.where('email', '==', email).get();
     if (!query.empty) {
         const userDoc = query.docs[0];
         await userDoc.ref.update({ nolimit: true });
-        console.log('Потребителят е с nolimit:', email);
+        console.log('РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЃ nolimit:', email);
     } else {
-        console.log('Не е намерен потребител с този имейл:', email);
+        console.log('РќРµ Рµ РЅР°РјРµСЂРµРЅ РїРѕС‚СЂРµР±РёС‚РµР» СЃ С‚РѕР·Рё РёРјРµР№Р»:', email);
     }
 }
 window.setUserNoLimitByEmail = setUserNoLimitByEmail;
 
-// Функция за тестване на Firebase връзката
+// Р¤СѓРЅРєС†РёСЏ Р·Р° С‚РµСЃС‚РІР°РЅРµ РЅР° Firebase РІСЂСЉР·РєР°С‚Р°
 async function testFirebaseConnection() {
     try {
-        console.log('Тестваме Firebase връзката...');
+        console.log('РўРµСЃС‚РІР°РјРµ Firebase РІСЂСЉР·РєР°С‚Р°...');
         const testDoc = await db.collection('test').doc('connection').get();
-        console.log('Firebase връзката работи!');
+        console.log('Firebase РІСЂСЉР·РєР°С‚Р° СЂР°Р±РѕС‚Рё!');
         return true;
     } catch (error) {
-        console.error('Грешка при Firebase връзката:', error);
+        console.error('Р“СЂРµС€РєР° РїСЂРё Firebase РІСЂСЉР·РєР°С‚Р°:', error);
         return false;
     }
 }
 
-// Функция за тестване на imagesPool за потребител
+// Р¤СѓРЅРєС†РёСЏ Р·Р° С‚РµСЃС‚РІР°РЅРµ РЅР° imagesPool Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»
 async function testUserImagesPool(uid) {
     try {
-        console.log('Тестваме imagesPool за потребител:', uid);
+        console.log('РўРµСЃС‚РІР°РјРµ imagesPool Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»:', uid);
         const pool = await getUserImagesPoolFirebase(uid);
-        console.log('ImagesPool резултат:', pool.length, 'картини');
+        console.log('ImagesPool СЂРµР·СѓР»С‚Р°С‚:', pool.length, 'РєР°СЂС‚РёРЅРё');
         return pool;
     } catch (error) {
-        console.error('Грешка при тестване на imagesPool:', error);
+        console.error('Р“СЂРµС€РєР° РїСЂРё С‚РµСЃС‚РІР°РЅРµ РЅР° imagesPool:', error);
         return null;
     }
 }
 
-// Добавяме функциите в глобалния scope за тестване
+// Р”РѕР±Р°РІСЏРјРµ С„СѓРЅРєС†РёРёС‚Рµ РІ РіР»РѕР±Р°Р»РЅРёСЏ scope Р·Р° С‚РµСЃС‚РІР°РЅРµ
 window.testFirebaseConnection = testFirebaseConnection;
 window.testUserImagesPool = testUserImagesPool;
 
-// Функция за проверка на текущия потребител
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїСЂРѕРІРµСЂРєР° РЅР° С‚РµРєСѓС‰РёСЏ РїРѕС‚СЂРµР±РёС‚РµР»
 function checkCurrentUserStatus() {
     const currentUser = getCurrentUser();
-    console.log('=== СТАТУС НА ТЕКУЩИЯ ПОТРЕБИТЕЛ ===');
+    console.log('=== РЎРўРђРўРЈРЎ РќРђ РўР•РљРЈР©РРЇ РџРћРўР Р•Р‘РРўР•Р› ===');
     console.log('currentUser:', currentUser);
     if (currentUser) {
         console.log('Username:', currentUser.username);
         console.log('UID:', currentUser.uid);
         console.log('Email:', currentUser.email);
-        console.log('Има Firebase UID:', !!currentUser.uid);
+        console.log('РРјР° Firebase UID:', !!currentUser.uid);
     } else {
-        console.log('Няма текущ потребител');
+        console.log('РќСЏРјР° С‚РµРєСѓС‰ РїРѕС‚СЂРµР±РёС‚РµР»');
     }
     return currentUser;
 }
 
 window.checkCurrentUserStatus = checkCurrentUserStatus;
 
-// Функция за тестване на Firebase imagesPool
+// Р¤СѓРЅРєС†РёСЏ Р·Р° С‚РµСЃС‚РІР°РЅРµ РЅР° Firebase imagesPool
 async function testFirebaseImagesPool() {
     const currentUser = getCurrentUser();
     if (!currentUser || !currentUser.uid) {
-        console.log('Няма регистриран потребител за тестване');
+        console.log('РќСЏРјР° СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РїРѕС‚СЂРµР±РёС‚РµР» Р·Р° С‚РµСЃС‚РІР°РЅРµ');
         return;
     }
     
-    console.log('=== ТЕСТ НА FIREBASE IMAGESPOOL (ВЕРСИЯ 3.0) ===');
-    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    console.log('=== РўР•РЎРў РќРђ FIREBASE IMAGESPOOL (Р’Р•Р РЎРРЇ 3.0) ===');
+    console.log('РџРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username, 'UID:', currentUser.uid);
     
     try {
-        // Тестваме връзката
+        // РўРµСЃС‚РІР°РјРµ РІСЂСЉР·РєР°С‚Р°
         const connectionOk = await testFirebaseConnection();
         if (!connectionOk) {
-            console.error('Firebase връзката не работи!');
+            console.error('Firebase РІСЂСЉР·РєР°С‚Р° РЅРµ СЂР°Р±РѕС‚Рё!');
             return;
         }
         
-        // Показваме всички картини
-        console.log('Общ брой картини в системата:', images.length);
+        // РџРѕРєР°Р·РІР°РјРµ РІСЃРёС‡РєРё РєР°СЂС‚РёРЅРё
+        console.log('РћР±С‰ Р±СЂРѕР№ РєР°СЂС‚РёРЅРё РІ СЃРёСЃС‚РµРјР°С‚Р°:', images.length);
         
-        // Тестваме pool-а
+        // РўРµСЃС‚РІР°РјРµ pool-Р°
         const shownImages = await getUserImagesPoolFirebase(currentUser.uid);
-        console.log('Показани картини:', shownImages.length);
-        console.log('Налични картини:', images.length - shownImages.length);
+        console.log('РџРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё:', shownImages.length);
+        console.log('РќР°Р»РёС‡РЅРё РєР°СЂС‚РёРЅРё:', images.length - shownImages.length);
         
-        // Тестваме вземане на картинка
+        // РўРµСЃС‚РІР°РјРµ РІР·РµРјР°РЅРµ РЅР° РєР°СЂС‚РёРЅРєР°
         const image = await getNextImageForUserFirebase(currentUser.uid);
-        console.log('Взета картинка:', image);
+        console.log('Р’Р·РµС‚Р° РєР°СЂС‚РёРЅРєР°:', image);
         
-        // Проверяваме pool-а след вземане
+        // РџСЂРѕРІРµСЂСЏРІР°РјРµ pool-Р° СЃР»РµРґ РІР·РµРјР°РЅРµ
         const shownImagesAfter = await getUserImagesPoolFirebase(currentUser.uid);
-        console.log('Показани картини след вземане:', shownImagesAfter.length);
-        console.log('Налични картини след вземане:', images.length - shownImagesAfter.length);
+        console.log('РџРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё СЃР»РµРґ РІР·РµРјР°РЅРµ:', shownImagesAfter.length);
+        console.log('РќР°Р»РёС‡РЅРё РєР°СЂС‚РёРЅРё СЃР»РµРґ РІР·РµРјР°РЅРµ:', images.length - shownImagesAfter.length);
         
-        // Показваме първите 5 показани картини
+        // РџРѕРєР°Р·РІР°РјРµ РїСЉСЂРІРёС‚Рµ 5 РїРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё
         if (shownImagesAfter.length > 0) {
-            console.log('Първи 5 показани картини:', shownImagesAfter.slice(0, 5));
+            console.log('РџСЉСЂРІРё 5 РїРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё:', shownImagesAfter.slice(0, 5));
         }
         
     } catch (error) {
-        console.error('Грешка при тестване:', error);
+        console.error('Р“СЂРµС€РєР° РїСЂРё С‚РµСЃС‚РІР°РЅРµ:', error);
     }
 }
 
 window.testFirebaseImagesPool = testFirebaseImagesPool;
 
-// Функция за изчистване на pool-а за тестване
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РёР·С‡РёСЃС‚РІР°РЅРµ РЅР° pool-Р° Р·Р° С‚РµСЃС‚РІР°РЅРµ
 async function clearUserImagesPool() {
     const currentUser = getCurrentUser();
     if (!currentUser || !currentUser.uid) {
-        console.log('Няма регистриран потребител за изчистване');
+        console.log('РќСЏРјР° СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РїРѕС‚СЂРµР±РёС‚РµР» Р·Р° РёР·С‡РёСЃС‚РІР°РЅРµ');
         return;
     }
     
-    console.log('=== ИЗЧИСТВАНЕ НА IMAGESPOOL ===');
-    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    console.log('=== РР—Р§РРЎРўР’РђРќР• РќРђ IMAGESPOOL ===');
+    console.log('РџРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username, 'UID:', currentUser.uid);
     
     try {
         const userDoc = db.collection('users').doc(currentUser.uid);
         await userDoc.collection('gameData').doc('imagesPool').delete();
-        console.log('Pool изчистен успешно!');
+        console.log('Pool РёР·С‡РёСЃС‚РµРЅ СѓСЃРїРµС€РЅРѕ!');
     } catch (error) {
-        console.error('Грешка при изчистване на pool:', error);
+        console.error('Р“СЂРµС€РєР° РїСЂРё РёР·С‡РёСЃС‚РІР°РЅРµ РЅР° pool:', error);
     }
 }
 
 window.clearUserImagesPool = clearUserImagesPool;
 
-// Функция за показване на статистика за pool-а
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° СЃС‚Р°С‚РёСЃС‚РёРєР° Р·Р° pool-Р°
 async function showPoolStats() {
     const currentUser = getCurrentUser();
     if (!currentUser || !currentUser.uid) {
-        console.log('Няма регистриран потребител за статистика');
+        console.log('РќСЏРјР° СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РїРѕС‚СЂРµР±РёС‚РµР» Р·Р° СЃС‚Р°С‚РёСЃС‚РёРєР°');
         return;
     }
     
-    console.log('=== СТАТИСТИКА ЗА IMAGESPOOL (ВЕРСИЯ 3.0) ===');
-    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    console.log('=== РЎРўРђРўРРЎРўРРљРђ Р—Рђ IMAGESPOOL (Р’Р•Р РЎРРЇ 3.0) ===');
+    console.log('РџРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username, 'UID:', currentUser.uid);
     
     try {
         const shownImages = await getUserImagesPoolFirebase(currentUser.uid);
-        console.log('Общ брой картини в системата:', images.length);
-        console.log('Показани картини:', shownImages.length);
-        console.log('Налични картини:', images.length - shownImages.length);
-        console.log('Процент показани:', Math.round((shownImages.length / images.length) * 100) + '%');
-        console.log('Процент налични:', Math.round(((images.length - shownImages.length) / images.length) * 100) + '%');
+        console.log('РћР±С‰ Р±СЂРѕР№ РєР°СЂС‚РёРЅРё РІ СЃРёСЃС‚РµРјР°С‚Р°:', images.length);
+        console.log('РџРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё:', shownImages.length);
+        console.log('РќР°Р»РёС‡РЅРё РєР°СЂС‚РёРЅРё:', images.length - shownImages.length);
+        console.log('РџСЂРѕС†РµРЅС‚ РїРѕРєР°Р·Р°РЅРё:', Math.round((shownImages.length / images.length) * 100) + '%');
+        console.log('РџСЂРѕС†РµРЅС‚ РЅР°Р»РёС‡РЅРё:', Math.round(((images.length - shownImages.length) / images.length) * 100) + '%');
         
         if (shownImages.length > 0) {
-            console.log('Първите 5 показани картини:', shownImages.slice(0, 5));
+            console.log('РџСЉСЂРІРёС‚Рµ 5 РїРѕРєР°Р·Р°РЅРё РєР°СЂС‚РёРЅРё:', shownImages.slice(0, 5));
         }
         
         if (shownImages.length === images.length) {
-            console.log('🎉 Всички картини са показани! При следваща игра pool-ът ще се изчисти.');
+            console.log('рџЋ‰ Р’СЃРёС‡РєРё РєР°СЂС‚РёРЅРё СЃР° РїРѕРєР°Р·Р°РЅРё! РџСЂРё СЃР»РµРґРІР°С‰Р° РёРіСЂР° pool-СЉС‚ С‰Рµ СЃРµ РёР·С‡РёСЃС‚Рё.');
         }
         
     } catch (error) {
-        console.error('Грешка при показване на статистика:', error);
+        console.error('Р“СЂРµС€РєР° РїСЂРё РїРѕРєР°Р·РІР°РЅРµ РЅР° СЃС‚Р°С‚РёСЃС‚РёРєР°:', error);
     }
 }
 
 window.showPoolStats = showPoolStats;
 
-// Функция за принудително изчистване на pool-а
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РїСЂРёРЅСѓРґРёС‚РµР»РЅРѕ РёР·С‡РёСЃС‚РІР°РЅРµ РЅР° pool-Р°
 async function forceResetPool() {
     const currentUser = getCurrentUser();
     if (!currentUser || !currentUser.uid) {
-        console.log('Няма регистриран потребител за изчистване');
+        console.log('РќСЏРјР° СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РїРѕС‚СЂРµР±РёС‚РµР» Р·Р° РёР·С‡РёСЃС‚РІР°РЅРµ');
         return;
     }
     
-    console.log('=== ПРИНУДИТЕЛНО ИЗЧИСТВАНЕ НА POOL (ВЕРСИЯ 3.0) ===');
-    console.log('Потребител:', currentUser.username, 'UID:', currentUser.uid);
+    console.log('=== РџР РРќРЈР”РРўР•Р›РќРћ РР—Р§РРЎРўР’РђРќР• РќРђ POOL (Р’Р•Р РЎРРЇ 3.0) ===');
+    console.log('РџРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username, 'UID:', currentUser.uid);
     
     try {
         const userDoc = db.collection('users').doc(currentUser.uid);
         await userDoc.collection('gameData').doc('imagesPool').delete();
-        console.log('Pool изчистен принудително!');
-        console.log('При следващо стартиране на играта ще се създаде нов pool с версия 3.0.');
-        console.log('Всички картини ще бъдат налични отново.');
+        console.log('Pool РёР·С‡РёСЃС‚РµРЅ РїСЂРёРЅСѓРґРёС‚РµР»РЅРѕ!');
+        console.log('РџСЂРё СЃР»РµРґРІР°С‰Рѕ СЃС‚Р°СЂС‚РёСЂР°РЅРµ РЅР° РёРіСЂР°С‚Р° С‰Рµ СЃРµ СЃСЉР·РґР°РґРµ РЅРѕРІ pool СЃ РІРµСЂСЃРёСЏ 3.0.');
+        console.log('Р’СЃРёС‡РєРё РєР°СЂС‚РёРЅРё С‰Рµ Р±СЉРґР°С‚ РЅР°Р»РёС‡РЅРё РѕС‚РЅРѕРІРѕ.');
     } catch (error) {
-        console.error('Грешка при принудително изчистване на pool:', error);
+        console.error('Р“СЂРµС€РєР° РїСЂРё РїСЂРёРЅСѓРґРёС‚РµР»РЅРѕ РёР·С‡РёСЃС‚РІР°РЅРµ РЅР° pool:', error);
     }
 }
 
 window.forceResetPool = forceResetPool;
 
-// Функция за тестване на текущото състояние на потребителя
+// Р¤СѓРЅРєС†РёСЏ Р·Р° С‚РµСЃС‚РІР°РЅРµ РЅР° С‚РµРєСѓС‰РѕС‚Рѕ СЃСЉСЃС‚РѕСЏРЅРёРµ РЅР° РїРѕС‚СЂРµР±РёС‚РµР»СЏ
 function testUserState() {
-    console.log('=== ТЕСТ НА СЪСТОЯНИЕТО НА ПОТРЕБИТЕЛЯ ===');
+    console.log('=== РўР•РЎРў РќРђ РЎРЄРЎРўРћРЇРќРР•РўРћ РќРђ РџРћРўР Р•Р‘РРўР•Р›РЇ ===');
     console.log('localStorage isLoggedIn:', localStorage.getItem('isLoggedIn'));
     console.log('localStorage isRegistered:', localStorage.getItem('isRegistered'));
     console.log('localStorage currentUser:', localStorage.getItem('currentUser'));
@@ -4269,7 +4265,7 @@ function testUserState() {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const isRegistered = localStorage.getItem('isRegistered') === 'true';
     
-    console.log('Проверка за "смени рунда":', {
+    console.log('РџСЂРѕРІРµСЂРєР° Р·Р° "СЃРјРµРЅРё СЂСѓРЅРґР°":', {
         isLoggedIn,
         isRegistered,
         hasCurrentUser: !!currentUser,
@@ -4286,19 +4282,19 @@ function testUserState() {
 
 window.testUserState = testUserState;
 
-// Функция за генериране на следващо ниво (лениво зареждане)
+// Р¤СѓРЅРєС†РёСЏ Р·Р° РіРµРЅРµСЂРёСЂР°РЅРµ РЅР° СЃР»РµРґРІР°С‰Рѕ РЅРёРІРѕ (Р»РµРЅРёРІРѕ Р·Р°СЂРµР¶РґР°РЅРµ)
 async function generateNextLevel() {
     if (currentLevel >= gameLevels.length) {
-        // Генерираме ново ниво само когато е нужно
+        // Р“РµРЅРµСЂРёСЂР°РјРµ РЅРѕРІРѕ РЅРёРІРѕ СЃР°РјРѕ РєРѕРіР°С‚Рѕ Рµ РЅСѓР¶РЅРѕ
         const currentUser = getCurrentUser();
         
         if (currentUser && currentUser.uid) {
-            console.log('Генерираме ново ниво за Firebase потребител:', currentUser.username);
+            console.log('Р“РµРЅРµСЂРёСЂР°РјРµ РЅРѕРІРѕ РЅРёРІРѕ Р·Р° Firebase РїРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username);
             const image = await getNextImageForUserFirebase(currentUser.uid);
             
             if (!image) {
-                console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
-                // Fallback към локално генериране
+                console.error('Firebase: РќРµ СѓСЃРїСЏС…РјРµ РґР° РІР·РµРјРµРј РєР°СЂС‚РёРЅРєР°, РёР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ');
+                // Fallback РєСЉРј Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ
                 let availableImages = [...images];
                 for (let j = availableImages.length - 1; j > 0; j--) {
                     const k = Math.floor(Math.random() * (j + 1));
@@ -4318,8 +4314,8 @@ async function generateNextLevel() {
                 });
             }
         } else {
-            // Гост/нерегистриран - локално генериране
-            console.log('Генерираме ново ниво за гост потребител');
+            // Р“РѕСЃС‚/РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅ - Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ
+            console.log('Р“РµРЅРµСЂРёСЂР°РјРµ РЅРѕРІРѕ РЅРёРІРѕ Р·Р° РіРѕСЃС‚ РїРѕС‚СЂРµР±РёС‚РµР»');
             let availableImages = [...images];
             for (let j = availableImages.length - 1; j > 0; j--) {
                 const k = Math.floor(Math.random() * (j + 1));
@@ -4335,17 +4331,17 @@ async function generateNextLevel() {
     }
 }
 
-// Генериране на едно ниво при нужда
+// Р“РµРЅРµСЂРёСЂР°РЅРµ РЅР° РµРґРЅРѕ РЅРёРІРѕ РїСЂРё РЅСѓР¶РґР°
 async function generateSingleLevelAsync() {
     const currentUser = getCurrentUser();
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    // Проверяваме дали потребителят е регистриран в Firebase
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РІ Firebase
     if (currentUser && currentUser.uid && isLoggedIn) {
-        console.log('Генерираме едно ниво с Firebase за потребител:', currentUser.username);
+        console.log('Р“РµРЅРµСЂРёСЂР°РјРµ РµРґРЅРѕ РЅРёРІРѕ СЃ Firebase Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username);
         const image = await getNextImageForUserFirebase(currentUser.uid);
         if (!image) {
-            console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
-            // Fallback към локално генериране
+            console.error('Firebase: РќРµ СѓСЃРїСЏС…РјРµ РґР° РІР·РµРјРµРј РєР°СЂС‚РёРЅРєР°, РёР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ');
+            // Fallback РєСЉРј Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ
             let availableImages = [...images];
             for (let j = availableImages.length - 1; j > 0; j--) {
                 const k = Math.floor(Math.random() * (j + 1));
@@ -4365,8 +4361,8 @@ async function generateSingleLevelAsync() {
             };
         }
     } else {
-        // Гост/нерегистриран - използваме само 5-те картини
-        console.log('Генерираме едно ниво за нерегистриран потребител с 5 картини');
+        // Р“РѕСЃС‚/РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅ - РёР·РїРѕР»Р·РІР°РјРµ СЃР°РјРѕ 5-С‚Рµ РєР°СЂС‚РёРЅРё
+        console.log('Р“РµРЅРµСЂРёСЂР°РјРµ РµРґРЅРѕ РЅРёРІРѕ Р·Р° РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅ РїРѕС‚СЂРµР±РёС‚РµР» СЃ 5 РєР°СЂС‚РёРЅРё');
         const image = getNextGuestImage();
         const impostor = totalPlayers > 0 ? Math.floor(Math.random() * totalPlayers) + 1 : 1;
         return {
@@ -4376,20 +4372,20 @@ async function generateSingleLevelAsync() {
     }
 }
 
-// Асинхронна версия на generateGameLevels (запазваме за обратна съвместимост)
+// РђСЃРёРЅС…СЂРѕРЅРЅР° РІРµСЂСЃРёСЏ РЅР° generateGameLevels (Р·Р°РїР°Р·РІР°РјРµ Р·Р° РѕР±СЂР°С‚РЅР° СЃСЉРІРјРµСЃС‚РёРјРѕСЃС‚)
 async function generateGameLevelsAsync() {
     gameLevels = [];
     const currentUser = getCurrentUser();
     
-    // Проверяваме дали потребителят е регистриран в Firebase
+    // РџСЂРѕРІРµСЂСЏРІР°РјРµ РґР°Р»Рё РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅ РІ Firebase
     if (currentUser && currentUser.uid) {
-        console.log('Използваме Firebase за потребител:', currentUser.username);
+        console.log('РР·РїРѕР»Р·РІР°РјРµ Firebase Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»:', currentUser.username);
         for (let i = 0; i < totalLevels; i++) {
             const image = await getNextImageForUserFirebase(currentUser.uid);
             
             if (!image) {
-                console.error('Firebase: Не успяхме да вземем картинка, използваме локално генериране');
-                // Ако не можем да вземем картинка от Firebase, използваме локално генериране
+                console.error('Firebase: РќРµ СѓСЃРїСЏС…РјРµ РґР° РІР·РµРјРµРј РєР°СЂС‚РёРЅРєР°, РёР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ');
+                // РђРєРѕ РЅРµ РјРѕР¶РµРј РґР° РІР·РµРјРµРј РєР°СЂС‚РёРЅРєР° РѕС‚ Firebase, РёР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ
                 let availableImages = [...images];
                 for (let j = availableImages.length - 1; j > 0; j--) {
                     const k = Math.floor(Math.random() * (j + 1));
@@ -4410,8 +4406,8 @@ async function generateGameLevelsAsync() {
             }
         }
     } else {
-        // Гост/нерегистриран - локално както досега
-        console.log('Използваме локално генериране за гост потребител');
+        // Р“РѕСЃС‚/РЅРµСЂРµРіРёСЃС‚СЂРёСЂР°РЅ - Р»РѕРєР°Р»РЅРѕ РєР°РєС‚Рѕ РґРѕСЃРµРіР°
+        console.log('РР·РїРѕР»Р·РІР°РјРµ Р»РѕРєР°Р»РЅРѕ РіРµРЅРµСЂРёСЂР°РЅРµ Р·Р° РіРѕСЃС‚ РїРѕС‚СЂРµР±РёС‚РµР»');
         let availableImages = [...images];
         for (let i = availableImages.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -4436,7 +4432,7 @@ async function generateGameLevelsAsync() {
 }
 
 // ... existing code ...
-// Асинхронно записване на лог във Firebase
+// РђСЃРёРЅС…СЂРѕРЅРЅРѕ Р·Р°РїРёСЃРІР°РЅРµ РЅР° Р»РѕРі РІСЉРІ Firebase
 async function addActivityLogFirebase(username, action) {
     try {
         const currentUser = getCurrentUser();
@@ -4448,7 +4444,7 @@ async function addActivityLogFirebase(username, action) {
             action: action
         });
     } catch (e) {
-        console.warn('Неуспешен запис на лог във Firebase:', e);
+        console.warn('РќРµСѓСЃРїРµС€РµРЅ Р·Р°РїРёСЃ РЅР° Р»РѕРі РІСЉРІ Firebase:', e);
     }
 }
 
@@ -4459,12 +4455,12 @@ function addActivityLog(username, action) {
         username: username,
         action: action
     });
-    // Запазваме само последните 1000 лога
+    // Р—Р°РїР°Р·РІР°РјРµ СЃР°РјРѕ РїРѕСЃР»РµРґРЅРёС‚Рµ 1000 Р»РѕРіР°
     if (logs.length > 1000) {
         logs.splice(0, logs.length - 1000);
     }
     localStorage.setItem('activityLogs', JSON.stringify(logs));
-    // Ако е Firebase потребител, записваме и там
+    // РђРєРѕ Рµ Firebase РїРѕС‚СЂРµР±РёС‚РµР», Р·Р°РїРёСЃРІР°РјРµ Рё С‚Р°Рј
     const currentUser = getCurrentUser();
     if (currentUser && currentUser.uid) {
         addActivityLogFirebase(username, action);
@@ -4473,23 +4469,23 @@ function addActivityLog(username, action) {
 // ... existing code ...
 
 // ... existing code ...
-// ВЗИМАНЕ НА ВСИЧКИ ПОТРЕБИТЕЛИ ОТ FIREBASE
+// Р’Р—РРњРђРќР• РќРђ Р’РЎРР§РљР РџРћРўР Р•Р‘РРўР•Р›Р РћРў FIREBASE
 async function fetchAllUsersFirebase() {
     try {
         const usersSnapshot = await db.collection('users').get();
         return usersSnapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }));
     } catch (e) {
-        console.warn('Неуспешно взимане на потребители от Firebase:', e);
+        console.warn('РќРµСѓСЃРїРµС€РЅРѕ РІР·РёРјР°РЅРµ РЅР° РїРѕС‚СЂРµР±РёС‚РµР»Рё РѕС‚ Firebase:', e);
         return [];
     }
 }
 
-// ВЗИМАНЕ НА ВСИЧКИ ЛОГОВЕ ОТ FIREBASE (от всички потребители и гости)
+// Р’Р—РРњРђРќР• РќРђ Р’РЎРР§РљР Р›РћР“РћР’Р• РћРў FIREBASE (РѕС‚ РІСЃРёС‡РєРё РїРѕС‚СЂРµР±РёС‚РµР»Рё Рё РіРѕСЃС‚Рё)
 async function fetchAllLogsFirebase() {
     try {
         let allLogs = [];
         
-        // Взимаме логовете на регистрираните потребители
+        // Р’Р·РёРјР°РјРµ Р»РѕРіРѕРІРµС‚Рµ РЅР° СЂРµРіРёСЃС‚СЂРёСЂР°РЅРёС‚Рµ РїРѕС‚СЂРµР±РёС‚РµР»Рё
         const usersSnapshot = await db.collection('users').get();
         for (const userDoc of usersSnapshot.docs) {
             const logsSnapshot = await userDoc.ref.collection('logs').orderBy('timestamp', 'desc').limit(50).get();
@@ -4502,7 +4498,7 @@ async function fetchAllLogsFirebase() {
             });
         }
         
-        // Взимаме логовете на гостите
+        // Р’Р·РёРјР°РјРµ Р»РѕРіРѕРІРµС‚Рµ РЅР° РіРѕСЃС‚РёС‚Рµ
         const guestLogsSnapshot = await db.collection('guestLogs').orderBy('timestamp', 'desc').limit(100).get();
         guestLogsSnapshot.forEach(logDoc => {
             allLogs.push({
@@ -4511,76 +4507,76 @@ async function fetchAllLogsFirebase() {
             });
         });
         
-        // Сортираме всички логове по дата (най-нови първо)
+        // РЎРѕСЂС‚РёСЂР°РјРµ РІСЃРёС‡РєРё Р»РѕРіРѕРІРµ РїРѕ РґР°С‚Р° (РЅР°Р№-РЅРѕРІРё РїСЉСЂРІРѕ)
         allLogs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         return allLogs;
     } catch (e) {
-        console.warn('Неуспешно взимане на логове от Firebase:', e);
+        console.warn('РќРµСѓСЃРїРµС€РЅРѕ РІР·РёРјР°РЅРµ РЅР° Р»РѕРіРѕРІРµ РѕС‚ Firebase:', e);
         return [];
     }
 }
 // ... existing code ...
 
 // ... existing code ...
-// АСИНХРОНЕН АДМИН ПАНЕЛ САМО С FIREBASE ДАННИ
+// РђРЎРРќРҐР РћРќР•Рќ РђР”РњРРќ РџРђРќР•Р› РЎРђРњРћ РЎ FIREBASE Р”РђРќРќР
 async function showAdminPanel() {
     if (!checkIfAdmin()) {
-        showMessage("Нямате права за достъп до административния панел!", "error");
+        showMessage("РќСЏРјР°С‚Рµ РїСЂР°РІР° Р·Р° РґРѕСЃС‚СЉРї РґРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РёРІРЅРёСЏ РїР°РЅРµР»!", "error");
         return;
     }
-    // Показваме loader
+    // РџРѕРєР°Р·РІР°РјРµ loader
     const loader = document.createElement('div');
     loader.className = 'admin-modal';
-    loader.innerHTML = '<div class="admin-panel"><h2>Зареждане на данни от Firebase...</h2></div>';
+    loader.innerHTML = '<div class="admin-panel"><h2>Р—Р°СЂРµР¶РґР°РЅРµ РЅР° РґР°РЅРЅРё РѕС‚ Firebase...</h2></div>';
     document.body.appendChild(loader);
     try {
         const users = await fetchAllUsersFirebase();
         const logs = await fetchAllLogsFirebase();
-        // Генерираме HTML за потребители и логове
+        // Р“РµРЅРµСЂРёСЂР°РјРµ HTML Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»Рё Рё Р»РѕРіРѕРІРµ
         const usersTableHTML = generateUsersTableFirebase(users);
         const logsHTML = generateActivityLogsFirebase(logs);
-        // Статистика
+        // РЎС‚Р°С‚РёСЃС‚РёРєР°
         const totalGames = users.reduce((sum, u) => sum + (u.gamesPlayed || 0), 0);
         const mostActive = users.reduce((prev, curr) => (curr.gamesPlayed||0) > (prev.gamesPlayed||0) ? curr : prev, users[0]||{});
         const avgGames = users.length ? Math.round(totalGames / users.length) : 0;
-        // Дата за днес и седмицата
+        // Р”Р°С‚Р° Р·Р° РґРЅРµСЃ Рё СЃРµРґРјРёС†Р°С‚Р°
         const today = new Date().toDateString();
         const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
         const regsToday = users.filter(u => new Date(u.registrationDate).toDateString() === today).length;
         const regsWeek = users.filter(u => new Date(u.registrationDate) >= weekAgo).length;
-        // HTML на админ панела
+        // HTML РЅР° Р°РґРјРёРЅ РїР°РЅРµР»Р°
         const adminHTML = `
         <div class="admin-panel">
             <div class="admin-header">
-                <h2>🔧 Административен панел</h2>
-                <button class="close-admin-btn" onclick="hideAdminPanel()">✕</button>
+                <h2>рџ”§ РђРґРјРёРЅРёСЃС‚СЂР°С‚РёРІРµРЅ РїР°РЅРµР»</h2>
+                <button class="close-admin-btn" onclick="hideAdminPanel()">вњ•</button>
             </div>
             <div class="admin-stats">
-                <div class="stat-card"><h3>👥 Общо потребители</h3><p class="stat-number">${users.length}</p></div>
-                <div class="stat-card"><h3>🎮 Общо игри</h3><p class="stat-number">${totalGames}</p></div>
-                <div class="stat-card"><h3>📊 Най-активен</h3><p class="stat-number">${mostActive?.username||'-'}</p></div>
+                <div class="stat-card"><h3>рџ‘Ґ РћР±С‰Рѕ РїРѕС‚СЂРµР±РёС‚РµР»Рё</h3><p class="stat-number">${users.length}</p></div>
+                <div class="stat-card"><h3>рџЋ® РћР±С‰Рѕ РёРіСЂРё</h3><p class="stat-number">${totalGames}</p></div>
+                <div class="stat-card"><h3>рџ“Љ РќР°Р№-Р°РєС‚РёРІРµРЅ</h3><p class="stat-number">${mostActive?.username||'-'}</p></div>
             </div>
             <div class="admin-tabs">
-                <button class="tab-btn active" onclick="showTab('users')">Потребители</button>
-                <button class="tab-btn" onclick="showTab('logs')">Логове</button>
-                <button class="tab-btn" onclick="showTab('stats')">Статистика</button>
+                <button class="tab-btn active" onclick="showTab('users')">РџРѕС‚СЂРµР±РёС‚РµР»Рё</button>
+                <button class="tab-btn" onclick="showTab('logs')">Р›РѕРіРѕРІРµ</button>
+                <button class="tab-btn" onclick="showTab('stats')">РЎС‚Р°С‚РёСЃС‚РёРєР°</button>
             </div>
             <div id="users-tab" class="tab-content active">
                 <div class="users-list">
-                    <h3>Списък на всички потребители</h3>
-                    <div class="users-table"><table><thead><tr><th>Потребител</th><th>Имейл</th><th>Дата на регистрация</th><th>Изиграни игри</th></tr></thead><tbody id="users-table-body">${usersTableHTML}</tbody></table></div>
+                    <h3>РЎРїРёСЃСЉРє РЅР° РІСЃРёС‡РєРё РїРѕС‚СЂРµР±РёС‚РµР»Рё</h3>
+                    <div class="users-table"><table><thead><tr><th>РџРѕС‚СЂРµР±РёС‚РµР»</th><th>РРјРµР№Р»</th><th>Р”Р°С‚Р° РЅР° СЂРµРіРёСЃС‚СЂР°С†РёСЏ</th><th>РР·РёРіСЂР°РЅРё РёРіСЂРё</th></tr></thead><tbody id="users-table-body">${usersTableHTML}</tbody></table></div>
                 </div>
             </div>
             <div id="logs-tab" class="tab-content">
-                <div class="activity-logs"><h3>Лог на активностите</h3><div class="logs-container">${logsHTML}</div></div>
+                <div class="activity-logs"><h3>Р›РѕРі РЅР° Р°РєС‚РёРІРЅРѕСЃС‚РёС‚Рµ</h3><div class="logs-container">${logsHTML}</div></div>
             </div>
             <div id="stats-tab" class="tab-content">
                 <div class="detailed-stats">
-                    <h3>Детайлна статистика</h3>
+                    <h3>Р”РµС‚Р°Р№Р»РЅР° СЃС‚Р°С‚РёСЃС‚РёРєР°</h3>
                     <div class="stats-grid">
-                        <div class="stat-item"><h4>Регистрации днес</h4><p>${regsToday}</p></div>
-                        <div class="stat-item"><h4>Регистрации тази седмица</h4><p>${regsWeek}</p></div>
-                        <div class="stat-item"><h4>Средно игри на потребител</h4><p>${avgGames}</p></div>
+                        <div class="stat-item"><h4>Р РµРіРёСЃС‚СЂР°С†РёРё РґРЅРµСЃ</h4><p>${regsToday}</p></div>
+                        <div class="stat-item"><h4>Р РµРіРёСЃС‚СЂР°С†РёРё С‚Р°Р·Рё СЃРµРґРјРёС†Р°</h4><p>${regsWeek}</p></div>
+                        <div class="stat-item"><h4>РЎСЂРµРґРЅРѕ РёРіСЂРё РЅР° РїРѕС‚СЂРµР±РёС‚РµР»</h4><p>${avgGames}</p></div>
                     </div>
                 </div>
             </div>
@@ -4588,11 +4584,11 @@ async function showAdminPanel() {
         loader.innerHTML = adminHTML;
         setTimeout(() => { loader.classList.add('show'); }, 10);
     } catch (e) {
-        loader.innerHTML = '<div class="admin-panel"><h2>Грешка при зареждане на данни от Firebase!</h2><p>'+e+'</p><button onclick="hideAdminPanel()">Затвори</button></div>';
+        loader.innerHTML = '<div class="admin-panel"><h2>Р“СЂРµС€РєР° РїСЂРё Р·Р°СЂРµР¶РґР°РЅРµ РЅР° РґР°РЅРЅРё РѕС‚ Firebase!</h2><p>'+e+'</p><button onclick="hideAdminPanel()">Р—Р°С‚РІРѕСЂРё</button></div>';
     }
 }
 
-// Генерира HTML за таблица с потребители от Firebase
+// Р“РµРЅРµСЂРёСЂР° HTML Р·Р° С‚Р°Р±Р»РёС†Р° СЃ РїРѕС‚СЂРµР±РёС‚РµР»Рё РѕС‚ Firebase
 function generateUsersTableFirebase(users) {
     return users.map(user => `
         <tr>
@@ -4604,12 +4600,12 @@ function generateUsersTableFirebase(users) {
     `).join('');
 }
 
-// Генерира HTML за логове от Firebase
+// Р“РµРЅРµСЂРёСЂР° HTML Р·Р° Р»РѕРіРѕРІРµ РѕС‚ Firebase
 function generateActivityLogsFirebase(logs) {
     return logs.map(log => `
         <div class="log-entry">
             <span class="log-time">${log.timestamp ? formatDateTime(log.timestamp) : '-'}</span>
-            <span class="log-user">${log.username||'-'} ${log.type === 'guest' ? '(Гост)' : ''}</span>
+            <span class="log-user">${log.username||'-'} ${log.type === 'guest' ? '(Р“РѕСЃС‚)' : ''}</span>
             <span class="log-action">${log.action||'-'}</span>
         </div>
     `).join('');
@@ -4617,7 +4613,7 @@ function generateActivityLogsFirebase(logs) {
 // ... existing code ...
 
 // ... existing code ...
-// Асинхронно записване на лог за гости във Firebase
+// РђСЃРёРЅС…СЂРѕРЅРЅРѕ Р·Р°РїРёСЃРІР°РЅРµ РЅР° Р»РѕРі Р·Р° РіРѕСЃС‚Рё РІСЉРІ Firebase
 async function addGuestLogFirebase(username, action) {
     try {
         await db.collection('guestLogs').add({
@@ -4626,11 +4622,11 @@ async function addGuestLogFirebase(username, action) {
             action: action
         });
     } catch (e) {
-        console.warn('Неуспешен запис на гост лог във Firebase:', e);
+        console.warn('РќРµСѓСЃРїРµС€РµРЅ Р·Р°РїРёСЃ РЅР° РіРѕСЃС‚ Р»РѕРі РІСЉРІ Firebase:', e);
     }
 }
 
-// Асинхронно записване на лог във Firebase
+// РђСЃРёРЅС…СЂРѕРЅРЅРѕ Р·Р°РїРёСЃРІР°РЅРµ РЅР° Р»РѕРі РІСЉРІ Firebase
 async function addActivityLogFirebase(username, action) {
     try {
         const currentUser = getCurrentUser();
@@ -4642,7 +4638,7 @@ async function addActivityLogFirebase(username, action) {
             action: action
         });
     } catch (e) {
-        console.warn('Неуспешен запис на лог във Firebase:', e);
+        console.warn('РќРµСѓСЃРїРµС€РµРЅ Р·Р°РїРёСЃ РЅР° Р»РѕРі РІСЉРІ Firebase:', e);
     }
 }
 
@@ -4653,17 +4649,17 @@ function addActivityLog(username, action) {
         username: username,
         action: action
     });
-    // Запазваме само последните 1000 лога
+    // Р—Р°РїР°Р·РІР°РјРµ СЃР°РјРѕ РїРѕСЃР»РµРґРЅРёС‚Рµ 1000 Р»РѕРіР°
     if (logs.length > 1000) {
         logs.splice(0, logs.length - 1000);
     }
     localStorage.setItem('activityLogs', JSON.stringify(logs));
-    // Ако е Firebase потребител, записваме в неговите логове
+    // РђРєРѕ Рµ Firebase РїРѕС‚СЂРµР±РёС‚РµР», Р·Р°РїРёСЃРІР°РјРµ РІ РЅРµРіРѕРІРёС‚Рµ Р»РѕРіРѕРІРµ
     const currentUser = getCurrentUser();
     if (currentUser && currentUser.uid) {
         addActivityLogFirebase(username, action);
     } else {
-        // Ако е гост, записваме в гост логовете
+        // РђРєРѕ Рµ РіРѕСЃС‚, Р·Р°РїРёСЃРІР°РјРµ РІ РіРѕСЃС‚ Р»РѕРіРѕРІРµС‚Рµ
         addGuestLogFirebase(username, action);
     }
 }
@@ -4701,18 +4697,18 @@ function joinExistingRoom(code) {
             showScreen(profileSetupScreen);
             lobbyRoomCodeDisplay.textContent = roomCode;
         } else {
-            Swal.fire('Грешка', 'Стаята не е намерена!', 'error');
+            Swal.fire('Р“СЂРµС€РєР°', 'РЎС‚Р°СЏС‚Р° РЅРµ Рµ РЅР°РјРµСЂРµРЅР°!', 'error');
         }
     });
 }
 
 function setupProfile(nickname, avatar, spectator) {
     if (!auth.currentUser) {
-        Swal.fire('Грешка', 'Трябва да сте влезли в профила си!', 'error');
+        Swal.fire('Р“СЂРµС€РєР°', 'РўСЂСЏР±РІР° РґР° СЃС‚Рµ РІР»РµР·Р»Рё РІ РїСЂРѕС„РёР»Р° СЃРё!', 'error');
         return;
     }
     if (!roomCode) {
-        Swal.fire('Грешка', 'Липсва код на стая!', 'error');
+        Swal.fire('Р“СЂРµС€РєР°', 'Р›РёРїСЃРІР° РєРѕРґ РЅР° СЃС‚Р°СЏ!', 'error');
         return;
     }
 
@@ -4731,7 +4727,7 @@ function setupProfile(nickname, avatar, spectator) {
         })
         .catch(err => {
             console.error('Firestore Error:', err);
-            Swal.fire('Грешка', 'Неуспешно влизане в стаята: ' + err.message, 'error');
+            Swal.fire('Р“СЂРµС€РєР°', 'РќРµСѓСЃРїРµС€РЅРѕ РІР»РёР·Р°РЅРµ РІ СЃС‚Р°СЏС‚Р°: ' + err.message, 'error');
         });
 }
 
@@ -4774,7 +4770,7 @@ function updateLobbyUI() {
         card.innerHTML = `
             <div class="player-avatar">${player.avatar}</div>
             <div class="player-name">${player.name}</div>
-            ${player.isSpectator ? '<div class="spectator-badge" title="Наблюдател">👀</div>' : ''}
+            ${player.isSpectator ? '<div class="spectator-badge" title="РќР°Р±Р»СЋРґР°С‚РµР»">рџ‘Ђ</div>' : ''}
         `;
         lobbyPlayersList.appendChild(card);
     });
@@ -4802,7 +4798,7 @@ function startOnlineGame() {
     
     const players = roomData.players.filter(p => !p.isSpectator);
     if (players.length < 3) {
-        Swal.fire('Грешка', 'Трябват поне 3-ма играчи!', 'error');
+        Swal.fire('Р“СЂРµС€РєР°', 'РўСЂСЏР±РІР°С‚ РїРѕРЅРµ 3-РјР° РёРіСЂР°С‡Рё!', 'error');
         return;
     }
     
@@ -4821,7 +4817,7 @@ function startOnlineGame() {
 
 function startOnlineGameLocal() {
     showScreen(gameScreen);
-    gameRoomInfoDisplay.textContent = `Стая: ${roomCode}`;
+    gameRoomInfoDisplay.textContent = `РЎС‚Р°СЏ: ${roomCode}`;
     onlineChatContainer.classList.remove('hidden');
     localControls.classList.add('hidden');
 }
@@ -4834,7 +4830,7 @@ function updateOnlineGameState() {
     const turnPlayer = players.find(p => p.uid === roomData.currentTurnUid);
     
     // Header info
-    document.getElementById('game-round-info').textContent = `Рунд ${roomData.round}/${roomData.maxRounds}`;
+    document.getElementById('game-round-info').textContent = `Р СѓРЅРґ ${roomData.round}/${roomData.maxRounds}`;
     const playerBtnText = currentPlayerDisplay.querySelector('.button-text');
     if (turnPlayer) {
         playerBtnText.textContent = turnPlayer.name.toUpperCase();
@@ -4894,3 +4890,4 @@ function renderChat(snapshot) {
     chatHistoryList.scrollTop = chatHistoryList.scrollHeight;
 }
 // ... existing code ...
+
