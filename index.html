@@ -93,22 +93,46 @@
 
 
         <div id="setup-screen" class="hidden">
-            <div class="setup-content">
-                <div class="detective-logo left" data-role="detective">
-                    <div class="logo-icon"><i class="fas fa-search"></i></div>
+            <div class="setup-content glass-card animate__animated animate__fadeInUp">
+                <div class="setup-header">
+                    <h2 data-translate="player_count">Брой участници</h2>
+                    <p class="setup-subtitle">Изберете колко души ще играят на това устройство</p>
                 </div>
-                <div class="player-selection-container">
-                    <h2 data-translate="player_count">Брой играчи</h2>
-                    <div class="player-count-container">
-                        <button id="decrease-players" class="count-btn"><i class="fas fa-minus"></i></button>
-                        <input type="number" id="player-count" value="3" min="3" max="8" readonly>
-                        <button id="increase-players" class="count-btn"><i class="fas fa-plus"></i></button>
+                
+                <div class="player-selection-wrapper">
+                    <div class="player-count-control">
+                        <button id="decrease-players" class="count-btn control-minus">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        
+                        <div class="count-display">
+                            <input type="number" id="player-count" value="3" min="3" max="8" readonly>
+                            <span class="count-label">ИГРАЧИ</span>
+                        </div>
+                        
+                        <button id="increase-players" class="count-btn control-plus">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="player-visual-track" class="player-visual-track">
+                        <!-- Динамично генерирани човечета -->
                     </div>
                 </div>
-                <div class="impostor-logo right" data-role="impostor">
-                    <div class="logo-icon"><i class="fas fa-user-secret"></i></div>
+
+                <div class="setup-footer">
+                    <div class="role-preview">
+                        <span class="role-item detective-hint">
+                            <i class="fas fa-search"></i> ДЕТЕКТИВИ
+                        </span>
+                        <span class="role-separator">vs</span>
+                        <span class="role-item impostor-hint">
+                            <i class="fas fa-user-secret"></i> 1 ИМПОСТОР
+                        </span>
+                    </div>
                 </div>
             </div>
+
             <div class="styled-wrapper">
                 <button id="start-game" class="animated-button">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="36px" height="36px">

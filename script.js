@@ -755,6 +755,7 @@ increasePlayersBtn.addEventListener('click', () => {
     const currentCount = parseInt(playerCountInput.value);
     if (currentCount < 8) {
         playerCountInput.value = currentCount + 1;
+        updatePlayerVisualTrack();
     }
 });
 
@@ -763,8 +764,28 @@ decreasePlayersBtn.addEventListener('click', () => {
     const currentCount = parseInt(playerCountInput.value);
     if (currentCount > 3) {
         playerCountInput.value = currentCount - 1;
+        updatePlayerVisualTrack();
     }
 });
+
+function updatePlayerVisualTrack() {
+    const track = document.getElementById('player-visual-track');
+    if (!track) return;
+    const count = parseInt(playerCountInput.value);
+    track.innerHTML = '';
+    for (let i = 0; i < 8; i++) {
+        const span = document.createElement('span');
+        span.className = 'track-avatar' + (i < count ? ' active' : '');
+        if (i < count) {
+            span.style.animationDelay = (i * 0.1) + 's';
+        }
+        track.appendChild(span);
+    }
+}
+
+// Първоначално генериране
+document.addEventListener('DOMContentLoaded', updatePlayerVisualTrack);
+setTimeout(updatePlayerVisualTrack, 1000); // Осигуряваме се, че елементът е зареден
 
 // --- Функции за Обслужване на Екрани ---
 
